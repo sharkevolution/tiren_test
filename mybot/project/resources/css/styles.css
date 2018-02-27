@@ -1,0 +1,254 @@
+/* Default CSS */
+
+body{
+	max-width: 320px;
+	width: 320px;
+	background-color: rgb(255, 255, 255);
+}
+
+@font-face {
+  font-family: 'Monoton';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Monoton'), local('Monoton-Regular'), url("../fonts/AKI-lyzyNHXByGHeOcds_w.woff") format('woff');
+}
+
+p {
+  text-align: center;
+  font-size: 2.5em;
+  margin: 20px 0 20px 0;
+}
+
+a {
+  text-decoration: none;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/* #FF1177 */
+p:nth-child(1) a {
+  color: #FF1177;
+  font-family: Monoton;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11a9ff, 0 0 35px #11a9ff, 0 0 40px #11a9ff, 0 0 50px #11a9ff, 0 0 75px #11a9ff;
+  /* -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
+  -moz-animation: neon1 1.5s ease-in-out infinite alternate;
+  animation: neon1 1.5s ease-in-out infinite alternate; */
+}
+
+/* p:nth-child(1) a:hover {
+  color: #000;
+  -webkit-animation: none;
+  -moz-animation: none;
+  animation: none;
+} */
+
+/* p a:hover {
+  color: #FFFFFF;
+} */
+/*glow for webkit*/
+
+@-webkit-keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #11a9ff, 0 0 70px #11a9ff, 0 0 80px #11a9ff, 0 0 100px #11a9ff, 0 0 150px #11a9ff;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #11a9ff, 0 0 35px #11a9ff, 0 0 40px #11a9ff, 0 0 50px #11a9ff, 0 0 75px #11a9ff;
+  }
+}
+
+#cross{
+	text-align: center;
+	width:30px;
+	height:30px;
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+	border: 1px solid white;
+}
+#buttons{
+	width:30%;
+	float: right;
+}
+tr{
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+td{
+	height: 5px;
+	width: 30px;
+}
+#leftBox{
+	display: block;
+	position: relative;
+	float: left;
+	margin-left: 10px;
+}
+#rightBox{
+	display: block;
+	position: relative;
+	float: left;
+	/* clear:left; */
+}
+.butt{
+	height:55px;
+	width: 100px;
+}
+#puzzel{
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+.inputBox{
+		width: 38px;
+		height:38px;
+		border: 1px solid black;
+		text-align: center;
+}
+#hintsTable_row{
+	width: 320px;
+	float: left;
+	clear: left;
+}
+
+#hintsTable_col{
+	width: 320px;
+	float: left;
+	clear: left;
+	margin-top: 5px;
+}
+
+#security{
+	display: block;
+	float: left;
+	clear: left;
+	width: 80px;
+	height: 120px;
+	margin-left: 70px;
+}
+
+#agentx {
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+}
+
+h2 {
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#open_help {
+  display: block;
+  position: relative;
+  float: left;
+  width: 320px;
+  padding:0px 0 10px 0;
+  margin-bottom: 4px;
+  margin-left: 0px;
+  border-radius: 10px;
+  border-width: 1px;
+}
+
+/* скрываем чекбоксы и блоки с содержанием */
+.hide, .hide + label ~ div {
+    display: none;
+}
+/* вид текста label */
+.hide + label,
+.hide:checked + label {
+    padding: 0;
+    color: green;
+    cursor: pointer;
+    border-bottom: 1px dotted green;
+}
+/* вид текста label активном переключателе */
+.hide:checked + label {
+    color: red;
+    border-bottom: 0;
+}
+/* когда чекбокс активен показываем блоки с содержанием  */
+.hide:checked + label + div {
+    display: block;
+    background: #efefef;
+    -moz-box-shadow: inset 3px 3px 10px #7d8e8f;
+    -webkit-box-shadow: inset 3px 3px 10px #7d8e8f;
+    box-shadow: inset 3px 3px 10px #7d8e8f;
+    margin-top: 10px;
+    margin-left: 20px;
+	margin-right: 10px;
+    padding: 10px;
+
+/* анимации при появлении */
+    -webkit-animation:fade ease-in 0.5s;
+    -moz-animation:fade ease-in 0.5s;
+    animation:fade ease-in 0.5s;
+}
+/* анимация при появлении скрытых блоков */
+@-moz-keyframes fade {
+    from { opacity: 0; }
+to { opacity: 1 }
+}
+@-webkit-keyframes fade {
+    from { opacity: 0; }
+to { opacity: 1 }
+}
+@keyframes fade {
+    from { opacity: 0; }
+to { opacity: 1 }
+}
+
+.hide + label:before {
+  background-color: #003333;
+  color: #fff;
+  content: "+";
+  display: block;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  height: 16px;
+  line-height: 16px;
+  margin: 2px 5px 5px 20px;
+  text-align: center;
+  width: 16px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.hide:checked + label:before {
+  content: "\2212";
+}
+
+#moroz_ded {
+    max-width: 100%;
+    max-height: 100%;
+		width: 100px;
+		height: 100px;
+    vertical-align: middle;
+}
+
+#kira{
+	display: none;
+}
+
+#greetings{
+	display: none;
+}
+
+#videosms1 {
+	display: none;
+	float: left;
+	clear: left;
+}
+
+#videosms2 {
+	display: none;
+	float: left;
+	clear: left;
+}

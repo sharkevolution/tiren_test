@@ -1,0 +1,148 @@
+<!DOCTYPE Html PUBLIC "-//W3C//DTD Html 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2018</title>
+  <link href="resources/img/favicon.ico" rel="shortcut icon">
+  <link href="{{ csf }}" rel="stylesheet" type="text/css">
+  <link href="resources/css/message.css" rel="stylesheet" type="text/css">
+  <script src="resources/js/main.js"></script>
+
+  <script type="text/javascript">
+  sitePath = "resources/";
+  sflakesMax = 16;
+  sflakesMaxActive = 16;
+  svMaxX = 2;
+  svMaxY = 2;
+  ssnowStick = 1;
+  sfollowMouse = 1;
+  </script>
+  <!-- <script type="text/javascript" src="resources/js/snow.js"></script> -->
+
+</head>
+
+<body onload="initializeScreen()">
+  <div class="header">
+    <img id="moroz_ded" src="resources/img/moroz.jpg">
+    <div class="wrapper">
+      <p><a href="">
+        crossword
+      </a></p>
+      <p><a href="">
+        Деда Мороза
+      </a></p>
+      <div id="open_help">
+        <input id="hd-1" class="hide" type="checkbox">
+        <label for="hd-1"><strong>Нажми здесь!</strong></label>
+        <div> Привет, этот кроссворд для всех,
+          думаю у тебя не возникнет трудностей и ты с легкостью откроешь
+          Замок чтобы просмотреть Общее Видео! Второе видео для Киры с кодом доступа к подарку и
+          месту где его забрать, Удачи!!
+          Да и не забудь нажимать кнопку (Проверить),
+          чтобы ничего не упустить.
+          Код доступа появится когда не будет красных полей!!</div>
+        </div>
+        <div id="open_help">
+          <input id="hd-2" class="hide" type="checkbox">
+          <label for="hd-2"><strong>Дополнение..</strong></label>
+          <div> Эльфы долго думали и специально для тебя,
+            оптимизировали эту страничку для просмотра через Смартфон,
+            попробуй это удобно!.</div>
+          </div>
+          <div id="open_help">
+            <input id="hd-3" class="hide" type="checkbox">
+            <label for="hd-3"><strong>Способ ввода</strong></label>
+            <div> Используй русский язык и нижний регистр текста  [абвгдеж...]</div>
+            </div>
+
+          <div id="leftBox">
+            <table id="puzzel">
+
+            </table>
+          </div>
+          <div id="rightBox">
+            <table>
+              <tr><td><input class="butt"  type="submit" value="Очистить" onclick="clearAllClicked()"></td>
+                <td><input class="butt"  type="submit" value="Проверить" onclick="checkClicked()"></td>
+                <!-- <td><input class="butt"  type="submit" value="Подсказка" onclick="solveClicked()"></td> -->
+                <td><input class="butt"  type="submit" value="Символ" onclick="clueClicked()"></td></tr>
+              </table>
+            </div>
+            <table id="hintsTable_row">
+              <tr>
+                <td><strong>Горизонталь:</strong></td>
+              </tr>
+              <tr>
+                <td>2. Фирма из 4 букв</td>
+              </tr>
+              <tr>
+                <td>4. Полюс обитания белых медведей</td>
+              </tr>
+              <tr>
+                <td>6. Каждое утро при входе нас встречает</td>
+              </tr>
+              <tr>
+                <td>8. Средство от дождя</td>
+              </tr>
+
+            </table>
+            <table id="hintsTable_col">
+              <td><strong>Вертикаль:</strong></td>
+              <tr>
+                <td>1. Надлежащая дистрибьюторская</td>
+              </tr>
+              <tr>
+                <td>3. Вид самозащиты</td>
+              </tr>
+              <tr>
+                <td>5. Искусство ведения боя</td>
+              </tr>
+              <tr>
+                <td>7. Противоположность грусти</td>
+              </tr>
+
+            </table>
+            <div id="videosms1">
+              <p>Письмо для всех!</p>
+            </div>
+            <iframe id="greetings" width="290" height="215"
+            src="" frameborder="0" allowfullscreen>
+          </iframe>
+          <div id="videosms2">
+            <p>Письмо для Киры</p>
+          </div>
+          <iframe id="kira" width="290" height="215"
+          src="" frameborder="0" allowfullscreen>
+        </iframe>
+        <div id="security">
+          <img id="agentx" src="resources/img/lk.png">
+        </div>
+      </div>
+      <div id="form-main">
+        <div id="form-div">
+          <form class="form" id="form1" action="/send" enctype="multipart/form-data" method="post">
+
+            <p class="name">
+              <input name="name" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="Имя" id="name" />
+            </p>
+
+            <!-- <p class="email">
+            <input name="email" type="text" class="validate[required,custom[email]] feedback-input" id="email" placeholder="Email" />
+          </p> -->
+
+          <p class="text">
+            <textarea name="text" class="validate[required,length[6,300]] feedback-input" id="comment" placeholder="Комментарий"></textarea>
+          </p>
+
+
+          <div class="submit">
+            <input type="submit" value="Отправить пожелание!" id="button-blue"/>
+            <div class="ease"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  </html>

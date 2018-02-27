@@ -1,0 +1,3 @@
+# Created by .ignore support plugin (hsz.mobi)
+mybot/__pycache__/*.pyc
+mybot/.idea
