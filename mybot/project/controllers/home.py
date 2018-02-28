@@ -37,10 +37,8 @@ def do_echo():
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         message = {
             'chat_id': data['message']['chat']['id'],
-            'text': data['message']['text']
+            'text': "".join([str(data['message']['chat']['id']), "_", str(data['message']['text'])])
         }
-
-        logging.info(str(data['message']['chat']['id']))
 
         r = requests.post(api_url, data=json.dumps(message), headers=headers)
 
