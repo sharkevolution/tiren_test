@@ -40,6 +40,8 @@ def do_echo():
             'text': data['message']['text']
         }
 
+        logging.info(str(data['message']['chat']['id']))
+
         r = requests.post(api_url, data=json.dumps(message), headers=headers)
 
         assert r.status == 200
