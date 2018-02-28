@@ -58,5 +58,9 @@ def_app = wsgigzip.GzipMiddleware(app)
 # # cherrypy.engine.block()
 # #----------------------------------------------------------------
 
+import logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+
 server = WSGIServer((host, port), def_app, handler_class=WebSocketHandler)
 server.serve_forever()

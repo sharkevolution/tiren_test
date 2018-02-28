@@ -5,6 +5,7 @@ from mybot.project.controllers import mail
 
 import json
 import requests
+import logging
 
 
 @bottle.route('/')
@@ -24,7 +25,7 @@ def do_admin():
     redirect('/')
 
 
-@bottle.route('/api/v1/echo', method='GET')
+@bottle.route('/api/v1/echo')
 def do_echo():
     bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
     baseURL = 'https://api.telegram.org/bot{0}/setWebhook'.format(bottoken)
@@ -32,20 +33,22 @@ def do_echo():
     api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
 
 
-    data = request.json()
-    headers = {
-        'Content-Type': 'application/json'
-    }
-    message = {
-        'chat_id': data['message']['chat']['id'],
-        'text': data['message']['text']
-    }
-
     try:
+
+        data = request.json()
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        message = {
+            'chat_id': data['message']['chat']['id'],
+            'text': data['message']['text']
+        }
+
         r = requests.post(api_url, data=json.dumps(message), headers=headers)
 
         assert r.status == 200
 
-    except:
+    except Exception as ex:
+        logging.info(str(ex))
         return '500'
     return '200'
