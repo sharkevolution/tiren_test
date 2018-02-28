@@ -3,6 +3,9 @@ import bottle
 from bottle import view, request, redirect
 from mybot.project.controllers import mail
 
+import json
+import requests
+
 
 @bottle.route('/')
 @view('index')
@@ -21,7 +24,27 @@ def do_admin():
     redirect('/')
 
 
-
 @bottle.route('/api/v1/echo')
-def do_echo():
-    return 'ok'
+def do_echo(res):
+    bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
+    baseURL = 'https://api.telegram.org/bot{0}/setWebhook'.format(bottoken)
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
+
+    data = res.json()
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    message = {
+        'chat_id': data['message']['chat']['id'],
+        'text': data['message']['text']
+    }
+
+    try:
+        r = requests.post(api_url, data=json.dumps(message), headers=headers)
+
+        assert r.status == 200
+
+    except:
+        return '500'
+    return '200'
