@@ -24,7 +24,7 @@ def do_admin():
     redirect('/')
 
 
-@bottle.route('/api/v1/echo', method='POST')
+@bottle.route('/api/v1/echo', method='GET')
 def do_echo():
     bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
     baseURL = 'https://api.telegram.org/bot{0}/setWebhook'.format(bottoken)
