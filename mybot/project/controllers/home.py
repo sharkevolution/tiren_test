@@ -37,12 +37,12 @@ def do_echo():
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         message = {
             'chat_id': data['message']['chat']['id'],
-            'text': "".join([str(data['message']['chat']['id']), "_", str(data['message']['text'])])
+            'text': "".join(['эхо', "_", str(data['message']['text'])])
         }
 
         r = requests.post(api_url, data=json.dumps(message), headers=headers)
 
-        assert r.status == 200
+        assert r.status_code == 200
 
     except Exception as ex:
         logging.info(str(ex))
