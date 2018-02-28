@@ -24,14 +24,15 @@ def do_admin():
     redirect('/')
 
 
-@bottle.route('/api/v1/echo')
-def do_echo(res):
+@bottle.route('/api/v1/echo', method='POST')
+def do_echo():
     bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
     baseURL = 'https://api.telegram.org/bot{0}/setWebhook'.format(bottoken)
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
 
-    data = res.json()
+
+    data = request.json()
     headers = {
         'Content-Type': 'application/json'
     }
