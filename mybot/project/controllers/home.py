@@ -33,7 +33,7 @@ def do_echo():
 
     try:
 
-        data = request.json()
+        data = request.json
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         message = {
             'chat_id': data['message']['chat']['id'],
