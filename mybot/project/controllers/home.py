@@ -30,6 +30,12 @@ def do_echo():
     bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
     api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
 
+    reply_markup = {
+        "keyboard": [[{"text": "1"}], [{"text": "2"}]],
+        "resize_keyboard": True,
+        "one_time_keyboard": True
+    }
+
 
     try:
 
@@ -37,7 +43,8 @@ def do_echo():
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         message = {
             'chat_id': data['message']['chat']['id'],
-            'text': "".join(['эхо', "_", str(data['message']['text'])])
+            'text': "".join(['эхо', "_", str(data['message']['text'])]),
+            'reply_markup': reply_markup
         }
 
         r = requests.post(api_url, data=json.dumps(message), headers=headers)
