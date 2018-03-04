@@ -27,18 +27,18 @@ def do_admin():
 
 @bottle.route('/api/v1/echo', method='POST')
 def do_echo():
+
     bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
     api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
 
+    # Добавляем клавиатуру
     reply_markup = {
         "keyboard": [[{"text": "1"}], [{"text": "2"}]],
         "resize_keyboard": True,
-        "one_time_keyboard": True
+        "one_time_keyboard": False
     }
 
-
     try:
-
         data = request.json
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         message = {
