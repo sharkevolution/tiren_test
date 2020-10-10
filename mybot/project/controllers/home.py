@@ -33,7 +33,7 @@ def do_echo():
 
     # Добавляем клавиатуру
     reply_markup = {
-        "keyboard": [[{"text": "1"}], [{"text": "2"}]],
+        "keyboard": [[{"text": "1"}], [{"text": "2"}], [{"text": "3"}]],
         "resize_keyboard": True,
         "one_time_keyboard": False
     }
