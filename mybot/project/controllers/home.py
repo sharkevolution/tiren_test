@@ -21,7 +21,6 @@ def do_admin():
 
     # mail.send_mail('nsitala@gmail.com', 'nsitala@gmail.com', user_name, user_text)
     mail.send_sms(user_name, user_text)
-
     redirect('/')
 
 
@@ -32,11 +31,42 @@ def do_echo():
     api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
 
     # Добавляем клавиатуру
-    reply_markup = {
-        "keyboard": [[{"text": "1"}], [{"text": "2"}], [{"text": "3"}]],
-        "resize_keyboard": True,
-        "one_time_keyboard": False
-    }
+    reply_markup = {"keyboard": [[{"text": "1"}], [{"text": "2"}], [{"text": "3"}]],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
+
+    try:
+        data = request.json
+
+        logging.info(str(data))
+        
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        message = {
+            'chat_id': data['message']['chat']['id'],
+            'text': "".join(['эхо', "_", str(data['message']['text'])]),
+            'reply_markup': reply_markup
+        }
+
+        r = requests.post(api_url, data=json.dumps(message), headers=headers)
+
+        assert r.status_code == 200
+
+    except Exception as ex:
+        logging.info(str(ex))
+        return '500'
+    return '200'
+
+
+@bottle.route('/api/v2/echo', method='POST')
+def do_echo():
+
+    bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
+    api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
+
+    # Добавляем клавиатуру
+    reply_markup = {"keyboard": [[{"text": "1"}], [{"text": "2"}], [{"text": "3"}]],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
 
     try:
         data = request.json
