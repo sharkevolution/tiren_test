@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ./__pycache__/*.pyc
 ./.idea
+venv
 mybot/__pycache__/*.pyc
 mybot/.idea
 mybot/telhook.py

@@ -39,7 +39,7 @@ def do_echo():
         data = request.json
 
         logging.info(str(data))
-        
+
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         message = {
             'chat_id': data['message']['chat']['id'],
