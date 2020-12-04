@@ -150,6 +150,11 @@ class Dispatcher:
         return decorator
 
 
+API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
+bot = Bot(API_TOKEN)
+dp = Dispatcher(bot)
+
+
 @dp.message_handler(commands=['/start', 'Регион'])
 def start(*args, **kwargs):
 
@@ -220,9 +225,5 @@ def do_echo_two():
         return '500'
     return '200'
 
-
-API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
-bot = Bot(API_TOKEN)
-dp = Dispatcher(bot)
 
 
