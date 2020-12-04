@@ -237,7 +237,7 @@ def do_echo_two():
 
         new_reaply_board = exec_func(commands)
 
-        # logging.info(str(data))
+        logging.info(str(new_reaply_board))
 
         # Check function
         result_text = ''
@@ -245,8 +245,8 @@ def do_echo_two():
             txt = data['message']['text']
             result_text = "".join(['эхо', "_", txt])
         else:
-            txt = data['message']['text']
-            result_text = f"Функция [{txt}] в разработке."
+            txt = str(data['message']['text'])
+            result_text = f"Функция {txt} в разработке."
 
         message = {
             'chat_id': data['message']['chat']['id'],
