@@ -221,50 +221,50 @@ def do_echo_two():
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
-    try:
-        data = request.json
-        from_id = data['message']['from']['id']
-        first_name = data['message']['from']['first_name']
-        last_name = data['message']['from']['first_name']
+    #try:
+    data = request.json
+    from_id = data['message']['from']['id']
+    first_name = data['message']['from']['first_name']
+    last_name = data['message']['from']['first_name']
 
-        redisClient.hmset(from_id, {'first_name': first_name,
-                                    'last_name': last_name})
+    redisClient.hmset(from_id, {'first_name': first_name,
+                                'last_name': last_name})
 
-        commands = data['message']['text']
-        exec_func = dp.pull[commands]
+    commands = data['message']['text']
+    exec_func = dp.pull[commands]
 
-        # logging.info(str(exec_func))
+    # logging.info(str(exec_func))
 
-        new_reaply_board = exec_func(commands)
+    new_reaply_board = exec_func(commands)
 
-        logging.info(str(new_reaply_board))
+    logging.info(str(new_reaply_board))
 
-        # Check function
-        result_text = ''
-        if type(exec_func) is types.FunctionType:
-            txt = data['message']['text']
-            result_text = "".join(['эхо', "_", txt])
+    # Check function
+    result_text = ''
+    if type(exec_func) is types.FunctionType:
+        txt = data['message']['text']
+        result_text = "".join(['эхо', "_", txt])
 
-            message = {
-                'chat_id': data['message']['chat']['id'],
-                'text': result_text,
-                'reply_markup': new_reaply_board
-            }
+        message = {
+            'chat_id': data['message']['chat']['id'],
+            'text': result_text,
+            'reply_markup': new_reaply_board
+        }
 
-        else:
-            txt = str(data['message']['text'])
-            result_text = f"Функция {txt} в разработке."
+    else:
+        txt = str(data['message']['text'])
+        result_text = f"Функция {txt} в разработке."
 
-            message = {
-                'chat_id': data['message']['chat']['id'],
-                'text': result_text,
-            }
+        message = {
+            'chat_id': data['message']['chat']['id'],
+            'text': result_text,
+        }
 
-        r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
 
-        assert r.status_code == 200
-
-    except Exception as ex:
-        logging.info(str(ex))
-        return '500'
-    return '200'
+    #     assert r.status_code == 200
+    #
+    # except Exception as ex:
+    #     logging.info(str(ex))
+    #     return '500'
+    # return '200'
