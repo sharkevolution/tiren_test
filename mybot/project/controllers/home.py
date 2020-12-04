@@ -11,6 +11,7 @@ import types
 
 import redis
 
+
 # @bottle.route('/api/v1/echo', method='POST')
 # @benchmark(mt=1)
 # def do_echo():
@@ -74,7 +75,7 @@ def do_admin():
 #     return actual_decorator
 
 
-#@bottle.route('/api/v1/echo', method='POST')
+# @bottle.route('/api/v1/echo', method='POST')
 # @dispatch()
 # def do_echo():
 #
@@ -121,16 +122,19 @@ class Bot:
     """
         Bot token
     """
+
     def __init__(self, token):
         self.token = token
         self.api_url = f'https://api.telegram.org/bot{self.token}/sendMessage'
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
 
+
 class Dispatcher:
     """
         handler messages command
     """
+
     def __init__(self, bot):
         self.bot = bot
         self.commands = None
@@ -138,7 +142,6 @@ class Dispatcher:
 
     def message_handler(self, commands):
         def decorator(fn):
-
             for b in commands:
                 self.pull[b] = fn
 
@@ -148,6 +151,7 @@ class Dispatcher:
 
             decorated2.__name__ = fn.__name__
             return decorated2
+
         return decorator
 
 
@@ -158,7 +162,6 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['/start', ])
 def start(*args, **kwargs):
-
     reply_markup = {"keyboard": [[{"text": "Город"}], [{"text": "Регион"}], ],
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
@@ -168,7 +171,6 @@ def start(*args, **kwargs):
 
 @dp.message_handler(commands=['Город', ])
 def test1(*args, **kwargs):
-
     reply_markup = {"keyboard": [[{"text": "Днепр"}],
                                  [{"text": "Львов"}],
                                  [{"text": "Одесса"}],
@@ -226,7 +228,7 @@ def do_echo_two():
         last_name = data['message']['from']['first_name']
 
         redisClient.hmset(from_id, {'first_name': first_name,
-                                     'last_name': last_name})
+                                    'last_name': last_name})
 
         commands = data['message']['text']
         exec_func = dp.pull[commands]
@@ -241,7 +243,7 @@ def do_echo_two():
         result_text = ''
         if type(exec_func) is types.FunctionType:
             txt = data['message']['text']
-            result_text = "".join(['эхо', "_", result_text])
+            result_text = "".join(['эхо', "_", txt])
         else:
             txt = data['message']['text']
             result_text = f"Функция [{txt}] в разработке."
