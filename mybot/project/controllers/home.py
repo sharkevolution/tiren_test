@@ -156,10 +156,10 @@ bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
 
-@dp.message_handler(commands=['/start', 'Регион'])
+@dp.message_handler(commands=['/start', ])
 def start(*args, **kwargs):
 
-    reply_markup = {"keyboard": [[{"text": "Регион"}], [{"text": "Город"}], ],
+    reply_markup = {"keyboard": [[{"text": "Город"}], [{"text": "Регион"}], ],
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
@@ -169,7 +169,14 @@ def start(*args, **kwargs):
 @dp.message_handler(commands=['Город', ])
 def test1(*args, **kwargs):
 
-    reply_markup = {"keyboard": [[{"text": "Перевозчик"}], ],
+    reply_markup = {"keyboard": [[{"text": "Днепр"}],
+                                 [{"text": "Львов"}],
+                                 [{"text": "Одесса"}],
+                                 [{"text": "Херсон"}],
+                                 [{"text": "Николаев"}],
+                                 [{"text": "Регион"}],
+                                 [{"text": "Перевозчик"}],
+                                 ],
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
@@ -183,6 +190,22 @@ def test2(*args, **kwargs):
                                  [{"text": "Космос"}],
                                  [{"text": "Курьер"}],
                                  [{"text": "Регион"}],
+                                 [{"text": "Город"}]
+                                 ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
+
+    return reply_markup
+
+
+@dp.message_handler(commands=['Регион', ])
+def test3(*args, **kwargs):
+    reply_markup = {"keyboard": [[{"text": "Днепропетровский"}],
+                                 [{"text": "Запорожский"}],
+                                 [{"text": "Львововский"}],
+                                 [{"text": "Одессский"}],
+                                 [{"text": "Город"}],
+                                 [{"text": "Перевозчик"}],
                                  ],
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
@@ -208,11 +231,11 @@ def do_echo_two():
         commands = data['message']['text']
         exec_func = dp.pull[commands]
 
-        logging.info(str(exec_func))
+        # logging.info(str(exec_func))
 
         new_reaply_board = exec_func(commands)
 
-        logging.info(str(data))
+        # logging.info(str(data))
 
         # Check function
         result_text = ''
