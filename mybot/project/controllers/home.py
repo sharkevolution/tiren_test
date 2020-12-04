@@ -215,7 +215,7 @@ def do_echo_two():
         logging.info(str(data))
 
         # Check function
-        result_text = None
+        result_text = ''
         if type(exec_func) is types.FunctionType:
             txt = data['message']['text']
             result_text = "".join(['эхо', "_", result_text])
