@@ -244,15 +244,21 @@ def do_echo_two():
         if type(exec_func) is types.FunctionType:
             txt = data['message']['text']
             result_text = "".join(['эхо', "_", txt])
+
+            message = {
+                'chat_id': data['message']['chat']['id'],
+                'text': result_text,
+                'reply_markup': new_reaply_board
+            }
+
         else:
             txt = str(data['message']['text'])
             result_text = f"Функция {txt} в разработке."
 
-        message = {
-            'chat_id': data['message']['chat']['id'],
-            'text': result_text,
-            'reply_markup': new_reaply_board
-        }
+            message = {
+                'chat_id': data['message']['chat']['id'],
+                'text': result_text,
+            }
 
         r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
 
