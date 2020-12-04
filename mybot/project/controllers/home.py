@@ -7,6 +7,7 @@ import os
 import json
 import requests
 import logging
+import types
 
 import redis
 
@@ -205,16 +206,24 @@ def do_echo_two():
                                      'last_name': last_name})
 
         commands = data['message']['text']
-        exfunc = dp.pull[commands]
-        logging.info(str(exfunc))
+        exec_func = dp.pull[commands]
 
-        new_reaply_board = exfunc(commands)
+        logging.info(str(exec_func))
+
+        new_reaply_board = exec_func(commands)
 
         logging.info(str(data))
 
-        message = {
+        # Check function
+        if type(exec_func) is types.FunctionType:
+            txt = data['message']['text']
+            res = f"Функция [{txt}] в разработке."
+        else:
+            txt = data['message']['text']
+
+            message = {
             'chat_id': data['message']['chat']['id'],
-            'text': "".join(['эхо', "_", str(data['message']['text'])]),
+            'text': "".join(['эхо', "_", res]),
             'reply_markup': new_reaply_board
         }
 
