@@ -215,15 +215,16 @@ def do_echo_two():
         logging.info(str(data))
 
         # Check function
+        result_text = None
         if type(exec_func) is types.FunctionType:
             txt = data['message']['text']
-            res = f"Функция [{txt}] в разработке."
+            result_text = f"Функция [{txt}] в разработке."
         else:
-            txt = data['message']['text']
+            result_text = data['message']['text']
 
-            message = {
+        message = {
             'chat_id': data['message']['chat']['id'],
-            'text': "".join(['эхо', "_", res]),
+            'text': "".join(['эхо', "_", result_text]),
             'reply_markup': new_reaply_board
         }
 
