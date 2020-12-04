@@ -75,7 +75,7 @@ def dispatch():
 
 @bottle.route('/api/v1/echo', method='POST')
 @dispatch()
-def do_echo(data):
+def do_echo():
 
     r = redis.from_url(os.environ.get("REDIS_URL"))
     logging.info(f'Redis {r}')
