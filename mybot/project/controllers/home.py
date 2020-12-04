@@ -77,8 +77,13 @@ def dispatch():
 @dispatch()
 def do_echo():
 
-    r = redis.from_url(os.environ.get("REDIS_URL"))
-    logging.info(f'Redis {r}')
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    logging.info(f'Redis {redisClient}')
+
+    hashName = "Authors"
+    redisClient.hmset(hashName, {1: "The C Programming Language",
+                                 2: "The UNIX Programming Environment"})
+
 
     bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
     api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
@@ -109,13 +114,6 @@ def do_echo():
         return '500'
     return '200'
 
-
-
-# 'message': {'message_id': 425,
-#             'from': {'id': 471125560, 'is_bot': False, 'first_name': 'Kolya', 'last_name': 'Sitala', 'language_code': 'ru'},
-#             'chat': {'id': 471125560, 'first_name': 'Kolya', 'last_name': 'Sitala', 'type': 'private'},
-#             'date': 1607086983,
-#             'text': '1'}
 
 
 
