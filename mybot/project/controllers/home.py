@@ -218,13 +218,14 @@ def do_echo_two():
         result_text = None
         if type(exec_func) is types.FunctionType:
             txt = data['message']['text']
-            result_text = f"Функция [{txt}] в разработке."
+            result_text = "".join(['эхо', "_", result_text])
         else:
-            result_text = data['message']['text']
+            txt = data['message']['text']
+            result_text = f"Функция [{txt}] в разработке."
 
         message = {
             'chat_id': data['message']['chat']['id'],
-            'text': "".join(['эхо', "_", result_text]),
+            'text': result_text,
             'reply_markup': new_reaply_board
         }
 
