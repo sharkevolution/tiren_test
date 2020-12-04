@@ -166,7 +166,7 @@ def start(*args, **kwargs):
 @dp.message_handler(commands='Город')
 def test1(*args, **kwargs):
 
-    reply_markup = {"keyboard": [[{"text": "Адрес"}], ],
+    reply_markup = {"keyboard": [[{"text": "Перевозчик"}], ],
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
