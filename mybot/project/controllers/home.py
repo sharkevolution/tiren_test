@@ -62,57 +62,57 @@ def do_admin():
 
 # InlineKeyboardButton
 
-def dispatch():
-    def actual_decorator(func):
-        def wrapper(*args, **kwargs):
-
-            return_value = func(*args, **kwargs)
-            logging.info('ok'*10)
-            return return_value
-        return wrapper
-    return actual_decorator
+# def dispatch():
+#     def actual_decorator(func):
+#         def wrapper(*args, **kwargs):
+#
+#             return_value = func(*args, **kwargs)
+#             logging.info('ok'*10)
+#             return return_value
+#         return wrapper
+#     return actual_decorator
 
 
 #@bottle.route('/api/v1/echo', method='POST')
-@dispatch()
-def do_echo():
-
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-
-    hashName = "Authors"
-    redisClient.hmset(hashName, {1: "The C Programming Language",
-                                 2: "The UNIX Programming Environment"})
-
-    logging.info(redisClient.hgetall(hashName))
-
-    bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
-    api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
-
-    # Добавляем клавиатуру
-    reply_markup = {"keyboard": [[{"text": "Регион"}], [{"text": "2"}], [{"text": "3"}]],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
-
-    try:
-        data = request.json
-
-        logging.info(str(data))
-
-        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        message = {
-            'chat_id': data['message']['chat']['id'],
-            'text': "".join(['эхо', "_", str(data['message']['text'])]),
-            'reply_markup': reply_markup
-        }
-
-        r = requests.post(api_url, data=json.dumps(message), headers=headers)
-
-        assert r.status_code == 200
-
-    except Exception as ex:
-        logging.info(str(ex))
-        return '500'
-    return '200'
+# @dispatch()
+# def do_echo():
+#
+#     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+#
+#     hashName = "Authors"
+#     redisClient.hmset(hashName, {1: "The C Programming Language",
+#                                  2: "The UNIX Programming Environment"})
+#
+#     logging.info(redisClient.hgetall(hashName))
+#
+#     bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
+#     api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
+#
+#     # Добавляем клавиатуру
+#     reply_markup = {"keyboard": [[{"text": "Регион"}], [{"text": "2"}], [{"text": "3"}]],
+#                     "resize_keyboard": True,
+#                     "one_time_keyboard": False}
+#
+#     try:
+#         data = request.json
+#
+#         logging.info(str(data))
+#
+#         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+#         message = {
+#             'chat_id': data['message']['chat']['id'],
+#             'text': "".join(['эхо', "_", str(data['message']['text'])]),
+#             'reply_markup': reply_markup
+#         }
+#
+#         r = requests.post(api_url, data=json.dumps(message), headers=headers)
+#
+#         assert r.status_code == 200
+#
+#     except Exception as ex:
+#         logging.info(str(ex))
+#         return '500'
+#     return '200'
 
 
 # ******************************************************************************
@@ -137,7 +137,9 @@ class Dispatcher:
 
     def message_handler(self, commands):
         def decorator(fn):
-            self.pull[commands] = fn
+
+            for b in commands:
+                self.pull[b] = fn
 
             def decorated2(*args, **kwargs):
                 self.commands = commands
@@ -148,12 +150,7 @@ class Dispatcher:
         return decorator
 
 
-API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
-bot = Bot(API_TOKEN)
-dp = Dispatcher(bot)
-
-
-@dp.message_handler(commands='Регион')
+@dp.message_handler(commands=['/start', 'Регион'])
 def start(*args, **kwargs):
 
     reply_markup = {"keyboard": [[{"text": "Регион"}], [{"text": "Город"}], ],
@@ -163,7 +160,7 @@ def start(*args, **kwargs):
     return reply_markup
 
 
-@dp.message_handler(commands='Город')
+@dp.message_handler(commands=['Город', ])
 def test1(*args, **kwargs):
 
     reply_markup = {"keyboard": [[{"text": "Перевозчик"}], ],
@@ -173,7 +170,7 @@ def test1(*args, **kwargs):
     return reply_markup
 
 
-@dp.message_handler(commands='Перевозчик')
+@dp.message_handler(commands=['Перевозчик', ])
 def test2(*args, **kwargs):
     reply_markup = {"keyboard": [[{"text": "ВИП"}],
                                  [{"text": "Координатор"}],
@@ -224,5 +221,8 @@ def do_echo_two():
     return '200'
 
 
+API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
+bot = Bot(API_TOKEN)
+dp = Dispatcher(bot)
 
 
