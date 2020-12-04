@@ -84,6 +84,8 @@ def do_echo():
     redisClient.hmset(hashName, {1: "The C Programming Language",
                                  2: "The UNIX Programming Environment"})
 
+    logging.info(redisClient.hgetall(hashName))
+
 
     bottoken = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
     api_url = 'https://api.telegram.org/bot{0}/sendMessage'.format(bottoken)
