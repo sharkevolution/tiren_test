@@ -231,13 +231,10 @@ def do_echo_two():
                                 'last_name': last_name})
 
     commands = data['message']['text']
-    exec_func = dp.pull[commands]
-
-    # logging.info(str(exec_func))
-
-    new_reaply_board = exec_func(commands)
-
-    logging.info(str(new_reaply_board))
+    exec_func = dp.pull.get(commands)
+    if exec_func:
+        new_reaply_board = exec_func(commands)
+        logging.info(str(new_reaply_board))
 
     # Check function
     result_text = ''
