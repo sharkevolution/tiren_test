@@ -206,6 +206,8 @@ def do_echo_two():
 
         commands = data['message']['text']
         exfunc = dp.pull[commands]
+        logging.info(str(exfunc))
+
         new_reaply_board = exfunc(commands)
 
         logging.info(str(data))
@@ -224,6 +226,3 @@ def do_echo_two():
         logging.info(str(ex))
         return '500'
     return '200'
-
-
-
