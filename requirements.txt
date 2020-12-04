@@ -12,3 +12,4 @@ gevent
 beaker
 gevent-websocket
 cherrypy
+redis
