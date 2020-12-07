@@ -246,7 +246,7 @@ def do_echo_two():
         result_text = f"Функция [ callback_query ] в разработке."
 
         message = {
-            'chat_id': data['callback_query']['message']['id'],
+            'chat_id': data['callback_query']['message']['chat']['id'],
             'text': result_text,
         }
 
