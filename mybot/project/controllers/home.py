@@ -15,6 +15,7 @@ import redis
 
 # https://unicode.org/emoji/charts/full-emoji-list.html#1f600
 # https://apps.timwhitlock.info/emoji/tables/unicode
+# https://github.com/carpedm20/emoji/blob/master/emoji/unicode_codes.py
 
 # @bottle.route('/api/v1/echo', method='POST')
 # @benchmark(mt=1)
@@ -207,11 +208,11 @@ def test2(*args, **kwargs):
 
 @dp.message_handler(commands=['Регион', ])
 def test3(*args, **kwargs):
-    ej = emoji.emojize(':globe_showing_Europe-Africa:')
-
+    ej_ukraine = emoji.emojize(':flag_for_Ukraine:')
+    ej_city = emoji.emojize(':cityscape:')
     reply_markup = {"inline_keyboard": [[
-        {"text": f"City {ej}", "callback_data": "Город"},
-        {"text": "B", "callback_data": "Перевозчик"}]],
+        {"text": f"Регион {ej_ukraine}", "callback_data": "region"},
+        {"text": f"Город {ej_city}", "callback_data": "Перевозчик"}]],
         "resize_keyboard": True,
         "one_time_keyboard": False}
 
