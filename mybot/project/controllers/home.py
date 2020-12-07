@@ -239,7 +239,7 @@ def do_echo_two():
 
     logging.info(str(data))
     if data.get('callback_query'):
-         logging.info(str(data.get('callback_query'))
+         logging.info(str(data.get('callback_query')))
 
     commands = data['message']['text']
     exec_func = dp.pull.get(commands)
