@@ -230,25 +230,35 @@ def do_echo_two():
 
     # try:
     data = request.json
-    from_id = data['message']['from']['id']
-    first_name = data['message']['from']['first_name']
-    last_name = data['message']['from']['first_name']
-
-    redisClient.hmset(from_id, {'first_name': first_name,
-                                'last_name': last_name})
 
     message = {}
-    logging.info(str(data))
+
     if data.get('callback_query'):
+        #  CallbackQuery
         logging.info(str(data.get('callback_query')))
+        commands = data['callback_query']['data']
+        exec_func = dp.pull.get(commands)
+        if exec_func:
+            new_reaply_board = exec_func(commands)
+            logging.info(str(new_reaply_board))
+
+        # query.message.chat_id
         result_text = f"Функция [ callback_query ] в разработке."
 
         message = {
-            'chat_id': data['callback_query'],
+            'chat_id': data['callback_query']['message']['id'],
             'text': result_text,
         }
 
-    elif data.get('message'):
+    if data.get('message'):
+
+        from_id = data['message']['from']['id']
+        first_name = data['message']['from']['first_name']
+        last_name = data['message']['from']['first_name']
+
+        redisClient.hmset(from_id, {'first_name': first_name,
+                                    'last_name': last_name})
+
         commands = data['message']['text']
         exec_func = dp.pull.get(commands)
         if exec_func:
