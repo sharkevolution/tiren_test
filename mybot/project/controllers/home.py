@@ -230,11 +230,9 @@ def do_echo_two():
 
     # try:
     data = request.json
-
     message = {}
 
     if data.get('callback_query'):
-        #  CallbackQuery
         logging.info(str(data.get('callback_query')))
         commands = data['callback_query']['data']
         exec_func = dp.pull.get(commands)
@@ -245,10 +243,15 @@ def do_echo_two():
         # query.message.chat_id
         result_text = f"Функция [ callback_query ] в разработке."
 
-        message = {
-            'chat_id': data['callback_query']['message']['chat']['id'],
-            'text': result_text,
-        }
+        message = {"callback_query_id": data['callback_query']['id'],
+                   "text": result_text,
+                   "url": "http://ya.ru"}
+
+        # message = {
+        #     'chat_id': data['callback_query']['message']['chat']['id'],
+        #     'text': result_text,
+        #     'answerCallbackQuery':
+        # }
 
     if data.get('message'):
 
