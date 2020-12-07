@@ -169,7 +169,6 @@ dp = Dispatcher(bot)
 @dp.message_handler(commands=['/start', ])
 def start(*args, **kwargs):
     reply_markup = {"keyboard": [[{"text": "Город"}], [{"text": "Регион"}], ],
-                    "text": "Привет, давай начнем работу",
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
@@ -282,7 +281,7 @@ def do_echo_two():
             logging.info(str(new_reaply_board))
 
         # Check function
-        result_text = ''
+        result_text = 'hello'
         if type(exec_func) is types.FunctionType:
             txt = data['message']['text']
             result_text = "".join(['эхо', "_", txt])
