@@ -202,15 +202,22 @@ def test2(*args, **kwargs):
 
 @dp.message_handler(commands=['Регион', ])
 def test3(*args, **kwargs):
-    reply_markup = {"keyboard": [[{"text": "Днепропетровский"}],
-                                 [{"text": "Запорожский"}],
-                                 [{"text": "Львововский"}],
-                                 [{"text": "Одессский"}],
-                                 [{"text": "Город"}],
-                                 [{"text": "Перевозчик"}],
-                                 ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+
+     reply_markup = {"inline_keyboard": [[
+         {"text": "A", "callback_data": "Город"},
+         {"text": "B", "callback_data": "Перевозчик"}]],
+         "resize_keyboard": True,
+         "one_time_keyboard": False}
+
+    # reply_markup = {"keyboard": [[{"text": "Днепропетровский"}],
+    #                              [{"text": "Запорожский"}],
+    #                              [{"text": "Львововский"}],
+    #                              [{"text": "Одессский"}],
+    #                              [{"text": "Город"}],
+    #                              [{"text": "Перевозчик"}],
+    #                              ],
+    #                 "resize_keyboard": True,
+    #                 "one_time_keyboard": False}
 
     return reply_markup
 
