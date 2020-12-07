@@ -246,11 +246,20 @@ def do_echo_two():
 
         message = {"callback_query_id": data['callback_query']['id'],
                    "text": result_text,
-                   "url": "http://ya.ru"}
+                   "show_alert": False,
+                   "url": "http://ya.ru",
+                   "cache_time": 3
+                   }
 
-        r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
-        logging.info(r)
-        assert r.status_code == 200
+        try:
+            r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
+            logging.info(r)
+            assert r.status_code == 200
+
+        except Exception as ex:
+            logging.info('Error' + str(ex))
+            return '500'
+
         # message = {
         #     'chat_id': data['callback_query']['message']['chat']['id'],
         #     'text': result_text,
