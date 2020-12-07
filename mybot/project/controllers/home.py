@@ -214,10 +214,16 @@ def test3(*args, **kwargs):
 
     reply_markup = {"inline_keyboard": [[
         {"text": f"Регион {ej_ukraine}", "callback_data": "region"},
-        {"text": f"Город {ej_city}", "callback_data": "city"},
-        {"text": f"Перевозчик {ej_delivery}", "callback_data": "delivery"}, ]],
+        {"text": f"Город {ej_city}", "callback_data": "city"}],
+        [{"text": f"Перевозчик {ej_delivery}", "callback_data": "delivery"}, ]
+    ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
+
+    # if call.message:
+    #     if call.data == "test":
+    #         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Пыщь")
+    #         bot.answer_callback_query(callback_query_id=call.id, show_alert=False, text="Пыщь!")
 
     # reply_markup = {"keyboard": [[{"text": "Днепропетровский"}],
     #                              [{"text": "Запорожский"}],
