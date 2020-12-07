@@ -241,7 +241,7 @@ def do_echo_two():
             new_reaply_board = exec_func(commands)
             logging.info(str(new_reaply_board))
 
-        logging.info(data['callback_query']['data'])
+        logging.info(data['callback_query']['id'])
 
         # query.message.chat_id
         result_text = f"Функция [ callback_query ] в разработке."
