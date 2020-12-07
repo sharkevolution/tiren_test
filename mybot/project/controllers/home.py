@@ -246,15 +246,12 @@ def do_echo_two():
         result_text = f"Функция [ callback_query ] в разработке."
 
         message = {"callback_query_id": data['callback_query']['id'],
-                   "text": result_text,
-                   "show_alert": False,
-                   "url": "http://ya.ru",
-                   "cache_time": 3
+                   "text": "ss",
+                   "cache_time": 5
                    }
 
         try:
-            time.sleep(2)
-            r = requests.get(bot.api_answer, data=json.dumps(message), headers=bot.headers)
+            r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
             logging.info(r)
             assert r.status_code == 200
 
