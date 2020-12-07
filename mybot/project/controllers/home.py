@@ -169,6 +169,7 @@ dp = Dispatcher(bot)
 @dp.message_handler(commands=['/start', ])
 def start(*args, **kwargs):
     reply_markup = {"keyboard": [[{"text": "Город"}], [{"text": "Регион"}], ],
+                    "text": "Привет, давай начнем работу",
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
@@ -226,16 +227,6 @@ def test3(*args, **kwargs):
     #     if call.data == "test":
     #         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Пыщь")
     #         bot.answer_callback_query(callback_query_id=call.id, show_alert=False, text="Пыщь!")
-
-    # reply_markup = {"keyboard": [[{"text": "Днепропетровский"}],
-    #                              [{"text": "Запорожский"}],
-    #                              [{"text": "Львововский"}],
-    #                              [{"text": "Одессский"}],
-    #                              [{"text": "Город"}],
-    #                              [{"text": "Перевозчик"}],
-    #                              ],
-    #                 "resize_keyboard": True,
-    #                 "one_time_keyboard": False}
 
     return reply_markup
 
