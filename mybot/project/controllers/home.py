@@ -244,7 +244,7 @@ def do_echo_two():
         # query.message.chat_id
         result_text = f"Функция [ callback_query ] в разработке."
 
-        message = {"callback_query_id": data['callback_query']['message']['chat']['id'],
+        message = {"callback_query_id": data['callback_query']['id'],
                    "text": result_text,
                    "url": "http://ya.ru"}
 
