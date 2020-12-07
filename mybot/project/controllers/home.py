@@ -210,7 +210,7 @@ def test2(*args, **kwargs):
 def test3(*args, **kwargs):
     ej_ukraine = emoji.emojize(':Ukraine:')
     ej_city = emoji.emojize(':cityscape:')
-    ej_delivery = emoji.emojize('delivery truck')
+    ej_delivery = emoji.emojize('delivery_truck')
 
     reply_markup = {"inline_keyboard": [[
         {"text": f"Регион {ej_ukraine}", "callback_data": "region"},
