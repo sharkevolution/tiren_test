@@ -249,6 +249,8 @@ def do_echo_two():
                    "url": "http://ya.ru"}
 
         r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
+        logging.info(r)
+        assert r.status_code == 200
         # message = {
         #     'chat_id': data['callback_query']['message']['chat']['id'],
         #     'text': result_text,
@@ -291,8 +293,7 @@ def do_echo_two():
             }
 
         r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
-
-    assert r.status_code == 200
+        assert r.status_code == 200
 
     # except Exception as ex:
     #     logging.info('Error' + str(ex))
