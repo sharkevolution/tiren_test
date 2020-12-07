@@ -237,36 +237,44 @@ def do_echo_two():
     redisClient.hmset(from_id, {'first_name': first_name,
                                 'last_name': last_name})
 
+    message = {}
     logging.info(str(data))
     if data.get('callback_query'):
-         logging.info(str(data.get('callback_query')))
-
-    commands = data['message']['text']
-    exec_func = dp.pull.get(commands)
-    if exec_func:
-        new_reaply_board = exec_func(commands)
-        logging.info(str(new_reaply_board))
-
-    # Check function
-    result_text = ''
-    if type(exec_func) is types.FunctionType:
-        txt = data['message']['text']
-        result_text = "".join(['эхо', "_", txt])
+        logging.info(str(data.get('callback_query')))
+        result_text = f"Функция [ callback_query ] в разработке."
 
         message = {
-            'chat_id': data['message']['chat']['id'],
-            'text': result_text,
-            'reply_markup': new_reaply_board
-        }
-
-    else:
-        txt = str(data['message']['text'])
-        result_text = f"Функция [{txt}] в разработке."
-
-        message = {
-            'chat_id': data['message']['chat']['id'],
+            'chat_id': data['callback_query'],
             'text': result_text,
         }
+
+    elif data.get('message'):
+        commands = data['message']['text']
+        exec_func = dp.pull.get(commands)
+        if exec_func:
+            new_reaply_board = exec_func(commands)
+            logging.info(str(new_reaply_board))
+
+        # Check function
+        result_text = ''
+        if type(exec_func) is types.FunctionType:
+            txt = data['message']['text']
+            result_text = "".join(['эхо', "_", txt])
+
+            message = {
+                'chat_id': data['message']['chat']['id'],
+                'text': result_text,
+                'reply_markup': new_reaply_board
+            }
+
+        else:
+            txt = str(data['message']['text'])
+            result_text = f"Функция [{txt}] в разработке."
+
+            message = {
+                'chat_id': data['message']['chat']['id'],
+                'text': result_text,
+            }
 
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
 
