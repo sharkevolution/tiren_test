@@ -9,9 +9,12 @@ import requests
 import logging
 import types
 
-import time
+import emoji
 import redis
 
+
+# https://unicode.org/emoji/charts/full-emoji-list.html#1f600
+# https://apps.timwhitlock.info/emoji/tables/unicode
 
 # @bottle.route('/api/v1/echo', method='POST')
 # @benchmark(mt=1)
@@ -204,12 +207,13 @@ def test2(*args, **kwargs):
 
 @dp.message_handler(commands=['Регион', ])
 def test3(*args, **kwargs):
+    ej = emoji.emojize('globe showing Europe-Africa')
 
     reply_markup = {"inline_keyboard": [[
-         {"text": "\U0001F609", "callback_data": "Город"},
-         {"text": "B", "callback_data": "Перевозчик"}]],
-         "resize_keyboard": True,
-         "one_time_keyboard": False}
+        {"text": f"City {ej}", "callback_data": "Город"},
+        {"text": "B", "callback_data": "Перевозчик"}]],
+        "resize_keyboard": True,
+        "one_time_keyboard": False}
 
     # reply_markup = {"keyboard": [[{"text": "Днепропетровский"}],
     #                              [{"text": "Запорожский"}],
