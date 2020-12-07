@@ -126,6 +126,7 @@ class Bot:
     def __init__(self, token):
         self.token = token
         self.api_url = f'https://api.telegram.org/bot{self.token}/sendMessage'
+        self.api_answer = f'https://api.telegram.org/bot{self.token}/answerCallbackQuery'
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
 
@@ -247,6 +248,7 @@ def do_echo_two():
                    "text": result_text,
                    "url": "http://ya.ru"}
 
+        r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
         # message = {
         #     'chat_id': data['callback_query']['message']['chat']['id'],
         #     'text': result_text,
@@ -288,7 +290,7 @@ def do_echo_two():
                 'text': result_text,
             }
 
-    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+        r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
 
     assert r.status_code == 200
 
