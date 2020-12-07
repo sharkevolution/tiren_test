@@ -13,3 +13,4 @@ beaker
 gevent-websocket
 cherrypy
 redis
+emoji
