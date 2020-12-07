@@ -206,7 +206,7 @@ def test2(*args, **kwargs):
 def test3(*args, **kwargs):
 
     reply_markup = {"inline_keyboard": [[
-         {"text": "A", "callback_data": "Город"},
+         {"text": "\xF0\x9F\x9A\x80", "callback_data": "Город"},
          {"text": "B", "callback_data": "Перевозчик"}]],
          "resize_keyboard": True,
          "one_time_keyboard": False}
@@ -235,6 +235,7 @@ def do_echo_two():
     message = {}
 
     if data.get('callback_query'):
+        # Обработчик Callback
         logging.info(str(data.get('callback_query')))
         commands = data['callback_query']['data']
         exec_func = dp.pull.get(commands)
@@ -246,8 +247,7 @@ def do_echo_two():
 
         message = {"callback_query_id": data['callback_query']['id'],
                    "text": result_text,
-                   "cache_time": 3
-                   }
+                   "cache_time": 3}
 
         try:
             r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
@@ -258,12 +258,8 @@ def do_echo_two():
             logging.info('Error' + str(ex))
             return '500'
 
-        # message = {
-        #     'chat_id': data['callback_query']['message']['chat']['id'],
-        #     'text': result_text,
-        # }
-
     if data.get('message'):
+        # Обработчик Message
 
         from_id = data['message']['from']['id']
         first_name = data['message']['from']['first_name']
