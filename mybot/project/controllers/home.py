@@ -206,7 +206,7 @@ def test2(*args, **kwargs):
 def test3(*args, **kwargs):
 
     reply_markup = {"inline_keyboard": [[
-         {"text": "\xF0\x9F\x9A\x80", "callback_data": "Город"},
+         {"text": "\U0001F609", "callback_data": "Город"},
          {"text": "B", "callback_data": "Перевозчик"}]],
          "resize_keyboard": True,
          "one_time_keyboard": False}
