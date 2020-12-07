@@ -237,9 +237,9 @@ def do_echo_two():
     redisClient.hmset(from_id, {'first_name': first_name,
                                 'last_name': last_name})
 
-    logging.info(str(data)
+    logging.info(str(data))
     if data.get('callback_query'):
-        logging.info(str(data.get('callback_query'))
+         logging.info(str(data.get('callback_query'))
 
     commands = data['message']['text']
     exec_func = dp.pull.get(commands)
