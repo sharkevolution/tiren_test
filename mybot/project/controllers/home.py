@@ -9,6 +9,7 @@ import requests
 import logging
 import types
 
+import time
 import redis
 
 
@@ -241,8 +242,6 @@ def do_echo_two():
             new_reaply_board = exec_func(commands)
             logging.info(str(new_reaply_board))
 
-        logging.info(data['callback_query']['id'])
-
         # query.message.chat_id
         result_text = f"Функция [ callback_query ] в разработке."
 
@@ -254,7 +253,8 @@ def do_echo_two():
                    }
 
         try:
-            r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
+            time.sleep(2)
+            r = requests.get(bot.api_answer, data=json.dumps(message), headers=bot.headers)
             logging.info(r)
             assert r.status_code == 200
 
