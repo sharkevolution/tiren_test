@@ -242,12 +242,11 @@ def do_echo_two():
             new_reaply_board = exec_func(commands)
             logging.info(str(new_reaply_board))
 
-        # query.message.chat_id
         result_text = f"Функция [ callback_query ] в разработке."
 
         message = {"callback_query_id": data['callback_query']['id'],
-                   "text": "ss",
-                   "cache_time": 5
+                   "text": result_text,
+                   "cache_time": 3
                    }
 
         try:
