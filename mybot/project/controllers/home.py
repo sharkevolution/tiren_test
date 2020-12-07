@@ -208,7 +208,7 @@ def test2(*args, **kwargs):
 
 @dp.message_handler(commands=['Регион', ])
 def test3(*args, **kwargs):
-    ej_ukraine = emoji.emojize(':flag_for_Ukraine:')
+    ej_ukraine = emoji.emojize(':Ukraine:')
     ej_city = emoji.emojize(':cityscape:')
     reply_markup = {"inline_keyboard": [[
         {"text": f"Регион {ej_ukraine}", "callback_data": "region"},
