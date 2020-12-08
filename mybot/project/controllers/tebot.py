@@ -237,6 +237,7 @@ def do_echo_two():
             message, curl = dummy_message(data)
 
     logging.info(message)
+    logging.info(curl)
     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
