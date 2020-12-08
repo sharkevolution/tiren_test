@@ -78,7 +78,14 @@ def start(data):
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
-    return reply_markup
+    result_text = 'Echo'
+    message = {
+        'chat_id': data['message']['chat']['id'],
+        'text': result_text,
+        'reply_markup': reply_markup,
+    }
+
+    return message
 
 
 @dp.message_handler(commands=['Город', ])
@@ -94,7 +101,14 @@ def test1(data):
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
-    return reply_markup
+    result_text = 'Echo'
+    message = {
+        'chat_id': data['message']['chat']['id'],
+        'text': result_text,
+        'reply_markup': reply_markup,
+    }
+
+    return message
 
 
 @dp.message_handler(commands=['Перевозчик', ])
@@ -188,7 +202,7 @@ def do_echo_two():
         curl = bot.api_url
         commands = data['message']['text']
         if exec_func := dp.pull_message_commands.get(commands):
-            evd = exec_func(data)
+            message = exec_func(data)
 
             # result_text = 'Echo'
             # message = {
