@@ -173,7 +173,12 @@ def do_echo_two():
         if exec_func := dp.pull_callback_commands.get(commands):
             evd = exec_func(commands)
         else:
-            message = dummy_callback(data)
+            # message = dummy_callback(data)
+
+            message = {"callback_query_id": data['callback_query']['id'],
+                       "text": "result_text",
+                       "cache_time": 3}
+
 
     if data.get('message'):
         commands = data['message']['text']
