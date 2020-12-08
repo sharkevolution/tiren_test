@@ -155,6 +155,13 @@ def test3(data):
     #         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Пыщь")
     #         bot.answer_callback_query(callback_query_id=call.id, show_alert=False, text="Пыщь!")
 
+    result_text = 'Echo'
+    message = {
+        'chat_id': data['message']['chat']['id'],
+        'text': result_text,
+        'reply_markup': reply_markup,
+    }
+
     return reply_markup
 
 
@@ -194,7 +201,7 @@ def do_echo_two():
         curl = bot.api_answer
         commands = data['callback_query']['data']
         if exec_func := dp.pull_callback_commands.get(commands):
-            evd = exec_func(data)
+            message = exec_func(data)
         else:
             message = dummy_callback(data)
 
