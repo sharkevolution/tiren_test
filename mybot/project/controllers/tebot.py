@@ -201,8 +201,8 @@ def test2(data):
     # result_text = f"Перевозчик"
     # res = {'chat_id': data['callback_query']['message']['chat']['id'],
     #        'text': result_text}
-    # curl = bot.api_url
 
+    curl = bot.api_url
     return res, curl
 
 
