@@ -25,6 +25,9 @@ class Bot:
         self.token = token
         self.api_url = f'https://api.telegram.org/bot{self.token}/sendMessage'
         self.api_answer = f'https://api.telegram.org/bot{self.token}/answerCallbackQuery'
+        self.api_edit_message = f'https://api.telegram.org/bot{self.token}/editMessageText'
+        self.api_gt_updates = f'https://api.telegram.org/bot{self.token}/getUpdates'
+
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
 
@@ -37,6 +40,7 @@ class Dispatcher:
         self.commands = None
         self.pull_message_commands = {}
         self.pull_callback_commands = {}
+        self.pull_message_requests = {}
 
     def message_handler(self, commands):
         def decorator(fn):
@@ -82,11 +86,9 @@ def start(data):
     message = {
         'chat_id': data['message']['chat']['id'],
         'text': result_text,
-        'reply_markup': reply_markup,
-    }
+        'reply_markup': reply_markup, }
 
     curl = bot.api_url
-
     return message, curl
 
 
@@ -107,11 +109,9 @@ def test1(data):
     message = {
         'chat_id': data['message']['chat']['id'],
         'text': result_text,
-        'reply_markup': reply_markup,
-    }
+        'reply_markup': reply_markup,}
 
     curl = bot.api_url
-
     return message, curl
 
 
@@ -135,13 +135,12 @@ def test2(data):
     }
 
     curl = bot.api_url
-
     return message, curl
 
 
 @dp.message_handler(commands=['Регион', ])
 def test3(data):
-    # ---
+
     ej_ukraine = emoji.emojize(':Ukraine:')
     ej_city = emoji.emojize(':cityscape:')
     ej_delivery = emoji.emojize(':delivery_truck:')
@@ -175,31 +174,62 @@ def test2(data):
                "text": result_text,
                "cache_time": 3}
 
+    # Обязательный ответ Callback
     curl = bot.api_answer
     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
-    # --------------------------
+    # Можно отправлять запросы после
     reply_markup = {"keyboard": [[{"text": "Звездец"}],
                                  [{"text": "Трындец"}],
                                  [{"text": "Перевозчик"}],
                                  ],
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
-
     result_text = 'Echo'
     res = {
         'chat_id': data['callback_query']['message']['chat']['id'],
         'text': result_text,
-        'reply_markup': reply_markup,
-    }
-
-    # result_text = f"Перевозчик"
-    # res = {'chat_id': data['callback_query']['message']['chat']['id'],
-    #        'text': result_text}
+        'reply_markup': reply_markup, }
 
     curl = bot.api_url
     return res, curl
+
+
+@dp.callback_handler(commands=['shop', ])
+def test_list(data):
+    result_text = 'ok!'
+    message = {"callback_query_id": data['callback_query']['id'],
+               "text": result_text,
+               "cache_time": 3}
+
+    # Обязательный ответ Callback
+    curl = bot.api_answer
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+
+    # ------
+    message = {'offset': 5}
+    r = requests.post(bot.api_gt_updates, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+    logging.info(r)
+
+    # Можно отправлять запросы после
+    reply_markup = {"keyboard": [[{"text": "Выполнено"}],
+                                 ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
+    result_text = 'Echo'
+    res = {
+        'chat_id': data['callback_query']['message']['chat']['id'],
+        'text': result_text,
+        'reply_markup': reply_markup, }
+
+    curl = bot.api_url
+    return res, curl
+
 
 
 def dummy_message(data):
