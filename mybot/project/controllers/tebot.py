@@ -168,31 +168,31 @@ def do_echo_two():
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
-    try:
-        data = request.json
-        evd = {}
+    # try:
+    data = request.json
+    evd = {}
 
-        if data.get('callback_query'):
-            commands = data['callback_query']['data']
-            if exec_func := dp.pull_callback_commands.get(commands):
-                evd = exec_func(commands)
+    if data.get('callback_query'):
+        commands = data['callback_query']['data']
+        if exec_func := dp.pull_callback_commands.get(commands):
+            evd = exec_func(commands)
 
-                if not type(exec_func) is types.FunctionType:
-                    evd = dummy_callback(data)
+            if not type(exec_func) is types.FunctionType:
+                evd = dummy_callback(data)
 
-        if data.get('message'):
-            commands = data['message']['text']
-            if exec_func := dp.pull_message_commands.get(commands):
-                evd = exec_func(commands)
+    if data.get('message'):
+        commands = data['message']['text']
+        if exec_func := dp.pull_message_commands.get(commands):
+            evd = exec_func(commands)
 
-                if not type(exec_func) is types.FunctionType:
-                    evd = dummy_message(data)
+            if not type(exec_func) is types.FunctionType:
+                evd = dummy_message(data)
 
-        r = requests.post(bot.api_url, data=json.dumps(evd), headers=bot.headers)
-        assert r.status_code == 200
+    r = requests.post(bot.api_url, data=json.dumps(evd), headers=bot.headers)
+    assert r.status_code == 200
 
-    except Exception as ex:
-        logging.info('Error' + str(ex))
+    # except Exception as ex:
+    #     logging.info('Error' + str(ex))
 
 
 # CallBack ----------------------------------------------------------------------------------
