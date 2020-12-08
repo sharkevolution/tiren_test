@@ -170,7 +170,7 @@ def test3(data):
 @dp.callback_handler(commands=['city', ])
 def test2(data):
 
-    result_text = 'Перевозчик'
+    result_text = 'ok!'
     message = {"callback_query_id": data['callback_query']['id'],
                "text": result_text,
                "cache_time": 3}
@@ -179,8 +179,8 @@ def test2(data):
     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
-
-    result_text = f"НоваЯ [] в разработке."
+    # --------------------------
+    result_text = f"Перевозчик"
     res = {'chat_id': data['callback_query']['message']['chat']['id'],
            'text': result_text}
     curl = bot.api_url
