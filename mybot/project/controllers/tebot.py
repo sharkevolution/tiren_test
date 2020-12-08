@@ -85,7 +85,9 @@ def start(data):
         'reply_markup': reply_markup,
     }
 
-    return message
+    curl = bot.api_url
+
+    return message, curl
 
 
 @dp.message_handler(commands=['Город', ])
@@ -107,7 +109,10 @@ def test1(data):
         'text': result_text,
         'reply_markup': reply_markup,
     }
-    return message
+
+    curl = bot.api_url
+
+    return message, curl
 
 
 @dp.message_handler(commands=['Перевозчик', ])
@@ -129,7 +134,9 @@ def test2(data):
         'reply_markup': reply_markup,
     }
 
-    return message
+    curl = bot.api_url
+
+    return message, curl
 
 
 @dp.message_handler(commands=['Регион', ])
@@ -156,7 +163,8 @@ def test3(data):
         'reply_markup': reply_markup,
     }
 
-    return message
+    curl = bot.api_url
+    return message, curl
 
 
 @dp.callback_handler(commands=['city', ])
@@ -174,7 +182,8 @@ def test2(data):
         'reply_markup': reply_markup,
     }
 
-    return message
+    curl = bot.api_url
+    return message, curl
 
 
 
@@ -185,7 +194,9 @@ def dummy_message(data):
     res = {
         'chat_id': data['message']['chat']['id'],
         'text': result_text}
-    return res
+
+    curl = bot.api_url
+    return res, curl
 
 
 def dummy_callback(data):
@@ -195,7 +206,8 @@ def dummy_callback(data):
     res = {"callback_query_id": data['callback_query']['id'],
                "text": result_text,
                "cache_time": 3}
-    return res
+    curl = bot.api_answer
+    return res, curl
 
 
 @bottle.route('/api/v1/echo', method='POST')
@@ -209,20 +221,20 @@ def do_echo_two():
     curl = None
 
     if data.get('callback_query'):
-        curl = bot.api_answer
+        # curl = bot.api_answer
         commands = data['callback_query']['data']
         if exec_func := dp.pull_callback_commands.get(commands):
-            message = exec_func(data)
+            message, curl = exec_func(data)
         else:
-            message = dummy_callback(data)
+            message, curl = dummy_callback(data)
 
     if data.get('message'):
-        curl = bot.api_url
+        # curl = bot.api_url
         commands = data['message']['text']
         if exec_func := dp.pull_message_commands.get(commands):
-            message = exec_func(data)
+            message, curl = exec_func(data)
         else:
-            message = dummy_message(data)
+            message, curl = dummy_message(data)
 
     logging.info(message)
     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
