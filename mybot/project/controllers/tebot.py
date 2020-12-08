@@ -141,12 +141,12 @@ def dummy_message(data):
     text = str(data['message']['text'])
     result_text = f"Функция [{text}] в разработке."
 
-    message = {
+    res = {
         'chat_id': data['message']['chat']['id'],
         'text': result_text,
     }
 
-    return message
+    return res
 
 
 def dummy_callback(data):
@@ -154,11 +154,12 @@ def dummy_callback(data):
     text = str(data['callback_query']['data'])
     result_text = f"Функция [ {text} ] в разработке."
 
-    message = {"callback_query_id": data['callback_query']['id'],
+    res = {"callback_query_id": data['callback_query']['id'],
                "text": result_text,
-               "cache_time": 3}
+               "cache_time": 3,
+           }
 
-    return message
+    return res
 
 
 @bottle.route('/api/v1/echo', method='POST')
@@ -175,8 +176,13 @@ def do_echo_two():
         commands = data['callback_query']['data']
         if exec_func := dp.pull_callback_commands.get(commands):
             evd = exec_func(commands)
+
         else:
             evd = dummy_callback(data)
+
+        message = {"callback_query_id": data['callback_query']['id'],
+                   "text": evd,
+                   "cache_time": 3}
 
     if data.get('message'):
         commands = data['message']['text']
@@ -185,8 +191,15 @@ def do_echo_two():
         else:
             evd = dummy_message(data)
 
+        result_text = ''
+        message = {
+            'chat_id': data['message']['chat']['id'],
+            'text': result_text,
+            'reply_markup': evd,
+        }
+
     logging.info(evd)
-    r = requests.post(bot.api_url, data=json.dumps(evd), headers=bot.headers)
+    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
     # except Exception as ex:
