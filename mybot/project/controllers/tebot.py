@@ -208,10 +208,10 @@ def test_list(data):
     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
-
-    # ------
+    # ---------------------------------
     message = {'offset': 5}
-    r = requests.post(bot.api_gt_updates, data=json.dumps(message), headers=bot.headers)
+    curl = bot.api_gt_updates
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
     logging.info(r)
