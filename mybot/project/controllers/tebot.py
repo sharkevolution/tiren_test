@@ -30,7 +30,7 @@ class Bot:
 
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
-
+        self.message_id_list = []
 
 class Dispatcher:
     """ handler messages command """
@@ -209,12 +209,7 @@ def test_list(data):
     assert r.status_code == 200
 
     # ---------------------------------
-    message = {'offset': -2}
-    curl = bot.api_get_updates
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
-
-    logging.info(r)
+    logging.info(bot.message_id_list)
 
     # Можно отправлять запросы после
     reply_markup = {"keyboard": [[{"text": "Выполнено"}],
@@ -274,6 +269,10 @@ def do_echo_two():
 
     if data.get('message'):
         # curl = bot.api_url
+
+        # Сохраняем ид сообщения
+        bot.message_id_list.append(data['message']['message_id'])
+
         commands = data['message']['text']
         if exec_func := dp.pull_message_commands.get(commands):
             message, curl = exec_func(data)
