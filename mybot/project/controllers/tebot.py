@@ -26,7 +26,7 @@ class Bot:
         self.api_url = f'https://api.telegram.org/bot{self.token}/sendMessage'
         self.api_answer = f'https://api.telegram.org/bot{self.token}/answerCallbackQuery'
         self.api_edit_message = f'https://api.telegram.org/bot{self.token}/editMessageText'
-        self.api_gt_updates = f'https://api.telegram.org/bot{self.token}/getUpdates'
+        self.api_get_updates = f'https://api.telegram.org/bot{self.token}/getUpdates'
 
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
@@ -209,9 +209,9 @@ def test_list(data):
     assert r.status_code == 200
 
     # ---------------------------------
-    message = {'offset': 5}
-    curl = bot.api_gt_updates
-    r = requests.get(curl, params=json.dumps(message), headers=bot.headers)
+    message = {'offset': -2}
+    curl = bot.api_get_updates
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
     logging.info(r)
