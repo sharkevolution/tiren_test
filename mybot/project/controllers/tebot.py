@@ -18,6 +18,16 @@ import emoji
 import redis
 
 
+class User:
+    def __init__(self):
+        self.messages_id = []
+        self.first_name = None
+        self.last_name = None
+
+    def get_redis(self):
+        pass
+
+
 class Bot:
     """ Bot token """
 
@@ -32,10 +42,12 @@ class Bot:
                         'Accept': 'text/plain'}
         self.message_id_list = []
 
-class Dispatcher:
+
+class Dispatcher(User):
     """ handler messages command """
 
     def __init__(self, bot):
+        super().__init__()
         self.bot = bot
         self.commands = None
         self.pull_message_commands = {}
@@ -92,7 +104,16 @@ dp = Dispatcher(bot)
 #     return message, curl
 
 
-list_region = []
+dict_region = {'Днепр': {'Днепр': 'aaa'},
+               'Львов': {'Львов': 'ddd'},
+               'Одесса': {'Николаев': 'xxx',
+                          'Херсон': 'fff'},
+               'Харьков': [],
+               'Николаев': [],
+               'Тернополь': [],
+               'Запорожье': [],
+               'Чернигов': []}
+
 
 ej_ukraine = emoji.emojize(':Ukraine:')
 ej_city = emoji.emojize(':cityscape:')
@@ -101,20 +122,20 @@ ej_shop = emoji.emojize(':shopping_cart:')
 
 
 start_reply = [
-    [{"text": f"Выбрать регионы {ej_ukraine}", "callback_data": "region"},
-     {"text": f"Выбрать города {ej_city}", "callback_data": "city"}],
-
-    [{"text": f"Заполнить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
-    [{"text": f"Мои регионы {ej_shop}", "callback_data": "shop"}, ],
-    [{"text": f"Удалить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Выбрать регионы {emoji.emojize(':Ukraine:')}", "callback_data": "region"},
+     {"text": f"Выбрать города {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
+    [{"text": f"Заполнить время прибытия {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+    [{"text": f"Мои сообщения {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Мои регионы {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
     [{"text": f"Мои города {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Удалить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
     [{"text": f"Удалить регионы {ej_delivery}", "callback_data": "delivery"}, ],
     [{"text": f"Удалить города {ej_delivery}", "callback_data": "delivery"}, ],
 ]
 
 
 @dp.message_handler(commands=['/start', ])
-def start(data):
+def start_bot(data):
 
     reply_markup = {"inline_keyboard": start_reply,
         "resize_keyboard": True,
@@ -131,10 +152,8 @@ def start(data):
     return message, curl
 
 
-
-
 @dp.message_handler(commands=['Город', ])
-def test1(data):
+def query_all_city(data):
     reply_markup = {"keyboard": [[{"text": "Днепр"}],
                                  [{"text": "Львов"}],
                                  [{"text": "Одесса"}],
@@ -157,7 +176,7 @@ def test1(data):
 
 
 @dp.message_handler(commands=['Перевозчик', ])
-def test2(data):
+def query_all_delivery(data):
     reply_markup = {"keyboard": [[{"text": "ВИП"}],
                                  [{"text": "Координатор"}],
                                  [{"text": "Космос"}],
@@ -180,7 +199,7 @@ def test2(data):
 
 
 @dp.message_handler(commands=['Регион', ])
-def test3(data):
+def query_all_region(data):
 
     ej_ukraine = emoji.emojize(':Ukraine:')
     ej_city = emoji.emojize(':cityscape:')
@@ -267,7 +286,6 @@ def test_list(data):
     return res, curl
 
 
-
 def dummy_message(data):
     text = str(data['message']['text'])
     result_text = f"Функция [{text}] в разработке."
@@ -293,6 +311,7 @@ def dummy_callback(data):
 @bottle.route('/api/v1/echo', method='POST')
 def do_echo_two():
     """ Main """
+
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     # try:
