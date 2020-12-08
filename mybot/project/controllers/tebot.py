@@ -191,7 +191,7 @@ def do_echo_two():
         else:
             evd = dummy_message(data)
 
-        result_text = ''
+        result_text = 'Эхо'
         message = {
             'chat_id': data['message']['chat']['id'],
             'text': result_text,
