@@ -171,25 +171,20 @@ def do_echo_two():
     data = request.json
     evd = {}
 
-    logging.info('OK')
-
     if data.get('callback_query'):
         commands = data['callback_query']['data']
         if exec_func := dp.pull_callback_commands.get(commands):
             evd = exec_func(commands)
-
-            if not type(exec_func) is types.FunctionType:
-                evd = dummy_callback(data)
+        else:
+            evd = dummy_callback(data)
 
     if data.get('message'):
         commands = data['message']['text']
         if exec_func := dp.pull_message_commands.get(commands):
             evd = exec_func(commands)
+        else:
+            evd = dummy_message(data)
 
-            if not type(exec_func) is types.FunctionType:
-                evd = dummy_message(data)
-
-    logging.info('OK2')
     logging.info(evd)
     r = requests.post(bot.api_url, data=json.dumps(evd), headers=bot.headers)
     assert r.status_code == 200
