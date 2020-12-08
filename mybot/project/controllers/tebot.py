@@ -145,7 +145,6 @@ def dummy_message(data):
         'chat_id': data['message']['chat']['id'],
         'text': result_text,
     }
-
     return res
 
 
@@ -157,7 +156,6 @@ def dummy_callback(data):
            "text": result_text,
            "cache_time": 3,
            }
-
     return res
 
 
@@ -176,11 +174,7 @@ def do_echo_two():
         if exec_func := dp.pull_callback_commands.get(commands):
             evd = exec_func(commands)
         else:
-            evd = dummy_callback(data)
-
-            message = {"callback_query_id": data['callback_query']['id'],
-                       "text": evd,
-                       "cache_time": 3}
+            message = dummy_callback(data)
 
     if data.get('message'):
         commands = data['message']['text']
