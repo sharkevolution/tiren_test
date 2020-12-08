@@ -211,7 +211,7 @@ def test_list(data):
     # ---------------------------------
     message = {'offset': 5}
     curl = bot.api_gt_updates
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    r = requests.get(curl, params=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
     logging.info(r)
