@@ -170,7 +170,7 @@ def do_echo_two():
 
     # try:
     data = request.json
-    evd = {}
+    message = {}
 
     if data.get('callback_query'):
         commands = data['callback_query']['data']
@@ -198,56 +198,9 @@ def do_echo_two():
             'reply_markup': evd,
         }
 
-    logging.info(evd)
+    logging.info(message)
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
     # except Exception as ex:
     #     logging.info('Error' + str(ex))
-
-
-# CallBack ----------------------------------------------------------------------------------
-        # result_text = f"Функция [ callback_query ] в разработке."
-        #
-        # message = {"callback_query_id": data['callback_query']['id'],
-        #            "text": result_text,
-        #            "cache_time": 3}
-        #
-        # try:
-        #     r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
-        #     logging.info(r)
-        #     assert r.status_code == 200
-        #
-        # except Exception as ex:
-        #     logging.info('Error' + str(ex))
-        #     return '500'
-
-# Message data
-
-        # result_text = ''
-        # if type(exec_func) is types.FunctionType:
-        #     txt = data['message']['text']
-        #     result_text = "".join(['эхо', "_", txt])
-        #
-        #     message = {
-        #         'chat_id': data['message']['chat']['id'],
-        #         'text': result_text,
-        #         'reply_markup': new_reaply_board
-        #     }
-        #
-        # else:
-        #     txt = str(data['message']['text'])
-        #     result_text = f"Функция [{txt}] в разработке."
-        #
-        #     message = {
-        #         'chat_id': data['message']['chat']['id'],
-        #         'text': result_text,
-        #     }
-
-
-        # from_id = data['message']['from']['id']
-        # first_name = data['message']['from']['first_name']
-        # last_name = data['message']['from']['first_name']
-        #
-        # # redisClient.hmset(from_id, {'first_name': first_name,
-        # #                             'last_name': last_name})
