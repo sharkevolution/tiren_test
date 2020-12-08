@@ -92,26 +92,31 @@ dp = Dispatcher(bot)
 #     return message, curl
 
 
-start_reply = {"inline_keyboard": [[
-        {"text": f"Выбрать регионы {ej_ukraine}", "callback_data": "region"},
-        {"text": f"Выбрать города {ej_city}", "callback_data": "city"}],
-        [{"text": f"Заполнить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
-        [{"text": f"Мои регионы {ej_shop}", "callback_data": "shop"}, ],
-        [{"text": f"Удалить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
-        [{"text": f"Мои города {ej_delivery}", "callback_data": "delivery"}, ],
-        [{"text": f"Удалить регионы {ej_delivery}", "callback_data": "delivery"}, ],
-        [{"text": f"Удалить города {ej_delivery}", "callback_data": "delivery"}, ], ]
-}
+list_region = []
+
+ej_ukraine = emoji.emojize(':Ukraine:')
+ej_city = emoji.emojize(':cityscape:')
+ej_delivery = emoji.emojize(':delivery_truck:')
+ej_shop = emoji.emojize(':shopping_cart:')
 
 
+start_reply = [
+    [{"text": f"Выбрать регионы {ej_ukraine}", "callback_data": "region"},
+     {"text": f"Выбрать города {ej_city}", "callback_data": "city"}],
+
+    [{"text": f"Заполнить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Мои регионы {ej_shop}", "callback_data": "shop"}, ],
+    [{"text": f"Удалить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Мои города {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Удалить регионы {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Удалить города {ej_delivery}", "callback_data": "delivery"}, ],
+]
+
+
+@dp.message_handler(commands=['/start', ])
 def start(data):
 
-    ej_ukraine = emoji.emojize(':Ukraine:')
-    ej_city = emoji.emojize(':cityscape:')
-    ej_delivery = emoji.emojize(':delivery_truck:')
-    ej_shop = emoji.emojize(':shopping_cart:')
-
-    reply_markup = start_reply,
+    reply_markup = {"inline_keyboard": start_reply,
         "resize_keyboard": True,
         "one_time_keyboard": False}
 
