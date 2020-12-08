@@ -11,6 +11,7 @@ from bottle import view, request, redirect
 import os
 import json
 import requests
+import logging
 import types
 
 import emoji
