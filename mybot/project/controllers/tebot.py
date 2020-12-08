@@ -162,7 +162,7 @@ def test3(data):
         'reply_markup': reply_markup,
     }
 
-    return reply_markup
+    return message
 
 
 def dummy_message(data):
