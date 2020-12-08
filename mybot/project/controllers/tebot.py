@@ -169,22 +169,14 @@ def test3(data):
 
 @dp.callback_handler(commands=['city', ])
 def test2(data):
-    reply_markup = {"keyboard": [[{"text": "Звездец"}],
-                                 [{"text": "Капец"}],
-                                 ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
 
-    result_text = 'Echo'
-    message = {
-        'chat_id': data['callback_query']['id'],
-        'text': result_text,
-        'reply_markup': reply_markup,
-    }
+    result_text = 'Перевозчик'
+    message = {"callback_query_id": data['callback_query']['id'],
+               "text": result_text,
+               "cache_time": 3}
 
-    curl = bot.api_url
+    curl = bot.api_answer
     return message, curl
-
 
 
 def dummy_message(data):
@@ -204,8 +196,8 @@ def dummy_callback(data):
     result_text = f"Функция [ {text} ] в разработке."
 
     res = {"callback_query_id": data['callback_query']['id'],
-               "text": result_text,
-               "cache_time": 3}
+           "text": result_text,
+           "cache_time": 3}
     curl = bot.api_answer
     return res, curl
 
@@ -243,7 +235,6 @@ def do_echo_two():
 
     # except Exception as ex:
     #     logging.info('Error' + str(ex))
-
 
     # if call.message:
     #     if call.data == "test":
