@@ -109,7 +109,15 @@ def test2(*args, **kwargs):
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
-    return reply_markup
+    data = args[0]
+    result_text = 'Echo'
+    message = {
+        'chat_id': data['message']['chat']['id'],
+        'text': result_text,
+        'reply_markup': reply_markup,
+    }
+
+    return message
 
 
 @dp.message_handler(commands=['Регион', ])
@@ -183,12 +191,12 @@ def do_echo_two():
         if exec_func := dp.pull_message_commands.get(commands):
             evd = exec_func(commands)
 
-            result_text = 'Echo'
-            message = {
-                'chat_id': data['message']['chat']['id'],
-                'text': result_text,
-                'reply_markup': evd,
-            }
+            # result_text = 'Echo'
+            # message = {
+            #     'chat_id': data['message']['chat']['id'],
+            #     'text': result_text,
+            #     'reply_markup': evd,
+            # }
 
         else:
             message = dummy_message(data)
