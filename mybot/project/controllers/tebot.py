@@ -176,27 +176,28 @@ def do_echo_two():
         commands = data['callback_query']['data']
         if exec_func := dp.pull_callback_commands.get(commands):
             evd = exec_func(commands)
-
         else:
             evd = dummy_callback(data)
 
-        message = {"callback_query_id": data['callback_query']['id'],
-                   "text": evd,
-                   "cache_time": 3}
+            message = {"callback_query_id": data['callback_query']['id'],
+                       "text": evd,
+                       "cache_time": 3}
 
     if data.get('message'):
         commands = data['message']['text']
         if exec_func := dp.pull_message_commands.get(commands):
             evd = exec_func(commands)
-        else:
-            evd = dummy_message(data)
 
-        result_text = 'Эхо'
-        message = {
-            'chat_id': data['message']['chat']['id'],
-            'text': result_text,
-            'reply_markup': evd,
-        }
+            result_text = ''
+            message = {
+                'chat_id': data['message']['chat']['id'],
+                'text': result_text,
+                'reply_markup': evd,
+            }
+
+        else:
+            message = dummy_message(data)
+
 
     logging.info(message)
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
