@@ -180,10 +180,28 @@ def test2(data):
     assert r.status_code == 200
 
     # --------------------------
-    result_text = f"Перевозчик"
-    res = {'chat_id': data['callback_query']['message']['chat']['id'],
-           'text': result_text}
-    curl = bot.api_url
+    reply_markup = {"keyboard": [[{"text": "Днепр"}],
+                                 [{"text": "Львов"}],
+                                 [{"text": "Одесса"}],
+                                 [{"text": "Херсон"}],
+                                 [{"text": "Николаев"}],
+                                 [{"text": "Регион"}],
+                                 [{"text": "Перевозчик"}],
+                                 ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
+
+    result_text = 'Echo'
+    res = {
+        'chat_id': data['callback_query']['message']['chat']['id'],
+        'text': result_text,
+        'reply_markup': reply_markup,
+    }
+
+    # result_text = f"Перевозчик"
+    # res = {'chat_id': data['callback_query']['message']['chat']['id'],
+    #        'text': result_text}
+    # curl = bot.api_url
 
     return res, curl
 
