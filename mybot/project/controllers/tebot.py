@@ -167,20 +167,18 @@ def do_echo_two():
     # try:
     data = request.json
     message = {}
+    curl = None
 
     if data.get('callback_query'):
+        curl = bot.api_answer
         commands = data['callback_query']['data']
         if exec_func := dp.pull_callback_commands.get(commands):
             evd = exec_func(commands)
         else:
-            # message = dummy_callback(data)
-
-            message = {"callback_query_id": data['callback_query']['id'],
-                       "text": "result_text",
-                       "cache_time": 3}
-
+            message = dummy_callback(data)
 
     if data.get('message'):
+        curl = bot.api_url
         commands = data['message']['text']
         if exec_func := dp.pull_message_commands.get(commands):
             evd = exec_func(commands)
@@ -196,7 +194,7 @@ def do_echo_two():
             message = dummy_message(data)
 
     logging.info(message)
-    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
     # except Exception as ex:

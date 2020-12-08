@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3abff9b-fcba-4821-bc19-13f52b62f594" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/home.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
