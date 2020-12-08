@@ -180,12 +180,8 @@ def test2(data):
     assert r.status_code == 200
 
     # --------------------------
-    reply_markup = {"keyboard": [[{"text": "Днепр"}],
-                                 [{"text": "Львов"}],
-                                 [{"text": "Одесса"}],
-                                 [{"text": "Херсон"}],
-                                 [{"text": "Николаев"}],
-                                 [{"text": "Регион"}],
+    reply_markup = {"keyboard": [[{"text": "Звездец"}],
+                                 [{"text": "Трындец"}],
                                  [{"text": "Перевозчик"}],
                                  ],
                     "resize_keyboard": True,
