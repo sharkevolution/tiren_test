@@ -150,13 +150,12 @@ def dummy_message(data):
 
 
 def dummy_callback(data):
-
     text = str(data['callback_query']['data'])
     result_text = f"Функция [ {text} ] в разработке."
 
     res = {"callback_query_id": data['callback_query']['id'],
-               "text": result_text,
-               "cache_time": 3,
+           "text": result_text,
+           "cache_time": 3,
            }
 
     return res
@@ -188,7 +187,7 @@ def do_echo_two():
         if exec_func := dp.pull_message_commands.get(commands):
             evd = exec_func(commands)
 
-            result_text = ''
+            result_text = 'Echo'
             message = {
                 'chat_id': data['message']['chat']['id'],
                 'text': result_text,
@@ -197,7 +196,6 @@ def do_echo_two():
 
         else:
             message = dummy_message(data)
-
 
     logging.info(message)
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
