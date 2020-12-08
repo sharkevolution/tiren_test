@@ -185,7 +185,7 @@ def test2(data):
            'text': result_text}
     curl = bot.api_url
 
-    return message, curl
+    return res, curl
 
 
 def dummy_message(data):
