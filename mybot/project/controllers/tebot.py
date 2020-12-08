@@ -76,20 +76,56 @@ bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
 
-@dp.message_handler(commands=['/start', ])
+# @dp.message_handler(commands=['/start', ])
+# def start(data):
+#     reply_markup = {"keyboard": [[{"text": "Выб"}], [{"text": "Регион"}], ],
+#                     "resize_keyboard": True,
+#                     "one_time_keyboard": False}
+#
+#     result_text = 'Echo'
+#     message = {
+#         'chat_id': data['message']['chat']['id'],
+#         'text': result_text,
+#         'reply_markup': reply_markup, }
+#
+#     curl = bot.api_url
+#     return message, curl
+
+
+start_reply = {"inline_keyboard": [[
+        {"text": f"Выбрать регионы {ej_ukraine}", "callback_data": "region"},
+        {"text": f"Выбрать города {ej_city}", "callback_data": "city"}],
+        [{"text": f"Заполнить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
+        [{"text": f"Мои регионы {ej_shop}", "callback_data": "shop"}, ],
+        [{"text": f"Удалить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
+        [{"text": f"Мои города {ej_delivery}", "callback_data": "delivery"}, ],
+        [{"text": f"Удалить регионы {ej_delivery}", "callback_data": "delivery"}, ],
+        [{"text": f"Удалить города {ej_delivery}", "callback_data": "delivery"}, ], ]
+}
+
+
 def start(data):
-    reply_markup = {"keyboard": [[{"text": "Город"}], [{"text": "Регион"}], ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+
+    ej_ukraine = emoji.emojize(':Ukraine:')
+    ej_city = emoji.emojize(':cityscape:')
+    ej_delivery = emoji.emojize(':delivery_truck:')
+    ej_shop = emoji.emojize(':shopping_cart:')
+
+    reply_markup = start_reply,
+        "resize_keyboard": True,
+        "one_time_keyboard": False}
 
     result_text = 'Echo'
     message = {
         'chat_id': data['message']['chat']['id'],
         'text': result_text,
-        'reply_markup': reply_markup, }
+        'reply_markup': reply_markup,
+    }
 
     curl = bot.api_url
     return message, curl
+
+
 
 
 @dp.message_handler(commands=['Город', ])
