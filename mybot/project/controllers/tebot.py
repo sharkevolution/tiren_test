@@ -12,7 +12,7 @@ import os
 import json
 import requests
 import logging
-import types
+# import types
 
 import emoji
 import redis
@@ -107,7 +107,6 @@ def test1(data):
         'text': result_text,
         'reply_markup': reply_markup,
     }
-
     return message
 
 
@@ -150,11 +149,6 @@ def test3(data):
         "resize_keyboard": True,
         "one_time_keyboard": False}
 
-    # if call.message:
-    #     if call.data == "test":
-    #         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Пыщь")
-    #         bot.answer_callback_query(callback_query_id=call.id, show_alert=False, text="Пыщь!")
-
     result_text = 'Echo'
     message = {
         'chat_id': data['message']['chat']['id'],
@@ -163,6 +157,25 @@ def test3(data):
     }
 
     return message
+
+
+@dp.callback_handler(commands=['city', ])
+def test2(data):
+    reply_markup = {"keyboard": [[{"text": "Звездец"}],
+                                 [{"text": "Капец"}],
+                                 ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
+
+    result_text = 'Echo'
+    message = {
+        'chat_id': data['callback_query']['id'],
+        'text': result_text,
+        'reply_markup': reply_markup,
+    }
+
+    return message
+
 
 
 def dummy_message(data):
@@ -182,14 +195,12 @@ def dummy_callback(data):
     res = {"callback_query_id": data['callback_query']['id'],
                "text": result_text,
                "cache_time": 3}
-
     return res
 
 
 @bottle.route('/api/v1/echo', method='POST')
 def do_echo_two():
     """ Main """
-
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     # try:
@@ -210,14 +221,6 @@ def do_echo_two():
         commands = data['message']['text']
         if exec_func := dp.pull_message_commands.get(commands):
             message = exec_func(data)
-
-            # result_text = 'Echo'
-            # message = {
-            #     'chat_id': data['message']['chat']['id'],
-            #     'text': result_text,
-            #     'reply_markup': evd,
-            # }
-
         else:
             message = dummy_message(data)
 
@@ -227,3 +230,9 @@ def do_echo_two():
 
     # except Exception as ex:
     #     logging.info('Error' + str(ex))
+
+
+    # if call.message:
+    #     if call.data == "test":
+    #         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Пыщь")
+    #         bot.answer_callback_query(callback_query_id=call.id, show_alert=False, text="Пыщь!")
