@@ -143,8 +143,7 @@ def dummy_message(data):
 
     res = {
         'chat_id': data['message']['chat']['id'],
-        'text': result_text,
-    }
+        'text': result_text}
     return res
 
 
@@ -153,9 +152,9 @@ def dummy_callback(data):
     result_text = f"Функция [ {text} ] в разработке."
 
     res = {"callback_query_id": data['callback_query']['id'],
-           "text": result_text,
-           "cache_time": 3,
-           }
+               "text": result_text,
+               "cache_time": 3}
+
     return res
 
 
