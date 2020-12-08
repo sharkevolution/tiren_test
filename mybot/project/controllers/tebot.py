@@ -11,7 +11,6 @@ from bottle import view, request, redirect
 import os
 import json
 import requests
-import logging
 import types
 
 import emoji
@@ -65,8 +64,6 @@ class Dispatcher:
             return decorated2
 
         return decorator
-
-
 
 
 API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
@@ -172,6 +169,8 @@ def do_echo_two():
     data = request.json
     evd = {}
 
+    logging.info('OK')
+
     if data.get('callback_query'):
         commands = data['callback_query']['data']
         if exec_func := dp.pull_callback_commands.get(commands):
@@ -188,6 +187,7 @@ def do_echo_two():
             if not type(exec_func) is types.FunctionType:
                 evd = dummy_message(data)
 
+    logging.info('OK2')
     r = requests.post(bot.api_url, data=json.dumps(evd), headers=bot.headers)
     assert r.status_code == 200
 
