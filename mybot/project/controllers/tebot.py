@@ -73,7 +73,7 @@ dp = Dispatcher(bot)
 
 
 @dp.message_handler(commands=['/start', ])
-def start(*args, **kwargs):
+def start(data):
     reply_markup = {"keyboard": [[{"text": "Город"}], [{"text": "Регион"}], ],
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
@@ -82,7 +82,7 @@ def start(*args, **kwargs):
 
 
 @dp.message_handler(commands=['Город', ])
-def test1(*args, **kwargs):
+def test1(data):
     reply_markup = {"keyboard": [[{"text": "Днепр"}],
                                  [{"text": "Львов"}],
                                  [{"text": "Одесса"}],
@@ -98,7 +98,7 @@ def test1(*args, **kwargs):
 
 
 @dp.message_handler(commands=['Перевозчик', ])
-def test2(*args, **kwargs):
+def test2(data):
     reply_markup = {"keyboard": [[{"text": "ВИП"}],
                                  [{"text": "Координатор"}],
                                  [{"text": "Космос"}],
@@ -109,7 +109,6 @@ def test2(*args, **kwargs):
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
-    data = args[0]
     result_text = 'Echo'
     message = {
         'chat_id': data['message']['chat']['id'],
@@ -121,7 +120,7 @@ def test2(*args, **kwargs):
 
 
 @dp.message_handler(commands=['Регион', ])
-def test3(*args, **kwargs):
+def test3(data):
     # ---
     ej_ukraine = emoji.emojize(':Ukraine:')
     ej_city = emoji.emojize(':cityscape:')
@@ -181,7 +180,7 @@ def do_echo_two():
         curl = bot.api_answer
         commands = data['callback_query']['data']
         if exec_func := dp.pull_callback_commands.get(commands):
-            evd = exec_func(commands)
+            evd = exec_func(data)
         else:
             message = dummy_callback(data)
 
@@ -189,7 +188,7 @@ def do_echo_two():
         curl = bot.api_url
         commands = data['message']['text']
         if exec_func := dp.pull_message_commands.get(commands):
-            evd = exec_func(commands)
+            evd = exec_func(data)
 
             # result_text = 'Echo'
             # message = {
