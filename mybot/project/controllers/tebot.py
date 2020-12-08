@@ -176,6 +176,15 @@ def test2(data):
                "cache_time": 3}
 
     curl = bot.api_answer
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+
+    result_text = f"НоваЯ [] в разработке."
+    res = {'chat_id': data['callback_query']['message']['chat']['id'],
+           'text': result_text}
+    curl = bot.api_url
+
     return message, curl
 
 
@@ -183,9 +192,8 @@ def dummy_message(data):
     text = str(data['message']['text'])
     result_text = f"Функция [{text}] в разработке."
 
-    res = {
-        'chat_id': data['message']['chat']['id'],
-        'text': result_text}
+    res = {'chat_id': data['message']['chat']['id'],
+           'text': result_text}
 
     curl = bot.api_url
     return res, curl
