@@ -150,7 +150,8 @@ def dummy_message(data):
 
 
 def dummy_callback(data):
-    text = f"Функция [ {data} ] в разработке."
+
+    text = str(data['callback_query']['data'])
     result_text = f"Функция [ {text} ] в разработке."
 
     message = {"callback_query_id": data['callback_query']['id'],
@@ -189,6 +190,7 @@ def do_echo_two():
                 evd = dummy_message(data)
 
     logging.info('OK2')
+    logging.info(evd)
     r = requests.post(bot.api_url, data=json.dumps(evd), headers=bot.headers)
     assert r.status_code == 200
 
