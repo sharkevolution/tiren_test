@@ -130,13 +130,13 @@ def enter(data):
                "cache_time": 3}
 
     curl = bot.api_answer
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
+    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    # assert r.status_code == 200
+    #
+    # # Редактируем сообщение
+    # message = {'message_id': bot.last_id, 'text': "Пыщь"}
 
-    # Редактируем сообщение
-    message = {'message_id': bot.last_id, 'text': "Пыщь"}
-
-    return message, bot.api_edit_message
+    return message, curl
 
 
 @dp.message_handler(commands=['/idc', ])
