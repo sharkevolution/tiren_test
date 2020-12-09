@@ -123,11 +123,7 @@ start_reply = [
                                'enter_eight', 'enter_nine'])
 def enter(data):
 
-    message = {'message_id': bot.last_id, 'text': "Пыщь"}
-    r = requests.post(bot.api_edit_message, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
-
-    # Обязательный ответ Callback
+    # Обязательный ответ Callback *********************************
     result_text = 'ok!'
     message = {"callback_query_id": data['callback_query']['id'],
                "text": result_text,
@@ -135,6 +131,11 @@ def enter(data):
 
     curl = bot.api_answer
     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+    # Редактируем сообщение
+    message = {'message_id': bot.last_id, 'text': "Пыщь"}
+    r = requests.post(bot.api_edit_message, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
 
