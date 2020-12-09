@@ -41,6 +41,7 @@ class Bot:
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
         self.message_id_list = []
+        self.last_id = None
 
 
 class Dispatcher(User):
@@ -134,19 +135,19 @@ def bind_bot(data):
     ej_ok = emoji.emojize(':OK_button:')
 
     reply_markup = {"inline_keyboard": [[
-        {"text": f"{emoji.emojize(':keycap_digit_one:')}", "callback_data": "enter_one"},
-        {"text": f"{emoji.emojize(':keycap_digit_two:')}", "callback_data": "enter_two"},
-        {"text": f"{emoji.emojize(':keycap_digit_three:')}", "callback_data": "enter_three"}],
+        {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "enter_one"},
+        {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "enter_two"},
+        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "enter_three"}],
 
-        [{"text": f"{emoji.emojize(':keycap_digit_four:')}", "callback_data": "enter_four"},
-        {"text": f"{emoji.emojize(':keycap_digit_five:')}", "callback_data": "enter_five"},
-        {"text": f"{emoji.emojize(':keycap_digit_six:')}", "callback_data": "enter_six"}],
+        [{"text": f"{emoji.emojize(' 4 ')}", "callback_data": "enter_four"},
+        {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "enter_five"},
+        {"text": f"{emoji.emojize(' 6 ')}", "callback_data": "enter_six"}],
 
-        [{"text": f"{emoji.emojize(':keycap_digit_seven:')}", "callback_data": "enter_seven"},
-         {"text": f"{emoji.emojize(':keycap_digit_eight:')}", "callback_data": "enter_eight"},
-         {"text": f"{emoji.emojize(':keycap_digit_nine:')}", "callback_data": "enter_nine"}],
+        [{"text": f"{emoji.emojize(' 7 ')}", "callback_data": "enter_seven"},
+         {"text": f"{emoji.emojize(' 8 ')}", "callback_data": "enter_eight"},
+         {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "enter_nine"}],
 
-        [{"text": f"{emoji.emojize(':keycap_digit_zero:')}", "callback_data": "enter_zero"},
+        [{"text": f"{emoji.emojize(' 0 ')}", "callback_data": "enter_zero"},
         {"text": f"{ej_ok}", "callback_data": "enter_ok"}]
     ],
         "resize_keyboard": True,
@@ -158,6 +159,15 @@ def bind_bot(data):
         'text': result_text,
         'reply_markup': reply_markup,
     }
+
+    bot.last_id = data['message']['message_id']
+    curl = bot.api_url
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+
+    result_text = "Введите код: "
+    message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
     return message, bot.api_url
 
