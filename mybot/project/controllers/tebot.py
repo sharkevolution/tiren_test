@@ -388,13 +388,19 @@ def do_echo():
 
             if exec_func := dp.pull_message_commands.get(commands):
                 message, curl = exec_func(data)
+
+                logging.info(message)
+                logging.info(curl)
+                r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+                assert r.status_code == 200
+
             else:
                 message, curl = dummy_message(data)
 
-            logging.info(message)
-            logging.info(curl)
-            r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-            assert r.status_code == 200
+                logging.info(message)
+                logging.info(curl)
+                r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+                assert r.status_code == 200
 
     # except Exception as ex:
     #     logging.info('Error' + str(ex))
