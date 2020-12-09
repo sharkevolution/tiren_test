@@ -117,22 +117,37 @@ start_reply = [
 ]
 
 
+@dp.message_handler(commands=['/idc', ])
+def bind_bot(data):
+
+    message = {
+        'chat_id': data['message']['chat']['id'],
+        'text': data['message']['chat']['id'],
+    }
+    return message, bot.api_url
+
+
+
 @dp.message_handler(commands=['/bc', ])
 def bind_bot(data):
+
+    ej_ok = emoji.emojize(':squared_ok:')
+    
     reply_markup = {"inline_keyboard": [[
-        {"text": f"1", "callback_data": "region"},
-        {"text": f"2", "callback_data": "city"},
-        {"text": f"3", "callback_data": "city"}],
+        {"text": f" 1 ", "callback_data": "enter_one"},
+        {"text": f" 2 ", "callback_data": "enter_two"},
+        {"text": f" 3 ", "callback_data": "enter_three"}],
 
-        [{"text": f"4", "callback_data": "region"},
-        {"text": f"5", "callback_data": "city"},
-        {"text": f"6", "callback_data": "city"}],
+        [{"text": f" 4 ", "callback_data": "enter_four"},
+        {"text": f" 5 ", "callback_data": "enter_five"},
+        {"text": f" 6 ", "callback_data": "enter_six"}],
 
-        [{"text": f"7", "callback_data": "region"},
-         {"text": f"8", "callback_data": "city"},
-         {"text": f"9", "callback_data": "city"}],
+        [{"text": f" 7 ", "callback_data": "enter_seven"},
+         {"text": f" 8 ", "callback_data": "enter_eight"},
+         {"text": f" 9 ", "callback_data": "enter_nine"}],
 
-        [{"text": f"0", "callback_data": "city"}],
+        [{"text": f"0", "callback_data": "enter_zero"},
+        {"text": f"{ej_ok}", "callback_data": "enter_ok"}]
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
