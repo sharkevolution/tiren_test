@@ -389,7 +389,7 @@ def do_echo():
             if exec_func := dp.pull_message_commands.get(commands):
                 message, curl = exec_func(data)
 
-                if message:
+                if data['message'].get('text'):
                     logging.info(message)
                     logging.info(curl)
                     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
