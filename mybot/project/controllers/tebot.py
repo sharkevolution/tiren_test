@@ -148,7 +148,7 @@ def bind_bot(data):
          {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "enter_nine"}],
 
         [{"text": f"{emoji.emojize(' 0 ')}", "callback_data": "enter_zero"},
-        {"text": f"{ej_ok}", "callback_data": "enter_ok"}]
+         {"text": f"{ej_ok}", "callback_data": "enter_ok"}]
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
@@ -160,14 +160,14 @@ def bind_bot(data):
         'reply_markup': reply_markup,
     }
 
-    bot.last_id = data['message']['message_id']
-    curl = bot.api_url
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
-
-
-    result_text = "Введите код: "
-    message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
+    # bot.last_id = data['message']['message_id']
+    #
+    # curl = bot.api_url
+    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    # assert r.status_code == 200
+    #
+    # result_text = "Введите код: "
+    # message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
     return message, bot.api_url
 
