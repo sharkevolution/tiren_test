@@ -39,8 +39,7 @@ class Bot:
         self.api_get_updates = f'https://api.telegram.org/bot{self.token}/getUpdates'
 
         self.headers = {'Content-type': 'application/json',
-                        'Accept': 'text/plain',
-                        "HTTP/1.1 200 OK"}
+                        'Accept': 'text/plain'}
         self.message_id_list = []
         self.last_id = None
 
