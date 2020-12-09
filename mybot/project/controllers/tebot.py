@@ -199,6 +199,7 @@ def start_bot(data):
     result_text = 'Echo'
     message = {
         'chat_id': data['message']['chat']['id'],
+        'text': result_text,
         'reply_markup': reply_markup,
     }
 
@@ -380,6 +381,7 @@ def do_echo():
 
         if commands := data['message'].get('text'):
 
+            logging.info(commands)
             # Изменить и пренести *****************************************************
             bot.last_id = data['message'].get('message_id')
             logging.info("my_id")
