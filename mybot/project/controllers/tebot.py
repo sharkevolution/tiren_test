@@ -118,6 +118,26 @@ start_reply = [
 ]
 
 
+@dp.callback_handler(commands=['enter_one', 'enter_two', 'enter_three',
+                               'enter_four', 'enter_five', 'enter_six', 'enter_seven',
+                               'enter_eight', 'enter_nine'])
+def enter(data):
+
+    message = {'message_id': bot.last_id, 'text': "Пыщь"}
+    r = requests.post(bot.api_edit_message, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+    # Обязательный ответ Callback
+    result_text = 'ok!'
+    message = {"callback_query_id": data['callback_query']['id'],
+               "text": result_text,
+               "cache_time": 3}
+
+    curl = bot.api_answer
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+
 @dp.message_handler(commands=['/idc', ])
 def bind_bot(data):
 
@@ -160,14 +180,13 @@ def bind_bot(data):
         'reply_markup': reply_markup,
     }
 
-    # bot.last_id = data['message']['message_id']
-    #
-    # curl = bot.api_url
-    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    # assert r.status_code == 200
-    #
-    # result_text = "Введите код: "
-    # message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
+    bot.last_id = data['message']['message_id']
+    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+    # Input pass
+    result_text = "Введите код: "
+    message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
     return message, bot.api_url
 
@@ -378,7 +397,4 @@ def do_echo():
     # except Exception as ex:
     #     logging.info('Error' + str(ex))
 
-    # if call.message:
-    #     if call.data == "test":
-    #         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Пыщь")
-    #         bot.answer_callback_query(callback_query_id=call.id, show_alert=False, text="Пыщь!")
+
