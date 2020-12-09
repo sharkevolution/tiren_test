@@ -386,6 +386,7 @@ def do_echo():
             logging.info(bot.last_id)
 
             if exec_func := dp.pull_message_commands.get(commands):
+                logging.info(commands)
                 message, curl = exec_func(data)
 
                 logging.info('test')
