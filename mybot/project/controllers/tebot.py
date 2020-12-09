@@ -100,10 +100,10 @@ dict_region = {'Днепр': {'Днепр': ['aaa']},
                'Запорожье': [],
                'Чернигов': []}
 
-ej_ukraine = emoji.emojize(':Ukraine:')
-ej_city = emoji.emojize(':cityscape:')
-ej_delivery = emoji.emojize(':delivery_truck:')
-ej_shop = emoji.emojize(':shopping_cart:')
+# ej_ukraine = emoji.emojize(':Ukraine:')
+# ej_city = emoji.emojize(':cityscape:')
+# ej_delivery = emoji.emojize(':delivery_truck:')
+# ej_shop = emoji.emojize(':shopping_cart:')
 
 start_reply = [
     [{"text": f"Выбрать регионы {emoji.emojize(':Ukraine:')}", "callback_data": "region"},
@@ -111,16 +111,16 @@ start_reply = [
     [{"text": f"Заполнить время прибытия {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
     [{"text": f"Мои сообщения {ej_delivery}", "callback_data": "delivery"}, ],
     [{"text": f"Мои регионы {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
-    [{"text": f"Мои города {ej_delivery}", "callback_data": "delivery"}, ],
-    [{"text": f"Удалить время прибытия {ej_delivery}", "callback_data": "delivery"}, ],
-    [{"text": f"Удалить регионы {ej_delivery}", "callback_data": "delivery"}, ],
-    [{"text": f"Удалить города {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Мои города {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+    [{"text": f"Удалить время прибытия {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+    [{"text": f"Удалить регионы {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+    [{"text": f"Удалить города {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
 ]
 
 
 @dp.callback_handler(commands=['enter_one', 'enter_two', 'enter_three',
                                'enter_four', 'enter_five', 'enter_six', 'enter_seven',
-                               'enter_eight', 'enter_nine'])
+                               'enter_eight', 'enter_nine', 'enter_zero'])
 def enter(data):
 
     # Обязательный ответ Callback *********************************
@@ -147,7 +147,6 @@ def bind_bot(data):
         'text': data['message']['chat']['id'],
     }
     return message, bot.api_url
-
 
 
 @dp.message_handler(commands=['/bc', ])
@@ -384,6 +383,7 @@ def do_echo():
 
             # Изменить и пренести *****************************************************
             bot.last_id = data['message']['message_id']
+            logging.info("my_id")
             logging.info(bot.last_id)
 
             if exec_func := dp.pull_message_commands.get(commands):
