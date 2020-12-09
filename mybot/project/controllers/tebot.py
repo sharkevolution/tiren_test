@@ -109,7 +109,7 @@ start_reply = [
     [{"text": f"Выбрать регионы {emoji.emojize(':Ukraine:')}", "callback_data": "region"},
      {"text": f"Выбрать города {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
     [{"text": f"Заполнить время прибытия {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
-    [{"text": f"Мои сообщения {ej_delivery}", "callback_data": "delivery"}, ],
+    [{"text": f"Мои сообщения {emoji.emojize(':shopping_cart:')}", "callback_data": "delivery"}, ],
     [{"text": f"Мои регионы {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
     [{"text": f"Мои города {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
     [{"text": f"Удалить время прибытия {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
