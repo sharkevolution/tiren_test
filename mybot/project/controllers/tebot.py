@@ -134,9 +134,15 @@ def enter(data):
     assert r.status_code == 200
 
     # Редактируем сообщение
-    message = {'message_id': bot.last_id, 'text': "Пыщь"}
-    r = requests.post(bot.api_edit_message, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
+    
+    message = {'chat_id': data['callback_query']['message']['chat']['id'],
+               'message_id': bot.last_id,
+               'text': "Пыщь"}
+
+    return message, bot.api_edit_message
+
+    # r = requests.post(bot.api_edit_message, data=json.dumps(message), headers=bot.headers)
+    # assert r.status_code == 200
 
 
 @dp.message_handler(commands=['/idc', ])
