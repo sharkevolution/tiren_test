@@ -199,7 +199,6 @@ def start_bot(data):
     result_text = 'Echo'
     message = {
         'chat_id': data['message']['chat']['id'],
-        'text': result_text,
         'reply_markup': reply_markup,
     }
 
@@ -389,11 +388,10 @@ def do_echo():
             if exec_func := dp.pull_message_commands.get(commands):
                 message, curl = exec_func(data)
 
-                if message.get('text'):
-                    logging.info(message)
-                    logging.info(curl)
-                    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-                    assert r.status_code == 200
+                logging.info(message)
+                logging.info(curl)
+                r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+                assert r.status_code == 200
 
             else:
                 message, curl = dummy_message(data)
