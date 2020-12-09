@@ -287,7 +287,7 @@ def test_list(data):
 
 
 def dummy_message(data):
-    text = str(data['message']['text'])
+    text = str(data['message'].get('text'))
     result_text = f"Функция [{text}] в разработке."
 
     res = {'chat_id': data['message']['chat']['id'],
