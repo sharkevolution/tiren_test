@@ -380,9 +380,6 @@ def do_echo():
     if data.get('message'):
         # curl = bot.api_url
 
-        # Сохраняем ид сообщения
-        bot.message_id_list.append(data['message']['message_id'])
-
         if commands := data['message'].get('text'):
 
             # Изменить и пренести *****************************************************
