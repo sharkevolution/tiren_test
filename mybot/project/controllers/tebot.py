@@ -384,8 +384,10 @@ def do_echo():
         bot.message_id_list.append(data['message']['message_id'])
 
         if commands := data['message'].get('text'):
+
             # Изменить и пренести *****************************************************
             bot.last_id = data['message']['message_id']
+            logging.info(bot.last_id)
 
             if exec_func := dp.pull_message_commands.get(commands):
                 message, curl = exec_func(data)
