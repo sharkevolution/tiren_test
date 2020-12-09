@@ -134,15 +134,9 @@ def enter(data):
     assert r.status_code == 200
 
     # Редактируем сообщение
-    
-    message = {'chat_id': data['callback_query']['message']['chat']['id'],
-               'message_id': bot.last_id,
-               'text': "Пыщь"}
+    message = {'message_id': bot.last_id, 'text': "Пыщь"}
 
     return message, bot.api_edit_message
-
-    # r = requests.post(bot.api_edit_message, data=json.dumps(message), headers=bot.headers)
-    # assert r.status_code == 200
 
 
 @dp.message_handler(commands=['/idc', ])
@@ -187,7 +181,6 @@ def bind_bot(data):
         'reply_markup': reply_markup,
     }
 
-    bot.last_id = data['message']['message_id']
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
@@ -391,6 +384,9 @@ def do_echo():
         bot.message_id_list.append(data['message']['message_id'])
 
         if commands := data['message'].get('text'):
+            # Изменить и пренести *****************************************************
+            bot.last_id = data['message']['message_id']
+
             if exec_func := dp.pull_message_commands.get(commands):
                 message, curl = exec_func(data)
             else:
