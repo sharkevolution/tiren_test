@@ -53,6 +53,8 @@ class Dispatcher(User):
         self.pull_message_commands = {}
         self.pull_callback_commands = {}
         self.pull_message_requests = {}
+        self.bind_group = [['testroz', '/4523'], ]
+        self.bind_groups = []  # Список разрешенных групп для обмена сообщениями
 
     def message_handler(self, commands):
         def decorator(fn):
@@ -87,23 +89,7 @@ API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
-# @dp.message_handler(commands=['/start', ])
-# def start(data):
-#     reply_markup = {"keyboard": [[{"text": "Выб"}], [{"text": "Регион"}], ],
-#                     "resize_keyboard": True,
-#                     "one_time_keyboard": False}
-#
-#     result_text = 'Echo'
-#     message = {
-#         'chat_id': data['message']['chat']['id'],
-#         'text': result_text,
-#         'reply_markup': reply_markup, }
-#
-#     curl = bot.api_url
-#     return message, curl
-
-
-dict_region = {'Днепр': {'Днепр': 'aaa'},
+dict_region = {'Днепр': {'Днепр': ['aaa']},
                'Львов': {'Львов': 'ddd'},
                'Одесса': {'Николаев': 'xxx',
                           'Херсон': 'fff'},
@@ -131,6 +117,36 @@ start_reply = [
 ]
 
 
+@dp.message_handler(commands=['/bc', ])
+def bind_bot(data):
+    reply_markup = {"inline_keyboard": [[
+        {"text": f"1", "callback_data": "region"},
+        {"text": f"2", "callback_data": "city"},
+        {"text": f"3", "callback_data": "city"}],
+
+        [{"text": f"4", "callback_data": "region"},
+        {"text": f"5", "callback_data": "city"},
+        {"text": f"6", "callback_data": "city"}],
+
+        [{"text": f"7", "callback_data": "region"},
+         {"text": f"8", "callback_data": "city"},
+         {"text": f"9", "callback_data": "city"}],
+
+        [{"text": f"0", "callback_data": "city"}],
+    ],
+        "resize_keyboard": True,
+        "one_time_keyboard": False}
+
+    result_text = 'Echo'
+    message = {
+        'chat_id': data['message']['chat']['id'],
+        'text': result_text,
+        'reply_markup': reply_markup,
+    }
+
+    return message, bot.api_url
+
+
 @dp.message_handler(commands=['/start', ])
 def start_bot(data):
     reply_markup = {"inline_keyboard": start_reply,
@@ -144,8 +160,7 @@ def start_bot(data):
         'reply_markup': reply_markup,
     }
 
-    curl = bot.api_url
-    return message, curl
+    return message, bot.api_url
 
 
 @dp.message_handler(commands=['Город', ])
@@ -167,8 +182,7 @@ def query_all_city(data):
         'text': result_text,
         'reply_markup': reply_markup, }
 
-    curl = bot.api_url
-    return message, curl
+    return message, bot.api_url
 
 
 @dp.message_handler(commands=['Перевозчик', ])
@@ -190,8 +204,7 @@ def query_all_delivery(data):
         'reply_markup': reply_markup,
     }
 
-    curl = bot.api_url
-    return message, curl
+    return message, bot.api_url
 
 
 @dp.message_handler(commands=['Регион', ])
@@ -217,8 +230,7 @@ def query_all_region(data):
         'reply_markup': reply_markup,
     }
 
-    curl = bot.api_url
-    return message, curl
+    return message, bot.api_url
 
 
 @dp.callback_handler(commands=['city', ])
@@ -284,8 +296,7 @@ def dummy_message(data):
     text = str(data['message'].get('text'))
     result_text = f"Функция [{text}] в разработке."
 
-    res = {'chat_id': data['message']['chat']['id'],
-           'text': result_text}
+    res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
     curl = bot.api_url
     return res, curl
@@ -296,22 +307,18 @@ def dummy_callback(data):
     result_text = f"Функция [ {text} ] в разработке."
 
     res = {"callback_query_id": data['callback_query']['id'],
-           "text": result_text,
-           "cache_time": 3}
+           "text": result_text, "cache_time": 3}
     curl = bot.api_answer
     return res, curl
 
 
 @bottle.route('/api/v1/echo', method='POST')
-def do_echo_two():
+def do_echo():
     """ Main """
-
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     # try:
     data = request.json
-    message = {}
-    curl = None
 
     if data.get('callback_query'):
         # curl = bot.api_answer
