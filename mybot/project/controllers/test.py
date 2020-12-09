@@ -22,3 +22,8 @@
 #
 # f(data)
 
+
+
+t = {'dcs': {'ff': 0}}
+
+r = t['dcs'].get('ff')

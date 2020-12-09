@@ -333,7 +333,8 @@ def do_echo_two():
         # Сохраняем ид сообщения
         bot.message_id_list.append(data['message']['message_id'])
 
-        commands = data['message']['text']
+        commands = data['message'].get('text')
+        logging.info(commands)
         if exec_func := dp.pull_message_commands.get(commands):
             message, curl = exec_func(data)
         else:
