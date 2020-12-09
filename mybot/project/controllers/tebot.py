@@ -87,7 +87,6 @@ API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
-
 # @dp.message_handler(commands=['/start', ])
 # def start(data):
 #     reply_markup = {"keyboard": [[{"text": "Выб"}], [{"text": "Регион"}], ],
@@ -114,12 +113,10 @@ dict_region = {'Днепр': {'Днепр': 'aaa'},
                'Запорожье': [],
                'Чернигов': []}
 
-
 ej_ukraine = emoji.emojize(':Ukraine:')
 ej_city = emoji.emojize(':cityscape:')
 ej_delivery = emoji.emojize(':delivery_truck:')
 ej_shop = emoji.emojize(':shopping_cart:')
-
 
 start_reply = [
     [{"text": f"Выбрать регионы {emoji.emojize(':Ukraine:')}", "callback_data": "region"},
@@ -136,10 +133,9 @@ start_reply = [
 
 @dp.message_handler(commands=['/start', ])
 def start_bot(data):
-
     reply_markup = {"inline_keyboard": start_reply,
-        "resize_keyboard": True,
-        "one_time_keyboard": False}
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
 
     result_text = 'Echo'
     message = {
@@ -169,7 +165,7 @@ def query_all_city(data):
     message = {
         'chat_id': data['message']['chat']['id'],
         'text': result_text,
-        'reply_markup': reply_markup,}
+        'reply_markup': reply_markup, }
 
     curl = bot.api_url
     return message, curl
@@ -200,7 +196,6 @@ def query_all_delivery(data):
 
 @dp.message_handler(commands=['Регион', ])
 def query_all_region(data):
-
     ej_ukraine = emoji.emojize(':Ukraine:')
     ej_city = emoji.emojize(':cityscape:')
     ej_delivery = emoji.emojize(':delivery_truck:')
@@ -228,7 +223,6 @@ def query_all_region(data):
 
 @dp.callback_handler(commands=['city', ])
 def test2(data):
-
     result_text = 'ok!'
     message = {"callback_query_id": data['callback_query']['id'],
                "text": result_text,
@@ -321,11 +315,16 @@ def do_echo_two():
 
     if data.get('callback_query'):
         # curl = bot.api_answer
-        commands = data['callback_query']['data']
-        if exec_func := dp.pull_callback_commands.get(commands):
-            message, curl = exec_func(data)
-        else:
-            message, curl = dummy_callback(data)
+        if commands := data['callback_query']['data']:
+            if exec_func := dp.pull_callback_commands.get(commands):
+                message, curl = exec_func(data)
+            else:
+                message, curl = dummy_callback(data)
+
+            logging.info(message)
+            logging.info(curl)
+            r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+            assert r.status_code == 200
 
     if data.get('message'):
         # curl = bot.api_url
@@ -333,17 +332,16 @@ def do_echo_two():
         # Сохраняем ид сообщения
         bot.message_id_list.append(data['message']['message_id'])
 
-        commands = data['message'].get('text')
-        logging.info(commands)
-        if exec_func := dp.pull_message_commands.get(commands):
-            message, curl = exec_func(data)
-        else:
-            message, curl = dummy_message(data)
+        if commands := data['message'].get('text'):
+            if exec_func := dp.pull_message_commands.get(commands):
+                message, curl = exec_func(data)
+            else:
+                message, curl = dummy_message(data)
 
-    logging.info(message)
-    logging.info(curl)
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
+            logging.info(message)
+            logging.info(curl)
+            r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+            assert r.status_code == 200
 
     # except Exception as ex:
     #     logging.info('Error' + str(ex))
