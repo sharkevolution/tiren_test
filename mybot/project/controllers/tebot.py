@@ -365,7 +365,7 @@ def do_echo():
 
     if data.get('callback_query'):
         # curl = bot.api_answer
-        if commands := data['callback_query']['data']:
+        if commands := data['callback_query'].get('data'):
             if exec_func := dp.pull_callback_commands.get(commands):
                 message, curl = exec_func(data)
             else:
@@ -382,7 +382,7 @@ def do_echo():
         if commands := data['message'].get('text'):
 
             # Изменить и пренести *****************************************************
-            bot.last_id = data['message']['message_id']
+            bot.last_id = data['message'].get('message_id')
             logging.info("my_id")
             logging.info(bot.last_id)
 
