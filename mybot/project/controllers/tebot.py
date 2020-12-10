@@ -22,15 +22,16 @@ import redis
 
 class User:
     def __init__(self):
-        self.messages_id = []
-        self.first_name = None
-        self.last_name = None
+        self.user_messages_id = []
+        self.user_first_name = None
+        self.user_last_name = None
+        self.user_combination = []
 
     def get_redis(self):
         pass
 
 
-class Bot:
+class Bot(User):
     """ Bot token """
 
     def __init__(self, token):
@@ -137,10 +138,13 @@ def enter(data):
     assert r.status_code == 200
 
     # Редактируем сообщение
+    bot.user_combination.append('1')
+    my_test = ''.join(bot.user_combination)
+
     curl = bot.api_edit_message
     message = {'chat_id': data['callback_query']['message']['chat']['id'],
                'message_id': bot.last_message_id,
-               'text': "Input key: "}
+               'text': my_test}
 
     logging.info('EDIT Message')
     logging.info(bot.last_message_id)
