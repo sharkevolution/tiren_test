@@ -35,6 +35,9 @@ class Bot(User):
     """ Bot token """
 
     def __init__(self, token):
+
+        super().__init__()
+
         self.token = token
         self.api_url = f'https://api.telegram.org/bot{self.token}/sendMessage'
         self.api_answer = f'https://api.telegram.org/bot{self.token}/answerCallbackQuery'
