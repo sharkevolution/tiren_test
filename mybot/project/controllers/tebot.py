@@ -370,7 +370,7 @@ def handler_response_ok(resp):
         if id_sms := data['result'].get('message_id'):
             bot.last_message_id = id_sms
 
-    logging.info(bot.last_id)
+    logging.info(bot.last_message_id)
     logging.info(data)
 
 
