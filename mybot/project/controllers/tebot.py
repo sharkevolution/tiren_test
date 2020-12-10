@@ -142,6 +142,7 @@ def enter(data):
                'text': "Пыщь"}
 
     logging.info('EDIT Message')
+    logging.info(bot.last_id)
     return message, curl
 
 
