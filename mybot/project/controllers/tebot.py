@@ -43,6 +43,7 @@ class Bot:
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
         self.last_id = 0  # последний ID telegram
+        self.last_message_id = 0
         self.message_id_list = []
 
 
@@ -138,11 +139,11 @@ def enter(data):
     # Редактируем сообщение
     curl = bot.api_edit_message
     message = {'chat_id': data['callback_query']['message']['chat']['id'],
-               'message_id': bot.last_id,
+               'message_id': bot.last_message_id,
                'text': "Пыщь"}
 
     logging.info('EDIT Message')
-    logging.info(bot.last_id)
+    logging.info(bot.last_message_id)
     return message, curl
 
 
@@ -367,7 +368,7 @@ def handler_response_ok(resp):
 
     if isinstance(data, dict):
         if id_sms := data['result'].get('message_id'):
-            bot.last_id = id_sms
+            bot.last_message_id = id_sms
 
     logging.info(bot.last_id)
     logging.info(data)
