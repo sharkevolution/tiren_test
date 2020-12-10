@@ -356,6 +356,15 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
+def handler_response_ok(resp):
+
+    data = resp.json()
+    if id_sms := data['result'].get('message_id'):
+        bot.last_id = id_sms
+
+    logging.info(bot.last_id)
+
+
 @bottle.route('/api/v1/echo', method='POST')
 def do_echo():
     """ Main """
@@ -394,8 +403,10 @@ def do_echo():
 
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-                logging.info(r.content)
                 assert r.status_code == 200
+
+                handler_response_ok(r)  # Обработчик ответа
+
             except Exception as ex:
                 logging.debug(r)
                 logging.error('Error' + str(ex))
