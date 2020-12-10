@@ -3,6 +3,7 @@
 # https://unicode.org/emoji/charts/full-emoji-list.html#1f600
 # https://apps.timwhitlock.info/emoji/tables/unicode
 # https://github.com/carpedm20/emoji/blob/master/emoji/unicode_codes.py
+# https://habr.com/ru/company/ruvds/blog/325522/
 
 
 import bottle
