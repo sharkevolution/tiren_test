@@ -382,9 +382,6 @@ def do_echo():
         if data.get('message'):
             # curl = bot.api_url
             if commands := data['message'].get('text'):
-
-                logging.debug(commands)
-
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
                     message, curl = exec_func(data)
@@ -392,12 +389,12 @@ def do_echo():
                     message, curl = dummy_message(data)
 
         if message and curl:
-            logging.info(message)
-            logging.info(curl)
+            #logging.info(message)
+            #logging.info(curl)
 
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-                logging.debug(r)
+                logging.info(r)
                 assert r.status_code == 200
             except Exception as ex:
                 logging.debug(r)
