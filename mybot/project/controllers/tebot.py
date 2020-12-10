@@ -4,6 +4,7 @@
 # https://apps.timwhitlock.info/emoji/tables/unicode
 # https://github.com/carpedm20/emoji/blob/master/emoji/unicode_codes.py
 # https://habr.com/ru/company/ruvds/blog/325522/
+# https://www.networkworld.com/article/3276349/copying-and-renaming-files-on-linux.html
 
 
 import bottle
@@ -337,34 +338,35 @@ def test_list(data):
 
 
 def dummy_message(data):
+    """ Заглушка для message """
+
     text = str(data['message'].get('text'))
     result_text = f"Функция [{text}] в разработке."
-
     res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
-
-    curl = bot.api_url
-    return res, curl
+    return res,  bot.api_url
 
 
 def dummy_callback(data):
+    """ Заглушка для callback_query """
+
     text = str(data['callback_query']['data'])
     result_text = f"Функция [ {text} ] в разработке."
-
     res = {"callback_query_id": data['callback_query']['id'],
            "text": result_text, "cache_time": 3}
-    curl = bot.api_answer
-    return res, curl
+    return res, bot.api_answer
 
 
 @bottle.route('/api/v1/echo', method='POST')
 def do_echo():
     """ Main """
+
+    message = {}
+    curl = None
+
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     # try:
     data = request.json
-    message = {}
-    curl = None
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
@@ -381,13 +383,9 @@ def do_echo():
         if data.get('message'):
             # curl = bot.api_url
             if commands := data['message'].get('text'):
-
-                logging.info(commands)
-
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
                     message, curl = exec_func(data)
-
                 else:
                     message, curl = dummy_message(data)
 
