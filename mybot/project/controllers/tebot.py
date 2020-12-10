@@ -362,8 +362,11 @@ def do_echo():
 
     # try:
     data = request.json
+    message = {}
+    curl = None
 
     if bot.last_id < data['update_id']:
+        # Отсекаем старые сообщения если ид меньше текущего
         bot.last_id = data['update_id']
 
         if data.get('callback_query'):
@@ -374,14 +377,8 @@ def do_echo():
                 else:
                     message, curl = dummy_callback(data)
 
-                logging.info(message)
-                logging.info(curl)
-                r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-                assert r.status_code == 200
-
         if data.get('message'):
             # curl = bot.api_url
-
             if commands := data['message'].get('text'):
 
                 logging.info(commands)
@@ -390,20 +387,14 @@ def do_echo():
                     logging.info(commands)
                     message, curl = exec_func(data)
 
-                    logging.info('test')
-                    logging.info(str(message))
-                    logging.info(curl)
-                    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-                    assert r.status_code == 200
-    
                 else:
                     message, curl = dummy_message(data)
 
-                    if message:
-                        logging.info(message)
-                        logging.info(curl)
-                        r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-                        assert r.status_code == 200
+        if message and curl:
+            logging.info(message)
+            logging.info(curl)
+            r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+            assert r.status_code == 200
 
     logging.info('old_message')
     # except Exception as ex:
