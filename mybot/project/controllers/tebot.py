@@ -175,7 +175,7 @@ def bind_bot(data):
         "resize_keyboard": True,
         "one_time_keyboard": False}
 
-    result_text = 'Echo'
+    result_text = 'Engineer Mode Ti'
     message = {
         'chat_id': data['message']['chat']['id'],
         'text': result_text,
@@ -186,7 +186,7 @@ def bind_bot(data):
     assert r.status_code == 200
 
     # Input pass
-    result_text = "Введите код: "
+    result_text = "Input key: "
     message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
     return message, bot.api_url
@@ -382,6 +382,9 @@ def do_echo():
         if data.get('message'):
             # curl = bot.api_url
             if commands := data['message'].get('text'):
+
+                logging.debug(commands)
+
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
                     message, curl = exec_func(data)
@@ -400,6 +403,7 @@ def do_echo():
                 logging.error('Error' + str(ex))
 
     logging.info('old_message')
+    logging.info(data)
 
 
 
