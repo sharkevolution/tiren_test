@@ -132,11 +132,12 @@ def enter(data):
                "cache_time": 3}
 
     curl = bot.api_answer
-    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    # assert r.status_code == 200
-    #
-    # # Редактируем сообщение
-    # message = {'message_id': bot.last_id, 'text': "Пыщь"}
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+    # Редактируем сообщение
+    curl = bot.api_edit_message
+    message = {'message_id': bot.last_id, 'text': "Пыщь"}
 
     return message, curl
 
@@ -357,12 +358,12 @@ def dummy_callback(data):
 
 
 def handler_response_ok(resp):
-
+    """ Обработчик успешного ответа от сервера"""
     data = resp.json()
     if id_sms := data['result'].get('message_id'):
         bot.last_id = id_sms
 
-    logging.info(bot.last_id)
+    #logging.info(bot.last_id)
 
 
 @bottle.route('/api/v1/echo', method='POST')
