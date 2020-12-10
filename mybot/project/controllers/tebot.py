@@ -42,8 +42,8 @@ class Bot:
 
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
+        self.last_id = 0  # последний ID telegram
         self.message_id_list = []
-        self.last_id = 0
 
 
 class Dispatcher(User):
@@ -365,7 +365,6 @@ def do_echo():
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
-    # try:
     data = request.json
 
     if bot.last_id < data['update_id']:
@@ -392,11 +391,15 @@ def do_echo():
         if message and curl:
             logging.info(message)
             logging.info(curl)
-            r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-            assert r.status_code == 200
+
+            try:
+                r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+                assert r.status_code == 200
+            except Exception as ex:
+                logging.debug(r)
+                logging.error('Error' + str(ex))
 
     logging.info('old_message')
-    # except Exception as ex:
-    #     logging.info('Error' + str(ex))
+
 
 
