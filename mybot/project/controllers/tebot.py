@@ -137,7 +137,9 @@ def enter(data):
 
     # Редактируем сообщение
     curl = bot.api_edit_message
-    message = {'message_id': bot.last_id, 'text': "Пыщь"}
+    message = {'chat_id': data['callback_query']['message']['chat']['id'],
+               'message_id': bot.last_id,
+               'text': "Пыщь"}
 
     return message, curl
 
