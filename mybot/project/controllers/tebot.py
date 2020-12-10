@@ -41,7 +41,7 @@ class Bot:
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
         self.message_id_list = []
-        self.last_id = None
+        self.last_id = 0
 
 
 class Dispatcher(User):
@@ -362,51 +362,50 @@ def do_echo():
 
     # try:
     data = request.json
-    logging.info(data)
 
-    if data.get('callback_query'):
-        # curl = bot.api_answer
-        if commands := data['callback_query'].get('data'):
-            if exec_func := dp.pull_callback_commands.get(commands):
-                message, curl = exec_func(data)
-            else:
-                message, curl = dummy_callback(data)
+    if bot.last_id < data['update_id']:
+        bot.last_id = data['update_id']
 
-            logging.info(message)
-            logging.info(curl)
-            r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-            assert r.status_code == 200
+        if data.get('callback_query'):
+            # curl = bot.api_answer
+            if commands := data['callback_query'].get('data'):
+                if exec_func := dp.pull_callback_commands.get(commands):
+                    message, curl = exec_func(data)
+                else:
+                    message, curl = dummy_callback(data)
 
-    if data.get('message'):
-        # curl = bot.api_url
-
-        if commands := data['message'].get('text'):
-
-            logging.info(commands)
-            # Изменить и пренести *****************************************************
-            bot.last_id = data['message'].get('message_id')
-            logging.info("my_id")
-            logging.info(bot.last_id)
-
-            if exec_func := dp.pull_message_commands.get(commands):
-                logging.info(commands)
-                message, curl = exec_func(data)
-
-                logging.info('test')
-                logging.info(str(message))
+                logging.info(message)
                 logging.info(curl)
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
 
-            else:
-                message, curl = dummy_message(data)
+        if data.get('message'):
+            # curl = bot.api_url
 
-                if message:
-                    logging.info(message)
+            if commands := data['message'].get('text'):
+
+                logging.info(commands)
+
+                if exec_func := dp.pull_message_commands.get(commands):
+                    logging.info(commands)
+                    message, curl = exec_func(data)
+
+                    logging.info('test')
+                    logging.info(str(message))
                     logging.info(curl)
                     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                     assert r.status_code == 200
+    
+                else:
+                    message, curl = dummy_message(data)
 
+                    if message:
+                        logging.info(message)
+                        logging.info(curl)
+                        r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+                        assert r.status_code == 200
+
+    logging.info('old_message')
     # except Exception as ex:
     #     logging.info('Error' + str(ex))
 
