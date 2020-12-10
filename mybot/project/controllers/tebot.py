@@ -165,7 +165,7 @@ def bind_bot(data):
 
 
 @dp.message_handler(commands=['/bc', ])
-def bind_bot(data):
+def keboard_bot(data):
 
     ej_ok = emoji.emojize(':OK_button:')
 
@@ -199,6 +199,7 @@ def bind_bot(data):
     assert r.status_code == 200
 
     # Input pass
+    bot.user_combination = []
     result_text = "Input key: "
     message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
