@@ -14,7 +14,7 @@ import os
 import json
 import requests
 import logging
-# import types
+import types
 
 import emoji
 import redis
@@ -360,8 +360,9 @@ def dummy_callback(data):
 def handler_response_ok(resp):
     """ Обработчик успешного ответа от сервера"""
     data = resp.json()
-    if id_sms := data['result'].get('message_id'):
-        bot.last_id = id_sms
+    if isinstance(data, dict):
+        if id_sms := data['result'].get('message_id'):
+            bot.last_id = id_sms
 
     #logging.info(bot.last_id)
 
