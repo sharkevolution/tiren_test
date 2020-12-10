@@ -360,11 +360,13 @@ def dummy_callback(data):
 def handler_response_ok(resp):
     """ Обработчик успешного ответа от сервера"""
     data = resp.json()
+
     if isinstance(data, dict):
         if id_sms := data['result'].get('message_id'):
             bot.last_id = id_sms
 
-    #logging.info(bot.last_id)
+    logging.info(bot.last_id)
+    logging.info(data)
 
 
 @bottle.route('/api/v1/echo', method='POST')

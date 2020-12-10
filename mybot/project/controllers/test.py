@@ -27,3 +27,9 @@
 t = {'dcs': {'ff': 0}}
 
 r = t['dcs'].get('ff')
+
+data = {'ss': 1}
+
+if isinstance(data, dict):
+    if id_sms := data.get('ss'):
+        print('ok')
