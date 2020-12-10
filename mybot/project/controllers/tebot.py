@@ -140,7 +140,7 @@ def enter(data):
     curl = bot.api_edit_message
     message = {'chat_id': data['callback_query']['message']['chat']['id'],
                'message_id': bot.last_message_id,
-               'text': "Пыщь"}
+               'text': "Input key: "}
 
     logging.info('EDIT Message')
     logging.info(bot.last_message_id)
@@ -417,7 +417,7 @@ def do_echo():
                 handler_response_ok(r)  # Обработчик ответа
 
             except Exception as ex:
-                logging.debug(r)
+                logging.info(r)
                 logging.error('Error' + str(ex))
 
     logging.info('old_message')
