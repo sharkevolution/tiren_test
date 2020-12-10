@@ -394,7 +394,7 @@ def do_echo():
 
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-                logging.info(r)
+                logging.info(r.content)
                 assert r.status_code == 200
             except Exception as ex:
                 logging.debug(r)
