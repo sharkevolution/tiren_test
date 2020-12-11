@@ -148,9 +148,9 @@ def enter(data):
 
     chat_id = data['callback_query']['message']['chat']['id']
     base_keys = get_redis_message_bot(chat_id)
-    if base_keys:
-        logging.info(base_keys)
-        last_message_id = base_keys['sms_id_last_bot']
+
+    logging.info(base_keys)
+    last_message_id = base_keys['sms_id_last_bot']
 
     curl = bot.api_edit_message
     message = {'chat_id': data['callback_query']['message']['chat']['id'],
@@ -391,22 +391,23 @@ def get_redis_message_bot(chat_id):
     h = redisClient.hgetall(chat_id)
     logging.info(h)
 
-    return json.loads(h)
+    return h
 
 
 def get_redis_message_user(data, redisClient, d):
     """ Add to Redis last messge Bot """
 
     # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    redisClient = redis.Redis(os.environ.get("REDIS_URL"), decode_responses=True)
     chat_id = data['message']['chat']['id']
 
     logging.info(chat_id)
     logging.info(d)
 
     h = redisClient.hgetall(chat_id)
-    #logging.info(h)
+    logging.info(h)
 
-    return json.loads(h)
+    return h
 
 
 def put_redis_message_user(data, redisClient):
@@ -464,7 +465,8 @@ def do_echo():
     message = {}
     curl = None
 
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    redisClient = redis.Redis(os.environ.get("REDIS_URL"), decode_responses=True)
+    # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     data = request.json
     #logging.info(data)
