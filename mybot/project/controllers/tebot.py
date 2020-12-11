@@ -470,7 +470,7 @@ def do_echo():
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
-    for key in redisClient.keys('prefix:*'):
+    for key in redisClient.keys('*'):
         redisClient.delete(key)
 
     data = request.json
