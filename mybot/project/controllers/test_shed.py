@@ -21,9 +21,10 @@ def sample_job_every_10s():
     print ("10s job current time : {}".format(time.ctime()))
 
 
-tl.start()
+if __name__ == "__main__":
+    tl.start()
 
-while True:
-    time.sleep(20)
-    tl.stop()
-    break
+    while True:
+        time.sleep(20)
+        tl.stop()
+        break

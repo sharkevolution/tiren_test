@@ -19,7 +19,7 @@ import types
 import emoji
 import redis
 
-from test_proc import main_proc
+from mybot.project.controllers.test_proc import main_proc
 
 
 class User:
