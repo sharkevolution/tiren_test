@@ -463,7 +463,7 @@ def do_echo():
     message = {}
     curl = None
 
-     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     data = request.json
     #logging.info(data)
