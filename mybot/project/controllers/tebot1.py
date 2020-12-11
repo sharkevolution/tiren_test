@@ -123,11 +123,7 @@ def region_arrived(data):
     tunel = data['callback_query']['message']['chat']['id']
     result_text = 'Введите время прибытия и выберите перевозчика из списка'
     reply_markup = settings_user.template_engineer_mode()
-    message = {
-        'chat_id': tunel,
-        'text': result_text,
-        'reply_markup': reply_markup
-    }
+    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
@@ -171,11 +167,9 @@ def enter(data):
 
 @dp.message_handler(commands=['/idc', ])
 def bind_bot(data):
+    tunel = data['message']['chat']['id']
+    message = {'chat_id': tunel, 'text': data['message']['chat']['id']}
 
-    message = {
-        'chat_id': data['message']['chat']['id'],
-        'text': data['message']['chat']['id'],
-    }
     return message, bot.api_url
 
 
@@ -185,11 +179,7 @@ def keboard_bot(data):
     tunel = data['message']['chat']['id']
     result_text = 'Введите время прибытия и выберите перевозчика из списка'
     reply_markup = settings_user.template_engineer_mode()
-    message = {
-        'chat_id': tunel,
-        'text': result_text,
-        'reply_markup': reply_markup
-    }
+    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
 
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
@@ -204,19 +194,11 @@ def keboard_bot(data):
 
 @dp.message_handler(commands=['/start', ])
 def start_bot(data):
-    # reply_markup = {"inline_keyboard": start_reply,
-    #                 "resize_keyboard": True,
-    #                 "one_time_keyboard": False}
 
     tunel = data['message']['chat']['id']
     result_text = 'Приступим к работе'
     reply_markup = settings_user.template_start()
-
-    message = {
-        'chat_id': tunel,
-        'text': result_text,
-        'reply_markup': reply_markup,
-    }
+    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
@@ -239,26 +221,10 @@ def query_all_city(data):
 
 @dp.message_handler(commands=['Перевозчик', ])
 def query_all_delivery(data):
-    # reply_markup = {"keyboard": [[{"text": "ВИП"}],
-    #                              [{"text": "Координатор"}],
-    #                              [{"text": "Космос"}],
-    #                              [{"text": "Курьер"}],
-    #                              [{"text": "Регион"}],
-    #                              [{"text": "Город"}]
-    #                              ],
-    #                 "resize_keyboard": True,
-    #                 "one_time_keyboard": False}
-
     tunel = data['message']['chat']['id']
     result_text = 'Перевозчики'
     reply_markup = settings_user.template_delivery()
-
-    # result_text = 'Echo'
-    message = {
-        'chat_id': data['message']['chat']['id'],
-        'text': result_text,
-        'reply_markup': reply_markup,
-    }
+    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
@@ -291,8 +257,9 @@ def query_all_region(data):
 
 @dp.callback_handler(commands=['city', ])
 def test2(data):
+    callback_tunnel = data['callback_query']['id']
     result_text = 'ok!'
-    message = {"callback_query_id": data['callback_query']['id'],
+    message = {"callback_query_id": callback_tunnel,
                "text": result_text,
                "cache_time": 3}
 
