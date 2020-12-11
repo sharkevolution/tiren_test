@@ -448,10 +448,10 @@ def handler_response_ok(resp, redisClient):
         if id_sms := data['result'].get('message_id'):
             bot.last_message_id = id_sms
 
+            logging.info(data)
             put_redis_message_bot(data, redisClient, id_sms)  # Save to Redis
 
-    logging.info(bot.last_message_id)
-    logging.info(data)
+    #logging.info(bot.last_message_id)
 
 
 @bottle.route('/api/v1/echo', method='POST')
