@@ -24,6 +24,12 @@ from mybot.project.controllers import planner
 from mybot.project.controllers import settings_user
 
 
+def callback_hello_ok(data, text):
+    message = {"callback_query_id": data['callback_query']['id'], "text": text, "cache_time": 3}
+    r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+
 def clear_base_redis():
 
     # Clear base Redis
@@ -114,11 +120,11 @@ dp = Dispatcher(bot)
 def region_arrived(data):
 
     # Callback 'Hello OK'
-    result_text = 'Установите время прибытия'
-    message = {"callback_query_id": data['callback_query']['id'], "text": result_text, "cache_time": 3}
-
-    r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
+    # result_text = 'Установите время прибытия'
+    # message = {"callback_query_id": data['callback_query']['id'], "text": result_text, "cache_time": 3}
+    # r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
+    # assert r.status_code == 200
+    callback_hello_ok(data, 'Установите время прибытия')
 
     tunel = data['callback_query']['message']['chat']['id']
     result_text = 'Введите время прибытия и выберите перевозчика из списка'
@@ -128,22 +134,21 @@ def region_arrived(data):
     return message, bot.api_url
 
 
-@dp.callback_handler(commands=['enter_one', 'enter_two', 'enter_three',
-                               'enter_four', 'enter_five', 'enter_six', 'enter_seven',
-                               'enter_eight', 'enter_nine', 'enter_zero'])
+@dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
+                               'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero'])
 def enter(data):
 
-    # Обязательный ответ Callback *********************************
-    result_text = 'ok!'
-    message = {"callback_query_id": data['callback_query']['id'],
-               "text": result_text,
-               "cache_time": 3}
+    # Callback 'Hello OK'
+    # callback_tunel = data['callback_query']['id']
+    # result_text = 'ok!'
+    # message = {"callback_query_id": callback_tunel, "text": result_text, "cache_time": 3}
+    callback_hello_ok(data, 'ok!')
 
-    curl = bot.api_answer
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
+    # curl = bot.api_answer
+    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    # assert r.status_code == 200
 
-    # Редактируем сообщение
+    # Edit Message
     bot.user_combination.append('1')
     my_test = ''.join(bot.user_combination)
 
@@ -159,7 +164,6 @@ def enter(data):
                'text': my_test}
 
     logging.info('EDIT Message')
-    logging.info(bot.last_message_id)
     logging.info(last_message_id)
 
     return message, curl
@@ -169,7 +173,6 @@ def enter(data):
 def bind_bot(data):
     tunel = data['message']['chat']['id']
     message = {'chat_id': tunel, 'text': data['message']['chat']['id']}
-
     return message, bot.api_url
 
 
@@ -194,28 +197,19 @@ def keboard_bot(data):
 
 @dp.message_handler(commands=['/start', ])
 def start_bot(data):
-
     tunel = data['message']['chat']['id']
     result_text = 'Приступим к работе'
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
-
     return message, bot.api_url
 
 
 @dp.message_handler(commands=['Город', ])
 def query_all_city(data):
-
     tunel = data['message']['chat']['id']
     result_text = 'Список городов'
     reply_markup = settings_user.template_city()
-
-    message = {
-        'chat_id': tunel,
-        'text': result_text,
-        'reply_markup': reply_markup,
-    }
-
+    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
 
@@ -225,7 +219,6 @@ def query_all_delivery(data):
     result_text = 'Перевозчики'
     reply_markup = settings_user.template_delivery()
     message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
-
     return message, bot.api_url
 
 
@@ -257,52 +250,41 @@ def query_all_region(data):
 
 @dp.callback_handler(commands=['city', ])
 def test2(data):
-    callback_tunnel = data['callback_query']['id']
-    result_text = 'ok!'
-    message = {"callback_query_id": callback_tunnel,
-               "text": result_text,
-               "cache_time": 3}
+    # callback_tunnel = data['callback_query']['id']
+    # result_text = 'ok!'
+    # message = {"callback_query_id": callback_tunnel,
+    #            "text": result_text,
+    #            "cache_time": 3}
+    callback_hello_ok(data, "ok!")
 
-    # Обязательный ответ Callback
-    curl = bot.api_answer
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
+    # Callback 'Hello OK'
+    # curl = bot.api_answer
+    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    # assert r.status_code == 200
 
-    # Можно отправлять запросы после
-    reply_markup = {"keyboard": [[{"text": "Звездец"}],
-                                 [{"text": "Трындец"}],
-                                 [{"text": "Перевозчик"}],
-                                 ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
-    result_text = 'Echo'
-    res = {
-        'chat_id': data['callback_query']['message']['chat']['id'],
-        'text': result_text,
-        'reply_markup': reply_markup, }
-
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = 'Список городов'
+    reply_markup = settings_user.template_city()
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     curl = bot.api_url
-    return res, curl
+    return message, curl
 
 
 @dp.callback_handler(commands=['shop', ])
 def test_list(data):
-    result_text = 'ok!'
-    message = {"callback_query_id": data['callback_query']['id'],
-               "text": result_text,
-               "cache_time": 3}
+    # result_text = 'ok!'
+    # message = {"callback_query_id": data['callback_query']['id'],
+    #            "text": result_text,
+    #            "cache_time": 3}
+    #
+    # # Обязательный ответ Callback
+    # curl = bot.api_answer
+    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    # assert r.status_code == 200
+    callback_hello_ok(data, 'ok!')
 
-    # Обязательный ответ Callback
-    curl = bot.api_answer
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
 
-    # ---------------------------------
-    # logging.info(bot.message_id_list)
-
-    # Можно отправлять запросы после
-    reply_markup = {"keyboard": [[{"text": "Выполнено"}],
-                                 ],
+    reply_markup = {"keyboard": [[{"text": "Выполнено"}], ],
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
     result_text = 'Echo'
@@ -318,7 +300,7 @@ def test_list(data):
 def dummy_message(data):
     """ Заглушка для message """
 
-    text = str(data['message'].get('text'))
+    text = data['message'].get('text')
     result_text = f"Функция [{text}] в разработке."
     res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
     return res,  bot.api_url
@@ -330,7 +312,7 @@ def dummy_callback(data):
     planner.start_proc()  # Run planner in different process
     logging.info("I am!")
 
-    text = str(data['callback_query']['data'])
+    text = data['callback_query']['data']
     result_text = f"Функция [ {text} ] в разработке."
     res = {"callback_query_id": data['callback_query']['id'],
            "text": result_text, "cache_time": 3}

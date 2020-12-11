@@ -24,20 +24,20 @@ def template_engineer_mode():
     ej_ok = emoji.emojize(':OK_button:')
 
     reply_markup = {"inline_keyboard": [[
-        {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "enter_one"},
-        {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "enter_two"},
-        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "enter_three"}],
+        {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "ent_one"},
+        {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "ent_two"},
+        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"}],
 
-        [{"text": f"{emoji.emojize(' 4 ')}", "callback_data": "enter_four"},
-         {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "enter_five"},
-         {"text": f"{emoji.emojize(' 6 ')}", "callback_data": "enter_six"}],
+        [{"text": f"{emoji.emojize(' 4 ')}", "callback_data": "ent_four"},
+         {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "ent_five"},
+         {"text": f"{emoji.emojize(' 6 ')}", "callback_data": "ent_six"}],
 
-        [{"text": f"{emoji.emojize(' 7 ')}", "callback_data": "enter_seven"},
-         {"text": f"{emoji.emojize(' 8 ')}", "callback_data": "enter_eight"},
-         {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "enter_nine"}],
+        [{"text": f"{emoji.emojize(' 7 ')}", "callback_data": "ent_seven"},
+         {"text": f"{emoji.emojize(' 8 ')}", "callback_data": "ent_eight"},
+         {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "ent_nine"}],
 
-        [{"text": f"{emoji.emojize(' 0 ')}", "callback_data": "enter_zero"},
-         {"text": f"{ej_ok}", "callback_data": "enter_ok"}]
+        [{"text": f"{emoji.emojize(' 0 ')}", "callback_data": "ent_zero"},
+         {"text": f"{ej_ok}", "callback_data": "ent_ok"}]
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
@@ -77,7 +77,6 @@ def template_delivery():
 
 
 def template_start():
-
     reply_markup = {"inline_keyboard": [[
         {"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region_arrived"},
         {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
@@ -90,8 +89,14 @@ def template_start():
 
     return reply_markup
 
-    # start_reply = [
-    #     [{"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region_arrived"},
-    #      {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
-    #     [{"text": f"Мои настройки {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
-    # ]
+
+def template_city():
+    reply_markup = {"keyboard": [[{"text": "Звездец"}],
+                                 [{"text": "Трындец"}],
+                                 [{"text": "Перевозчик"}],
+                                 ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False
+                    }
+
+    return reply_markup
