@@ -120,23 +120,20 @@ start_reply = [
 @dp.callback_handler(commands=['region_arrived', ])
 def region_arrived(data):
 
-    # Обязательный ответ Callback *********************************
+    # Callback 'Hello OK'
     result_text = 'Установите время прибытия'
-    message = {"callback_query_id": data['callback_query']['id'],
-               "text": result_text,
-               "cache_time": 3}
+    message = {"callback_query_id": data['callback_query']['id'], "text": result_text, "cache_time": 3}
 
-    curl = bot.api_answer
-    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
     tunel = data['callback_query']['message']['chat']['id']
-    result_text = 'Engineer Mode Ti'
-    reply_markup = settings_user.template_bc()
+    result_text = 'Введите время прибытия и выберите перевозчика из списка'
+    reply_markup = settings_user.template_engineer_mode()
     message = {
         'chat_id': tunel,
         'text': result_text,
-        'reply_markup': reply_markup,
+        'reply_markup': reply_markup
     }
 
     return message, bot.api_url
@@ -192,32 +189,13 @@ def bind_bot(data):
 @dp.message_handler(commands=['/bc', ])
 def keboard_bot(data):
 
-    ej_ok = emoji.emojize(':OK_button:')
-
-    reply_markup = {"inline_keyboard": [[
-        {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "enter_one"},
-        {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "enter_two"},
-        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "enter_three"}],
-
-        [{"text": f"{emoji.emojize(' 4 ')}", "callback_data": "enter_four"},
-        {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "enter_five"},
-        {"text": f"{emoji.emojize(' 6 ')}", "callback_data": "enter_six"}],
-
-        [{"text": f"{emoji.emojize(' 7 ')}", "callback_data": "enter_seven"},
-         {"text": f"{emoji.emojize(' 8 ')}", "callback_data": "enter_eight"},
-         {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "enter_nine"}],
-
-        [{"text": f"{emoji.emojize(' 0 ')}", "callback_data": "enter_zero"},
-         {"text": f"{ej_ok}", "callback_data": "enter_ok"}]
-    ],
-        "resize_keyboard": True,
-        "one_time_keyboard": False}
-
-    result_text = 'Engineer Mode Ti'
+    tunel = data['message']['chat']['id']
+    result_text = 'Введите время прибытия и выберите перевозчика из списка'
+    reply_markup = settings_user.template_engineer_mode()
     message = {
-        'chat_id': data['message']['chat']['id'],
+        'chat_id': tunel,
         'text': result_text,
-        'reply_markup': reply_markup,
+        'reply_markup': reply_markup
     }
 
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
@@ -249,39 +227,48 @@ def start_bot(data):
 
 @dp.message_handler(commands=['Город', ])
 def query_all_city(data):
-    reply_markup = {"keyboard": [[{"text": "Днепр"}],
-                                 [{"text": "Львов"}],
-                                 [{"text": "Одесса"}],
-                                 [{"text": "Херсон"}],
-                                 [{"text": "Николаев"}],
-                                 [{"text": "Регион"}],
-                                 [{"text": "Перевозчик"}],
-                                 ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+    # reply_markup = {"keyboard": [[{"text": "Днепр"}],
+    #                              [{"text": "Львов"}],
+    #                              [{"text": "Одесса"}],
+    #                              [{"text": "Херсон"}],
+    #                              [{"text": "Николаев"}],
+    #                              [{"text": "Регион"}],
+    #                              [{"text": "Перевозчик"}],
+    #                              ],
+    #                 "resize_keyboard": True,
+    #                 "one_time_keyboard": False}
 
-    result_text = 'Echo'
+    tunel = data['message']['chat']['id']
+    result_text = 'Список городов'
+    reply_markup = settings_user.template_city()
+
+    # result_text = 'Echo'
     message = {
-        'chat_id': data['message']['chat']['id'],
+        'chat_id': tunel,
         'text': result_text,
-        'reply_markup': reply_markup, }
+        'reply_markup': reply_markup,
+    }
 
     return message, bot.api_url
 
 
 @dp.message_handler(commands=['Перевозчик', ])
 def query_all_delivery(data):
-    reply_markup = {"keyboard": [[{"text": "ВИП"}],
-                                 [{"text": "Координатор"}],
-                                 [{"text": "Космос"}],
-                                 [{"text": "Курьер"}],
-                                 [{"text": "Регион"}],
-                                 [{"text": "Город"}]
-                                 ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+    # reply_markup = {"keyboard": [[{"text": "ВИП"}],
+    #                              [{"text": "Координатор"}],
+    #                              [{"text": "Космос"}],
+    #                              [{"text": "Курьер"}],
+    #                              [{"text": "Регион"}],
+    #                              [{"text": "Город"}]
+    #                              ],
+    #                 "resize_keyboard": True,
+    #                 "one_time_keyboard": False}
 
-    result_text = 'Echo'
+    tunel = data['message']['chat']['id']
+    result_text = 'Перевозчики'
+    reply_markup = settings_user.template_delivery()
+
+    # result_text = 'Echo'
     message = {
         'chat_id': data['message']['chat']['id'],
         'text': result_text,

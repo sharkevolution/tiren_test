@@ -20,7 +20,8 @@ dict_region = {'Днепр': {'Днепр': ['aaa']},
 # [{"text": f"Настройки бота {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
 
 
-def template_bc():
+def template_engineer_mode():
+
     ej_ok = emoji.emojize(':OK_button:')
 
     reply_markup = {"inline_keyboard": [[
@@ -41,5 +42,37 @@ def template_bc():
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
+
+    return reply_markup
+
+
+def template_city():
+
+    reply_markup = {"keyboard": [[{"text": "Днепр"}],
+                                 [{"text": "Львов"}],
+                                 [{"text": "Одесса"}],
+                                 [{"text": "Херсон"}],
+                                 [{"text": "Николаев"}],
+                                 [{"text": "Регион"}],
+                                 [{"text": "Перевозчик"}],
+                                 ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False
+                    }
+
+    return reply_markup
+
+def template_delivery():
+
+    reply_markup = {"keyboard": [[{"text": "ВИП"}],
+                                 [{"text": "Координатор"}],
+                                 [{"text": "Космос"}],
+                                 [{"text": "Курьер"}],
+                                 [{"text": "Регион"}],
+                                 [{"text": "Город"}]
+                                 ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False
+                    }
 
     return reply_markup
