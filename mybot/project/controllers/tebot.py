@@ -425,13 +425,12 @@ def put_redis_message_bot(data, redisClient, id_sms):
     """ Add to Redis last messge Bot """
 
     chat_id = data['result']['chat']['id']
-    #sms_id_last_bot = id_sms
 
     base_keys = get_redis_message_bot(chat_id)
     if base_keys:
         base_keys['sms_id_last_bot'] = id_sms
     else:
-        base_keys = {'sms_id_last_bot': id_sms
+        base_keys = {'sms_id_last_bot': id_sms}
 
     logging.info('SAVE !!!')
     logging.info(base_keys)
