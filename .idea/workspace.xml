@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3abff9b-fcba-4821-bc19-13f52b62f594" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +40,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.tebot">
+  <component name="RunManager" selected="Python.test">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tiren-bot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -147,9 +148,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.tebot" />
         <item itemvalue="Python.planner" />
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.home" />
         <item itemvalue="Python.app" />
       </list>
@@ -183,7 +184,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
-          <line>432</line>
+          <line>433</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

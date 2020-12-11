@@ -386,7 +386,7 @@ def get_redis_message(data):
     chat_id = data['message']['chat']['id']
 
     logging.info(chat_id)
-    h = redisClient.hget(chat_id)
+    h = redisClient.hget(str(chat_id))
     logging.info(h)
 
     return h
