@@ -26,8 +26,8 @@ from mybot.project.controllers import planner
 def clear_base_redis():
 
     # Clear base Redis
-    # for key in redisClient.keys('*'):
-    #     redisClient.delete(key)
+    for key in redisClient.keys('*'):
+        redisClient.delete(key)
     pass
 
 
@@ -149,10 +149,10 @@ def enter(data):
                'message_id': last_message_id,
                'text': my_test}
 
-
     logging.info('EDIT Message')
     logging.info(bot.last_message_id)
     logging.info(last_message_id)
+
     return message, curl
 
 
@@ -336,7 +336,7 @@ def test_list(data):
     assert r.status_code == 200
 
     # ---------------------------------
-    #logging.info(bot.message_id_list)
+    # logging.info(bot.message_id_list)
 
     # Можно отправлять запросы после
     reply_markup = {"keyboard": [[{"text": "Выполнено"}],
@@ -376,7 +376,7 @@ def dummy_callback(data):
 
 
 def get_redis_message_bot(chat_id):
-    """ Add to Redis last messge Bot """
+    """ Add to Redis last message Bot """
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     h = redisClient.get(chat_id)
@@ -387,7 +387,7 @@ def get_redis_message_bot(chat_id):
 
 
 def get_redis_message_user(data, redisClient):
-    """ Add to Redis last messge Bot """
+    """ Add to Redis last message Bot """
 
     chat_id = data['message']['chat']['id']
     logging.info(chat_id)
@@ -400,7 +400,7 @@ def get_redis_message_user(data, redisClient):
 
 
 def put_redis_message_user(data, redisClient):
-    """ Add to Redis last messge User """
+    """ Add to Redis last message User """
 
     chat_id = data['message']['chat']['id']
     sms_id_last_user = data['message']['from']['id']
@@ -418,7 +418,7 @@ def put_redis_message_user(data, redisClient):
 
 
 def put_redis_message_bot(data, redisClient, id_sms):
-    """ Add to Redis last messge Bot """
+    """ Add to Redis last message Bot """
 
     chat_id = data['result']['chat']['id']
 
@@ -429,8 +429,8 @@ def put_redis_message_bot(data, redisClient, id_sms):
         base_keys = {'sms_id_last_bot': id_sms}
 
     new_pack = msgpack.packb(base_keys)
-    #logging.info('SAVE !!!')
-    #logging.info(base_keys)
+    # logging.info('SAVE !!!')
+    # logging.info(base_keys)
     redisClient.set(chat_id, new_pack)
 
 
@@ -444,10 +444,10 @@ def handler_response_ok(resp, redisClient):
             pass
         elif id_sms := data['result'].get('message_id'):
             bot.last_message_id = id_sms
-            #logging.info(data)
+            # logging.info(data)
             put_redis_message_bot(data, redisClient, id_sms)  # Save to Redis
 
-    #logging.info(bot.last_message_id)
+    # logging.info(bot.last_message_id)
 
 
 @bottle.route('/api/v1/echo', method='POST')
@@ -486,8 +486,8 @@ def do_echo():
                     message, curl = dummy_message(data)
 
         if message and curl:
-            #logging.info(message)
-            #logging.info(curl)
+            # logging.info(message)
+            # logging.info(curl)
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
@@ -498,7 +498,7 @@ def do_echo():
                 logging.info(r)
                 logging.error('Error' + str(ex))
 
-    #logging.info('old_message')
-    #logging.info(data)
+    # logging.info('old_message')
+    # logging.info(data)
 
 
