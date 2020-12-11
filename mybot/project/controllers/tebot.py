@@ -375,6 +375,7 @@ def dummy_callback(data):
     """ Заглушка для callback_query """
 
     planner.start_proc()  # Run planner in different process
+    logging.info("I am!")
 
     text = str(data['callback_query']['data'])
     result_text = f"Функция [ {text} ] в разработке."
@@ -410,7 +411,6 @@ def get_redis_message_user(data, redisClient):
         h = msgpack.unpackb(h)
     else:
         h = {}
-
     return h
 
 
