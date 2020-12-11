@@ -391,7 +391,7 @@ def get_redis_message_bot(chat_id):
     h = redisClient.hgetall(chat_id)
     logging.info(h)
 
-    return json.dumps(h)
+    return json.loads(h)
 
 
 def get_redis_message_user(data, redisClient, d):
@@ -406,7 +406,7 @@ def get_redis_message_user(data, redisClient, d):
     h = redisClient.hgetall(chat_id)
     #logging.info(h)
 
-    return json.dumps(h)
+    return json.loads(h)
 
 
 def put_redis_message_user(data, redisClient):
