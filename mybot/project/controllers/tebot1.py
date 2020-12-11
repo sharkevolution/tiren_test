@@ -477,6 +477,7 @@ def do_echo():
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     data = request.json
+    logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
