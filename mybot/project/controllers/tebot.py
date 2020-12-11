@@ -424,9 +424,10 @@ def put_redis_message_user(data, redisClient):
     else:
         base_keys = {'sms_id_last_user': sms_id_last_user}
 
+    new_pack = msgpack.packb(base_keys)
     logging.info(base_keys)
 
-    redisClient.hmset(chat_id, msgpack.packb(base_keys))
+    redisClient.hmset(chat_id, new_pack)
 
 
 def put_redis_message_bot(data, redisClient, id_sms):
@@ -440,10 +441,11 @@ def put_redis_message_bot(data, redisClient, id_sms):
     else:
         base_keys = {'sms_id_last_bot': id_sms}
 
+    new_pack = msgpack.packb(base_keys)
     logging.info('SAVE !!!')
     logging.info(base_keys)
 
-    redisClient.hmset(chat_id, msgpack.packb(base_keys))
+    redisClient.hmset(chat_id, new_pack)
 
 
 def handler_response_ok(resp, redisClient):
