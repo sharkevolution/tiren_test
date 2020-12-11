@@ -126,10 +126,14 @@ def region_arrived(data):
                "cache_time": 3}
 
     curl = bot.api_answer
-    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    # assert r.status_code == 200
+    r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
 
-    return message, curl
+    message = {
+        'chat_id': data['message']['chat']['id'],
+        'text': '/bc',
+    }
+    return message, bot.api_url
 
 
 @dp.callback_handler(commands=['enter_one', 'enter_two', 'enter_three',
