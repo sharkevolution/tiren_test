@@ -110,13 +110,6 @@ bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
 
-start_reply = [
-    [{"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region_arrived"},
-     {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
-    [{"text": f"Мои настройки {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
-]
-
-
 @dp.callback_handler(commands=['region_arrived', ])
 def region_arrived(data):
 
@@ -211,13 +204,16 @@ def keboard_bot(data):
 
 @dp.message_handler(commands=['/start', ])
 def start_bot(data):
-    reply_markup = {"inline_keyboard": start_reply,
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+    # reply_markup = {"inline_keyboard": start_reply,
+    #                 "resize_keyboard": True,
+    #                 "one_time_keyboard": False}
 
-    result_text = 'Echo'
+    tunel = data['message']['chat']['id']
+    result_text = 'Приступим к работе'
+    reply_markup = settings_user.template_engineer_mode()
+
     message = {
-        'chat_id': data['message']['chat']['id'],
+        'chat_id': tunel,
         'text': result_text,
         'reply_markup': reply_markup,
     }
@@ -227,22 +223,11 @@ def start_bot(data):
 
 @dp.message_handler(commands=['Город', ])
 def query_all_city(data):
-    # reply_markup = {"keyboard": [[{"text": "Днепр"}],
-    #                              [{"text": "Львов"}],
-    #                              [{"text": "Одесса"}],
-    #                              [{"text": "Херсон"}],
-    #                              [{"text": "Николаев"}],
-    #                              [{"text": "Регион"}],
-    #                              [{"text": "Перевозчик"}],
-    #                              ],
-    #                 "resize_keyboard": True,
-    #                 "one_time_keyboard": False}
 
     tunel = data['message']['chat']['id']
     result_text = 'Список городов'
     reply_markup = settings_user.template_city()
 
-    # result_text = 'Echo'
     message = {
         'chat_id': tunel,
         'text': result_text,

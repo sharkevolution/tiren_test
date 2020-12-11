@@ -21,7 +21,6 @@ dict_region = {'Днепр': {'Днепр': ['aaa']},
 
 
 def template_engineer_mode():
-
     ej_ok = emoji.emojize(':OK_button:')
 
     reply_markup = {"inline_keyboard": [[
@@ -47,7 +46,6 @@ def template_engineer_mode():
 
 
 def template_city():
-
     reply_markup = {"keyboard": [[{"text": "Днепр"}],
                                  [{"text": "Львов"}],
                                  [{"text": "Одесса"}],
@@ -62,8 +60,8 @@ def template_city():
 
     return reply_markup
 
-def template_delivery():
 
+def template_delivery():
     reply_markup = {"keyboard": [[{"text": "ВИП"}],
                                  [{"text": "Координатор"}],
                                  [{"text": "Космос"}],
@@ -76,3 +74,24 @@ def template_delivery():
                     }
 
     return reply_markup
+
+
+def template_start():
+
+    reply_markup = {"inline_keyboard": [[
+        {"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region_arrived"},
+        {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
+
+        [{"text": f"Мои настройки {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+    ],
+        "resize_keyboard": True,
+        "one_time_keyboard": False
+    }
+
+    return reply_markup
+
+    # start_reply = [
+    #     [{"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region_arrived"},
+    #      {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
+    #     [{"text": f"Мои настройки {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+    # ]
