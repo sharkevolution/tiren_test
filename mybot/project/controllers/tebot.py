@@ -390,10 +390,11 @@ def get_redis_message_bot(chat_id):
 
     #logging.info(chat_id)
     h = redisClient.hgetall(chat_id)
-    h1 = msgpack.unpackb(h)
-    logging.info(h)
+    if h:
+        h = msgpack.unpackb(h)
+        logging.info(h)
 
-    return h1
+    return h
 
 
 def get_redis_message_user(data, redisClient):
@@ -401,15 +402,14 @@ def get_redis_message_user(data, redisClient):
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['message']['chat']['id']
-
     logging.info(chat_id)
-    logging.info(d)
 
     h = redisClient.hgetall(chat_id)
-    h1 = msgpack.unpackb(h)
-    logging.info(h)
+    if h:
+        h = msgpack.unpackb(h)
+        logging.info(h)
 
-    return h1
+    return h
 
 
 def put_redis_message_user(data, redisClient):
