@@ -158,6 +158,7 @@ def enter(data):
 
     logging.info('EDIT Message')
     logging.info(bot.last_message_id)
+    logging.info(last_message_id)
     return message, curl
 
 
@@ -341,7 +342,7 @@ def test_list(data):
     assert r.status_code == 200
 
     # ---------------------------------
-    logging.info(bot.message_id_list)
+    #logging.info(bot.message_id_list)
 
     # Можно отправлять запросы после
     reply_markup = {"keyboard": [[{"text": "Выполнено"}],
@@ -385,9 +386,9 @@ def get_redis_message_bot(data):
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['callback_query']['message']['chat']['id']
 
-    logging.info(chat_id)
+    #logging.info(chat_id)
     h = redisClient.hgetall(chat_id)
-    logging.info(h)
+    #logging.info(h)
 
     return h
 
@@ -398,9 +399,9 @@ def get_redis_message_user(data):
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['message']['chat']['id']
 
-    logging.info(chat_id)
+    #logging.info(chat_id)
     h = redisClient.hgetall(chat_id)
-    logging.info(h)
+    #logging.info(h)
 
     return h
 
@@ -463,7 +464,7 @@ def do_echo():
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     data = request.json
-    logging.info(data)
+    #logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
@@ -502,7 +503,7 @@ def do_echo():
                 logging.info(r)
                 logging.error('Error' + str(ex))
 
-    logging.info('old_message')
-    logging.info(data)
+    #logging.info('old_message')
+    #logging.info(data)
 
 
