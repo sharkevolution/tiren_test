@@ -147,7 +147,7 @@ def enter(data):
     my_test = ''.join(bot.user_combination)
 
     chat_id = data['callback_query']['message']['chat']['id']
-    base_keys = get_redis_message_bot(chat_id, 'sms_id_last_bot')
+    base_keys = get_redis_message_bot(chat_id)
     if base_keys:
         logging.info(base_keys)
         last_message_id = base_keys['sms_id_last_bot']
@@ -382,7 +382,7 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-def get_redis_message_bot(chat_id, d):
+def get_redis_message_bot(chat_id):
     """ Add to Redis last messge Bot """
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -430,7 +430,7 @@ def put_redis_message_bot(data, redisClient, id_sms):
 
     chat_id = data['result']['chat']['id']
 
-    base_keys = get_redis_message_bot(chat_id, 'sms_id_last_bot')
+    base_keys = get_redis_message_bot(chat_id)
     if base_keys:
         base_keys['sms_id_last_bot'] = id_sms
     else:
