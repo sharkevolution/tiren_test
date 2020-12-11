@@ -21,6 +21,7 @@ import redis
 import msgpack
 
 from mybot.project.controllers import planner
+from mybot.project.controllers import settings_user
 
 
 def clear_base_redis():
@@ -129,10 +130,15 @@ def region_arrived(data):
     r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
+    tunel = data['callback_query']['message']['chat']['id']
+    result_text = 'Engineer Mode Ti'
+    reply_markup = settings_user.template_bc()
     message = {
-        'chat_id': data['callback_query']['message']['chat']['id'],
-        'text': '/bc',
+        'chat_id': tunel,
+        'text': result_text,
+        'reply_markup': reply_markup,
     }
+
     return message, bot.api_url
 
 
