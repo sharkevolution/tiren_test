@@ -146,7 +146,7 @@ def enter(data):
     bot.user_combination.append('1')
     my_test = ''.join(bot.user_combination)
 
-    base_keys = get_redis_message(data)
+    base_keys = get_redis_message_bot(data)
     if base_keys:
         last_message_id = base_keys['sms_id_last_bot']
 
@@ -379,7 +379,20 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-def get_redis_message(data):
+def get_redis_message_bot(data):
+    """ Add to Redis last messge Bot """
+
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    chat_id = data['callback_query']['message']['chat']['id']
+
+    logging.info(chat_id)
+    h = redisClient.hgetall(chat_id)
+    logging.info(h)
+
+    return h
+
+
+def get_redis_message_user(data):
     """ Add to Redis last messge Bot """
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -398,7 +411,7 @@ def put_redis_message_user(data, redisClient):
     chat_id = data['message']['chat']['id']
     sms_id_last_user = data['message']['from']['id']
 
-    base_keys = get_redis_message(data)
+    base_keys = get_redis_message_user(data)
     if base_keys:
         base_keys['sms_id_last_user'] = sms_id_last_user
     else:
@@ -407,13 +420,13 @@ def put_redis_message_user(data, redisClient):
     redisClient.hmset(chat_id, base_keys)
 
 
-def put_redis_message_bot(data, redisClient):
+def put_redis_message_bot(data, redisClient, id_sms):
     """ Add to Redis last messge Bot """
 
     chat_id = data['message']['chat']['id']
-    sms_id_last_bot = data['message']['from']['id']
+    sms_id_last_bot = id_sms
 
-    base_keys = get_redis_message(data)
+    base_keys = get_redis_message_bot(data)
     if base_keys:
         base_keys['sms_id_last_bot'] = sms_id_last_bot
     else:
@@ -431,7 +444,7 @@ def handler_response_ok(resp, redisClient):
         if id_sms := data['result'].get('message_id'):
             bot.last_message_id = id_sms
 
-            put_redis_message_bot(data, redisClient)  # Save to Redis
+            put_redis_message_bot(data, redisClient, id_sms)  # Save to Redis
 
     logging.info(bot.last_message_id)
     logging.info(data)
