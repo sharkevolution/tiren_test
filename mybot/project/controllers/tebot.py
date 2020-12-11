@@ -374,27 +374,37 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-def handler_response_ok(resp):
+def put_redis_message_user(data, redisClient):
+    """ Add to Redis last messge User """
+
+    chat_id = data['message']['chat']['id']
+    sms_id_last_user = data['message']['from']['id']
+
+    redisClient.hmset(chat_id, {'sms_id_last_user': sms_id_last_user})
+
+
+def put_redis_message_bot(data, redisClient):
+    """ Add to Redis last messge Bot """
+
+    chat_id = data['message']['chat']['id']
+    sms_id_last_bot = data['message']['from']['id']
+
+    redisClient.hmset(chat_id, {'sms_id_last_bot': sms_id_last_bot})
+
+
+def handler_response_ok(resp, redisClient):
     """ Обработчик успешного ответа от сервера """
+
     data = resp.json()
 
     if isinstance(data, dict):
         if id_sms := data['result'].get('message_id'):
             bot.last_message_id = id_sms
 
+            put_redis_message_bot(data, redisClient)  # Save to Redis
+
     logging.info(bot.last_message_id)
     logging.info(data)
-
-
-def commit_to_redis(data):
-
-    from_id = data['message']['from']['id']
-    first_name = data['message']['from']['first_name']
-    last_name = data['message']['from']['first_name']
-
-    redisClient.hmset(from_id, {'first_name': first_name,
-                                'last_name': last_name})
-
 
 
 @bottle.route('/api/v1/echo', method='POST')
@@ -424,6 +434,9 @@ def do_echo():
         if data.get('message'):
             # curl = bot.api_url
             if commands := data['message'].get('text'):
+
+                put_redis_message_user(data, redisClient)
+
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
                     message, curl = exec_func(data)
@@ -438,7 +451,7 @@ def do_echo():
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
 
-                handler_response_ok(r)  # Обработчик ответа
+                handler_response_ok(r, redisClient)  # Обработчик ответа
 
             except Exception as ex:
                 logging.info(r)
