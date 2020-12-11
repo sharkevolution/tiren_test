@@ -399,10 +399,12 @@ def get_redis_message_user(data, redisClient, d):
     """ Add to Redis last messge Bot """
 
     # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    chat_id = data['message']['chat']['id']
+    chat_id = str(data['message']['chat']['id'])
 
-    #logging.info(chat_id)
-    h = redisClient.hget(str(chat_id), d)
+    logging.info(chat_id)
+    logging.info(d)
+
+    h = redisClient.hget(chat_id, d)
     #logging.info(h)
 
     return h
