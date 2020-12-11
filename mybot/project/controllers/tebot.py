@@ -19,6 +19,8 @@ import types
 import emoji
 import redis
 
+from test_proc import main_proc
+
 
 class User:
     def __init__(self):
@@ -363,6 +365,8 @@ def dummy_message(data):
 def dummy_callback(data):
     """ Заглушка для callback_query """
 
+    main_proc()
+
     text = str(data['callback_query']['data'])
     result_text = f"Функция [ {text} ] в разработке."
     res = {"callback_query_id": data['callback_query']['id'],
@@ -371,7 +375,7 @@ def dummy_callback(data):
 
 
 def handler_response_ok(resp):
-    """ Обработчик успешного ответа от сервера"""
+    """ Обработчик успешного ответа от сервера """
     data = resp.json()
 
     if isinstance(data, dict):
@@ -430,6 +434,5 @@ def do_echo():
 
     logging.info('old_message')
     logging.info(data)
-
 
 
