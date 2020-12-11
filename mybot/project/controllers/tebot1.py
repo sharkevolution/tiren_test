@@ -130,7 +130,7 @@ def region_arrived(data):
     assert r.status_code == 200
 
     message = {
-        'chat_id': data['message']['chat']['id'],
+        'chat_id': data['callback_query']['chat']['id'],
         'text': '/bc',
     }
     return message, bot.api_url
