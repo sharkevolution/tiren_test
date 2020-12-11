@@ -398,7 +398,7 @@ def get_redis_message_user(data, redisClient, d):
     """ Add to Redis last messge Bot """
 
     # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    redisClient = redis.Redis(os.environ.get("REDIS_URL"), decode_responses=True)
+    redisClient = redis.Redis(os.environ.get("REDIS_URL"), decode_responses=True, charset="utf-8")
     chat_id = data['message']['chat']['id']
 
     logging.info(chat_id)
@@ -465,7 +465,7 @@ def do_echo():
     message = {}
     curl = None
 
-    redisClient = redis.Redis(os.environ.get("REDIS_URL"), decode_responses=True)
+    redisClient = redis.Redis(os.environ.get("REDIS_URL"), decode_responses=True, charset="utf-8")
     # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     data = request.json
