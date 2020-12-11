@@ -391,8 +391,8 @@ def get_redis_message_bot(chat_id):
     #logging.info(chat_id)
     h = redisClient.hgetall(chat_id)
     if h:
-        h = msgpack.unpackb(h)
         logging.info(h)
+        h = msgpack.unpackb(h)
 
     return h
 
@@ -405,9 +405,9 @@ def get_redis_message_user(data, redisClient):
     logging.info(chat_id)
 
     h = redisClient.hgetall(chat_id)
+    logging.info(h)
     if h:
         h = msgpack.unpackb(h)
-        logging.info(h)
 
     return h
 
