@@ -385,8 +385,7 @@ def dummy_callback(data):
 def get_redis_message_bot(chat_id, d):
     """ Add to Redis last messge Bot """
 
-    redisClient = redis.Redis(redis.from_url(os.environ.get("REDIS_URL")),
-                              charset="utf-8", decode_responses=True)
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     #logging.info(chat_id)
     h = redisClient.hgetall(chat_id)
@@ -464,10 +463,7 @@ def do_echo():
     message = {}
     curl = None
 
-    #  redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-
-    redisClient = redis.Redis(redis.from_url(os.environ.get("REDIS_URL")),
-                              charset="utf-8", decode_responses=True)
+     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     data = request.json
     #logging.info(data)
