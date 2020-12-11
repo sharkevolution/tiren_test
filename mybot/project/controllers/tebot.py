@@ -151,6 +151,8 @@ def enter(data):
                'message_id': bot.last_message_id,
                'text': my_test}
 
+    get_redis_message_user(data)
+
     logging.info('EDIT Message')
     logging.info(bot.last_message_id)
     return message, curl
@@ -372,6 +374,17 @@ def dummy_callback(data):
     res = {"callback_query_id": data['callback_query']['id'],
            "text": result_text, "cache_time": 3}
     return res, bot.api_answer
+
+
+def get_redis_message_user(data):
+    """ Add to Redis last messge Bot """
+
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    chat_id = data['message']['chat']['id']
+
+    h = redisClient.hget(chat_id)
+    logging.info(h)
+
 
 
 def put_redis_message_user(data, redisClient):
