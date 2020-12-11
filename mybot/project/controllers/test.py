@@ -24,7 +24,7 @@
 
 import msgpack
 
-d = {"1": 1}
+d = {'1': 1}
 g  = msgpack.packb(d)
 
 f = msgpack.unpackb(g)

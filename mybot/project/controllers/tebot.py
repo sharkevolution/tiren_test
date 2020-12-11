@@ -408,6 +408,8 @@ def get_redis_message_user(data, redisClient):
     logging.info(h)
     if h:
         h = msgpack.unpackb(h)
+    else:
+        h = {}
 
     return h
 
