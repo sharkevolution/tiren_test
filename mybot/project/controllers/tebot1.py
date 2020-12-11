@@ -210,7 +210,7 @@ def start_bot(data):
 
     tunel = data['message']['chat']['id']
     result_text = 'Приступим к работе'
-    reply_markup = settings_user.template_engineer_mode()
+    reply_markup = settings_user.template_start()
 
     message = {
         'chat_id': tunel,
