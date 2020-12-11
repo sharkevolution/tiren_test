@@ -112,10 +112,7 @@ dp = Dispatcher(bot)
 start_reply = [
     [{"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region"},
      {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
-    [{"text": f"Мои регионы {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
-    [{"text": f"Мои города {emoji.emojize(':shopping_cart:')}", "callback_data": "delivery"}, ],
-    [{"text": f"Мои адреса {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
-    [{"text": f"Настройки бота {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
+    [{"text": f"Мои настройки {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
 ]
 
 
