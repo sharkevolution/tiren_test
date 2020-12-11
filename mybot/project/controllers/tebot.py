@@ -432,6 +432,9 @@ def put_redis_message_bot(data, redisClient, id_sms):
     else:
         base_keys = {'sms_id_last_bot': sms_id_last_bot}
 
+    logging.info('SAVE !!!')
+    logging.info(base_keys)
+
     redisClient.hmset(chat_id, base_keys)
 
 
