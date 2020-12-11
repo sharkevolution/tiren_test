@@ -14,7 +14,7 @@ import os
 import json
 import requests
 import logging
-import types
+# import types
 
 import emoji
 import redis
@@ -108,27 +108,14 @@ API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
-dict_region = {'Днепр': {'Днепр': ['aaa']},
-               'Львов': {'Львов': ['ddd']},
-               'Одесса': {'Николаев': ['xxx'], 'Херсон': ['fff']},
-               'Харьков': {},
-               'Николаев': {},
-               'Тернополь': {},
-               'Запорожье': {},
-               'Чернигов': {}
-               }
-
 
 start_reply = [
-    [{"text": f"Выбрать регионы {emoji.emojize(':Ukraine:')}", "callback_data": "region"},
-     {"text": f"Выбрать города {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
-    [{"text": f"Заполнить время прибытия {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
-    [{"text": f"Мои сообщения {emoji.emojize(':shopping_cart:')}", "callback_data": "delivery"}, ],
-    [{"text": f"Мои регионы {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
-    [{"text": f"Мои города {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
-    [{"text": f"Удалить время прибытия {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
-    [{"text": f"Удалить регионы {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
-    [{"text": f"Удалить города {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+    [{"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region"},
+     {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
+    [{"text": f"Мои регионы {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+    [{"text": f"Мои города {emoji.emojize(':shopping_cart:')}", "callback_data": "delivery"}, ],
+    [{"text": f"Мои адреса {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
+    [{"text": f"Настройки бота {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
 ]
 
 
