@@ -146,12 +146,15 @@ def enter(data):
     bot.user_combination.append('1')
     my_test = ''.join(bot.user_combination)
 
+    base_keys = get_redis_message(data)
+    if base_keys:
+        last_message_id = base_keys['sms_id_last_bot']
+
     curl = bot.api_edit_message
     message = {'chat_id': data['callback_query']['message']['chat']['id'],
-               'message_id': bot.last_message_id,
+               'message_id': last_message_id,
                'text': my_test}
 
-    get_redis_message_user(data)
 
     logging.info('EDIT Message')
     logging.info(bot.last_message_id)
@@ -376,7 +379,7 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-def get_redis_message_user(data):
+def get_redis_message(data):
     """ Add to Redis last messge Bot """
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -385,6 +388,7 @@ def get_redis_message_user(data):
     h = redisClient.hget(chat_id)
     logging.info(h)
 
+    return h
 
 
 def put_redis_message_user(data, redisClient):
@@ -393,7 +397,13 @@ def put_redis_message_user(data, redisClient):
     chat_id = data['message']['chat']['id']
     sms_id_last_user = data['message']['from']['id']
 
-    redisClient.hmset(chat_id, {'sms_id_last_user': sms_id_last_user})
+    base_keys = get_redis_message(data)
+    if base_keys:
+        base_keys['sms_id_last_user'] = sms_id_last_user
+    else:
+        base_keys = {'sms_id_last_user': sms_id_last_user}
+
+    redisClient.hmset(chat_id, base_keys)
 
 
 def put_redis_message_bot(data, redisClient):
@@ -402,7 +412,13 @@ def put_redis_message_bot(data, redisClient):
     chat_id = data['message']['chat']['id']
     sms_id_last_bot = data['message']['from']['id']
 
-    redisClient.hmset(chat_id, {'sms_id_last_bot': sms_id_last_bot})
+    base_keys = get_redis_message(data)
+    if base_keys:
+        base_keys['sms_id_last_bot'] = sms_id_last_bot
+    else:
+        base_keys = {'sms_id_last_bot': sms_id_last_bot}
+
+    redisClient.hmset(chat_id, base_keys)
 
 
 def handler_response_ok(resp, redisClient):
@@ -459,7 +475,6 @@ def do_echo():
         if message and curl:
             #logging.info(message)
             #logging.info(curl)
-
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
