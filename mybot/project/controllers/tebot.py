@@ -382,13 +382,13 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-def get_redis_message_bot(chat_id, d):
+def get_redis_message_bot(chat_id, redisClient, d):
     """ Add to Redis last messge Bot """
 
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     #logging.info(chat_id)
-    h = redisClient.hget(chat_id, 'sms_id_last_bot')
+    h = redisClient.hget(str(chat_id), 'sms_id_last_bot')
     logging.info(h)
 
     return h
@@ -401,7 +401,7 @@ def get_redis_message_user(data, redisClient, d):
     chat_id = data['message']['chat']['id']
 
     #logging.info(chat_id)
-    h = redisClient.hget(chat_id, d)
+    h = redisClient.hget(str(chat_id), d)
     #logging.info(h)
 
     return h
@@ -419,7 +419,7 @@ def put_redis_message_user(data, redisClient):
     else:
         base_keys = {'sms_id_last_user': sms_id_last_user}
 
-    redisClient.hset(chat_id, base_keys)
+    redisClient.hset(str(chat_id), base_keys)
 
 
 def put_redis_message_bot(data, redisClient, id_sms):
@@ -436,7 +436,7 @@ def put_redis_message_bot(data, redisClient, id_sms):
     logging.info('SAVE !!!')
     logging.info(base_keys)
 
-    redisClient.hset(chat_id, base_keys)
+    redisClient.hset(str(chat_id), base_keys)
 
 
 def handler_response_ok(resp, redisClient):
