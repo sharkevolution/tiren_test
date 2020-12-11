@@ -385,6 +385,7 @@ def get_redis_message(data):
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['message']['chat']['id']
 
+    logging.info(chat_id)
     h = redisClient.hget(chat_id)
     logging.info(h)
 
