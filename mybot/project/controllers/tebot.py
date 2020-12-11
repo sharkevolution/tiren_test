@@ -389,7 +389,7 @@ def get_redis_message_bot(chat_id, d):
                               charset="utf-8", decode_responses=True)
 
     #logging.info(chat_id)
-    h = redisClient.hget(str(chat_id), d)
+    h = redisClient.hgetall(chat_id)
     logging.info(h)
 
     return h
@@ -399,12 +399,12 @@ def get_redis_message_user(data, redisClient, d):
     """ Add to Redis last messge Bot """
 
     # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    chat_id = str(data['message']['chat']['id'])
+    chat_id = data['message']['chat']['id']
 
     logging.info(chat_id)
     logging.info(d)
 
-    h = redisClient.hget(chat_id, d)
+    h = redisClient.hgetall(chat_id)
     #logging.info(h)
 
     return h
@@ -422,7 +422,7 @@ def put_redis_message_user(data, redisClient):
     else:
         base_keys = {'sms_id_last_user': sms_id_last_user}
 
-    redisClient.hset(str(chat_id), base_keys)
+    redisClient.hset(chat_id, base_keys)
 
 
 def put_redis_message_bot(data, redisClient, id_sms):
@@ -439,7 +439,7 @@ def put_redis_message_bot(data, redisClient, id_sms):
     logging.info('SAVE !!!')
     logging.info(base_keys)
 
-    redisClient.hset(str(chat_id), base_keys)
+    redisClient.hset(chat_id, base_keys)
 
 
 def handler_response_ok(resp, redisClient):
