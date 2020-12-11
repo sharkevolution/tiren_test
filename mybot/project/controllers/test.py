@@ -22,12 +22,12 @@
 # f(data)
 
 
-import msgpack
-
-d = {'last': 1}
-g  = msgpack.packb(d)
-
-f = msgpack.unpackb(g)
-print(f)
+# import msgpack
+#
+# d = {'last': 1}
+# g  = msgpack.packb(d)
+#
+# f = msgpack.unpackb(g)
+# print(f)
 
 
