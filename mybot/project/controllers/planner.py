@@ -21,7 +21,7 @@ def f(conn):
             break
 
 
-def main_proc():
+def start_proc():
 
     parent_conn, child_conn = Pipe()
     p = Process(target=f, args=(child_conn,))

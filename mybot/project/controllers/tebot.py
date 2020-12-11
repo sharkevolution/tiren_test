@@ -19,7 +19,7 @@ import types
 import emoji
 import redis
 
-from mybot.project.controllers.test_proc import main_proc
+from mybot.project.controllers import planner
 
 
 class User:
@@ -365,7 +365,7 @@ def dummy_message(data):
 def dummy_callback(data):
     """ Заглушка для callback_query """
 
-    main_proc()
+    planner.start_proc()  # Run planner in different process
 
     text = str(data['callback_query']['data'])
     result_text = f"Функция [ {text} ] в разработке."
@@ -386,6 +386,17 @@ def handler_response_ok(resp):
     logging.info(data)
 
 
+def commit_to_redis(data):
+
+    from_id = data['message']['from']['id']
+    first_name = data['message']['from']['first_name']
+    last_name = data['message']['from']['first_name']
+
+    redisClient.hmset(from_id, {'first_name': first_name,
+                                'last_name': last_name})
+
+
+
 @bottle.route('/api/v1/echo', method='POST')
 def do_echo():
     """ Main """
@@ -396,6 +407,7 @@ def do_echo():
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     data = request.json
+    logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
