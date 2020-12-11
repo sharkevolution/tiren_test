@@ -426,6 +426,7 @@ def put_redis_message_user(data, redisClient):
 
     new_pack = msgpack.packb(base_keys)
     logging.info(base_keys)
+    logging.info(new_pack)
 
     redisClient.hmset(chat_id, new_pack)
 
