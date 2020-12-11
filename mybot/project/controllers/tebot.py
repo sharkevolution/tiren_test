@@ -456,6 +456,8 @@ def handler_response_ok(resp, redisClient):
 
     data = resp.json()
 
+    logging.info(data)
+
     if isinstance(data, dict):
         if id_sms := data['result'].get('message_id'):
             bot.last_message_id = id_sms
