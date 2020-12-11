@@ -388,29 +388,23 @@ def get_redis_message_bot(chat_id):
     """ Add to Redis last messge Bot """
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-
-    #logging.info(chat_id)
     h = redisClient.get(chat_id)
     if h:
         logging.info(h)
         h = msgpack.unpackb(h)
-
     return h
 
 
 def get_redis_message_user(data, redisClient):
     """ Add to Redis last messge Bot """
 
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['message']['chat']['id']
     logging.info(chat_id)
 
     h = redisClient.get(chat_id)
-    logging.info(h)
     if h:
+        logging.info(h)
         h = msgpack.unpackb(h)
-    else:
-        h = {}
     return h
 
 
@@ -427,8 +421,8 @@ def put_redis_message_user(data, redisClient):
         base_keys = {'sms_id_last_user': sms_id_last_user}
 
     new_pack = msgpack.packb(base_keys)
-    logging.info(base_keys)
-    logging.info(new_pack)
+    # logging.info(base_keys)
+    # logging.info(new_pack)
 
     redisClient.set(chat_id, new_pack)
 
@@ -445,8 +439,8 @@ def put_redis_message_bot(data, redisClient, id_sms):
         base_keys = {'sms_id_last_bot': id_sms}
 
     new_pack = msgpack.packb(base_keys)
-    logging.info('SAVE !!!')
-    logging.info(base_keys)
+    #logging.info('SAVE !!!')
+    #logging.info(base_keys)
 
     redisClient.set(chat_id, new_pack)
 
@@ -462,7 +456,7 @@ def handler_response_ok(resp, redisClient):
         elif id_sms := data['result'].get('message_id'):
             bot.last_message_id = id_sms
 
-            logging.info(data)
+            #logging.info(data)
             put_redis_message_bot(data, redisClient, id_sms)  # Save to Redis
 
     #logging.info(bot.last_message_id)
@@ -477,11 +471,11 @@ def do_echo():
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
+    # Clear base Redis
     # for key in redisClient.keys('*'):
     #     redisClient.delete(key)
 
     data = request.json
-    #logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
