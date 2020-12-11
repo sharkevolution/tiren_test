@@ -149,6 +149,7 @@ def enter(data):
     chat_id = data['callback_query']['message']['chat']['id']
     base_keys = get_redis_message_bot(chat_id)
     if base_keys:
+        logging.info(base_keys)
         last_message_id = base_keys['sms_id_last_bot']
 
     curl = bot.api_edit_message
