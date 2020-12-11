@@ -421,6 +421,7 @@ def put_redis_message_user(data, redisClient):
     else:
         base_keys = {'sms_id_last_user': sms_id_last_user}
 
+    logging.info(base_keys)
     redisClient.hset(chat_id, base_keys)
 
 
