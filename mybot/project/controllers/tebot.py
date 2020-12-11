@@ -389,7 +389,7 @@ def get_redis_message_bot(chat_id):
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     #logging.info(chat_id)
-    h = redisClient.hgetall(chat_id)
+    h = redisClient.get(chat_id)
     if h:
         logging.info(h)
         h = msgpack.unpackb(h)
@@ -404,7 +404,7 @@ def get_redis_message_user(data, redisClient):
     chat_id = data['message']['chat']['id']
     logging.info(chat_id)
 
-    h = redisClient.hgetall(chat_id)
+    h = redisClient.get(chat_id)
     logging.info(h)
     if h:
         h = msgpack.unpackb(h)
@@ -430,7 +430,7 @@ def put_redis_message_user(data, redisClient):
     logging.info(base_keys)
     logging.info(new_pack)
 
-    redisClient.hmset(chat_id, new_pack)
+    redisClient.set(chat_id, new_pack)
 
 
 def put_redis_message_bot(data, redisClient, id_sms):
@@ -448,7 +448,7 @@ def put_redis_message_bot(data, redisClient, id_sms):
     logging.info('SAVE !!!')
     logging.info(base_keys)
 
-    redisClient.hmset(chat_id, new_pack)
+    redisClient.set(chat_id, new_pack)
 
 
 def handler_response_ok(resp, redisClient):
