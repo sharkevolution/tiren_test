@@ -110,10 +110,26 @@ dp = Dispatcher(bot)
 
 
 start_reply = [
-    [{"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region"},
+    [{"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region_arrived"},
      {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
     [{"text": f"Мои настройки {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
 ]
+
+
+@dp.callback_handler(commands=['region_arrived', ])
+def region_arrived(data):
+
+    # Обязательный ответ Callback *********************************
+    result_text = 'Установите время прибытия'
+    message = {"callback_query_id": data['callback_query']['id'],
+               "text": result_text,
+               "cache_time": 3}
+
+    curl = bot.api_answer
+    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+    # assert r.status_code == 200
+
+    return message, curl
 
 
 @dp.callback_handler(commands=['enter_one', 'enter_two', 'enter_three',
