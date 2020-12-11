@@ -394,10 +394,10 @@ def get_redis_message_bot(chat_id, d):
     return h
 
 
-def get_redis_message_user(data, d):
+def get_redis_message_user(data, redisClient, d):
     """ Add to Redis last messge Bot """
 
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['message']['chat']['id']
 
     #logging.info(chat_id)
@@ -413,7 +413,7 @@ def put_redis_message_user(data, redisClient):
     chat_id = data['message']['chat']['id']
     sms_id_last_user = data['message']['from']['id']
 
-    base_keys = get_redis_message_user(data, 'sms_id_last_user')
+    base_keys = get_redis_message_user(data, redisClient, 'sms_id_last_user')
     if base_keys:
         base_keys['sms_id_last_user'] = sms_id_last_user
     else:
@@ -465,7 +465,6 @@ def do_echo():
 
     redisClient = redis.Redis(redis.from_url(os.environ.get("REDIS_URL")),
                               charset="utf-8", decode_responses=True)
-
 
     data = request.json
     #logging.info(data)
