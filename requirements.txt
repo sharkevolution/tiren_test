@@ -16,3 +16,4 @@ redis
 emoji
 psutil
 timeloop
+msgpack

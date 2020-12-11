@@ -18,6 +18,7 @@ import types
 
 import emoji
 import redis
+import msgpack
 
 from mybot.project.controllers import planner
 
@@ -391,14 +392,13 @@ def get_redis_message_bot(chat_id):
     h = redisClient.hgetall(chat_id)
     logging.info(h)
 
-    return h
+    return msgpack.unpackb(h)
 
 
 def get_redis_message_user(data, redisClient, d):
     """ Add to Redis last messge Bot """
 
-    # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    redisClient = redis.Redis(os.environ.get("REDIS_URL"), decode_responses=True, charset="utf-8")
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['message']['chat']['id']
 
     logging.info(chat_id)
@@ -407,7 +407,7 @@ def get_redis_message_user(data, redisClient, d):
     h = redisClient.hgetall(chat_id)
     logging.info(h)
 
-    return h
+    return msgpack.unpackb(h)
 
 
 def put_redis_message_user(data, redisClient):
@@ -423,7 +423,8 @@ def put_redis_message_user(data, redisClient):
         base_keys = {'sms_id_last_user': sms_id_last_user}
 
     logging.info(base_keys)
-    redisClient.hmset(chat_id, base_keys)
+
+    redisClient.hmset(chat_id, msgpack.packb(base_keys))
 
 
 def put_redis_message_bot(data, redisClient, id_sms):
@@ -440,7 +441,7 @@ def put_redis_message_bot(data, redisClient, id_sms):
     logging.info('SAVE !!!')
     logging.info(base_keys)
 
-    redisClient.hmset(chat_id, base_keys)
+    redisClient.hmset(chat_id, msgpack.packb(base_keys))
 
 
 def handler_response_ok(resp, redisClient):
@@ -465,8 +466,7 @@ def do_echo():
     message = {}
     curl = None
 
-    redisClient = redis.Redis(os.environ.get("REDIS_URL"), decode_responses=True, charset="utf-8")
-    # redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     data = request.json
     #logging.info(data)
