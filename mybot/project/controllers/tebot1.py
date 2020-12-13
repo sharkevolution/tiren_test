@@ -25,9 +25,12 @@ from mybot.project.controllers import settings_user
 
 
 def callback_hello_ok(data, text):
-    message = {"callback_query_id": data['callback_query']['id'], "text": text, "cache_time": 3}
-    r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
+    try:
+        message = {"callback_query_id": data['callback_query']['id'], "text": text, "cache_time": 3}
+        r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
+        assert r.status_code == 200
+    except Exception as ex:
+        logging.error(ex)
 
 
 def clear_base_redis():
@@ -119,11 +122,6 @@ dp = Dispatcher(bot)
 @dp.callback_handler(commands=['region_arrived', ])
 def region_arrived(data):
 
-    # Callback 'Hello OK'
-    # result_text = 'Установите время прибытия'
-    # message = {"callback_query_id": data['callback_query']['id'], "text": result_text, "cache_time": 3}
-    # r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
-    # assert r.status_code == 200
     callback_hello_ok(data, 'Установите время прибытия')
 
     tunel = data['callback_query']['message']['chat']['id']
@@ -138,15 +136,7 @@ def region_arrived(data):
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero'])
 def enter(data):
 
-    # Callback 'Hello OK'
-    # callback_tunel = data['callback_query']['id']
-    # result_text = 'ok!'
-    # message = {"callback_query_id": callback_tunel, "text": result_text, "cache_time": 3}
     callback_hello_ok(data, 'ok!')
-
-    # curl = bot.api_answer
-    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    # assert r.status_code == 200
 
     # Edit Message
     bot.user_combination.append('1')
@@ -178,7 +168,6 @@ def bind_bot(data):
 
 @dp.message_handler(commands=['/bc', ])
 def keboard_bot(data):
-
     tunel = data['message']['chat']['id']
     result_text = 'Введите время прибытия и выберите перевозчика из списка'
     reply_markup = settings_user.template_engineer_mode()
@@ -250,17 +239,8 @@ def query_all_region(data):
 
 @dp.callback_handler(commands=['city', ])
 def test2(data):
-    # callback_tunnel = data['callback_query']['id']
-    # result_text = 'ok!'
-    # message = {"callback_query_id": callback_tunnel,
-    #            "text": result_text,
-    #            "cache_time": 3}
-    callback_hello_ok(data, "ok!")
 
-    # Callback 'Hello OK'
-    # curl = bot.api_answer
-    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    # assert r.status_code == 200
+    callback_hello_ok(data, "ok!")
 
     tunnel = data['callback_query']['message']['chat']['id']
     result_text = 'Список городов'
@@ -272,17 +252,8 @@ def test2(data):
 
 @dp.callback_handler(commands=['shop', ])
 def test_list(data):
-    # result_text = 'ok!'
-    # message = {"callback_query_id": data['callback_query']['id'],
-    #            "text": result_text,
-    #            "cache_time": 3}
-    #
-    # # Обязательный ответ Callback
-    # curl = bot.api_answer
-    # r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
-    # assert r.status_code == 200
-    callback_hello_ok(data, 'ok!')
 
+    callback_hello_ok(data, 'ok!')
 
     reply_markup = {"keyboard": [[{"text": "Выполнено"}], ],
                     "resize_keyboard": True,
@@ -402,6 +373,8 @@ def do_echo():
     curl = None
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    if redisClient.exists("settings_data"):
+        logging.info('YES')
 
     data = request.json
     logging.info(data)
