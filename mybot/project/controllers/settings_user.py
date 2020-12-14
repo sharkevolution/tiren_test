@@ -81,7 +81,6 @@ def template_start():
     reply_markup = {"inline_keyboard": [[
         {"text": f"Время прибытия {r}", "callback_data": "region_arrived"},
         {"text": f"К отправке {emoji.emojize(':email:')}", "callback_data": "send_to"}],
-
         [{"text": f"Мои настройки {emoji.emojize(':gear:')}", "callback_data": "gear"}, ],
     ],
         "resize_keyboard": True,

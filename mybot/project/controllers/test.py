@@ -32,5 +32,6 @@
 
 
 import emoji
-r = emoji.emojize(':two_o\u2019clock:')
+r = emoji.emojize(':email:')
+print(r)
 
