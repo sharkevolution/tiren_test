@@ -114,7 +114,7 @@ bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
 
-@dp.message_handler(commands=HANDLER_USER_DELIVERY)
+@dp.message_handler(commands=HANDLER_USER_ADR)
 def bind_bot(data):
     tunel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
@@ -266,7 +266,7 @@ def test_list(data):
 def dummy_message(data):
     """ Заглушка для message """
     text = data['message'].get('text')
-    logging.info(HANDLER_USER_ADR)
+    logging.info(HANDLER_USER_DELIVERY)
     result_text = f"Функция [{text}] в разработке."
     res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
     return res,  bot.api_url
