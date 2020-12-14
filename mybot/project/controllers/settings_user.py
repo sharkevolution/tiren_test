@@ -1,3 +1,6 @@
+
+from mybot.project.controllers import dredis
+
 import emoji
 
 dict_region = {'Днепр': {'Днепр': ['aaa']},
@@ -120,7 +123,15 @@ def template_region_all():
 
 
 def template_shops():
-    reply_markup = {"keyboard": [[{"text": "Выполнено"}], ],
+
+    dredis.DICT_INIT['adr']
+
+    adr = []
+
+    for b in dredis.DICT_INIT['adr']:
+        adr.append([{"text": b[2]}])
+
+    reply_markup = {"keyboard": adr,
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 

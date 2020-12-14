@@ -31,7 +31,7 @@
 # print(f)
 
 
-import emoji
-r = emoji.emojize(':satellite:')
-print(r)
+# import emoji
+# r = emoji.emojize(':satellite:')
+# print(r)
 

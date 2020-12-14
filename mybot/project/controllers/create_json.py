@@ -6,6 +6,8 @@ import pprint
 import json
 from openpyxl import load_workbook
 
+from mybot.config import RESOURCES_PATH
+
 newDict = {}
 
 
@@ -64,10 +66,13 @@ def run(rootDir=r'myjson'):
 if __name__ == '__main__':
     run()
 
-    with open('data.txt', 'w') as outfile:
-        json.dump(newDict, outfile)
+    # with open('data.txt', 'w') as outfile:
+    #     json.dump(newDict, outfile)
 
-    with open('data.txt') as json_file:
+    file_path = [RESOURCES_PATH, 'settings', 'data.txt']
+    djs = os.path.join(*file_path)
+
+    with open(djs) as json_file:
         newDict = json.load(json_file)
 
     pprint.pprint(newDict)
