@@ -15,8 +15,8 @@ def variable_init():
         pass
     else:
         logging.info('YES')
-
-        djs = os.path.join(RESOURCES_PATH, 'settings, 'data.txt')
+        file_path = [RESOURCES_PATH, 'settings', 'data.txt']
+        djs = os.path.join(*file_path)
         with open(djs) as json_file:
             newDict = json.load(json_file)
 
