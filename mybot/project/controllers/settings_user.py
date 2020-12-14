@@ -100,3 +100,29 @@ def template_city():
                     }
 
     return reply_markup
+
+
+def template_region_all():
+    ej_ukraine = emoji.emojize(':Ukraine:')
+    ej_city = emoji.emojize(':cityscape:')
+    ej_delivery = emoji.emojize(':delivery_truck:')
+    ej_shop = emoji.emojize(':shopping_cart:')
+
+    reply_markup = {"inline_keyboard": [[
+        {"text": f"Регион {ej_ukraine}", "callback_data": "region"},
+        {"text": f"Город {ej_city}", "callback_data": "city"}],
+        [{"text": f"Магазин {ej_shop}", "callback_data": "shop"}, ],
+        [{"text": f"Перевозчик {ej_delivery}", "callback_data": "delivery"}, ]
+    ],
+        "resize_keyboard": True,
+        "one_time_keyboard": False}
+
+    return reply_markup
+
+
+def template_shops():
+    reply_markup = {"keyboard": [[{"text": "Выполнено"}], ],
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
+
+    return reply_markup

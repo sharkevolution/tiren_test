@@ -5,6 +5,21 @@ import redis
 import msgpack
 
 
+def variable_init():
+
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    if redisClient.exists("settings_data"):
+        logging.info('YES')
+
+
+def clear_base_redis():
+    # Clear base Redis
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    for key in redisClient.keys('*'):
+        redisClient.delete(key)
+    pass
+
+
 def get_redis_message(chat_id):
     """ Add to Redis last message Bot """
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))

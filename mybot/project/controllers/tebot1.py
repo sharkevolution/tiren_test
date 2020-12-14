@@ -16,10 +16,6 @@ import requests
 import logging
 # import types
 
-import emoji
-import redis
-#import msgpack
-
 from mybot.project.controllers import planner
 from mybot.project.controllers import dredis
 from mybot.project.controllers import settings_user
@@ -32,13 +28,6 @@ def callback_hello_ok(data, text):
         assert r.status_code == 200
     except Exception as ex:
         logging.error(ex)
-
-
-def clear_base_redis():
-    # Clear base Redis
-    for key in redisClient.keys('*'):
-        redisClient.delete(key)
-    pass
 
 
 class User:
@@ -223,26 +212,10 @@ def query_all_delivery(data):
 
 @dp.message_handler(commands=['Регион', ])
 def query_all_region(data):
-    ej_ukraine = emoji.emojize(':Ukraine:')
-    ej_city = emoji.emojize(':cityscape:')
-    ej_delivery = emoji.emojize(':delivery_truck:')
-    ej_shop = emoji.emojize(':shopping_cart:')
-
-    reply_markup = {"inline_keyboard": [[
-        {"text": f"Регион {ej_ukraine}", "callback_data": "region"},
-        {"text": f"Город {ej_city}", "callback_data": "city"}],
-        [{"text": f"Магазин {ej_shop}", "callback_data": "shop"}, ],
-        [{"text": f"Перевозчик {ej_delivery}", "callback_data": "delivery"}, ]
-    ],
-        "resize_keyboard": True,
-        "one_time_keyboard": False}
-
+    tunel = data['message']['chat']['id']
     result_text = 'Echo'
-    message = {
-        'chat_id': data['message']['chat']['id'],
-        'text': result_text,
-        'reply_markup': reply_markup,
-    }
+    reply_markup = settings_user.template_region_all()
+    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
@@ -265,14 +238,10 @@ def test_list(data):
 
     callback_hello_ok(data, 'ok!')
 
-    reply_markup = {"keyboard": [[{"text": "Выполнено"}], ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+    tunnel = data['callback_query']['message']['chat']['id']
     result_text = 'Echo'
-    res = {
-        'chat_id': data['callback_query']['message']['chat']['id'],
-        'text': result_text,
-        'reply_markup': reply_markup, }
+    reply_markup = settings_user.template_shops()
+    res = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     curl = bot.api_url
     return res, curl
@@ -280,7 +249,6 @@ def test_list(data):
 
 def dummy_message(data):
     """ Заглушка для message """
-
     text = data['message'].get('text')
     result_text = f"Функция [{text}] в разработке."
     res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
@@ -319,9 +287,7 @@ def do_echo():
     message = {}
     curl = None
 
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    if redisClient.exists("settings_data"):
-        logging.info('YES')
+    dredis.variable_init()
 
     data = request.json
     logging.info(data)
