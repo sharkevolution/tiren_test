@@ -143,7 +143,7 @@ def enter(data):
     my_test = ''.join(bot.user_combination)
 
     chat_id = data['callback_query']['message']['chat']['id']
-    base_keys = get_redis_message_bot(chat_id)
+    base_keys = get_redis_message(chat_id)
 
     logging.info(base_keys)
     last_message_id = base_keys['sms_id_last_bot']
