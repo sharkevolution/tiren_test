@@ -143,6 +143,7 @@ def region_arrived(data):
     tunel = data['callback_query']['message']['chat']['id']
     result_text = 'Выберите адрес из списка'
     reply_markup = settings_user.template_shops()
+    logging.info(HANDLER_USER_ADR)
     message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
