@@ -32,6 +32,6 @@
 
 
 import emoji
-r = emoji.emojize(':email:')
+r = emoji.emojize(':satellite:')
 print(r)
 
