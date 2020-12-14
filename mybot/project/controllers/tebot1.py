@@ -123,6 +123,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=settings_user.HANDLER_USER_ADR)
 def bind_bot(data):
+    logging.info('MShandler')
     tunel = data['message']['chat']['id']
     message = {'chat_id': tunel, 'text': data['message']['chat']['id']}
     return message, bot.api_url

@@ -127,10 +127,10 @@ def template_region_all():
 
 def template_shops():
 
-    dredis.DICT_INIT['adr']
+    global HANDLER_USER_ADR
 
+    dredis.DICT_INIT['adr']
     adr = []
-    HANDLER_USER_ADR = []
 
     for b in dredis.DICT_INIT['adr']:
         adr.append([{"text": b[2]}])
