@@ -17,7 +17,7 @@ def variable_init():
 
     if redisClient.exists("settings_data"):
         tebot1.DICT_INIT = msgpack.unpackb(redisClient.get('settings_data'))
-        logging.info(tebot1.DICT_INIT)
+        # logging.info(tebot1.DICT_INIT)
     else:
         file_path = [RESOURCES_PATH, 'settings', 'data.txt']
         djs = os.path.join(*file_path)

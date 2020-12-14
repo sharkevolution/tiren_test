@@ -116,6 +116,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=HANDLER_USER_ADR)
 def bind_bot(data):
+    logging.info('DELIVERY')
     tunel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
     reply_markup = settings_user.template_delivery()
@@ -308,7 +309,7 @@ def do_echo():
     dredis.variable_init()
 
     data = request.json
-    logging.info(data)
+    # logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
