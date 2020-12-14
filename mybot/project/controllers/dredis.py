@@ -1,15 +1,26 @@
 
 import os
+import json
 import logging
 import redis
 import msgpack
+
+from mybot.config import RESOURCES_PATH
 
 
 def variable_init():
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     if redisClient.exists("settings_data"):
+        pass
+    else:
         logging.info('YES')
+
+        djs = os.path.join(RESOURCES_PATH, 'data.txt')
+        with open(djs) as json_file:
+            newDict = json.load(json_file)
+
+        logging.info(newDict)
 
 
 def clear_base_redis():
@@ -48,11 +59,10 @@ def put_redis_message_user(data):
     redisClient.set(chat_id, new_pack)
 
 
-def put_redis_message_bot(data, id_sms):
+def put_redis_last_messge_bot(chat_id, id_sms):
     """ Add to Redis last message Bot """
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    chat_id = data['result']['chat']['id']
 
     if base_keys := get_redis_message(chat_id):
         base_keys['sms_id_last_bot'] = id_sms

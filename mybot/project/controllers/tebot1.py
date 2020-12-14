@@ -276,8 +276,8 @@ def handler_response_ok(resp):
             pass
         elif id_sms := data['result'].get('message_id'):
             # logging.info(data)
-            dredis.put_redis_message_bot(data, id_sms)  # Save to Redis
-    # logging.info(bot.last_message_id)
+            chat_id = data['result']['chat']['id']
+            dredis.put_redis_last_messge_bot(chat_id, id_sms)  # Save to Redis
 
 
 @bottle.route('/api/v1/echo', method='POST')
