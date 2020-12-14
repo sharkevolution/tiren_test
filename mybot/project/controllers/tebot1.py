@@ -34,7 +34,6 @@ def callback_hello_ok(data, text):
 
 
 def clear_base_redis():
-
     # Clear base Redis
     for key in redisClient.keys('*'):
         redisClient.delete(key)
@@ -156,7 +155,17 @@ def enter(data):
     logging.info('EDIT Message')
     logging.info(last_message_id)
 
-    return message, curl
+    try:
+        r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+        assert r.status_code == 200
+
+        handler_response_ok(r)  # Обработчик ответа
+
+    except Exception as ex:
+        logging.info(r)
+        logging.error('Error' + str(ex))
+
+    return None
 
 
 @dp.message_handler(commands=['/idc', ])
@@ -290,17 +299,6 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-# def get_redis_message_bot(chat_id):
-#     """ Add to Redis last message Bot """
-#
-#     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-#     h = redisClient.get(chat_id)
-#     if h:
-#         logging.info(h)
-#         h = msgpack.unpackb(h)
-#     return h
-
-
 def get_redis_message(chat_id):
     """ Add to Redis last message Bot """
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -312,16 +310,14 @@ def get_redis_message(chat_id):
     return res
 
 
-def put_redis_message_user(data, redisClient):
+def put_redis_message_user(data):
     """ Add to Redis last message User """
 
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['message']['chat']['id']
     sms_id_last_user = data['message']['from']['id']
 
-    # chat_id = data['message']['chat']['id']
-    # base_keys = get_redis_message_user(chat_id)
-
-    if base_keys:= get_redis_message(chat_id):
+    if base_keys := get_redis_message(chat_id):
         base_keys['sms_id_last_user'] = sms_id_last_user
     else:
         base_keys = {'sms_id_last_user': sms_id_last_user}
@@ -332,13 +328,13 @@ def put_redis_message_user(data, redisClient):
     redisClient.set(chat_id, new_pack)
 
 
-def put_redis_message_bot(data, redisClient, id_sms):
+def put_redis_message_bot(data, id_sms):
     """ Add to Redis last message Bot """
 
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     chat_id = data['result']['chat']['id']
 
-    # base_keys = get_redis_message(chat_id)
-    if base_keys:= get_redis_message(chat_id):
+    if base_keys := get_redis_message(chat_id):
         base_keys['sms_id_last_bot'] = id_sms
     else:
         base_keys = {'sms_id_last_bot': id_sms}
@@ -349,7 +345,7 @@ def put_redis_message_bot(data, redisClient, id_sms):
     redisClient.set(chat_id, new_pack)
 
 
-def handler_response_ok(resp, redisClient):
+def handler_response_ok(resp):
     """ Обработчик успешного ответа от сервера """
 
     data = resp.json()
@@ -358,9 +354,9 @@ def handler_response_ok(resp, redisClient):
         if data['result'] == True:
             pass
         elif id_sms := data['result'].get('message_id'):
-            bot.last_message_id = id_sms
+            #bot.last_message_id = id_sms
             # logging.info(data)
-            put_redis_message_bot(data, redisClient, id_sms)  # Save to Redis
+            put_redis_message_bot(data, id_sms)  # Save to Redis
 
     # logging.info(bot.last_message_id)
 
@@ -395,7 +391,7 @@ def do_echo():
             # curl = bot.api_url
             if commands := data['message'].get('text'):
 
-                put_redis_message_user(data, redisClient)
+                put_redis_message_user(data)
 
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
