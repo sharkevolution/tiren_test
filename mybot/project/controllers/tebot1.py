@@ -120,6 +120,14 @@ dp = Dispatcher(bot)
 #
 #     return message, bot.api_url
 
+
+@dp.message_handler(commands=settings_user.HANDLER_USER_ADR)
+def bind_bot(data):
+    tunel = data['message']['chat']['id']
+    message = {'chat_id': tunel, 'text': data['message']['chat']['id']}
+    return message, bot.api_url
+
+
 @dp.callback_handler(commands=['region_arrived', ])
 def region_arrived(data):
 
@@ -131,7 +139,6 @@ def region_arrived(data):
     message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
-
 
 
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
