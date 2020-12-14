@@ -18,17 +18,16 @@ def variable_init():
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     if redisClient.exists("settings_data"):
-        DICT_INIT = msgpack.unpackb(redisClient.get('dict_init'))
+        DICT_INIT = msgpack.unpackb(redisClient.get('settings_data'))
         logging.info(DICT_INIT)
     else:
-        logging.info('YES')
         file_path = [RESOURCES_PATH, 'settings', 'data.txt']
         djs = os.path.join(*file_path)
 
         with open(djs) as json_file:
             newDict = json.load(json_file)
 
-        redisClient.set('dict_init', msgpack.packb(newDict))
+        redisClient.set('settings_data', msgpack.packb(newDict))
 
 
 def clear_base_redis():
