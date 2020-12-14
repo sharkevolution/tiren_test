@@ -141,8 +141,7 @@ def template_delivery():
     adr = []
     for b in tebot1.DICT_INIT['delivery']:
         adr.append([{"text": b[2]}])
-        tebot1.HANDLER_USER_DELIVERY.append(b[2])
-
+    tebot1.HANDLER_USER_DELIVERY.append(b[2])
     tebot1.HANDLER_USER_DELIVERY.append([{"text": '<< к адресам'}])
 
     reply_markup = {"keyboard": adr,

@@ -22,8 +22,9 @@ from mybot.project.controllers import settings_user
 
 
 DICT_INIT = {}
-HANDLER_USER_ADR = {}
-HANDLER_USER_DELIVERY = {}
+
+HANDLER_USER_ADR = []
+HANDLER_USER_DELIVERY = []
 
 
 def callback_hello_ok(data, text):
