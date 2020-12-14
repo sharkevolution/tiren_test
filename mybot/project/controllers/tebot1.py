@@ -165,7 +165,7 @@ def enter(data):
         logging.info(r)
         logging.error('Error' + str(ex))
 
-    return None
+    return {}, {}
 
 
 @dp.message_handler(commands=['/idc', ])
@@ -354,10 +354,8 @@ def handler_response_ok(resp):
         if data['result'] == True:
             pass
         elif id_sms := data['result'].get('message_id'):
-            #bot.last_message_id = id_sms
             # logging.info(data)
             put_redis_message_bot(data, id_sms)  # Save to Redis
-
     # logging.info(bot.last_message_id)
 
 
@@ -406,7 +404,7 @@ def do_echo():
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
 
-                handler_response_ok(r, redisClient)  # Обработчик ответа
+                #handler_response_ok(r, redisClient)  # Обработчик ответа
 
             except Exception as ex:
                 logging.info(r)
