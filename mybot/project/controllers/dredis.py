@@ -8,19 +8,27 @@ import msgpack
 from mybot.config import RESOURCES_PATH
 
 
+DICT_INIT = {}
+
+
 def variable_init():
 
+    global DICT_INIT
+
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+
     if redisClient.exists("settings_data"):
-        pass
+        DICT_INIT = msgpack.unpackb(redisClient.get('dict_init'))
+        logging.info(DICT_INIT)
     else:
         logging.info('YES')
         file_path = [RESOURCES_PATH, 'settings', 'data.txt']
         djs = os.path.join(*file_path)
+
         with open(djs) as json_file:
             newDict = json.load(json_file)
 
-        logging.info(newDict)
+        redisClient.set('dict_init', msgpack.packb(newDict))
 
 
 def clear_base_redis():
