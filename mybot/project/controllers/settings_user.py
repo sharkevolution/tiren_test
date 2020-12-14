@@ -1,10 +1,7 @@
 
-from mybot.project.controllers import dredis
-
 import emoji
 
 from mybot.project.controllers import tebot1
-# HANDLER_USER_ADR = []
 
 
 dict_region = {'Днепр': {'Днепр': ['aaa']},
@@ -127,10 +124,7 @@ def template_region_all():
 
 
 def template_shops():
-
-    # tebot1.DICT_INIT['adr']
     adr = []
-
     for b in tebot1.DICT_INIT['adr']:
         adr.append([{"text": b[2]}])
         tebot1.HANDLER_USER_ADR.append(b[2])
@@ -138,5 +132,18 @@ def template_shops():
     reply_markup = {"keyboard": adr,
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
+    return reply_markup
 
+
+def template_delivery():
+    adr = []
+    for b in tebot1.DICT_INIT['delivery']:
+        adr.append([{"text": b[2]}])
+        tebot1.HANDLER_USER_DELIVERY.append(b[2])
+
+    tebot1.HANDLER_USER_DELIVERY.append([{"text": '<< к адресам'}])
+
+    reply_markup = {"keyboard": adr,
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
     return reply_markup

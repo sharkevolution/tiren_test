@@ -8,15 +8,11 @@ import msgpack
 from mybot.config import RESOURCES_PATH
 from mybot.project.controllers import tebot1
 
-# DICT_INIT = {}
-
 
 def variable_init():
     """
         Load Data from data.txt (json) and save or get data from redis variable
     """
-    # global DICT_INIT
-
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     if redisClient.exists("settings_data"):

@@ -23,6 +23,7 @@ from mybot.project.controllers import settings_user
 
 DICT_INIT = {}
 HANDLER_USER_ADR = {}
+HANDLER_USER_DELIVERY = {}
 
 
 def callback_hello_ok(data, text):
@@ -127,9 +128,10 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=HANDLER_USER_ADR)
 def bind_bot(data):
-    logging.info('MShandler')
     tunel = data['message']['chat']['id']
-    message = {'chat_id': tunel, 'text': data['message']['chat']['id']}
+    result_text = 'Выберите перевозчика'
+    reply_markup = settings_user.template_delivery()
+    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
 
