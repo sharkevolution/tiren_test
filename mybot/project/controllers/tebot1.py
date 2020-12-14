@@ -287,6 +287,7 @@ def do_echo():
     message = {}
     curl = None
 
+    # get or set settings users regions to variable DICT_INIT
     dredis.variable_init()
 
     data = request.json

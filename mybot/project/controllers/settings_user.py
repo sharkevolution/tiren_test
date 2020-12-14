@@ -78,15 +78,14 @@ def template_delivery():
 
 def template_start():
     reply_markup = {"inline_keyboard": [[
-        {"text": f"Время прибытия {emoji.emojize(':Ukraine:')}", "callback_data": "region_arrived"},
-        {"text": f"К отправке {emoji.emojize(':cityscape:')}", "callback_data": "city"}],
+        {"text": f"Время прибытия {emoji.emojize(r':two_o\u2019clock:')}", "callback_data": "region_arrived"},
+        {"text": f"К отправке {emoji.emojize(':email:')}", "callback_data": "send_to"}],
 
-        [{"text": f"Мои настройки {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
+        [{"text": f"Мои настройки {emoji.emojize(':gear:')}", "callback_data": "gear"}, ],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
     }
-
     return reply_markup
 
 

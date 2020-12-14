@@ -12,7 +12,9 @@ DICT_INIT = {}
 
 
 def variable_init():
-
+    """
+        Load Data from data.txt (json) and save or get data from redis variable
+    """
     global DICT_INIT
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
