@@ -21,6 +21,10 @@ from mybot.project.controllers import dredis
 from mybot.project.controllers import settings_user
 
 
+DICT_INIT = {}
+HANDLER_USER_ADR = {}
+
+
 def callback_hello_ok(data, text):
     try:
         message = {"callback_query_id": data['callback_query']['id'], "text": text, "cache_time": 3}
@@ -121,7 +125,7 @@ dp = Dispatcher(bot)
 #     return message, bot.api_url
 
 
-@dp.message_handler(commands=settings_user.HANDLER_USER_ADR)
+@dp.message_handler(commands=HANDLER_USER_ADR)
 def bind_bot(data):
     logging.info('MShandler')
     tunel = data['message']['chat']['id']

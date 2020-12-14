@@ -6,22 +6,22 @@ import redis
 import msgpack
 
 from mybot.config import RESOURCES_PATH
+from mybot.project.controllers import tebot1
 
-
-DICT_INIT = {}
+# DICT_INIT = {}
 
 
 def variable_init():
     """
         Load Data from data.txt (json) and save or get data from redis variable
     """
-    global DICT_INIT
+    # global DICT_INIT
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     if redisClient.exists("settings_data"):
-        DICT_INIT = msgpack.unpackb(redisClient.get('settings_data'))
-        logging.info(DICT_INIT)
+        tebot1.DICT_INIT = msgpack.unpackb(redisClient.get('settings_data'))
+        logging.info(tebot1.DICT_INIT)
     else:
         file_path = [RESOURCES_PATH, 'settings', 'data.txt']
         djs = os.path.join(*file_path)
