@@ -290,28 +290,26 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-def get_redis_message_bot(chat_id):
-    """ Add to Redis last message Bot """
+# def get_redis_message_bot(chat_id):
+#     """ Add to Redis last message Bot """
+#
+#     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+#     h = redisClient.get(chat_id)
+#     if h:
+#         logging.info(h)
+#         h = msgpack.unpackb(h)
+#     return h
 
+
+def get_redis_message(chat_id):
+    """ Add to Redis last message Bot """
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    h = redisClient.get(chat_id)
-    if h:
-        logging.info(h)
-        h = msgpack.unpackb(h)
-    return h
-
-
-def get_redis_message_user(data, redisClient):
-    """ Add to Redis last message Bot """
-
-    chat_id = data['message']['chat']['id']
-    logging.info(chat_id)
-
-    h = redisClient.get(chat_id)
-    if h:
-        logging.info(h)
-        h = msgpack.unpackb(h)
-    return h
+    if redisClient.exists(chat_id):
+        res = msgpack.unpackb(redisClient.get(chat_id))
+        logging.info(res)
+    else:
+        res = {}
+    return res
 
 
 def put_redis_message_user(data, redisClient):
@@ -320,8 +318,10 @@ def put_redis_message_user(data, redisClient):
     chat_id = data['message']['chat']['id']
     sms_id_last_user = data['message']['from']['id']
 
-    base_keys = get_redis_message_user(data, redisClient)
-    if base_keys:
+    # chat_id = data['message']['chat']['id']
+    # base_keys = get_redis_message_user(chat_id)
+
+    if base_keys:= get_redis_message(chat_id):
         base_keys['sms_id_last_user'] = sms_id_last_user
     else:
         base_keys = {'sms_id_last_user': sms_id_last_user}
@@ -337,8 +337,8 @@ def put_redis_message_bot(data, redisClient, id_sms):
 
     chat_id = data['result']['chat']['id']
 
-    base_keys = get_redis_message_bot(chat_id)
-    if base_keys:
+    # base_keys = get_redis_message(chat_id)
+    if base_keys:= get_redis_message(chat_id):
         base_keys['sms_id_last_bot'] = id_sms
     else:
         base_keys = {'sms_id_last_bot': id_sms}
