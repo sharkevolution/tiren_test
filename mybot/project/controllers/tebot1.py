@@ -266,7 +266,7 @@ def test_list(data):
 def dummy_message(data):
     """ Заглушка для message """
     text = data['message'].get('text')
-    logging.info(settings_user.HANDLER_USER_ADR)
+    logging.info(HANDLER_USER_ADR)
     result_text = f"Функция [{text}] в разработке."
     res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
     return res,  bot.api_url
