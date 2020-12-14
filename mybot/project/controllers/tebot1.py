@@ -114,7 +114,7 @@ bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
 
-@dp.message_handler(commands=HANDLER_USER_ADR)
+@dp.message_handler(commands=HANDLER_USER_DELIVERY)
 def bind_bot(data):
     tunel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
