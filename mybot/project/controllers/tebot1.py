@@ -113,19 +113,6 @@ bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
 
-# @dp.callback_handler(commands=['region_arrived', ])
-# def region_arrived(data):
-#
-#     callback_hello_ok(data, 'Выберите адрес')
-#
-#     tunel = data['callback_query']['message']['chat']['id']
-#     result_text = 'Введите время прибытия и выберите перевозчика из списка'
-#     reply_markup = settings_user.template_engineer_mode()
-#     message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
-#
-#     return message, bot.api_url
-
-
 @dp.message_handler(commands=HANDLER_USER_ADR)
 def bind_bot(data):
     tunel = data['message']['chat']['id']
