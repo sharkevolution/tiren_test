@@ -31,3 +31,6 @@
 # print(f)
 
 
+import emoji
+r = emoji.emojize(':two_o\u2019clock:')
+
