@@ -18,9 +18,10 @@ import logging
 
 import emoji
 import redis
-import msgpack
+#import msgpack
 
 from mybot.project.controllers import planner
+from mybot.project.controllers import dredis
 from mybot.project.controllers import settings_user
 
 
@@ -142,7 +143,7 @@ def enter(data):
     my_test = ''.join(bot.user_combination)
 
     chat_id = data['callback_query']['message']['chat']['id']
-    base_keys = get_redis_message(chat_id)
+    base_keys = dredis.get_redis_message(chat_id)
 
     logging.info(base_keys)
     last_message_id = base_keys['sms_id_last_bot']
@@ -299,63 +300,15 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-def get_redis_message(chat_id):
-    """ Add to Redis last message Bot """
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    if redisClient.exists(chat_id):
-        res = msgpack.unpackb(redisClient.get(chat_id))
-        logging.info(res)
-    else:
-        res = {}
-    return res
-
-
-def put_redis_message_user(data):
-    """ Add to Redis last message User """
-
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    chat_id = data['message']['chat']['id']
-    sms_id_last_user = data['message']['from']['id']
-
-    if base_keys := get_redis_message(chat_id):
-        base_keys['sms_id_last_user'] = sms_id_last_user
-    else:
-        base_keys = {'sms_id_last_user': sms_id_last_user}
-
-    new_pack = msgpack.packb(base_keys)
-    # logging.info(base_keys)
-    # logging.info(new_pack)
-    redisClient.set(chat_id, new_pack)
-
-
-def put_redis_message_bot(data, id_sms):
-    """ Add to Redis last message Bot """
-
-    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    chat_id = data['result']['chat']['id']
-
-    if base_keys := get_redis_message(chat_id):
-        base_keys['sms_id_last_bot'] = id_sms
-    else:
-        base_keys = {'sms_id_last_bot': id_sms}
-
-    new_pack = msgpack.packb(base_keys)
-    # logging.info('SAVE !!!')
-    # logging.info(base_keys)
-    redisClient.set(chat_id, new_pack)
-
-
 def handler_response_ok(resp):
     """ Обработчик успешного ответа от сервера """
-
     data = resp.json()
-
     if isinstance(data, dict):
         if data['result'] == True:
             pass
         elif id_sms := data['result'].get('message_id'):
             # logging.info(data)
-            put_redis_message_bot(data, id_sms)  # Save to Redis
+            dredis.put_redis_message_bot(data, id_sms)  # Save to Redis
     # logging.info(bot.last_message_id)
 
 
@@ -389,7 +342,7 @@ def do_echo():
             # curl = bot.api_url
             if commands := data['message'].get('text'):
 
-                put_redis_message_user(data)
+                dredis.put_redis_message_user(data)
 
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
