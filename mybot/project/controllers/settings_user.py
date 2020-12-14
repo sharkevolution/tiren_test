@@ -1,5 +1,6 @@
 
 import emoji
+import logging
 
 from mybot.project.controllers import tebot1
 
@@ -125,6 +126,7 @@ def template_region_all():
 
 def template_shops():
     adr = []
+    logging.info(tebot1.DICT_INIT['adr'])
     for b in tebot1.DICT_INIT['adr']:
         adr.append([{"text": b[2]}])
         tebot1.HANDLER_USER_ADR.append(b[2])
