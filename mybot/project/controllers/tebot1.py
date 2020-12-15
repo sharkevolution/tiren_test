@@ -155,15 +155,13 @@ class Dispatcher:
 
             logging.info(commands)
             if inspect.ismethod(commands):
-                comlist = commands()
+                self.pull_message_commands[commands] = fn
             else:
-                comlist = commands
-
-            for b in comlist:
-                self.pull_message_commands[b] = fn
+                for b in commands:
+                    self.pull_message_commands[b] = fn
 
             def decorated2(*args, **kwargs):
-                self.commands = comlist
+                self.commands = commands
                 return fn(*args, **kwargs)
 
             decorated2.__name__ = fn.__name__
@@ -401,7 +399,11 @@ def do_echo():
 
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
-                    message, curl = exec_func(data)
+
+                    if inspect.ismethod(exec_func):
+                        logging.info(exec_func)
+                    else:
+                        message, curl = exec_func(data)
                 else:
                     message, curl = dummy_message(data)
 
