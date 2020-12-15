@@ -1,19 +1,5 @@
-
 import emoji
 import logging
-
-from mybot.project.controllers import tebot1
-
-
-dict_region = {'Днепр': {'Днепр': ['aaa']},
-               'Львов': {'Львов': ['ddd']},
-               'Одесса': {'Николаев': ['xxx'], 'Херсон': ['fff']},
-               'Харьков': {},
-               'Николаев': {},
-               'Тернополь': {},
-               'Запорожье': {},
-               'Чернигов': {}
-               }
 
 
 # [{"text": f"Мои перевозчики {emoji.emojize(':delivery_truck:')}", "callback_data": "delivery"}, ],
@@ -46,37 +32,6 @@ def template_engineer_mode():
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
-
-    return reply_markup
-
-
-def template_city():
-    reply_markup = {"keyboard": [[{"text": "Днепр"}],
-                                 [{"text": "Львов"}],
-                                 [{"text": "Одесса"}],
-                                 [{"text": "Херсон"}],
-                                 [{"text": "Николаев"}],
-                                 [{"text": "Регион"}],
-                                 [{"text": "Перевозчик"}],
-                                 ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False
-                    }
-
-    return reply_markup
-
-
-def template_delivery():
-    reply_markup = {"keyboard": [[{"text": "ВИП"}],
-                                 [{"text": "Координатор"}],
-                                 [{"text": "Космос"}],
-                                 [{"text": "Курьер"}],
-                                 [{"text": "Регион"}],
-                                 [{"text": "Город"}]
-                                 ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False
-                    }
 
     return reply_markup
 
@@ -139,14 +94,14 @@ def template_shops(dict_init, chat_user):
 
 
 def template_delivery(dict_init, chat_user):
-    adr = []
+    dlv = []
     for b in dict_init['delivery']:
-        adr.append([{"text": b[2]}])
+        dlv.append([{"text": b[2]}])
 
-    adr.append([{"text": '<< к адресам'}])
-    chat_user.delivery.extend(adr)
+    dlv.append([{"text": '<< к адресам'}])
+    chat_user.delivery.extend(dlv)
 
-    reply_markup = {"keyboard": adr,
+    reply_markup = {"keyboard": dlv,
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
 
