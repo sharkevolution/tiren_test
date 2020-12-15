@@ -14,10 +14,8 @@ import os
 import json
 import requests
 import logging
-import types
 import redis
 import msgpack
-import inspect
 
 from mybot.project.controllers import planner
 from mybot.project.controllers import dredis
@@ -215,6 +213,7 @@ def dynamic_delivery(data):
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
 
+    logging.info(chat_user.weight)
     # Update commands wrapper
     for b in chat_user.weight:
         dp.pull_message_commands[b] = dynamic_weight
@@ -380,8 +379,7 @@ def dummy_callback(data):
 
     text = data['callback_query']['data']
     result_text = f"Функция [ {text} ] в разработке."
-    res = {"callback_query_id": data['callback_query']['id'],
-           "text": result_text, "cache_time": 3}
+    res = {"callback_query_id": data['callback_query']['id'], "text": result_text, "cache_time": 3}
     return res, bot.api_answer
 
 
