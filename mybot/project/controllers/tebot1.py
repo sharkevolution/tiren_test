@@ -15,16 +15,12 @@ import json
 import requests
 import logging
 # import types
+import redis
+import msgpack
 
 from mybot.project.controllers import planner
 from mybot.project.controllers import dredis
 from mybot.project.controllers import settings_user
-
-
-DICT_INIT = {}
-
-HANDLER_USER_ADR = []
-HANDLER_USER_DELIVERY = []
 
 
 def callback_hello_ok(data, text):
@@ -36,24 +32,84 @@ def callback_hello_ok(data, text):
         logging.error(ex)
 
 
+def user_start_update(chat_id):
+    # Start and Updater user profile
+    if not bot.users.get(chat_id):
+        bot.users[User(chat_id).__name__] = User(chat_id)
+
+    cs = bot.users[chat_id]
+    csdata = cs.get_redis()
+    cs.last_message_id = csdata['last_message_id']
+    bot.users[chat_id] = cs
+
+    return cs
+
+
+def handler_response_ok(resp):
+    """ Обработчик успешного ответа от сервера """
+    data = resp.json()
+    if isinstance(data, dict):
+        if data['result'] == True:
+            pass
+        elif data['result'].get('message_id'):
+            # logging.info(data)
+            cs = bot.users[data['result']['chat']['id']]
+            cs.put_redis_last_callback_id(data)
+
+
 class User:
-    def __init__(self):
-        self.user_messages_id = []
-        self.user_first_name = None
-        self.user_last_name = None
-        self.user_combination = []
+
+    def __init__(self, chat_id):
+        self.__name__ = chat_id
+        self.first_name = None
+        self.last_name = None
+        self.combination = []
+        self.adr = []
+        self.delivery = []
+        self.last_message_id = 0
+        self.last_bot_id = 0
+        self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     def get_redis(self):
-        pass
+
+        res = {}
+        if self.redisClient.exists(self.__name__):
+            res = msgpack.unpackb(self.redisClient.get(self.__name__))
+            logging.info(res)
+        return res
+
+    def put_redis_last_message_id(self, data):
+
+        self.last_message_id = data['message']['from']['id']
+
+        if base_keys := self.get_redis():
+            base_keys['last_message_id'] = self.last_message_id
+        else:
+            base_keys = {'last_message_id': self.last_message_id}
+
+        new_pack = msgpack.packb(base_keys)
+        self.redisClient.set(self.__name__, new_pack)
+
+    def put_redis_last_messgae_bot(self, data):
+
+        self.last_bot_id = data['callback_query']['id']
+
+        if base_keys := self.get_redis():
+            base_keys['last_bot_id'] = self.last_bot_id
+        else:
+            base_keys = {'last_bot_id': self.last_bot_id}
+
+        new_pack = msgpack.packb(base_keys)
+        self.redisClient.set(self.__name__, new_pack)
+
+    def __repr__(self):
+        return self.__name__
 
 
-class Bot(User):
+class Bot:
     """ Bot token """
 
     def __init__(self, token):
-
-        super().__init__()
-
         self.token = token
         self.api_url = f'https://api.telegram.org/bot{self.token}/sendMessage'
         self.api_answer = f'https://api.telegram.org/bot{self.token}/answerCallbackQuery'
@@ -62,16 +118,17 @@ class Bot(User):
 
         self.headers = {'Content-type': 'application/json',
                         'Accept': 'text/plain'}
-        self.last_id = 0  # последний ID telegram
-        self.last_message_id = 0
-        self.message_id_list = []
+
+        self.users = {}  # List of users
+        self.dict_init = {}  # Custom logic
+
+        self.last_id = 0  # Last ID telegram (not message)
 
 
-class Dispatcher(User):
+class Dispatcher:
     """ handler messages command """
 
     def __init__(self, bot):
-        super().__init__()
         self.bot = bot
         self.commands = None
         self.pull_message_commands = {}
@@ -109,12 +166,16 @@ class Dispatcher(User):
         return decorator
 
 
+# ********************************************************
 API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
 
-@dp.message_handler(commands=HANDLER_USER_ADR)
+# ********************************************************
+
+
+@dp.message_handler(commands='*')
 def bind_bot(data):
     logging.info('DELIVERY')
     tunel = data['message']['chat']['id']
@@ -126,7 +187,6 @@ def bind_bot(data):
 
 @dp.callback_handler(commands=['region_arrived', ])
 def region_arrived(data):
-
     callback_hello_ok(data, 'Переход на время прибытия')
 
     tunel = data['callback_query']['message']['chat']['id']
@@ -142,7 +202,6 @@ def region_arrived(data):
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero'])
 def enter(data):
-
     callback_hello_ok(data, 'ok!')
 
     # Edit Message
@@ -240,7 +299,6 @@ def query_all_region(data):
 
 @dp.callback_handler(commands=['city', ])
 def test2(data):
-
     callback_hello_ok(data, "ok!")
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -253,7 +311,6 @@ def test2(data):
 
 @dp.callback_handler(commands=['shop', ])
 def test_list(data):
-
     callback_hello_ok(data, 'ok!')
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -268,10 +325,9 @@ def test_list(data):
 def dummy_message(data):
     """ Заглушка для message """
     text = data['message'].get('text')
-    logging.info(HANDLER_USER_DELIVERY)
     result_text = f"Функция [{text}] в разработке."
     res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
-    return res,  bot.api_url
+    return res, bot.api_url
 
 
 def dummy_callback(data):
@@ -287,18 +343,6 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
-def handler_response_ok(resp):
-    """ Обработчик успешного ответа от сервера """
-    data = resp.json()
-    if isinstance(data, dict):
-        if data['result'] == True:
-            pass
-        elif id_sms := data['result'].get('message_id'):
-            # logging.info(data)
-            chat_id = data['result']['chat']['id']
-            dredis.put_redis_last_messge_bot(chat_id, id_sms)  # Save to Redis
-
-
 @bottle.route('/api/v1/echo', method='POST')
 def do_echo():
     """ Main """
@@ -307,7 +351,7 @@ def do_echo():
     curl = None
 
     # get or set settings users regions to variable DICT_INIT
-    dredis.variable_init()
+    # dredis.variable_init()
 
     data = request.json
     # logging.info(data)
@@ -318,6 +362,8 @@ def do_echo():
 
         if data.get('callback_query'):
             # curl = bot.api_answer
+            user_start_update(data['callback_query']['message']['chat']['id'])
+
             if commands := data['callback_query'].get('data'):
                 if exec_func := dp.pull_callback_commands.get(commands):
                     message, curl = exec_func(data)
@@ -326,9 +372,12 @@ def do_echo():
 
         if data.get('message'):
             # curl = bot.api_url
+            cs = user_start_update(data['message']['chat']['id'])
+
             if commands := data['message'].get('text'):
 
-                dredis.put_redis_message_user(data)
+                cs.put_redis_last_message_id(data)
+                bot.users[cs.__name] = cs
 
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
@@ -343,7 +392,7 @@ def do_echo():
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
 
-                #handler_response_ok(r, redisClient)  # Обработчик ответа
+                # handler_response_ok(r, redisClient)  # Обработчик ответа
 
             except Exception as ex:
                 logging.info(r)
@@ -351,5 +400,3 @@ def do_echo():
 
     # logging.info('old_message')
     # logging.info(data)
-
-
