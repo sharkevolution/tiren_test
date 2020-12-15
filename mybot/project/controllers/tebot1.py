@@ -153,7 +153,7 @@ class Dispatcher:
     def message_handler(self, commands):
         def decorator(fn):
 
-            logging.info(comlist)
+            logging.info(commands)
             if inspect.ismethod(commands):
                 comlist = commands()
             else:
