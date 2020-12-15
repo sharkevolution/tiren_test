@@ -60,7 +60,6 @@ def handler_response_ok(resp):
 
 
 class User:
-
     def __init__(self, chat_id):
         self.__name__ = chat_id
         self.first_name = None
@@ -109,7 +108,6 @@ class User:
 
 class Bot:
     """ Bot token """
-
     def __init__(self, token):
         self.token = token
         self.api_url = f'https://api.telegram.org/bot{self.token}/sendMessage'
@@ -234,7 +232,7 @@ def enter(data):
     chat_user.combination.append('1')
     my_test = ''.join(chat_user.combination)
 
-    base_keys = chat_user.get_redis(chat_id)
+    base_keys = chat_user.get_redis()
 
     logging.info(base_keys)
     chat_user.last_message_id = base_keys['last_bot_id']
