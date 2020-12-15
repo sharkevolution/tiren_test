@@ -211,8 +211,8 @@ def region_arrived(data):
     result_text = 'Выберите адрес из списка'
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
-    logging.info('Region arrived')
-    logging.info(bot.dynamic_range_adr())
+    # logging.info('Region arrived')
+    # logging.info(bot.dynamic_range_adr())
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
