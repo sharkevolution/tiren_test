@@ -225,7 +225,7 @@ def region_arrived(data):
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero'])
 def enter(data):
     r = callback_hello_ok(data, 'ok!')
-    logging.info(r.content)
+    # logging.info(r.content)
 
     chat_id = data['callback_query']['message']['chat']['id']
 
@@ -363,6 +363,7 @@ def do_echo():
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
+                logging.info(r.content)
                 # handler_response_ok(r)  # Обработчик ответа
 
             except Exception as ex:
