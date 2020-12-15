@@ -128,8 +128,10 @@ class Bot:
         self.last_chat = None
 
     def dynamic_range(self):
-        tmp = self.users[self.last_chat]
-        return tmp.adr
+        list_adr = []
+        if ch := self.users.get(self.last_chat):
+            list_adr = ch.adr
+        return list_adr
 
 
 
@@ -355,8 +357,7 @@ def do_echo():
     message = {}
     curl = None
 
-    # get or set settings users regions to bot.dict_init
-    dredis.variable_init(bot)
+    dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
 
     data = request.json
     # logging.info(data)
@@ -396,7 +397,6 @@ def do_echo():
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
-
                 # handler_response_ok(r, redisClient)  # Обработчик ответа
 
             except Exception as ex:
