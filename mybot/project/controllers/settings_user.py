@@ -84,7 +84,7 @@ def template_shops(dict_init, chat_user):
     logging.info(dict_init)
     for b in dict_init['adr']:
         adr.append([{"text": b[2]}])
-    chat_user.adr.extend(adr)
+        chat_user.adr.append(b[2])
 
     reply_markup = {"keyboard": adr,
                     "resize_keyboard": True,
@@ -97,9 +97,9 @@ def template_delivery(dict_init, chat_user):
     dlv = []
     for b in dict_init['delivery']:
         dlv.append([{"text": b[2]}])
-
-    dlv.append([{"text": '<< к адресам'}])
-    chat_user.delivery.extend(dlv)
+        chat_user.delivery.append(b[2])
+    dlv.append([{"text": '< BACK'}])
+    chat_user.delivery.append('< BACK')
 
     reply_markup = {"keyboard": dlv,
                     "resize_keyboard": True,
