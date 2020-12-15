@@ -55,10 +55,11 @@ def handler_response_ok(resp):
         if data['result'] == True:
             pass
         elif data['result'].get('message_id'):
+            mi = data['result'].get('message_id')
             # logging.info(data)
             chat_id = data['result']['chat']['id']
             cs = bot.users[chat_id]
-            cs.put_redis_last_message_bot(chat_id)
+            cs.put_redis_last_message_bot(mi)
 
 
 class User:
@@ -93,10 +94,10 @@ class User:
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
 
-    def put_redis_last_message_bot(self, chat_id):
+    def put_redis_last_message_bot(self, mi):
 
         # self.last_bot_id = data['callback_query']['id']
-        self.last_bot_id = chat_id
+        self.last_bot_id = mi
 
         if base_keys := self.get_redis():
             base_keys['last_bot_id'] = self.last_bot_id
