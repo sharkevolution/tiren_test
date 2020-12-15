@@ -14,9 +14,10 @@ import os
 import json
 import requests
 import logging
-# import types
+import types
 import redis
 import msgpack
+import inspect
 
 from mybot.project.controllers import planner
 from mybot.project.controllers import dredis
@@ -67,7 +68,7 @@ class User:
         self.last_name = None
         self.combination = []
         self.adr = []
-        self.delivery = []
+        self.delivery = [1, 2, 3]
         self.last_message_id = 0
         self.last_bot_id = 0
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -152,13 +153,17 @@ class Dispatcher:
     def message_handler(self, commands):
         def decorator(fn):
 
-            logging.info(type(commands))
+            if inspect.ismethod(commands):
+                comlist = commands()
+                logging.info(comlist)
+            else:
+                comlist = commands
 
-            for b in commands:
+            for b in comlist:
                 self.pull_message_commands[b] = fn
 
             def decorated2(*args, **kwargs):
-                self.commands = commands
+                self.commands = comlist
                 return fn(*args, **kwargs)
 
             decorated2.__name__ = fn.__name__
