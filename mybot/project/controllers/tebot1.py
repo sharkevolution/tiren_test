@@ -71,6 +71,8 @@ class User:
         self.weight = []  # Capacity
         self.last_message_id = 0
         self.last_bot_id = 0
+        self.pull_user_commands = {}
+
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     def get_redis(self):
@@ -197,7 +199,8 @@ def dynamic_weight(data):
 
     # Update commands wrapper
     for b in chat_user.weight:
-        dp.pull_message_commands[b] = keboard_bot
+        # dp.pull_message_commands[b] = keboard_bot
+        chat_user.pull_user_commands[b] = keboard_bot
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -213,7 +216,8 @@ def dynamic_delivery(data):
 
     # Update commands wrapper
     for b in chat_user.delivery:
-        dp.pull_message_commands[b] = dynamic_weight
+        # dp.pull_message_commands[b] = dynamic_weight
+        chat_user.pull_user_commands[b] = dynamic_weight
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -230,7 +234,8 @@ def region_arrived(data):
 
     # Update commands wrapper
     for b in chat_user.adr:
-        dp.pull_message_commands[b] = dynamic_delivery
+        # dp.pull_message_commands[b] = dynamic_delivery
+        chat_user.pull_user_commands[b] = dynamic_delivery
 
     # logging.info('Region arrived')
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
@@ -417,6 +422,8 @@ def do_echo():
 
                 if exec_func := dp.pull_message_commands.get(commands):
                     # logging.info(commands)
+                    message, curl = exec_func(data)
+                elif exec_func := cs.pull_user_commands.get(commands):
                     message, curl = exec_func(data)
                 else:
                     message, curl = dummy_message(data)
