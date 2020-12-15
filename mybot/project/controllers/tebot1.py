@@ -187,23 +187,6 @@ dp = Dispatcher(bot)
 
 # ********************************************************
 
-
-@dp.message_handler(commands=[])
-def dynamic_weight(data):
-    logging.info('Time of')
-    tunnel = data['message']['chat']['id']
-    result_text = 'Время'
-    reply_markup, chat_user = settings_user.template_weight(bot.dict_init, bot.users[tunnel])
-    bot.users[tunnel] = chat_user
-
-    # Update commands wrapper
-    for b in chat_user.weight:
-        dp.pull_message_commands[b] = keboard_bot
-
-    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-    return message, bot.api_url
-
-
 @dp.message_handler(commands=[])
 def dynamic_weight(data):
     logging.info('Weight')
@@ -213,8 +196,8 @@ def dynamic_weight(data):
     bot.users[tunnel] = chat_user
 
     # Update commands wrapper
-    # for b in chat_user.weight:
-    #     dp.pull_message_commands[b] = bind_delivery
+    for b in chat_user.weight:
+        dp.pull_message_commands[b] = keboard_bot
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
