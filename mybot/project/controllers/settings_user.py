@@ -17,7 +17,8 @@ def template_engineer_mode():
     reply_markup = {"inline_keyboard": [[
         {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "ent_one"},
         {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "ent_two"},
-        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"}],
+        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"},
+        {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_three"}],
 
         [{"text": f"{emoji.emojize(' 4 ')}", "callback_data": "ent_four"},
          {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "ent_five"},
