@@ -56,8 +56,9 @@ def handler_response_ok(resp):
             pass
         elif data['result'].get('message_id'):
             # logging.info(data)
-            cs = bot.users[data['result']['chat']['id']]
-            cs.put_redis_last_message_bot(data)
+            chat_id = data['result']['chat']['id']
+            cs = bot.users[chat_id]
+            cs.put_redis_last_message_bot(chat_id)
 
 
 class User:
@@ -92,9 +93,10 @@ class User:
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
 
-    def put_redis_last_message_bot(self, data):
+    def put_redis_last_message_bot(self, chat_id):
 
-        self.last_bot_id = data['callback_query']['id']
+        # self.last_bot_id = data['callback_query']['id']
+        self.last_bot_id = chat_id
 
         if base_keys := self.get_redis():
             base_keys['last_bot_id'] = self.last_bot_id
@@ -286,9 +288,14 @@ def keboard_bot(data):
     result_text = "Input key: "
     message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
-    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
-    assert r.status_code == 200
-    handler_response_ok(r)  # Ловушка для получения ид сообщения от бота
+    try:
+        r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+        assert r.status_code == 200
+        handler_response_ok(r)  # Ловушка для получения ид сообщения от бота
+
+    except Exception as ex:
+        logging.info(r)
+        logging.error('Error' + str(ex))
 
     return {}, {}
 
