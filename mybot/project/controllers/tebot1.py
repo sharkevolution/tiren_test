@@ -153,12 +153,8 @@ class Dispatcher:
     def message_handler(self, commands):
         def decorator(fn):
 
-            logging.info(commands)
-            if inspect.ismethod(commands):
-                self.pull_message_commands[commands] = fn
-            else:
-                for b in commands:
-                    self.pull_message_commands[b] = fn
+            for b in commands:
+                self.pull_message_commands[b] = fn
 
             def decorated2(*args, **kwargs):
                 self.commands = commands
@@ -193,13 +189,16 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 
-@dp.message_handler(commands=bot.dynamic_range_adr)
+@dp.message_handler(commands=bot.dynamic_range_adr())
 def bind_bot(data):
     logging.info('')
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
+
+    dp.message_handler(commands=chat_user.adr)
+
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
@@ -399,11 +398,7 @@ def do_echo():
 
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
-
-                    if inspect.ismethod(exec_func):
-                        logging.info(exec_func)
-                    else:
-                        message, curl = exec_func(data)
+                    message, curl = exec_func(data)
                 else:
                     message, curl = dummy_message(data)
 
