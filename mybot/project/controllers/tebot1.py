@@ -68,9 +68,9 @@ class User:
         self.first_name = None
         self.last_name = None
         self.combination = []
-        self.adr = []
-        self.delivery = []
-        self.weight = []
+        self.adr = []   # Store addresses
+        self.delivery = []  #
+        self.weight = []  # Capacity
         self.last_message_id = 0
         self.last_bot_id = 0
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -234,10 +234,9 @@ def region_arrived(data):
 
     # Update commands wrapper
     for b in chat_user.adr:
-        dp.pull_message_commands[b] = bind_del
+        dp.pull_message_commands[b] = dynamic_delivery
 
     # logging.info('Region arrived')
-    # logging.info(bot.dynamic_range_adr())
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
