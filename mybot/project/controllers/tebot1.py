@@ -33,7 +33,7 @@ def callback_hello_ok(data, text):
 
 
 def user_start_update(chat_id):
-    # Start and Updater user profile
+    """ Start and Updater user profile """
     if not bot.users.get(chat_id):
         bot.users[User(chat_id).__name__] = User(chat_id)
 
@@ -377,7 +377,7 @@ def do_echo():
             if commands := data['message'].get('text'):
 
                 cs.put_redis_last_message_id(data)
-                bot.users[cs.__name] = cs
+                bot.users[cs.__name__] = cs
 
                 if exec_func := dp.pull_message_commands.get(commands):
                     logging.info(commands)
