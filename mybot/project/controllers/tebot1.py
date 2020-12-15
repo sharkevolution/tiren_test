@@ -426,6 +426,7 @@ def do_echo():
                 cs.put_redis_last_message_id(data)
                 bot.users[cs.__name__] = cs
 
+                logging.info(cs.pull_user_commands)
                 if exec_func := cs.pull_user_commands.get(commands):
                     message, curl = exec_func(data)
                 elif exec_func := dp.pull_message_commands.get(commands):
