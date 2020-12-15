@@ -203,7 +203,6 @@ def dynamic_weight(data):
 
     bot.users[tunnel] = chat_user
 
-    logging.info(chat_user.pull_user_commands)
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
@@ -292,6 +291,9 @@ def bind_bot(data):
 
 @dp.message_handler(commands=['/bc', ])
 def keboard_bot(data):
+
+    logging.info("**************************************")
+
     tunnel = data['message']['chat']['id']
     result_text = 'Введите время прибытия и выберите перевозчика из списка'
     reply_markup = settings_user.template_engineer_mode()
@@ -317,56 +319,56 @@ def start_bot(data):
     return message, bot.api_url
 
 
-@dp.message_handler(commands=['Город', ])
-def query_all_city(data):
-    tunnel = data['message']['chat']['id']
-    result_text = 'Список городов'
-    reply_markup = settings_user.template_city()
-    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-    return message, bot.api_url
+# @dp.message_handler(commands=['Город', ])
+# def query_all_city(data):
+#     tunnel = data['message']['chat']['id']
+#     result_text = 'Список городов'
+#     reply_markup = settings_user.template_city()
+#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+#     return message, bot.api_url
 
 
-@dp.message_handler(commands=['Перевозчик', ])
-def query_all_delivery(data):
-    tunnel = data['message']['chat']['id']
-    result_text = 'Перевозчики'
-    reply_markup = settings_user.template_delivery()
-    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-    return message, bot.api_url
+# @dp.message_handler(commands=['Перевозчик', ])
+# def query_all_delivery(data):
+#     tunnel = data['message']['chat']['id']
+#     result_text = 'Перевозчики'
+#     reply_markup = settings_user.template_delivery()
+#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+#     return message, bot.api_url
 
 
-@dp.message_handler(commands=['Регион', ])
-def query_all_region(data):
-    tunnel = data['message']['chat']['id']
-    result_text = 'Echo'
-    reply_markup = settings_user.template_region_all()
-    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-    return message, bot.api_url
+# @dp.message_handler(commands=['Регион', ])
+# def query_all_region(data):
+#     tunnel = data['message']['chat']['id']
+#     result_text = 'Echo'
+#     reply_markup = settings_user.template_region_all()
+#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+#     return message, bot.api_url
 
 
-@dp.callback_handler(commands=['city', ])
-def test2(data):
-    callback_hello_ok(data, "ok!")
+# @dp.callback_handler(commands=['city', ])
+# def test2(data):
+#     callback_hello_ok(data, "ok!")
+#
+#     tunnel = data['callback_query']['message']['chat']['id']
+#     result_text = 'Список городов'
+#     reply_markup = settings_user.template_city()
+#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+#     curl = bot.api_url
+#     return message, curl
 
-    tunnel = data['callback_query']['message']['chat']['id']
-    result_text = 'Список городов'
-    reply_markup = settings_user.template_city()
-    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-    curl = bot.api_url
-    return message, curl
 
-
-@dp.callback_handler(commands=['shop', ])
-def test_list(data):
-    callback_hello_ok(data, 'ok!')
-
-    tunnel = data['callback_query']['message']['chat']['id']
-    result_text = 'Echo'
-    reply_markup = settings_user.template_shops()
-    res = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-
-    curl = bot.api_url
-    return res, curl
+# @dp.callback_handler(commands=['shop', ])
+# def test_list(data):
+#     callback_hello_ok(data, 'ok!')
+#
+#     tunnel = data['callback_query']['message']['chat']['id']
+#     result_text = 'Echo'
+#     reply_markup = settings_user.template_shops()
+#     res = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+#
+#     curl = bot.api_url
+#     return res, curl
 
 
 def dummy_message(data):
