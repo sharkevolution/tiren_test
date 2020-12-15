@@ -42,6 +42,7 @@ def user_start_update(chat_id):
     csdata = cs.get_redis()
     if csdata.get('last_message_id'):
         cs.last_message_id = csdata['last_message_id']
+
     bot.users[chat_id] = cs
     bot.last_chat = chat_id  # Active chat
 
@@ -68,7 +69,8 @@ class User:
         self.last_name = None
         self.combination = []
         self.adr = []
-        self.delivery = [1, 2, 3]
+        self.delivery = []
+        self.weight = []
         self.last_message_id = 0
         self.last_bot_id = 0
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -190,12 +192,33 @@ dp = Dispatcher(bot)
 
 
 @dp.message_handler(commands=[])
-def bind_del(data):
+def dynamic_weight(data):
+    logging.info('Weight')
+    tunnel = data['message']['chat']['id']
+    result_text = 'Грузоподъемность'
+    reply_markup, chat_user = settings_user.template_weight(bot.dict_init, bot.users[tunnel])
+    bot.users[tunnel] = chat_user
+
+    # Update commands wrapper
+    # for b in chat_user.weight:
+    #     dp.pull_message_commands[b] = bind_delivery
+
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+    return message, bot.api_url
+
+
+@dp.message_handler(commands=[])
+def dynamic_delivery(data):
     logging.info('Delivery')
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
+
+    # Update commands wrapper
+    for b in chat_user.weight:
+        dp.pull_message_commands[b] = dynamic_weight
+
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 

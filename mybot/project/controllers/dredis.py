@@ -6,7 +6,6 @@ import redis
 import msgpack
 
 from mybot.config import RESOURCES_PATH
-from mybot.project.controllers import tebot1
 
 
 def variable_init(bot):

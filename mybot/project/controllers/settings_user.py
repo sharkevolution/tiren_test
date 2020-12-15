@@ -49,16 +49,21 @@ def template_start():
     return reply_markup
 
 
-def template_city():
-    reply_markup = {"keyboard": [[{"text": "Звездец"}],
-                                 [{"text": "Трындец"}],
-                                 [{"text": "Перевозчик"}],
-                                 ],
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False
-                    }
+def template_weight(dict_init, chat_user):
 
-    return reply_markup
+    wt = []
+    for b in dict_init['wt']:
+        if chat_user.__name__ in b[2]:
+            pass
+        else:
+            wt.append([{"text": b[1]}])
+            chat_user.weight.append(b[1])
+
+    reply_markup = {"keyboard": wt,
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False}
+
+    return reply_markup, chat_user
 
 
 def template_region_all():
@@ -83,8 +88,14 @@ def template_shops(dict_init, chat_user):
     adr = []
     # logging.info(dict_init)
     for b in dict_init['adr']:
-        adr.append([{"text": b[2]}])
-        chat_user.adr.append(b[2])
+        if chat_user.__name__ in b[3]:
+            pass
+        else:
+            adr.append([{"text": b[2]}])
+            chat_user.adr.append(b[2])
+
+    adr.append([{"text": 'Update'}])
+    chat_user.delivery.append('Update')
 
     reply_markup = {"keyboard": adr,
                     "resize_keyboard": True,
@@ -96,8 +107,12 @@ def template_shops(dict_init, chat_user):
 def template_delivery(dict_init, chat_user):
     dlv = []
     for b in dict_init['delivery']:
-        dlv.append([{"text": b[1]}])
-        chat_user.delivery.append(b[1])
+        if chat_user.__name__ in b[2]:
+            pass
+        else:
+            dlv.append([{"text": b[1]}])
+            chat_user.delivery.append(b[1])
+
     dlv.append([{"text": '< BACK'}])
     chat_user.delivery.append('< BACK')
 
