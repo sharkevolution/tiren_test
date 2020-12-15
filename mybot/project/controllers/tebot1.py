@@ -191,7 +191,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=[])
 def bind_del(data):
-    logging.info('')
+    logging.info('Delivery')
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
