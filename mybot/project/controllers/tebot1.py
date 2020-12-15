@@ -356,12 +356,12 @@ def do_echo():
                     message, curl = dummy_message(data)
 
         if message and curl:
-            # logging.info(message)
+            logging.info(message)
             # logging.info(curl)
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
-                handler_response_ok(r)  # Обработчик ответа
+                # handler_response_ok(r)  # Обработчик ответа
 
             except Exception as ex:
                 logging.info(r)
