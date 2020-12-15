@@ -276,7 +276,9 @@ def keboard_bot(data):
     assert r.status_code == 200
 
     # Input pass
-    bot.user_combination = []
+    chat_user = bot.users[tunnel]
+    chat_user.combination = []
+    chat_user.users[tunnel] = chat_user
     result_text = "Input key: "
     message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
@@ -359,7 +361,7 @@ def do_echo():
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
-                # handler_response_ok(r, redisClient)  # Обработчик ответа
+                handler_response_ok(r)  # Обработчик ответа
 
             except Exception as ex:
                 logging.info(r)
