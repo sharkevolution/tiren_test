@@ -189,14 +189,13 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 
-@dp.message_handler(commands=bot.dynamic_range_adr())
-def bind_bot(data):
+@dp.message_handler(commands=[])
+def bind_del(data):
     logging.info('')
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
-
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
@@ -209,7 +208,10 @@ def region_arrived(data):
     result_text = 'Выберите адрес из списка'
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
-    dp.message_handler(commands=chat_user.adr)
+
+    for b in chat_user.adr:
+        dp.pull_message_commands[b] = bind_del
+
     # logging.info('Region arrived')
     # logging.info(bot.dynamic_range_adr())
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
