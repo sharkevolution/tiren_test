@@ -227,23 +227,25 @@ def region_arrived(data):
 def enter(data):
     callback_hello_ok(data, 'ok!')
 
-    # Edit Message
-    bot.user_combination.append('1')
-    my_test = ''.join(bot.user_combination)
-
     chat_id = data['callback_query']['message']['chat']['id']
-    base_keys = dredis.get_redis_message(chat_id)
+
+    # Edit Message
+    chat_user = bot.users[chat_id]
+    chat_user.user_combination.append('1')
+    my_test = ''.join(chat_user.user_combination)
+
+    base_keys = chat_user.get_redis(chat_id)
 
     logging.info(base_keys)
-    last_message_id = base_keys['sms_id_last_bot']
+    chat_user.last_message_id = base_keys['last_bot_id']
 
     curl = bot.api_edit_message
-    message = {'chat_id': data['callback_query']['message']['chat']['id'],
-               'message_id': last_message_id,
+    message = {'chat_id': chat_id,
+               'message_id': chat_user.last_message_id,
                'text': my_test}
 
     logging.info('EDIT Message')
-    logging.info(last_message_id)
+    logging.info(chat_user.last_message_id)
 
     try:
         r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
