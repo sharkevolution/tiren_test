@@ -197,8 +197,6 @@ def bind_bot(data):
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
 
-    dp.message_handler(commands=chat_user.adr)
-
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
@@ -211,6 +209,7 @@ def region_arrived(data):
     result_text = 'Выберите адрес из списка'
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
+    dp.message_handler(commands=chat_user.adr)
     # logging.info('Region arrived')
     # logging.info(bot.dynamic_range_adr())
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
@@ -397,7 +396,7 @@ def do_echo():
                 bot.users[cs.__name__] = cs
 
                 if exec_func := dp.pull_message_commands.get(commands):
-                    logging.info(commands)
+                    # logging.info(commands)
                     message, curl = exec_func(data)
                 else:
                     message, curl = dummy_message(data)
