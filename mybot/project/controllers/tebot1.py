@@ -195,13 +195,15 @@ def dynamic_weight(data):
     tunnel = data['message']['chat']['id']
     result_text = 'Грузоподъемность'
     reply_markup, chat_user = settings_user.template_weight(bot.dict_init, bot.users[tunnel])
-    bot.users[tunnel] = chat_user
 
     # Update commands wrapper
     for b in chat_user.weight:
         # dp.pull_message_commands[b] = keboard_bot
         chat_user.pull_user_commands[b] = keboard_bot
 
+    bot.users[tunnel] = chat_user
+
+    logging.info(chat_user.pull_user_commands)
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
@@ -212,12 +214,13 @@ def dynamic_delivery(data):
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
-    bot.users[tunnel] = chat_user
 
     # Update commands wrapper
     for b in chat_user.delivery:
         # dp.pull_message_commands[b] = dynamic_weight
         chat_user.pull_user_commands[b] = dynamic_weight
+
+    bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -230,12 +233,13 @@ def region_arrived(data):
     tunnel = data['callback_query']['message']['chat']['id']
     result_text = 'Выберите адрес из списка'
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
-    bot.users[tunnel] = chat_user
 
     # Update commands wrapper
     for b in chat_user.adr:
         # dp.pull_message_commands[b] = dynamic_delivery
         chat_user.pull_user_commands[b] = dynamic_delivery
+
+    bot.users[tunnel] = chat_user
 
     # logging.info('Region arrived')
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
