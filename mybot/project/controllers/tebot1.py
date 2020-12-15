@@ -280,7 +280,9 @@ def keboard_bot(data):
     # Input pass
     chat_user = bot.users[tunnel]
     chat_user.combination = []
-    bot.users.users[tunnel] = chat_user
+
+    bot.users[tunnel] = chat_user
+
     result_text = "Input key: "
     message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
