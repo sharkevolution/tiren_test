@@ -127,12 +127,17 @@ class Bot:
         self.last_id = 0  # Last ID telegram (not message)
         self.last_chat = None
 
-    def dynamic_range(self):
+    def dynamic_range_adr(self):
         list_adr = []
         if ch := self.users.get(self.last_chat):
             list_adr = ch.adr
         return list_adr
 
+    def dynamic_range_delivery(self):
+        list_delivery = []
+        if ch := self.users.get(self.last_chat):
+            list_delivery = ch.delivery
+        return list_delivery
 
 
 class Dispatcher:
@@ -182,13 +187,14 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 
-@dp.message_handler(commands=bot.dynamic_range())
+@dp.message_handler(commands=bot.dynamic_range_adr())
 def bind_bot(data):
-    logging.info('DELIVERY')
-    tunel = data['message']['chat']['id']
+    logging.info('')
+    tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
-    reply_markup = settings_user.template_delivery()
-    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
+    reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
+    bot.users[tunnel] = chat_user
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
 
@@ -245,17 +251,17 @@ def enter(data):
 
 @dp.message_handler(commands=['/idc', ])
 def bind_bot(data):
-    tunel = data['message']['chat']['id']
-    message = {'chat_id': tunel, 'text': data['message']['chat']['id']}
+    tunnel = data['message']['chat']['id']
+    message = {'chat_id': tunnel, 'text': data['message']['chat']['id']}
     return message, bot.api_url
 
 
 @dp.message_handler(commands=['/bc', ])
 def keboard_bot(data):
-    tunel = data['message']['chat']['id']
+    tunnel = data['message']['chat']['id']
     result_text = 'Введите время прибытия и выберите перевозчика из списка'
     reply_markup = settings_user.template_engineer_mode()
-    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
@@ -270,37 +276,37 @@ def keboard_bot(data):
 
 @dp.message_handler(commands=['/start', ])
 def start_bot(data):
-    tunel = data['message']['chat']['id']
+    tunnel = data['message']['chat']['id']
     result_text = 'Приступим к работе'
     reply_markup = settings_user.template_start()
-    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
 
 @dp.message_handler(commands=['Город', ])
 def query_all_city(data):
-    tunel = data['message']['chat']['id']
+    tunnel = data['message']['chat']['id']
     result_text = 'Список городов'
     reply_markup = settings_user.template_city()
-    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
 
 @dp.message_handler(commands=['Перевозчик', ])
 def query_all_delivery(data):
-    tunel = data['message']['chat']['id']
+    tunnel = data['message']['chat']['id']
     result_text = 'Перевозчики'
     reply_markup = settings_user.template_delivery()
-    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
 
 @dp.message_handler(commands=['Регион', ])
 def query_all_region(data):
-    tunel = data['message']['chat']['id']
+    tunnel = data['message']['chat']['id']
     result_text = 'Echo'
     reply_markup = settings_user.template_region_all()
-    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
 

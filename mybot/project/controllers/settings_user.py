@@ -129,7 +129,7 @@ def template_shops(dict_init, chat_user):
     logging.info(dict_init)
     for b in dict_init['adr']:
         adr.append([{"text": b[2]}])
-        chat_user.adr.append(b[2])
+    chat_user.adr.extend(adr)
 
     reply_markup = {"keyboard": adr,
                     "resize_keyboard": True,
@@ -138,14 +138,16 @@ def template_shops(dict_init, chat_user):
     return reply_markup, chat_user
 
 
-def template_delivery():
+def template_delivery(dict_init, chat_user):
     adr = []
-    for b in tebot1.DICT_INIT['delivery']:
+    for b in dict_init['delivery']:
         adr.append([{"text": b[2]}])
-    tebot1.HANDLER_USER_DELIVERY.append(b[2])
-    tebot1.HANDLER_USER_DELIVERY.append([{"text": '<< к адресам'}])
+
+    adr.append([{"text": '<< к адресам'}])
+    chat_user.delivery.extend(adr)
 
     reply_markup = {"keyboard": adr,
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
-    return reply_markup
+
+    return reply_markup, chat_user
