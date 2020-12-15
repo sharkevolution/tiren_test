@@ -66,13 +66,12 @@ class User:
         self.first_name = None
         self.last_name = None
         self.combination = []
-        self.adr = []   # Store addresses
+        self.adr = []  # Store addresses
         self.delivery = []  #
         self.weight = []  # Capacity
         self.last_message_id = 0
         self.last_bot_id = 0
         self.pull_user_commands = {}
-
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     def get_redis(self):
@@ -86,11 +85,10 @@ class User:
     def put_redis_last_message_id(self, data):
 
         self.last_message_id = data['message']['from']['id']
-        base_keys = {'last_message_id': self.last_message_id}
         if base_keys := self.get_redis():
             base_keys['last_message_id'] = self.last_message_id
-        # else:
-
+        else:
+            base_keys = {'last_message_id': self.last_message_id}
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
 
@@ -98,11 +96,10 @@ class User:
 
         self.last_bot_id = data['callback_query']['id']
 
-        base_keys = {'last_bot_id': self.last_bot_id}
         if base_keys := self.get_redis():
             base_keys['last_bot_id'] = self.last_bot_id
-        # else:
-
+        else:
+            base_keys = {'last_bot_id': self.last_bot_id}
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
 
@@ -119,27 +116,13 @@ class Bot:
         self.api_answer = f'https://api.telegram.org/bot{self.token}/answerCallbackQuery'
         self.api_edit_message = f'https://api.telegram.org/bot{self.token}/editMessageText'
         self.api_get_updates = f'https://api.telegram.org/bot{self.token}/getUpdates'
-
-        self.headers = {'Content-type': 'application/json',
-                        'Accept': 'text/plain'}
+        self.headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 
         self.users = {}  # List of users
         self.dict_init = {}  # Custom logic
 
         self.last_id = 0  # Last ID telegram (not message)
         self.last_chat = None
-
-    def dynamic_range_adr(self):
-        list_adr = []
-        if ch := self.users.get(self.last_chat):
-            list_adr = ch.adr
-        return list_adr
-
-    def dynamic_range_delivery(self):
-        list_delivery = []
-        if ch := self.users.get(self.last_chat):
-            list_delivery = ch.delivery
-        return list_delivery
 
 
 class Dispatcher:
@@ -153,7 +136,6 @@ class Dispatcher:
 
     def message_handler(self, commands):
         def decorator(fn):
-
             for b in commands:
                 self.pull_message_commands[b] = fn
 
@@ -198,9 +180,7 @@ def dynamic_weight(data):
 
     # Update commands wrapper
     for b in chat_user.weight:
-        # dp.pull_message_commands[b] = keboard_bot
         chat_user.pull_user_commands[b] = keboard_bot
-
     bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
@@ -216,9 +196,7 @@ def dynamic_delivery(data):
 
     # Update commands wrapper
     for b in chat_user.delivery:
-        # dp.pull_message_commands[b] = dynamic_weight
         chat_user.pull_user_commands[b] = dynamic_weight
-
     bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
@@ -235,9 +213,7 @@ def region_arrived(data):
 
     # Update commands wrapper
     for b in chat_user.adr:
-        # dp.pull_message_commands[b] = dynamic_delivery
         chat_user.pull_user_commands[b] = dynamic_delivery
-
     bot.users[tunnel] = chat_user
 
     # logging.info('Region arrived')
@@ -291,9 +267,6 @@ def bind_bot(data):
 
 @dp.message_handler(commands=['/bc', ])
 def keboard_bot(data):
-
-    logging.info("**************************************")
-
     tunnel = data['message']['chat']['id']
     result_text = 'Введите время прибытия и выберите перевозчика из списка'
     reply_markup = settings_user.template_engineer_mode()
@@ -317,58 +290,6 @@ def start_bot(data):
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
-
-
-# @dp.message_handler(commands=['Город', ])
-# def query_all_city(data):
-#     tunnel = data['message']['chat']['id']
-#     result_text = 'Список городов'
-#     reply_markup = settings_user.template_city()
-#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-#     return message, bot.api_url
-
-
-# @dp.message_handler(commands=['Перевозчик', ])
-# def query_all_delivery(data):
-#     tunnel = data['message']['chat']['id']
-#     result_text = 'Перевозчики'
-#     reply_markup = settings_user.template_delivery()
-#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-#     return message, bot.api_url
-
-
-# @dp.message_handler(commands=['Регион', ])
-# def query_all_region(data):
-#     tunnel = data['message']['chat']['id']
-#     result_text = 'Echo'
-#     reply_markup = settings_user.template_region_all()
-#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-#     return message, bot.api_url
-
-
-# @dp.callback_handler(commands=['city', ])
-# def test2(data):
-#     callback_hello_ok(data, "ok!")
-#
-#     tunnel = data['callback_query']['message']['chat']['id']
-#     result_text = 'Список городов'
-#     reply_markup = settings_user.template_city()
-#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-#     curl = bot.api_url
-#     return message, curl
-
-
-# @dp.callback_handler(commands=['shop', ])
-# def test_list(data):
-#     callback_hello_ok(data, 'ok!')
-#
-#     tunnel = data['callback_query']['message']['chat']['id']
-#     result_text = 'Echo'
-#     reply_markup = settings_user.template_shops()
-#     res = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-#
-#     curl = bot.api_url
-#     return res, curl
 
 
 def dummy_message(data):
@@ -399,7 +320,6 @@ def do_echo():
     curl = None
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
-
     data = request.json
     # logging.info(data)
 
@@ -419,14 +339,12 @@ def do_echo():
 
         if data.get('message'):
             # curl = bot.api_url
-            cs = user_start_update(data['message']['chat']['id'])
-
             if commands := data['message'].get('text'):
-
+                cs = user_start_update(data['message']['chat']['id'])
                 cs.put_redis_last_message_id(data)
                 bot.users[cs.__name__] = cs
 
-                logging.info(cs.pull_user_commands)
+                # logging.info(cs.pull_user_commands)
                 if exec_func := cs.pull_user_commands.get(commands):
                     message, curl = exec_func(data)
                 elif exec_func := dp.pull_message_commands.get(commands):
