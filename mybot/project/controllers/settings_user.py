@@ -124,17 +124,18 @@ def template_region_all():
     return reply_markup
 
 
-def template_shops():
+def template_shops(dict_init, chat_user):
     adr = []
-    logging.info(tebot1.DICT_INIT['adr'])
-    for b in tebot1.DICT_INIT['adr']:
+    logging.info(dict_init)
+    for b in dict_init['adr']:
         adr.append([{"text": b[2]}])
-        tebot1.HANDLER_USER_ADR.append(b[2])
+        chat_user.adr.append(b[2])
 
     reply_markup = {"keyboard": adr,
                     "resize_keyboard": True,
                     "one_time_keyboard": False}
-    return reply_markup
+
+    return reply_markup, chat_user
 
 
 def template_delivery():

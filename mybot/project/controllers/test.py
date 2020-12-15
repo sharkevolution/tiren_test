@@ -35,3 +35,17 @@
 # r = emoji.emojize(':satellite:')
 # print(r)
 
+# def hhhh(my):
+#     print(type(my))
+#
+#
+# class open():
+#
+#     def __init__(self):
+#         self.g = [1, 23]
+#
+#
+# f = open()
+# hhhh(f.g)
+
+

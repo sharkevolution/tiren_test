@@ -39,9 +39,10 @@ def user_start_update(chat_id):
 
     cs = bot.users[chat_id]
     csdata = cs.get_redis()
-    if cs.redisClient.exists('last_message_id'):
+    if csdata.get('last_message_id'):
         cs.last_message_id = csdata['last_message_id']
     bot.users[chat_id] = cs
+    bot.last_chat = chat_id  # Active chat
 
     return cs
 
@@ -124,6 +125,12 @@ class Bot:
         self.dict_init = {}  # Custom logic
 
         self.last_id = 0  # Last ID telegram (not message)
+        self.last_chat = None
+
+    def dynamic_range(self):
+        tmp = self.users[self.last_chat]
+        return tmp.adr
+
 
 
 class Dispatcher:
@@ -134,9 +141,6 @@ class Dispatcher:
         self.commands = None
         self.pull_message_commands = {}
         self.pull_callback_commands = {}
-        self.pull_message_requests = {}
-        self.bind_group = [['testroz', '/4523'], ]
-        self.bind_groups = []  # Список разрешенных групп для обмена сообщениями
 
     def message_handler(self, commands):
         def decorator(fn):
@@ -176,7 +180,7 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 
-@dp.message_handler(commands='*')
+@dp.message_handler(commands=bot.dynamic_range())
 def bind_bot(data):
     logging.info('DELIVERY')
     tunel = data['message']['chat']['id']
@@ -190,12 +194,13 @@ def bind_bot(data):
 def region_arrived(data):
     callback_hello_ok(data, 'Переход на время прибытия')
 
-    tunel = data['callback_query']['message']['chat']['id']
+    tunnel = data['callback_query']['message']['chat']['id']
     result_text = 'Выберите адрес из списка'
-    reply_markup = settings_user.template_shops()
+    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
+    bot.users[tunnel] = chat_user
     logging.info('Region arrived')
-    logging.info(HANDLER_USER_ADR)
-    message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
+    logging.info('None')
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
@@ -350,8 +355,8 @@ def do_echo():
     message = {}
     curl = None
 
-    # get or set settings users regions to variable DICT_INIT
-    # dredis.variable_init()
+    # get or set settings users regions to bot.dict_init
+    dredis.variable_init(bot)
 
     data = request.json
     # logging.info(data)

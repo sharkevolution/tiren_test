@@ -9,15 +9,15 @@ from mybot.config import RESOURCES_PATH
 from mybot.project.controllers import tebot1
 
 
-def variable_init():
+def variable_init(bot):
     """
         Load Data from data.txt (json) and save or get data from redis variable
     """
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     if redisClient.exists("settings_data"):
-        tebot1.DICT_INIT = msgpack.unpackb(redisClient.get('settings_data'))
-        # logging.info(tebot1.DICT_INIT)
+        bot.dict_init = msgpack.unpackb(redisClient.get('settings_data'))
+        logging.info(bot.dict_init)
     else:
         file_path = [RESOURCES_PATH, 'settings', 'data.txt']
         djs = os.path.join(*file_path)
@@ -25,6 +25,7 @@ def variable_init():
         with open(djs) as json_file:
             newDict = json.load(json_file)
 
+        # save to redis
         redisClient.set('settings_data', msgpack.packb(newDict))
 
 
