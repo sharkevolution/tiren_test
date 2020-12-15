@@ -56,7 +56,7 @@ def handler_response_ok(resp):
         elif data['result'].get('message_id'):
             # logging.info(data)
             cs = bot.users[data['result']['chat']['id']]
-            cs.put_redis_last_callback_id(data)
+            cs.put_redis_last_message_bot(data)
 
 
 class User:
@@ -92,7 +92,7 @@ class User:
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
 
-    def put_redis_last_messgae_bot(self, data):
+    def put_redis_last_message_bot(self, data):
 
         self.last_bot_id = data['callback_query']['id']
 
@@ -151,6 +151,9 @@ class Dispatcher:
 
     def message_handler(self, commands):
         def decorator(fn):
+
+            logging.info(type(commands))
+
             for b in commands:
                 self.pull_message_commands[b] = fn
 
@@ -187,7 +190,7 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 
-@dp.message_handler(commands=bot.dynamic_range_adr())
+@dp.message_handler(commands=bot.dynamic_range_adr)
 def bind_bot(data):
     logging.info('')
     tunnel = data['message']['chat']['id']

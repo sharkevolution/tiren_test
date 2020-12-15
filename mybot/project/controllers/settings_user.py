@@ -81,7 +81,7 @@ def template_region_all():
 
 def template_shops(dict_init, chat_user):
     adr = []
-    logging.info(dict_init)
+    # logging.info(dict_init)
     for b in dict_init['adr']:
         adr.append([{"text": b[2]}])
         chat_user.adr.append(b[2])
