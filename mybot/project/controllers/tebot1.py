@@ -286,7 +286,11 @@ def keboard_bot(data):
     result_text = "Input key: "
     message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
 
-    return message, bot.api_url
+    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+    handler_response_ok(r)  # Ловушка для получения ид сообщения от бота
+
+    return {}, {}
 
 
 @dp.message_handler(commands=['/start', ])
