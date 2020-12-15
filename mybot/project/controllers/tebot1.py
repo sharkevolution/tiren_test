@@ -209,8 +209,9 @@ def region_arrived(data):
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
 
-    # Update Commands Wrapper
-    dp.pull_message_commands = [bind_del for b in chat_user.adr]
+    # Update commands wrapper
+    for b in chat_user.adr:
+        dp.pull_message_commands[b] = bind_del
 
     # logging.info('Region arrived')
     # logging.info(bot.dynamic_range_adr())
