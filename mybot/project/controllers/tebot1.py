@@ -29,6 +29,7 @@ def callback_hello_ok(data, text):
         assert r.status_code == 200
     except Exception as ex:
         logging.error(ex)
+    return r
 
 
 def user_start_update(chat_id):
@@ -223,7 +224,8 @@ def region_arrived(data):
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero'])
 def enter(data):
-    callback_hello_ok(data, 'ok!')
+    r = callback_hello_ok(data, 'ok!')
+    logging.info(r)
 
     chat_id = data['callback_query']['message']['chat']['id']
 
