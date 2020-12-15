@@ -96,8 +96,8 @@ def template_shops(dict_init, chat_user):
 def template_delivery(dict_init, chat_user):
     dlv = []
     for b in dict_init['delivery']:
-        dlv.append([{"text": b[2]}])
-        chat_user.delivery.append(b[2])
+        dlv.append([{"text": b[1]}])
+        chat_user.delivery.append(b[1])
     dlv.append([{"text": '< BACK'}])
     chat_user.delivery.append('< BACK')
 
