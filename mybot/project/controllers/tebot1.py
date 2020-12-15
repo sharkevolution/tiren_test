@@ -213,9 +213,9 @@ def dynamic_delivery(data):
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
     bot.users[tunnel] = chat_user
 
-    logging.info(chat_user.weight)
+    logging.info(chat_user.delivery)
     # Update commands wrapper
-    for b in chat_user.weight:
+    for b in chat_user.delivery:
         dp.pull_message_commands[b] = dynamic_weight
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
