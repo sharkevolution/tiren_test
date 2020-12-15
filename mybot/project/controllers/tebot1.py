@@ -39,7 +39,8 @@ def user_start_update(chat_id):
 
     cs = bot.users[chat_id]
     csdata = cs.get_redis()
-    cs.last_message_id = csdata['last_message_id']
+    if cs.redisClient.exists('last_message_id'):
+        cs.last_message_id = csdata['last_message_id']
     bot.users[chat_id] = cs
 
     return cs
@@ -293,7 +294,6 @@ def query_all_region(data):
     result_text = 'Echo'
     reply_markup = settings_user.template_region_all()
     message = {'chat_id': tunel, 'text': result_text, 'reply_markup': reply_markup}
-
     return message, bot.api_url
 
 
