@@ -122,16 +122,18 @@
 #               'ent_nine': 9, 'ent_zero': 0, 'ent_colon': ':'}
 #
 # valid_range = {'01': 1, '02': 1, '03': 1, '04': 1, '05': 1, '06': 1, '07': 1,
-#                '08': 1, '09': 1, '1': 1, '2': 1, '10': 1, '11': 1, '12': 1,
-#                '13': 1, '14': 1, '15': 1, '16': 1, '17': 1, '18': 1, '19': 1,
-#                '20': 1, '21': 1, '22': 1, '23': 1}
+#                '08': 1, '09': 1, '10': 1, '11': 1, '12': 1, '13': 1, '14': 1,
+#                '15': 1, '16': 1, '17': 1, '18': 1, '19': 1, '20': 1, '21': 1,
+#                '22': 1, '23': 1, '1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 1,
+#                '7': 1, '8': 1, '9': 9, '0': 0}
 #
 #
 # def my(ord, comb):
 #
 #     tmp_list = copy.deepcopy(comb)
-#     if number_key[ord] in tmp_list:
+#     # if str(number_key[ord]) in valid_range:
 #
+#     if ':' in tmp_list:
 #         ind = tmp_list.index(':')
 #         left_side = tmp_list[:ind]
 #         right_side = tmp_list[ind + 1:]
@@ -176,8 +178,8 @@
 #
 #     return comb
 #
-# # y = my('ent_nine', ['1', '2', ])
+# y = my('ent_nine', ['1', '2', ':', '4'])
 # y1 = my('ent_two', ['2'])
 #
-# # print(''.join(y))
+# print(''.join(y))
 # print(''.join(y1))
