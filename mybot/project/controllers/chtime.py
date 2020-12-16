@@ -12,7 +12,7 @@ valid_range = {'01': 1, '02': 1, '03': 1, '04': 1, '05': 1, '06': 1, '07': 1,
                '20': 1, '21': 1, '22': 1, '23': 1}
 
 
-def my(ord, comb):
+def check(ord, comb):
 
     tmp_list = copy.deepcopy(comb)
     if number_key[ord] in tmp_list:
