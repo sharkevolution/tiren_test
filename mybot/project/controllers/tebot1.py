@@ -240,10 +240,14 @@ def enter(data, ord=None):
     # Edit Message
     chat_user = bot.users[chat_id]
 
-    if chat_user.combination in valid_range:
-        chat_user.combination.append(':')
+    # if chat_user.combination in valid_range:
+    #     chat_user.combination.append(':')
+    tmp_list = chat_user.combination
+    raw_text = ''.join(tmp_list)
 
-    if str(number_key[ord]) in chat_user.combination:
+    if raw_text in valid_range:
+        chat_user.combination.append(':')
+    else:
         f = chat_user.combination.split(':')
         if len(f) == 1:
             if number_key[ord] > 5:
@@ -255,7 +259,6 @@ def enter(data, ord=None):
             return {}, {}
 
     chat_user.combination.append(str(number_key[ord]))
-
     my_test = ''.join(chat_user.combination)
 
     base_keys = chat_user.get_redis()
