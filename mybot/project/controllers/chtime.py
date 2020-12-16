@@ -41,14 +41,14 @@ def check(ord, comb):
                 left_side.append(str(number_key[ord]))
                 if not ':' == str(number_key[ord]):
                     left_side.append(':')
+                tmp_list += left_side
                 if len(tmp_list) == 1:
                     tmp_list.insert(0, '0')
-                tmp_list += left_side
         elif len(tmp_list) == 2:
             left_side.append(':')
             tmp_list += left_side
         else:
-            if str(number_key[ord]) in '0123:':
+            if str(number_key[ord]) in '0123':
                 left_side.append(str(number_key[ord]))
             tmp_list += left_side
         #print(tmp_list)
