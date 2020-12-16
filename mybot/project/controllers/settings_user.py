@@ -17,8 +17,7 @@ def template_engineer_mode():
     reply_markup = {"inline_keyboard": [[
         {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "ent_one"},
         {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "ent_two"},
-        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"},
-        {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_three"}],
+        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"}],
 
         [{"text": f"{emoji.emojize(' 4 ')}", "callback_data": "ent_four"},
          {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "ent_five"},
@@ -29,7 +28,10 @@ def template_engineer_mode():
          {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "ent_nine"}],
 
         [{"text": f"{emoji.emojize(' 0 ')}", "callback_data": "ent_zero"},
-         {"text": f"{ej_ok}", "callback_data": "ent_ok"}]
+         {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_three"}
+         {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_ok"}],
+
+        [{"text": f"{emoji.emojize('Enter')}", "callback_data": "ent_ok"}],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
@@ -114,8 +116,8 @@ def template_delivery(dict_init, chat_user):
             dlv.append([{"text": b[1]}])
             chat_user.delivery.append(b[1])
 
-    dlv.append([{"text": '< BACK'}])
-    chat_user.delivery.append('< BACK')
+    dlv.append([{"text": emoji.emojize(':BACK_arrow:')}])
+    chat_user.delivery.append(emoji.emojize(':BACK_arrow:'))
 
     reply_markup = {"keyboard": dlv,
                     "resize_keyboard": True,
