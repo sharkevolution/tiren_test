@@ -28,7 +28,7 @@ def template_engineer_mode():
          {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "ent_nine"}],
 
         [{"text": f"{emoji.emojize(' 0 ')}", "callback_data": "ent_zero"},
-         {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_three"}
+         {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_three"},
          {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_ok"}],
 
         [{"text": f"{emoji.emojize('Enter')}", "callback_data": "ent_ok"}],
