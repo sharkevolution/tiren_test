@@ -229,12 +229,13 @@ def enter(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
-    number_key = {'ent_one': 1, 'ent_two': 2, 'ent_three': 3, 'ent_four': 4, 'ent_five': 5,
-                  'ent_six': 6, 'ent_seven': 7, 'ent_eight': 8, 'ent_nine': 9, 'ent_zero': 0}
+    number_key = {'ent_one': 1, 'ent_two': 2, 'ent_three': 3, 'ent_four': 4,
+                  'ent_five': 5, 'ent_six': 6, 'ent_seven': 7, 'ent_eight': 8,
+                  'ent_nine': 9, 'ent_zero': 0}
 
     # Edit Message
     chat_user = bot.users[chat_id]
-    chat_user.combination.append(number_key[ord])
+    chat_user.combination.append(number_key[str(ord)])
     my_test = ''.join(chat_user.combination)
 
     base_keys = chat_user.get_redis()
