@@ -96,7 +96,6 @@ class User:
 
     def put_redis_last_message_bot(self, mi):
 
-        # self.last_bot_id = data['callback_query']['id']
         self.last_bot_id = mi
 
         if base_keys := self.get_redis():
@@ -174,7 +173,7 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 @dp.message_handler(commands=[])
-def dynamic_weight(data):
+def dynamic_weight(data, ord):
     logging.info('Weight')
     tunnel = data['message']['chat']['id']
     result_text = 'Грузоподъемность'
@@ -190,7 +189,7 @@ def dynamic_weight(data):
 
 
 @dp.message_handler(commands=[])
-def dynamic_delivery(data):
+def dynamic_delivery(data, ord):
     logging.info('Delivery')
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
@@ -206,7 +205,7 @@ def dynamic_delivery(data):
 
 
 @dp.callback_handler(commands=['region_arrived', ])
-def region_arrived(data):
+def region_arrived(data, ord):
     callback_hello_ok(data, 'Переход на время прибытия')
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -226,11 +225,12 @@ def region_arrived(data):
 
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero'])
-def enter(data):
+def enter(data, ord):
     r = callback_hello_ok(data, 'ok!')
-    logging.info(r.content)
-
     chat_id = data['callback_query']['message']['chat']['id']
+
+    number_key = {'ent_one': 1, 'ent_two': 2, 'ent_three': 3, 'ent_four': 4, 'ent_five': 5,
+                  'ent_six': 6, 'ent_seven': 7, 'ent_eight': 8, 'ent_nine': 9, 'ent_zero': 0]
 
     # Edit Message
     chat_user = bot.users[chat_id]
@@ -238,14 +238,10 @@ def enter(data):
     my_test = ''.join(chat_user.combination)
 
     base_keys = chat_user.get_redis()
-
-    logging.info(base_keys)
     chat_user.last_message_id = base_keys['last_bot_id']
 
     curl = bot.api_edit_message
-    message = {'chat_id': chat_id,
-               'message_id': chat_user.last_message_id,
-               'text': my_test}
+    message = {'chat_id': chat_id, 'message_id': chat_user.last_message_id, 'text': my_test}
 
     logging.info('EDIT Message')
     logging.info(chat_user.last_message_id)
@@ -264,16 +260,16 @@ def enter(data):
 
 
 @dp.message_handler(commands=['/idc', ])
-def bind_bot(data):
+def bind_bot(data, ord):
     tunnel = data['message']['chat']['id']
     message = {'chat_id': tunnel, 'text': data['message']['chat']['id']}
     return message, bot.api_url
 
 
 @dp.message_handler(commands=['/bc', ])
-def keboard_bot(data):
+def keboard_bot(data, ord):
     tunnel = data['message']['chat']['id']
-    result_text = 'Введите время прибытия и выберите перевозчика из списка'
+    result_text = 'Введите время прибытия'
     reply_markup = settings_user.template_engineer_mode()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
@@ -302,7 +298,7 @@ def keboard_bot(data):
 
 
 @dp.message_handler(commands=['/start', ])
-def start_bot(data):
+def start_bot(data, ord):
     tunnel = data['message']['chat']['id']
     result_text = 'Приступим к работе'
     reply_markup = settings_user.template_start()
@@ -349,25 +345,25 @@ def do_echo():
             # curl = bot.api_answer
             user_start_update(data['callback_query']['message']['chat']['id'])
 
-            if commands := data['callback_query'].get('data'):
-                if exec_func := dp.pull_callback_commands.get(commands):
-                    message, curl = exec_func(data)
+            if ord := data['callback_query'].get('data'):
+                if exec_func := dp.pull_callback_commands.get(ord):
+                    message, curl = exec_func(data, ord)
                 else:
                     message, curl = dummy_callback(data)
 
         if data.get('message'):
             # curl = bot.api_url
-            if commands := data['message'].get('text'):
+            if ord := data['message'].get('text'):
                 cs = user_start_update(data['message']['chat']['id'])
                 cs.put_redis_last_message_id(data)
                 bot.users[cs.__name__] = cs
 
                 # logging.info(cs.pull_user_commands)
-                if exec_func := cs.pull_user_commands.get(commands):
-                    message, curl = exec_func(data)
-                elif exec_func := dp.pull_message_commands.get(commands):
-                    # logging.info(commands)
-                    message, curl = exec_func(data)
+                if exec_func := cs.pull_user_commands.get(ord):
+                    message, curl = exec_func(data, ord)
+                elif exec_func := dp.pull_message_commands.get(ord):
+                    # logging.info(ord)
+                    message, curl = exec_func(data, ord)
                 else:
                     message, curl = dummy_message(data)
 
