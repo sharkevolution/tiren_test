@@ -226,7 +226,8 @@ def region_arrived(data, ord=None):
 
 
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
-                               'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero'])
+                               'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero',
+                               'ent_colon'])
 def enter(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
