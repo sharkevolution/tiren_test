@@ -20,6 +20,7 @@ import msgpack
 from mybot.project.controllers import planner
 from mybot.project.controllers import dredis
 from mybot.project.controllers import settings_user
+from mybot.project.controllers import chtime
 
 
 def callback_hello_ok(data, text):
@@ -111,6 +112,7 @@ class User:
 
 class Bot:
     """ Bot token """
+
     def __init__(self, token):
         self.token = token
         self.api_url = f'https://api.telegram.org/bot{self.token}/sendMessage'
@@ -229,40 +231,14 @@ def enter(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
-    number_key = {'ent_one': 1, 'ent_two': 2, 'ent_three': 3, 'ent_four': 4,
-                  'ent_five': 5, 'ent_six': 6, 'ent_seven': 7, 'ent_eight': 8,
-                  'ent_nine': 9, 'ent_zero': 0, 'ent_colon': ':'}
-
-    valid_range = {'01': 1, '02': 1, '03': 1, '04': 1, '05': 1, '06': 1, '07': 1,
-                   '08': 1, '09': 1, '1': 1, '2': 1, '10': 1, '11': 1, '12': 1,
-                   '13': 1, '14': 1, '15': 1, '16': 1, '17': 1, '18': 1, '19': 1,
-                   '20': 1, '21': 1, '22': 1, '23': 1}
-
     # Edit Message
     chat_user = bot.users[chat_id]
-
-    tmp_list = chat_user.combination.copy()
-    tmp_list.append(str(number_key[ord]))
-    raw_text = ''.join(tmp_list)
-
-    logging.info(raw_text)
-    logging.info(valid_range.get(raw_text))
-    if valid_range.get(raw_text):
-        chat_user.combination.append(':')
+    check_list = chtime.check(ord, chat_user.combination)
+    my_test = ''.join(check_list)
+    if my_test == chat_user.combination:
+        return {}, {}
     else:
-        if ':' in chat_user.combination:
-            f = chat_user.combination.split(':')
-            if len(f) == 1:
-                if number_key[ord] > 5:
-                    return {}, {}
-            elif len(f) == 2:
-                if number_key[ord] > 5:
-                    return {}, {}
-            else:
-                return {}, {}
-
-    chat_user.combination.append(str(number_key[ord]))
-    my_test = ''.join(chat_user.combination)
+        chat_user.combination = my_test
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
