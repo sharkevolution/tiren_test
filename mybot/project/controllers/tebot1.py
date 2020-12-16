@@ -243,6 +243,7 @@ def enter(data, ord=None):
     tmp_list = chat_user.combination
     raw_text = ''.join(tmp_list)
 
+    logging.info(raw_text)
     if valid_range.get(raw_text):
         chat_user.combination.append(':')
     else:
