@@ -241,7 +241,7 @@ def enter(data, ord=None):
     # Edit Message
     chat_user = bot.users[chat_id]
 
-    tmp_list = chat_user.combination
+    tmp_list = chat_user.combination.copy()
     tmp_list.append(str(number_key[ord]))
     raw_text = ''.join(tmp_list)
 
