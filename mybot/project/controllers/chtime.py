@@ -14,7 +14,7 @@ valid_range = {'01': 1, '02': 1, '03': 1, '04': 1, '05': 1, '06': 1, '07': 1,
 def check(ord, comb):
 
     tmp_list = copy.deepcopy(comb)
-    if number_key[ord] in tmp_list:
+    if str(number_key[ord]) in tmp_list:
 
         ind = tmp_list.index(':')
         left_side = tmp_list[:ind]
