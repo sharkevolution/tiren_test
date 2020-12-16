@@ -38,7 +38,8 @@ def check(ord, comb):
         left_side = []
         if len(tmp_list) == 1:
             if str(number_key[ord]) in '0123456789:':
-                left_side.append(str(number_key[ord]))
+                if int(tmp_list[0]) < 2:
+                    left_side.append(str(number_key[ord]))
                 if not ':' == str(number_key[ord]):
                     left_side.append(':')
                 tmp_list += left_side
