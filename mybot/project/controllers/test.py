@@ -152,7 +152,7 @@ def my(ord, comb):
     else:
         left_side = []
         if len(tmp_list) == 1:
-            if str(number_key[ord]) in '0123:':
+            if str(number_key[ord]) in '0123456789:':
                 left_side.append(str(number_key[ord]))
                 if not ':' == str(number_key[ord]):
                     left_side.append(':')
@@ -173,7 +173,7 @@ def my(ord, comb):
     return comb
 
 #y = my('ent_three', [])
-y1 = my('ent_three', [])
+y1 = my('ent_nine', ['0', ])
 
 #print(''.join(y))
 print(''.join(y1))

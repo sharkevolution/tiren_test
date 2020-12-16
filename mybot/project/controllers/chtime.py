@@ -37,7 +37,7 @@ def check(ord, comb):
     else:
         left_side = []
         if len(tmp_list) == 1:
-            if str(number_key[ord]) in '0123:':
+            if str(number_key[ord]) in '0123456789:':
                 left_side.append(str(number_key[ord]))
                 if not ':' == str(number_key[ord]):
                     left_side.append(':')
