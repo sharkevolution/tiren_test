@@ -116,3 +116,6 @@
 # hhhh(f.g)
 
 
+# d = '12:5'
+# f = d.split(':')
+# print(f)

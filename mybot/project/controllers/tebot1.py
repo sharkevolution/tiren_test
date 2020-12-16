@@ -231,11 +231,31 @@ def enter(data, ord=None):
 
     number_key = {'ent_one': 1, 'ent_two': 2, 'ent_three': 3, 'ent_four': 4,
                   'ent_five': 5, 'ent_six': 6, 'ent_seven': 7, 'ent_eight': 8,
-                  'ent_nine': 9, 'ent_zero': 0}
+                  'ent_nine': 9, 'ent_zero': 0, 'ent_colon': ':'}
+
+    valid_range = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '1', '2',
+                   '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+                   '21', '22', '23']
 
     # Edit Message
     chat_user = bot.users[chat_id]
+
+    if chat_user.combination in valid_range:
+        chat_user.combination.append(':')
+
+    if str(number_key[ord]) in chat_user.combination:
+        f = chat_user.combination.split(':')
+        if len(f) == 1:
+            if number_key[ord] > 5:
+                return {}, {}
+        elif len(f) == 2:
+            if number_key[ord] > 5:
+                return {}, {}
+        else:
+            return {}, {}
+
     chat_user.combination.append(str(number_key[ord]))
+
     my_test = ''.join(chat_user.combination)
 
     base_keys = chat_user.get_redis()
