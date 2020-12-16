@@ -25,7 +25,7 @@ from mybot.project.controllers import chtime
 
 def callback_hello_ok(data, text):
     try:
-        message = {"callback_query_id": data['callback_query']['id'], "text": text, "cache_time": 1.5}
+        message = {"callback_query_id": data['callback_query']['id'], "text": text, "cache_time": 1.0}
         r = requests.post(bot.api_answer, data=json.dumps(message), headers=bot.headers)
         assert r.status_code == 200
     except Exception as ex:
