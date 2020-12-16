@@ -1,4 +1,5 @@
 
+import logging
 import copy
 
 number_key = {'ent_one': 1, 'ent_two': 2, 'ent_three': 3, 'ent_four': 4,
@@ -14,6 +15,7 @@ valid_range = {'01': 1, '02': 1, '03': 1, '04': 1, '05': 1, '06': 1, '07': 1,
 def check(ord, comb):
 
     tmp_list = copy.deepcopy(comb)
+    logging.info(tmp_list)
     if str(number_key[ord]) in tmp_list:
 
         ind = tmp_list.index(':')
