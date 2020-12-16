@@ -248,15 +248,16 @@ def enter(data, ord=None):
     if raw_text in valid_range:
         chat_user.combination.append(':')
     else:
-        f = chat_user.combination.split(':')
-        if len(f) == 1:
-            if number_key[ord] > 5:
+        if ':' in chat_user.combination:
+            f = chat_user.combination.split(':')
+            if len(f) == 1:
+                if number_key[ord] > 5:
+                    return {}, {}
+            elif len(f) == 2:
+                if number_key[ord] > 5:
+                    return {}, {}
+            else:
                 return {}, {}
-        elif len(f) == 2:
-            if number_key[ord] > 5:
-                return {}, {}
-        else:
-            return {}, {}
 
     chat_user.combination.append(str(number_key[ord]))
     my_test = ''.join(chat_user.combination)
