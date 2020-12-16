@@ -173,7 +173,7 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 @dp.message_handler(commands=[])
-def dynamic_weight(data, ord):
+def dynamic_weight(data, ord=None):
     logging.info('Weight')
     tunnel = data['message']['chat']['id']
     result_text = 'Грузоподъемность'
@@ -189,7 +189,7 @@ def dynamic_weight(data, ord):
 
 
 @dp.message_handler(commands=[])
-def dynamic_delivery(data, ord):
+def dynamic_delivery(data, ord=None):
     logging.info('Delivery')
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
@@ -205,7 +205,7 @@ def dynamic_delivery(data, ord):
 
 
 @dp.callback_handler(commands=['region_arrived', ])
-def region_arrived(data, ord):
+def region_arrived(data, ord=None):
     callback_hello_ok(data, 'Переход на время прибытия')
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -225,7 +225,7 @@ def region_arrived(data, ord):
 
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero'])
-def enter(data, ord):
+def enter(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
@@ -234,7 +234,7 @@ def enter(data, ord):
 
     # Edit Message
     chat_user = bot.users[chat_id]
-    chat_user.combination.append('1')
+    chat_user.combination.append(number_key[ord])
     my_test = ''.join(chat_user.combination)
 
     base_keys = chat_user.get_redis()
@@ -260,14 +260,14 @@ def enter(data, ord):
 
 
 @dp.message_handler(commands=['/idc', ])
-def bind_bot(data, ord):
+def bind_bot(data, ord=None):
     tunnel = data['message']['chat']['id']
     message = {'chat_id': tunnel, 'text': data['message']['chat']['id']}
     return message, bot.api_url
 
 
 @dp.message_handler(commands=['/bc', ])
-def keboard_bot(data, ord):
+def keboard_bot(data, ord=None):
     tunnel = data['message']['chat']['id']
     result_text = 'Введите время прибытия'
     reply_markup = settings_user.template_engineer_mode()
@@ -298,7 +298,7 @@ def keboard_bot(data, ord):
 
 
 @dp.message_handler(commands=['/start', ])
-def start_bot(data, ord):
+def start_bot(data, ord=None):
     tunnel = data['message']['chat']['id']
     result_text = 'Приступим к работе'
     reply_markup = settings_user.template_start()
