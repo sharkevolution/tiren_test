@@ -24,13 +24,9 @@ def check(ord, comb):
         right_side = tmp_list[ind + 1:]
 
         if right_side:
-            if len(right_side) > 1:
+            if len(right_side) == 1:
                 if str(number_key[ord]) in '0123456789':
                     right_side.append(str(number_key[ord]))
-
-            right_side.append(str(number_key[ord]))
-            text = str(number_key[ord])
-
         else:
             if str(number_key[ord]) in '012345':
                 right_side.append(str(number_key[ord]))
