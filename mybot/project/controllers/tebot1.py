@@ -233,19 +233,17 @@ def enter(data, ord=None):
                   'ent_five': 5, 'ent_six': 6, 'ent_seven': 7, 'ent_eight': 8,
                   'ent_nine': 9, 'ent_zero': 0, 'ent_colon': ':'}
 
-    valid_range = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '1', '2',
-                   '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-                   '21', '22', '23']
+    valid_range = {'01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0, '07': 0,
+                   '08': 0, '09': 0, '1': 0, '2': 0, '10': 0, '11': 0, '12': 0, '13': 0,
+                   '14': 0, '15': 0, '16': 0, '17': 0, '18': 0, '19': 0, '20': 0, '21': 0, '22': 0, '23': 0}
 
     # Edit Message
     chat_user = bot.users[chat_id]
 
-    # if chat_user.combination in valid_range:
-    #     chat_user.combination.append(':')
     tmp_list = chat_user.combination
     raw_text = ''.join(tmp_list)
 
-    if raw_text in valid_range:
+    if valid_range.get(raw_text):
         chat_user.combination.append(':')
     else:
         if ':' in chat_user.combination:
