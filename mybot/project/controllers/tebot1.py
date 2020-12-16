@@ -235,10 +235,11 @@ def enter(data, ord=None):
     chat_user = bot.users[chat_id]
     check_list = chtime.check(ord, chat_user.combination)
     my_test = ''.join(check_list)
-    if my_test == chat_user.combination:
+    my_comb = ''.join(chat_user.combination)
+    if my_test == my_comb:
         return {}, {}
     else:
-        chat_user.combination = my_test
+        chat_user.combination = check_list
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
