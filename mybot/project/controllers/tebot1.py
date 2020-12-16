@@ -235,7 +235,7 @@ def enter(data, ord=None):
 
     # Edit Message
     chat_user = bot.users[chat_id]
-    chat_user.combination.append(number_key[str(ord)])
+    chat_user.combination.append(str(number_key[ord]))
     my_test = ''.join(chat_user.combination)
 
     base_keys = chat_user.get_redis()
