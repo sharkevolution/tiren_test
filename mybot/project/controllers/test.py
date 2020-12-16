@@ -155,11 +155,9 @@ def my(ord, comb):
             if str(number_key[ord]) in '0123:':
                 left_side.append(str(number_key[ord]))
                 if not ':' == str(number_key[ord]):
-
-                    if len(tmp_list) == 0:
-                        tmp_list.insert(0, '0')
-
                     left_side.append(':')
+                if len(tmp_list) == 1:
+                    tmp_list.insert(0, '0')
                 tmp_list += left_side
         elif len(tmp_list) == 2:
             left_side.append(':')
@@ -174,7 +172,7 @@ def my(ord, comb):
 
     return comb
 
-y = my('ent_nine', ['1', '2', ':', '4', '8'])
+y = my('ent_colon', ['1', '1'])
 y1 = my('ent_two', ['2'])
 
 print(''.join(y))
