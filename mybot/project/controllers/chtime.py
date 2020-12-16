@@ -12,11 +12,10 @@ valid_range = {'01': 1, '02': 1, '03': 1, '04': 1, '05': 1, '06': 1, '07': 1,
                '20': 1, '21': 1, '22': 1, '23': 1}
 
 
-def check(ord, comb):
+def my(ord, comb):
 
     tmp_list = copy.deepcopy(comb)
-    logging.info(tmp_list)
-    if str(number_key[ord]) in tmp_list:
+    if number_key[ord] in tmp_list:
 
         ind = tmp_list.index(':')
         left_side = tmp_list[:ind]
@@ -41,9 +40,12 @@ def check(ord, comb):
         left_side = []
         if len(tmp_list) == 1:
             if str(number_key[ord]) in '0123:':
-                tmp_list.insert(0, '0')
                 left_side.append(str(number_key[ord]))
                 if not ':' == str(number_key[ord]):
+
+                    if len(tmp_list) == 0:
+                        tmp_list.insert(0, '0')
+
                     left_side.append(':')
                 tmp_list += left_side
         elif len(tmp_list) == 2:
