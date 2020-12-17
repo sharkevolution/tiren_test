@@ -68,13 +68,15 @@ class User:
         self.__name__ = chat_id
         self.first_name = None
         self.last_name = None
-        self.combination = []
-        self.adr = []  # Store addresses
-        self.delivery = []  #
+        self.combination = []  # Time text value
+        self.adr = []  # List of store addresses
+        self.delivery = []  # List of carriers
         self.weight = []  # Capacity
         self.last_message_id = 0
         self.last_bot_id = 0
-        self.pull_user_commands = {}
+        self.pull_user_commands = {}  # Additional set user commands
+        self.tasks = []  # List of user tasks
+        self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
     def get_redis(self):
@@ -106,6 +108,13 @@ class User:
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
 
+    def create_task(self):
+        self.current_task = {'shop': None, 'delivery': None, 'weight': None, 'dlv_time': None}
+
+    def put_task(self):
+        pass
+
+
     def __repr__(self):
         return self.__name__
 
@@ -125,7 +134,9 @@ class Bot:
         self.dict_init = {}  # Custom logic
 
         self.last_id = 0  # Last ID telegram (not message)
-        self.last_chat = None
+        self.last_chat = None # Last chat
+
+        self.list_of_send = {}  # List messages to send
 
 
 class Dispatcher:
@@ -186,6 +197,8 @@ def dynamic_weight(data, ord=None):
         chat_user.pull_user_commands[b] = keboard_bot
     bot.users[tunnel] = chat_user
 
+    chat_user.current_task['delivery'] = ord
+
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
@@ -201,6 +214,8 @@ def dynamic_delivery(data, ord=None):
     for b in chat_user.delivery:
         chat_user.pull_user_commands[b] = dynamic_weight
     bot.users[tunnel] = chat_user
+
+    chat_user.current_task['shop'] = ord
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -219,6 +234,8 @@ def region_arrived(data, ord=None):
         chat_user.pull_user_commands[b] = dynamic_delivery
     bot.users[tunnel] = chat_user
 
+    chat_user.create_task()  # Create task
+
     # logging.info('Region arrived')
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
@@ -232,8 +249,10 @@ def enter(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
-    # Edit Message
     chat_user = bot.users[chat_id]
+    logging.info(chat_user.current_task)
+
+    # Edit Message
     check_list = chtime.check(ord, chat_user.combination)
     my_test = ''.join(check_list)
     my_comb = ''.join(chat_user.combination)
@@ -273,6 +292,7 @@ def bind_bot(data, ord=None):
 
 @dp.message_handler(commands=['/bc', ])
 def keboard_bot(data, ord=None):
+
     tunnel = data['message']['chat']['id']
     result_text = 'Введите время прибытия'
     reply_markup = settings_user.template_engineer_mode()
@@ -281,10 +301,11 @@ def keboard_bot(data, ord=None):
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
-    # Input pass
     chat_user = bot.users[tunnel]
-    chat_user.combination = []
+    chat_user.current_task['weight'] = ord
 
+    # Input pass
+    chat_user.combination = []
     bot.users[tunnel] = chat_user
 
     result_text = "Input key: "
