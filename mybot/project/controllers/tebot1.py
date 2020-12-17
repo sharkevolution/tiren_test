@@ -259,8 +259,7 @@ def enter(data, ord=None):
         chat_user.combination = check_list
         val = []
         for b in chat_user.current_task:
-            if chat_user.current_task[b]:
-               val.append(b)
+            val.append(b)
         logging.info(val)
 
         if len(my_test) == 5:
