@@ -249,8 +249,6 @@ def enter(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     chat_user = bot.users[chat_id]
-    logging.info(chat_user.current_task)
-
     # Edit Message
     check_list = chtime.check(ord, chat_user.combination)
     my_test = ''.join(check_list)
@@ -259,6 +257,10 @@ def enter(data, ord=None):
         return {}, {}
     else:
         chat_user.combination = check_list
+
+        if len(my_test) == 5:
+            chat_user.current_task['dlv_time'] = my_test
+            logging.info(chat_user.current_task)
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
@@ -274,6 +276,8 @@ def enter(data, ord=None):
         assert r.status_code == 200
 
         handler_response_ok(r)  # Обработчик ответа
+
+
 
     except Exception as ex:
         logging.info(r)
