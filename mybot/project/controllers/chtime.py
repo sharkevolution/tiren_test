@@ -33,7 +33,6 @@ def check(ord, comb):
 
         tmp_list = left_side + [':'] + right_side
         #print(tmp_list)
-
     else:
         left_side = []
         if len(tmp_list) == 1:
@@ -53,7 +52,6 @@ def check(ord, comb):
                 left_side.append(str(number_key[ord]))
             tmp_list += left_side
         #print(tmp_list)
-
     comb = copy.deepcopy(tmp_list)
 
     return comb

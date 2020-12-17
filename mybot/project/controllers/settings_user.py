@@ -10,6 +10,23 @@ import logging
 # [{"text": f"Мои адреса {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
 # [{"text": f"Настройки бота {emoji.emojize(':shopping_cart:')}", "callback_data": "shop"}, ],
 
+# def template_region_all():
+#     ej_ukraine = emoji.emojize(':Ukraine:')
+#     ej_city = emoji.emojize(':cityscape:')
+#     ej_delivery = emoji.emojize(':delivery_truck:')
+#     ej_shop = emoji.emojize(':shopping_cart:')
+#
+#     reply_markup = {"inline_keyboard": [[
+#         {"text": f"Регион {ej_ukraine}", "callback_data": "region"},
+#         {"text": f"Город {ej_city}", "callback_data": "city"}],
+#         [{"text": f"Магазин {ej_shop}", "callback_data": "shop"}, ],
+#         [{"text": f"Перевозчик {ej_delivery}", "callback_data": "delivery"}, ]
+#     ],
+#         "resize_keyboard": True,
+#         "one_time_keyboard": False}
+#
+#     return reply_markup
+
 
 def template_engineer_mode():
     ej_ok = emoji.emojize(':OK_button:')
@@ -31,7 +48,7 @@ def template_engineer_mode():
          {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_colon"},
          {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_ok"}],
 
-        [{"text": f"{emoji.emojize('Enter')}", "callback_data": "ent_ok"}],
+        [{"text": f"К отправке {emoji.emojize(':satellite:')}", "callback_data": "ent_ok"}],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
@@ -62,29 +79,12 @@ def template_weight(dict_init, chat_user):
             wt.append([{"text": str(b[1])}])
             chat_user.weight.append(str(b[1]))
 
-    reply_markup = {"keyboard": wt,
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+    wt.append([{"text": emoji.emojize(':BACK_arrow: Назад')}])
+    chat_user.weight.append(emoji.emojize(':BACK_arrow: Назад'))
+
+    reply_markup = {"keyboard": wt, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, chat_user
-
-
-def template_region_all():
-    ej_ukraine = emoji.emojize(':Ukraine:')
-    ej_city = emoji.emojize(':cityscape:')
-    ej_delivery = emoji.emojize(':delivery_truck:')
-    ej_shop = emoji.emojize(':shopping_cart:')
-
-    reply_markup = {"inline_keyboard": [[
-        {"text": f"Регион {ej_ukraine}", "callback_data": "region"},
-        {"text": f"Город {ej_city}", "callback_data": "city"}],
-        [{"text": f"Магазин {ej_shop}", "callback_data": "shop"}, ],
-        [{"text": f"Перевозчик {ej_delivery}", "callback_data": "delivery"}, ]
-    ],
-        "resize_keyboard": True,
-        "one_time_keyboard": False}
-
-    return reply_markup
 
 
 def template_shops(dict_init, chat_user):
@@ -97,12 +97,10 @@ def template_shops(dict_init, chat_user):
             adr.append([{"text": b[2]}])
             chat_user.adr.append(b[2])
 
-    adr.append([{"text": 'Update'}])
-    chat_user.delivery.append('Update')
+    adr.append([{"text": emoji.emojize(':BACK_arrow: Назад')}])
+    chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад'))
 
-    reply_markup = {"keyboard": adr,
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+    reply_markup = {"keyboard": adr, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, chat_user
 
@@ -116,11 +114,9 @@ def template_delivery(dict_init, chat_user):
             dlv.append([{"text": b[1]}])
             chat_user.delivery.append(b[1])
 
-    dlv.append([{"text": emoji.emojize(':BACK_arrow:')}])
-    chat_user.delivery.append(emoji.emojize(':BACK_arrow:'))
+    dlv.append([{"text": emoji.emojize(':BACK_arrow: Назад')}])
+    chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад'))
 
-    reply_markup = {"keyboard": dlv,
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False}
+    reply_markup = {"keyboard": dlv, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, chat_user
