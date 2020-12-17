@@ -195,9 +195,9 @@ def dynamic_weight(data, ord=None):
     # Update commands wrapper
     for b in chat_user.weight:
         chat_user.pull_user_commands[b] = keboard_bot
-    bot.users[tunnel] = chat_user
 
     chat_user.current_task['delivery'] = ord
+    bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -213,9 +213,9 @@ def dynamic_delivery(data, ord=None):
     # Update commands wrapper
     for b in chat_user.delivery:
         chat_user.pull_user_commands[b] = dynamic_weight
-    bot.users[tunnel] = chat_user
 
     chat_user.current_task['shop'] = ord
+    bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -232,9 +232,8 @@ def region_arrived(data, ord=None):
     # Update commands wrapper
     for b in chat_user.adr:
         chat_user.pull_user_commands[b] = dynamic_delivery
-    bot.users[tunnel] = chat_user
-
     chat_user.create_task()  # Create task
+    bot.users[tunnel] = chat_user
 
     # logging.info('Region arrived')
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
