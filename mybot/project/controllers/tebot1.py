@@ -257,16 +257,16 @@ def enter(data, ord=None):
         return {}, {}
     else:
         chat_user.combination = check_list
-        val = []
+        val = 0
         for b in chat_user.current_task:
             if not chat_user.current_task[b] is None:
-                val.append(chat_user.current_task[b])
-        logging.info(val)
+                val += 1
 
-        if len(my_test) == 5:
+        if val == 5:
+            # Create thread for sen message
+            
             chat_user.current_task['dlv_time'] = my_test
             logging.info(chat_user.current_task)
-
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
