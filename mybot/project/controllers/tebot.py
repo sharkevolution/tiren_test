@@ -269,7 +269,7 @@ def enter(data, ord=None):
                     val += 1
             if val == 5:
                 # Add task to list of send
-
+                pass
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
