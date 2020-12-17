@@ -258,15 +258,18 @@ def enter(data, ord=None):
         return {}, {}
     else:
         chat_user.combination = check_list
-        val = 0
-        for b in chat_user.current_task:
-            if not chat_user.current_task[b] is None:
-                val += 1
-
-        if val == 5:
+        if len(chat_user.combination) == 5:
             # Create thread for sen message
             chat_user.current_task['dlv_time'] = my_test
             logging.info(chat_user.current_task)
+
+            val = 0
+            for b in chat_user.current_task:
+                if not chat_user.current_task[b] is None:
+                    val += 1
+            if val == 5:
+                # Add task to list of send
+
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
