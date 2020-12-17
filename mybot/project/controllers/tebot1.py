@@ -257,10 +257,13 @@ def enter(data, ord=None):
         return {}, {}
     else:
         chat_user.combination = check_list
+        val = [1 for b in chat_user.current_task if chat_user.current_task[b]]
+        logging.info(val)
 
         if len(my_test) == 5:
             chat_user.current_task['dlv_time'] = my_test
             logging.info(chat_user.current_task)
+
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
