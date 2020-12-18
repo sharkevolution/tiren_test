@@ -42,6 +42,7 @@ def user_start_update(chat_id, _from):
         clu.first_name = _from['first_name']
         clu.last_name = _from['last_name']
 
+        clu.put_redis_info()
         bot.users[User(chat_id).__name__] = clu
 
     cs = bot.users[chat_id]
@@ -116,6 +117,15 @@ class User:
             base_keys = {'last_bot_id': self.last_bot_id}
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
+
+    def put_redis_info(self):
+
+        base_keys = {'from_id': self.from_id,
+                     'first_name': self.first_name,
+                     'last_name': sel.last_name}
+        new_pack = msgpack.packb(base_keys)
+        self.redisClient.set(self.__name__, new_pack)
+
 
     def create_task(self):
         self.current_task = {'shop': None, 'delivery': None, 'weight': None, 'dlv_time': None,
