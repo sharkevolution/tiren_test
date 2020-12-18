@@ -264,6 +264,11 @@ def enter_to_list(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     if tmp_list := bot.tasks.get(chat_id):
+
+        me = bot.users.get[chat_id]
+        me_first = me.first_name
+        me_last = me.last_name
+
         html_list = []
 
         for ts in tmp_list:
@@ -276,6 +281,7 @@ def enter_to_list(data, ord=None):
 
             html_list.append(tmp_text)
 
+        html_list.insert(0, ' '.join([me_first, me_last]))
         result_text = '\n'.join(html_list)
 
         res = {'chat_id': chat_id, 'text': result_text, 'parse_mode': 'HTML'}
