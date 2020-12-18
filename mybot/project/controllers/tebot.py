@@ -266,7 +266,7 @@ def dynamic_delivery(data, ord=None):
 
     # event back
     back = chat_user.delivery[-1]
-    chat_user.pull_user_commands[back] = region_arrived
+    chat_user.pull_user_commands[back] = back_to_shop
 
     logging.info(ord)
     if not 'Назад' in ord:
