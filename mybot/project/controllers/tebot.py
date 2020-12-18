@@ -215,8 +215,11 @@ def dynamic_weight(data, ord=None):
     reply_markup, chat_user = settings_user.template_weight(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
-    for b in chat_user.weight:
+    for b in chat_user.weight[:-1]:
         chat_user.pull_user_commands[b] = keboard_bot
+
+    back = chat_user.weight[:-1]
+    chat_user.pull_user_commands[back] = dynamic_delivery
 
     chat_user.current_task['delivery'] = ord
     bot.users[tunnel] = chat_user
@@ -232,17 +235,6 @@ def dynamic_delivery(data, ord=None):
     tunnel = data['message']['chat']['id']
 
     logging.info(ord)
-    # if ord == ':BACK_arrow: Назад к адресам':
-    #     result_text = 'Выберите адрес из списка'
-    #     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
-    #
-    #     # Update commands wrapper
-    #     for b in chat_user.adr:
-    #         chat_user.pull_user_commands[b] = dynamic_delivery
-    #     chat_user.create_task()  # Create task
-    #     bot.users[tunnel] = chat_user
-    # else:
-
     result_text = 'Выберите перевозчика'
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
 
