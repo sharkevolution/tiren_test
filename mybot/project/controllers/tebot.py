@@ -75,7 +75,6 @@ class User:
         self.last_message_id = 0
         self.last_bot_id = 0
         self.pull_user_commands = {}  # Additional set user commands
-        self.tasks = []  # List of user tasks
         self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
@@ -136,8 +135,7 @@ class Bot:
 
         self.last_id = 0  # Last ID telegram (not message)
         self.last_chat = None # Last chat
-
-        self.list_of_send = {}  # List messages to send
+        self.tasks = []  # List of users tasks
 
 
 class Dispatcher:
@@ -373,7 +371,7 @@ def do_echo():
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
     data = request.json
-    # logging.info(data)
+    logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
