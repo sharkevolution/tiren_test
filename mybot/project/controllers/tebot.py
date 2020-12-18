@@ -218,7 +218,8 @@ def dynamic_weight(data, ord=None):
     for b in chat_user.weight[:-1]:
         chat_user.pull_user_commands[b] = keboard_bot
 
-    back = chat_user.weight[:-1]
+    # event
+    back = chat_user.weight[-1]
     chat_user.pull_user_commands[back] = dynamic_delivery
 
     chat_user.current_task['delivery'] = ord
