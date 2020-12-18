@@ -258,7 +258,7 @@ def region_arrived(data, ord=None):
     return message, bot.api_url
 
 
-@dp.callback_handler(commands=['ent_shops'])
+@dp.callback_handler(commands=['ent_list'])
 def enter_to_list(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
