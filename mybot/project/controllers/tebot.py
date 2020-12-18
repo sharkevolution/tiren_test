@@ -40,8 +40,14 @@ def user_start_update(chat_id, _from):
         # Add info about User
         clu = User(chat_id)
         clu.from_id = _from['id']
-        clu.first_name = _from.get('first_name')
-        clu.last_name = _from.get('last_name')
+
+        clu.first_name = ''
+        if _from.get('first_name'):
+            clu.first_name = _from.get['first_name']
+
+        clu.last_name = ''
+        if _from.get('last_name'):
+            clu.last_name = _from.get('last_name')
 
         clu.put_redis_info()
         bot.users[User(chat_id).__name__] = clu
