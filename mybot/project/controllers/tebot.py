@@ -90,6 +90,7 @@ class User:
         self.last_message_id = 0
         self.last_bot_id = 0
         self.pull_user_commands = {}  # Additional set user commands
+
         self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
@@ -405,7 +406,7 @@ def clear_redis_base(data, ord=None):
     return message, bot.api_url
 
 
-@dp.message_handler(commands=['/idc', ])
+@dp.message_handler(commands=['/chat', ])
 def bind_bot(data, ord=None):
     tunnel = data['message']['chat']['id']
     message = {'chat_id': tunnel, 'text': data['message']['chat']['id']}
