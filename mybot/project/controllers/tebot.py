@@ -36,12 +36,21 @@ def callback_hello_ok(data, text):
 def user_start_update(chat_id, _from):
     """ Start and Updater user profile """
     if not bot.users.get(chat_id):
-        bot.users[User(chat_id).__name__] = User(chat_id)
+
+        clu = User(chat_id)
+        clu.from_id = _from['id']
+        clu.first_name = _from['fisrt_name']
+        clu.last_name = _from['last_name']
+
+        bot.users[User(chat_id).__name__] = clu
 
     cs = bot.users[chat_id]
     csdata = cs.get_redis()
     if csdata.get('last_message_id'):
         cs.last_message_id = csdata['last_message_id']
+        cs.from_id = csdata['id']
+        cs.first_name = csdata['fisrt_name']
+        cs.last_name = csdata['last_name']
 
     bot.users[chat_id] = cs
     bot.last_chat = chat_id  # Active chat
@@ -284,8 +293,6 @@ def enter(data, ord=None):
         assert r.status_code == 200
 
         handler_response_ok(r)  # Обработчик ответа
-
-
 
     except Exception as ex:
         logging.info(r)
