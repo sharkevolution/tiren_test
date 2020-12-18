@@ -262,12 +262,15 @@ def region_arrived(data, ord=None):
 def enter_to_list(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
-    
+
     chat_user = bot.users[chat_id]
     chat_user.create_task()  # Clear current task
-
-    region_arrived(data, ord)
     bot.users[chat_id] = chat_user
+
+    logging.info(data)
+    logging.info(ord)
+    region_arrived(data, ord)
+
 
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero',
