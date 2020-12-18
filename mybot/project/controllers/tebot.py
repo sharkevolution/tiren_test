@@ -265,7 +265,7 @@ def enter_to_list(data, ord=None):
 
     if tmp_list := bot.tasks.get(chat_id):
 
-        me = bot.users.get[chat_id]
+        me = bot.users.get(chat_id)
         me_first = me.first_name
         me_last = me.last_name
 
