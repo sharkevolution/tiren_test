@@ -340,9 +340,9 @@ def enter(data, ord=None):
                     val += 1
             if val == 5:
                 # Add tasks to dict from send
-                if bot.tasks.get(chat_id):
-                    tmp_ = bot.tasks[chat_id]
+                if tmp_ := bot.tasks.get(chat_id):
                     tmp_.append(chat_user.current_task)
+                    bot.tasks[chat_id] = tmp_
                     logging.info(bot.tasks)
                 else:
                     bot.tasks[chat_id] = [chat_user.current_task, ]
