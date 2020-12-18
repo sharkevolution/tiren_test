@@ -49,7 +49,7 @@ def user_start_update(chat_id, _from):
     csdata = cs.get_redis()
     if csdata.get('last_message_id'):
         cs.last_message_id = csdata['last_message_id']
-        cs.from_id = csdata['id']
+        cs.from_id = csdata['from_id']
         cs.first_name = csdata['first_name']
         cs.last_name = csdata['last_name']
 
@@ -126,14 +126,12 @@ class User:
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
 
-
     def create_task(self):
         self.current_task = {'shop': None, 'delivery': None, 'weight': None, 'dlv_time': None,
                              'status_send': 'pending'}
 
     def put_task(self):
         pass
-
 
     def __repr__(self):
         return self.__name__
@@ -154,7 +152,7 @@ class Bot:
         self.dict_init = {}  # Custom logic
 
         self.last_id = 0  # Last ID telegram (not message)
-        self.last_chat = None # Last chat
+        self.last_chat = None  # Last chat
         self.tasks = []  # List of users tasks
 
 
