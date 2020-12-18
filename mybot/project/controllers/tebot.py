@@ -209,7 +209,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=[])
 def dynamic_weight(data, ord=None):
-    # logging.info('Weight')
+    logging.info('Weight')
     tunnel = data['message']['chat']['id']
     result_text = 'Грузоподъемность'
     reply_markup, chat_user = settings_user.template_weight(bot.dict_init, bot.users[tunnel])
@@ -222,6 +222,7 @@ def dynamic_weight(data, ord=None):
     back = chat_user.weight[-1]
     chat_user.pull_user_commands[back] = dynamic_delivery
 
+    logging.info(ord)
     if not ':BACK_arrow:' in ord:
         chat_user.current_task['delivery'] = ord
     bot.users[tunnel] = chat_user

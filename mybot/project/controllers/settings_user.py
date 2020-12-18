@@ -112,8 +112,8 @@ def template_delivery(dict_init, chat_user):
             dlv.append([{"text": b[1]}])
             chat_user.delivery.append(b[1])
 
-    # dlv.append([{"text": emoji.emojize(':BACK_arrow: Назад к адресам')}])
-    # chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад к адресам'))
+    dlv.append([{"text": emoji.emojize(':BACK_arrow: Назад к адресам')}])
+    chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад к адресам'))
 
     reply_markup = {"keyboard": dlv, "resize_keyboard": True, "one_time_keyboard": False}
 
