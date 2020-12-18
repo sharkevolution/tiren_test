@@ -209,3 +209,9 @@
 #     print(result_text)
 #
 # ff()
+
+
+f = ':BACK_arrow: sdfdfg'
+
+if ':BACK_arrow:' in f:
+    print('ok')

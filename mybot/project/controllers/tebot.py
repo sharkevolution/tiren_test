@@ -222,9 +222,8 @@ def dynamic_weight(data, ord=None):
     back = chat_user.weight[-1]
     chat_user.pull_user_commands[back] = dynamic_delivery
 
-    logging.info('NEW DELIVERY')
-    logging.info(ord)
-    chat_user.current_task['delivery'] = ord
+    if not ':BACK_arrow:' in ord:
+        chat_user.current_task['delivery'] = ord
     bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
@@ -245,7 +244,8 @@ def dynamic_delivery(data, ord=None):
     for b in chat_user.delivery:
         chat_user.pull_user_commands[b] = dynamic_weight
 
-    chat_user.current_task['shop'] = ord
+    if not ':BACK_arrow:' in ord:
+        chat_user.current_task['shop'] = ord
     bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
@@ -395,7 +395,6 @@ def enter(data, ord=None):
 
 @dp.message_handler(commands=['/clear_base', ])
 def clear_redis_base(data, ord=None):
-
     dredis.clear_base_redis()
 
     tunnel = data['message']['chat']['id']
@@ -412,7 +411,6 @@ def bind_bot(data, ord=None):
 
 @dp.message_handler(commands=['/bc', ])
 def keboard_bot(data, ord=None):
-
     tunnel = data['message']['chat']['id']
     result_text = 'Введите время прибытия'
     reply_markup = settings_user.template_engineer_mode()
