@@ -263,7 +263,6 @@ def enter_to_list(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
-    chat_user = bot.users[chat_id]
     if tmp_list := bot.tasks.get(chat_id):
         html_list = []
 
@@ -343,12 +342,12 @@ def enter(data, ord=None):
                     val += 1
             if val == 5:
                 # Add tasks to dict from send
-                if bot.tasks.get('chat_user'):
-                    tmp_ = bot.tasks['chat_user']
+                if bot.tasks.get(chat_id):
+                    tmp_ = bot.tasks[chat_id]
                     tmp_.append(chat_user.current_task)
                     logging.info(bot.tasks)
                 else:
-                    bot.tasks['chat_user'] = [chat_user.current_task, ]
+                    bot.tasks[chat_id] = [chat_user.current_task, ]
                     logging.info(bot.tasks)
 
     base_keys = chat_user.get_redis()
