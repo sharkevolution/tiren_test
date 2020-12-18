@@ -272,13 +272,11 @@ def enter_to_list(data, ord=None):
             wt = ts['weight']
             st = ts['dlv_time']
 
-            tmp_text = ' | '.join([shop, dlv, wt, st])
+            tmp_text = ' | '.join([shop, dlv, wt, st, ])
 
-            _row = f"<li>{tmp_text}</li>"
-            html_list.append(_row)
+            html_list.append(tmp_text)
 
-        html_add_rows = ''.join(html_list)
-        result_text = f"""<ul>{html_add_rows}</ul>"""
+        result_text = '\n'.join(html_list)
 
         res = {'chat_id': chat_id, 'text': result_text, 'parse_mode': 'HTML'}
     else:
