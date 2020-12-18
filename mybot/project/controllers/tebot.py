@@ -245,8 +245,11 @@ def dynamic_delivery(data, ord=None):
     for b in chat_user.delivery:
         chat_user.pull_user_commands[b] = dynamic_weight
 
+    logging.info(ord)
     if not ':BACK_arrow:' in ord:
+        logging.info(chat_user.current_task)
         chat_user.current_task['shop'] = ord
+        logging.info(chat_user.current_task)
     bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
