@@ -234,12 +234,16 @@ def dynamic_weight(data, ord=None):
     reply_markup, chat_user = settings_user.template_weight(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
-    for b in chat_user.weight[:-1]:
+    for b in chat_user.weight[:-2]:
         chat_user.pull_user_commands[b] = keboard_bot
 
-    # event back
-    back = chat_user.weight[-1]
+    # event Back
+    back = chat_user.weight[-2]
     chat_user.pull_user_commands[back] = dynamic_delivery
+
+    # event TOP
+    back = chat_user.weight[-1]
+    chat_user.pull_user_commands[back] = start_bot
 
     logging.info(ord)
     if not 'Назад' in ord:
