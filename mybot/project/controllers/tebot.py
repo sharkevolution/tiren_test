@@ -258,6 +258,17 @@ def region_arrived(data, ord=None):
     return message, bot.api_url
 
 
+@dp.callback_handler(commands=['ent_shops'])
+def enter_to_list(data, ord=None):
+    r = callback_hello_ok(data, 'ok!')
+    chat_id = data['callback_query']['message']['chat']['id']
+    
+    chat_user = bot.users[chat_id]
+    chat_user.create_task()  # Clear current task
+
+    region_arrived(data, ord)
+    bot.users[chat_id] = chat_user
+
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero',
                                'ent_colon'])
@@ -275,7 +286,6 @@ def enter(data, ord=None):
     else:
         chat_user.combination = check_list
         if len(chat_user.combination) == 5:
-            # Create thread for sen message
             chat_user.current_task['dlv_time'] = my_test
             logging.info(chat_user.current_task)
 
@@ -300,7 +310,6 @@ def enter(data, ord=None):
     message = {'chat_id': chat_id, 'message_id': chat_user.last_message_id, 'text': my_test}
 
     logging.info('EDIT Message')
-    logging.info(ord)
     logging.info(chat_user.last_message_id)
 
     try:
