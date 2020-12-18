@@ -349,6 +349,7 @@ def enter(data, ord=None):
                 if tmp_ := bot.tasks.get(chat_id):
                     tmp_.append(chat_user.current_task)
                     bot.tasks[chat_id] = tmp_
+                    logging.info('ADD')
                     logging.info(bot.tasks)
                 else:
                     bot.tasks[chat_id] = [chat_user.current_task, ]
