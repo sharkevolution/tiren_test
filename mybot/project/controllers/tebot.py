@@ -50,8 +50,11 @@ def user_start_update(chat_id, _from):
     csdata = cs.get_redis()
     if csdata.get('last_message_id'):
         cs.last_message_id = csdata['last_message_id']
+    if csdata.get('from_id'):
         cs.from_id = csdata['from_id']
+    if csdata.get('first_name'):
         cs.first_name = csdata['first_name']
+    if csdata.get('last_name'):
         cs.last_name = csdata['last_name']
 
     bot.users[chat_id] = cs
@@ -398,7 +401,7 @@ def clear_redis_base(data, ord=None):
     dredis.clear_base_redis()
 
     tunnel = data['message']['chat']['id']
-    message = {'chat_id': tunnel, 'text': data['message']['chat']['id']}
+    message = {'chat_id': tunnel, 'text': 'Clear base Redis is ok!'}
     return message, bot.api_url
 
 
