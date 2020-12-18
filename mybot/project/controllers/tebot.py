@@ -33,7 +33,7 @@ def callback_hello_ok(data, text):
     return r
 
 
-def user_start_update(chat_id):
+def user_start_update(chat_id, _from):
     """ Start and Updater user profile """
     if not bot.users.get(chat_id):
         bot.users[User(chat_id).__name__] = User(chat_id)
@@ -66,6 +66,7 @@ def handler_response_ok(resp):
 class User:
     def __init__(self, chat_id):
         self.__name__ = chat_id
+        self.from_id = None
         self.first_name = None
         self.last_name = None
         self.combination = []  # Time text value
@@ -379,7 +380,7 @@ def do_echo():
 
         if data.get('callback_query'):
             # curl = bot.api_answer
-            user_start_update(data['callback_query']['message']['chat']['id'])
+            user_start_update(data['callback_query']['message']['chat']['id'], data['from'])
 
             if ord := data['callback_query'].get('data'):
                 if exec_func := dp.pull_callback_commands.get(ord):
@@ -390,7 +391,7 @@ def do_echo():
         if data.get('message'):
             # curl = bot.api_url
             if ord := data['message'].get('text'):
-                cs = user_start_update(data['message']['chat']['id'])
+                cs = user_start_update(data['message']['chat']['id'], data['from'])
                 cs.put_redis_last_message_id(data)
                 bot.users[cs.__name__] = cs
 
