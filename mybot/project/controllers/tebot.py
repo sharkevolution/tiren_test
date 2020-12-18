@@ -43,7 +43,7 @@ def user_start_update(chat_id, _from):
 
         clu.first_name = ''
         if _from.get('first_name'):
-            clu.first_name = _from.get['first_name']
+            clu.first_name = _from.get('first_name')
 
         clu.last_name = ''
         if _from.get('last_name'):
