@@ -285,8 +285,13 @@ def enter(data, ord=None):
                     val += 1
             if val == 5:
                 # Add task to dict of send
-                bot.tasks['chat_user'] = chat_user.current_task
-                logging.info(bot.tasks)
+                if bot.tasks.get('chat_user'):
+                    tmp_ = bot.tasks['chat_user']
+                    tmp_.append(chat_user.current_task)
+                    logging.info(bot.tasks)
+                else:
+                    bot.tasks['chat_user'] = [chat_user.current_task, ]
+                    logging.info(bot.tasks)
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
