@@ -269,7 +269,9 @@ def enter_to_list(data, ord=None):
 
     logging.info(data)
     logging.info(ord)
-    region_arrived(data, ord)
+    region_arrived(data, 'region_arrived')
+
+    return  {}, {}
 
 
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
