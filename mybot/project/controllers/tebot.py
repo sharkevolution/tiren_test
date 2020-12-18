@@ -225,15 +225,27 @@ def dynamic_weight(data, ord=None):
 def dynamic_delivery(data, ord=None):
     # logging.info('Delivery')
     tunnel = data['message']['chat']['id']
-    result_text = 'Выберите перевозчика'
-    reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
 
-    # Update commands wrapper
-    for b in chat_user.delivery:
-        chat_user.pull_user_commands[b] = dynamic_weight
+    if ord == ':BACK_arrow: Назад к адресам':
+        result_text = 'Выберите адрес из списка'
+        reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
-    chat_user.current_task['shop'] = ord
-    bot.users[tunnel] = chat_user
+        # Update commands wrapper
+        for b in chat_user.adr:
+            chat_user.pull_user_commands[b] = dynamic_delivery
+        chat_user.create_task()  # Create task
+        bot.users[tunnel] = chat_user
+
+    else:
+        result_text = 'Выберите перевозчика'
+        reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
+
+        # Update commands wrapper
+        for b in chat_user.delivery:
+            chat_user.pull_user_commands[b] = dynamic_weight
+
+        chat_user.current_task['shop'] = ord
+        bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -292,7 +304,6 @@ def enter_to_list(data, ord=None):
 
     logging.info(res)
     return res, bot.api_url
-
 
 
 @dp.callback_handler(commands=['ent_shops'])
@@ -379,6 +390,16 @@ def enter(data, ord=None):
         logging.error('Error' + str(ex))
 
     return {}, {}
+
+
+@dp.message_handler(commands=['/clear_base', ])
+def clear_redis_base(data, ord=None):
+
+    dredis.clear_base_redis()
+
+    tunnel = data['message']['chat']['id']
+    message = {'chat_id': tunnel, 'text': data['message']['chat']['id']}
+    return message, bot.api_url
 
 
 @dp.message_handler(commands=['/idc', ])
