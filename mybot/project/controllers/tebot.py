@@ -284,7 +284,7 @@ def enter(data, ord=None):
                 if not chat_user.current_task[b] is None:
                     val += 1
             if val == 5:
-                # Add task to dict of send
+                # Add tasks to dict from send
                 if bot.tasks.get('chat_user'):
                     tmp_ = bot.tasks['chat_user']
                     tmp_.append(chat_user.current_task)
@@ -300,6 +300,7 @@ def enter(data, ord=None):
     message = {'chat_id': chat_id, 'message_id': chat_user.last_message_id, 'text': my_test}
 
     logging.info('EDIT Message')
+    logging.info(ord)
     logging.info(chat_user.last_message_id)
 
     try:

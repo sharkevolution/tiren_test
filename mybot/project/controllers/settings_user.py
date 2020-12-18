@@ -48,7 +48,8 @@ def template_engineer_mode():
          {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_colon"},
          {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_ok"}],
 
-        [{"text": f"К отправке {emoji.emojize(':satellite:')}", "callback_data": "ent_ok"}],
+        [{"text": f"К адресам {emoji.emojize(':houses:')}", "callback_data": "ent_shops"},
+         {"text": f"Мой список {emoji.emojize(':spiral_notepad:')}", "callback_data": "ent_list"}],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
