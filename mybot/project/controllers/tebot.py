@@ -264,6 +264,35 @@ def enter_to_list(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     chat_user = bot.users[chat_id]
+    tmp_list = bot.tasks.get[chat_user]
+
+    html_list = []
+
+    for ts in tmp_list:
+        shop = ts['shop']
+        dlv = ts['delivery']
+        wt = ts['weight']
+        st = ts['dlv_time']
+
+        tmp_text = ' | '.join([shop, dlv, wt, st])
+
+        _row = f"<li>{tmp_text}</li>"
+        html_list.append(_row)
+
+    html_add_rows = ''.join(html_list)
+    result_text = f"""<ul>{html_add_rows}</ul>"""
+
+    res = {'chat_id': data['message']['chat']['id'], 'text': result_text, 'parse_mode': 'html'}
+    return res, bot.api_url
+
+
+
+@dp.callback_handler(commands=['ent_shops'])
+def enter_to_shops(data, ord=None):
+    r = callback_hello_ok(data, 'ok!')
+    chat_id = data['callback_query']['message']['chat']['id']
+
+    chat_user = bot.users[chat_id]
     chat_user.create_task()  # Clear current task
     bot.users[chat_id] = chat_user
 
