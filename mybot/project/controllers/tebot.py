@@ -227,10 +227,20 @@ def dynamic_weight(data, ord=None):
 
 @dp.message_handler(commands=[])
 def dynamic_delivery(data, ord=None):
-    # logging.info('Delivery')
+    logging.info('Delivery')
     tunnel = data['message']['chat']['id']
 
+    logging.info(ord)
     if ord == ':BACK_arrow: Назад к адресам':
+        result_text = 'Выберите адрес из списка'
+        reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
+
+        # Update commands wrapper
+        for b in chat_user.adr:
+            chat_user.pull_user_commands[b] = dynamic_delivery
+        chat_user.create_task()  # Create task
+        bot.users[tunnel] = chat_user
+    else:
         result_text = 'Выберите перевозчика'
         reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
 
@@ -239,15 +249,6 @@ def dynamic_delivery(data, ord=None):
             chat_user.pull_user_commands[b] = dynamic_weight
 
         chat_user.current_task['shop'] = ord
-        bot.users[tunnel] = chat_user
-    else:
-        result_text = 'Выберите адрес из списка'
-        reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
-
-        # Update commands wrapper
-        for b in chat_user.adr:
-            chat_user.pull_user_commands[b] = dynamic_delivery
-        chat_user.create_task()  # Create task
         bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
