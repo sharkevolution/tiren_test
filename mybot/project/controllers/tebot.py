@@ -301,7 +301,7 @@ def enter_to_shops(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     chat_user = bot.users[chat_id]
-    chat_user.create_task()  # Clear current task
+    # chat_user.create_task()  # Clear current task
     bot.users[chat_id] = chat_user
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -320,7 +320,6 @@ def enter_to_shops(data, ord=None):
     return message, bot.api_url
 
 
-
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero',
                                'ent_colon'])
@@ -334,7 +333,9 @@ def enter(data, ord=None):
     my_test = ''.join(check_list)
     my_comb = ''.join(chat_user.combination)
     if my_test == my_comb:
+
         return {}, {}
+
     else:
         chat_user.combination = check_list
         if len(chat_user.combination) == 5:
@@ -348,6 +349,7 @@ def enter(data, ord=None):
             if val == 5:
                 # Add tasks to dict from send
                 crs = copy.deepcopy(chat_user.current_task)
+
                 if tmp_ := bot.tasks.get(chat_id):
                     tmp_.append(crs)
                     bot.tasks[chat_id] = tmp_

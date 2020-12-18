@@ -81,7 +81,7 @@ def template_weight(dict_init, chat_user):
             chat_user.weight.append(str(b[1]))
 
     wt.append([{"text": emoji.emojize(':BACK_arrow: Назад')}])
-    chat_user.weight.append(emoji.emojize(':BACK_arrow: Назад'))
+    chat_user.weight.append(emoji.emojize(':BACK_arrow: Назад к перевозчикам'))
 
     reply_markup = {"keyboard": wt, "resize_keyboard": True, "one_time_keyboard": False}
 
@@ -98,8 +98,8 @@ def template_shops(dict_init, chat_user):
             adr.append([{"text": b[2]}])
             chat_user.adr.append(b[2])
 
-    adr.append([{"text": emoji.emojize(':BACK_arrow: Назад')}])
-    chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад'))
+    # adr.append([{"text": emoji.emojize(':BACK_arrow: Назад')}])
+    # chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад'))
 
     reply_markup = {"keyboard": adr, "resize_keyboard": True, "one_time_keyboard": False}
 
@@ -116,7 +116,7 @@ def template_delivery(dict_init, chat_user):
             chat_user.delivery.append(b[1])
 
     dlv.append([{"text": emoji.emojize(':BACK_arrow: Назад')}])
-    chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад'))
+    chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад к адресам'))
 
     reply_markup = {"keyboard": dlv, "resize_keyboard": True, "one_time_keyboard": False}
 
