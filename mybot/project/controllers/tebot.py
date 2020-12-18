@@ -264,7 +264,7 @@ def enter_to_list(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     chat_user = bot.users[chat_id]
-    if tmp_list := bot.tasks.get[chat_id]:
+    if tmp_list := bot.tasks.get(chat_id):
         html_list = []
 
         for ts in tmp_list:
@@ -281,7 +281,7 @@ def enter_to_list(data, ord=None):
         html_add_rows = ''.join(html_list)
         result_text = f"""<ul>{html_add_rows}</ul>"""
 
-        res = {'chat_id': chat_id, 'text': result_text, 'parse_mode': 'html'}
+        res = {'chat_id': chat_id, 'text': result_text, 'parse_mode': 'HTML'}
     else:
         result_text = f"Список пуст, заполните время"
         res = {'chat_id': chat_id, 'text': result_text, }
