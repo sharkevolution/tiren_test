@@ -380,7 +380,7 @@ def do_echo():
 
         if data.get('callback_query'):
             # curl = bot.api_answer
-            user_start_update(data['callback_query']['message']['chat']['id'], data['from'])
+            user_start_update(data['callback_query']['message']['chat']['id'], data['callback_query']['from'])
 
             if ord := data['callback_query'].get('data'):
                 if exec_func := dp.pull_callback_commands.get(ord):
@@ -391,7 +391,7 @@ def do_echo():
         if data.get('message'):
             # curl = bot.api_url
             if ord := data['message'].get('text'):
-                cs = user_start_update(data['message']['chat']['id'], data['from'])
+                cs = user_start_update(data['message']['chat']['id'], data['message']['from'])
                 cs.put_redis_last_message_id(data)
                 bot.users[cs.__name__] = cs
 
