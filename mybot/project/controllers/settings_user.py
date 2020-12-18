@@ -34,23 +34,24 @@ def template_engineer_mode():
     reply_markup = {"inline_keyboard": [[
         {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "ent_one"},
         {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "ent_two"},
-        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"}],
+        {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"},
+        {"text": f"{emoji.emojize(':houses:')}", "callback_data": "ent_shops"},
+        ],
 
         [{"text": f"{emoji.emojize(' 4 ')}", "callback_data": "ent_four"},
          {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "ent_five"},
-         {"text": f"{emoji.emojize(' 6 ')}", "callback_data": "ent_six"}],
+         {"text": f"{emoji.emojize(' 6 ')}", "callback_data": "ent_six"},
+         {"text": f"{emoji.emojize(':spiral_notepad:')}", "callback_data": "ent_list"}],
 
         [{"text": f"{emoji.emojize(' 7 ')}", "callback_data": "ent_seven"},
          {"text": f"{emoji.emojize(' 8 ')}", "callback_data": "ent_eight"},
-         {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "ent_nine"}],
+         {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "ent_nine"},
+         {"text": f"{emoji.emojize(':TOP_arrow: На главную')}", "callback_data": "ent_list"}],
 
         [{"text": f"{emoji.emojize(' 0 ')}", "callback_data": "ent_zero"},
          {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_colon"},
          {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_ok"}],
-
-        [{"text": f"К адресам {emoji.emojize(':houses:')}", "callback_data": "ent_shops"},
-         {"text": f"Мой список {emoji.emojize(':spiral_notepad:')}", "callback_data": "ent_list"}],
-    ],
+        ],
         "resize_keyboard": True,
         "one_time_keyboard": False}
 
