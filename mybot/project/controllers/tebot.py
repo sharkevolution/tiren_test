@@ -264,7 +264,7 @@ def enter_to_list(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     chat_user = bot.users[chat_id]
-    tmp_list = bot.tasks.get[chat_user]
+    tmp_list = bot.tasks.get[chat_id]
 
     html_list = []
 
