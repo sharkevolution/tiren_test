@@ -181,31 +181,31 @@
 # #print(''.join(y))
 # print(''.join(y1))
 
-def ff():
-
-    html_list = []
-
-    tmp_list = {'shop': '1',
-                'delivery': 'yy',
-                'weight': '66',
-                'dlv_time': '887'}
-
-    yyy = [tmp_list, tmp_list]
-
-    for ts in yyy:
-        shop = ts['shop']
-        dlv = ts['delivery']
-        wt = ts['weight']
-        st = ts['dlv_time']
-
-        tmp_text = ' | '.join([shop, dlv, wt, st])
-
-        _row = f"<li>{tmp_text}</li>"
-        html_list.append(_row)
-
-    html_add_rows = ''.join(html_list)
-    result_text = f"""<ul>{html_add_rows}</ul>"""
-
-    print(result_text)
-
-ff()
+# def ff():
+#
+#     html_list = []
+#
+#     tmp_list = {'shop': '1',
+#                 'delivery': 'yy',
+#                 'weight': '66',
+#                 'dlv_time': '887'}
+#
+#     yyy = [tmp_list, tmp_list]
+#
+#     for ts in yyy:
+#         shop = ts['shop']
+#         dlv = ts['delivery']
+#         wt = ts['weight']
+#         st = ts['dlv_time']
+#
+#         tmp_text = ' | '.join([shop, dlv, wt, st])
+#
+#         _row = f"<li>{tmp_text}</li>"
+#         html_list.append(_row)
+#
+#     html_add_rows = ''.join(html_list)
+#     result_text = f"""<ul>{html_add_rows}</ul>"""
+#
+#     print(result_text)
+#
+# ff()

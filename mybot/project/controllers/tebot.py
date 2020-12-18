@@ -12,6 +12,7 @@ from bottle import view, request, redirect
 
 import os
 import json
+import copy
 import requests
 import logging
 import redis
@@ -346,7 +347,7 @@ def enter(data, ord=None):
                     val += 1
             if val == 5:
                 # Add tasks to dict from send
-                crs = chat_user.current_task
+                crs = copy.deepcopy(chat_user.current_task)
                 if tmp_ := bot.tasks.get(chat_id):
                     tmp_.append(crs)
                     bot.tasks[chat_id] = tmp_
