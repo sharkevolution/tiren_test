@@ -228,6 +228,7 @@ def dynamic_weight(data, ord=None):
 @dp.message_handler(commands=[])
 def dynamic_delivery(data, ord=None):
     logging.info('Delivery')
+    logging.info(ord)
     tunnel = data['message']['chat']['id']
 
     logging.info(ord)
