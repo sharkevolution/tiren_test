@@ -39,7 +39,7 @@ def user_start_update(chat_id, _from):
 
         clu = User(chat_id)
         clu.from_id = _from['id']
-        clu.first_name = _from['fisrt_name']
+        clu.first_name = _from['first_name']
         clu.last_name = _from['last_name']
 
         bot.users[User(chat_id).__name__] = clu
@@ -49,7 +49,7 @@ def user_start_update(chat_id, _from):
     if csdata.get('last_message_id'):
         cs.last_message_id = csdata['last_message_id']
         cs.from_id = csdata['id']
-        cs.first_name = csdata['fisrt_name']
+        cs.first_name = csdata['first_name']
         cs.last_name = csdata['last_name']
 
     bot.users[chat_id] = cs
