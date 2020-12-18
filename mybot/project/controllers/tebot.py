@@ -267,11 +267,21 @@ def enter_to_list(data, ord=None):
     chat_user.create_task()  # Clear current task
     bot.users[chat_id] = chat_user
 
-    logging.info(data)
-    logging.info(ord)
-    region_arrived(data, 'region_arrived')
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = 'Выберите адрес из списка'
+    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
-    return  {}, {}
+    # Update commands wrapper
+    for b in chat_user.adr:
+        chat_user.pull_user_commands[b] = dynamic_delivery
+    chat_user.create_task()  # Create task
+    bot.users[tunnel] = chat_user
+
+    # logging.info('Region arrived')
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
 
 
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
