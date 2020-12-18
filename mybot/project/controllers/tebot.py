@@ -223,7 +223,7 @@ def dynamic_weight(data, ord=None):
     chat_user.pull_user_commands[back] = dynamic_delivery
 
     logging.info(ord)
-    if not ':BACK_arrow:' in ord:
+    if not 'Назад' in ord:
         chat_user.current_task['delivery'] = ord
     bot.users[tunnel] = chat_user
 
@@ -246,7 +246,7 @@ def dynamic_delivery(data, ord=None):
         chat_user.pull_user_commands[b] = dynamic_weight
 
     logging.info(ord)
-    if not ':BACK_arrow:' in ord:
+    if not 'Назад' in ord:
         logging.info(chat_user.current_task)
         chat_user.current_task['shop'] = ord
         logging.info(chat_user.current_task)
