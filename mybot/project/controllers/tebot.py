@@ -208,6 +208,25 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 @dp.message_handler(commands=[])
+def back_to_shop(data, ord=None):
+
+    tunnel = data['message']['chat']['id']
+    result_text = 'Выберите адрес из списка'
+    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.adr:
+        chat_user.pull_user_commands[b] = dynamic_delivery
+    chat_user.create_task()  # Create task
+    bot.users[tunnel] = chat_user
+
+    # logging.info('Region arrived')
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
+
+@dp.message_handler(commands=[])
 def dynamic_weight(data, ord=None):
     logging.info('Weight')
     tunnel = data['message']['chat']['id']
