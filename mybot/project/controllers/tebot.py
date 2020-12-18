@@ -94,7 +94,7 @@ class User:
         res = {}
         if self.redisClient.exists(self.__name__):
             res = msgpack.unpackb(self.redisClient.get(self.__name__))
-            logging.info(res)
+            # logging.info(res)
         return res
 
     def put_redis_last_message_id(self, data):
@@ -153,7 +153,7 @@ class Bot:
 
         self.last_id = 0  # Last ID telegram (not message)
         self.last_chat = None  # Last chat
-        self.tasks = []  # List of users tasks
+        self.tasks = {}  # Dict of users tasks
 
 
 class Dispatcher:
@@ -204,7 +204,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=[])
 def dynamic_weight(data, ord=None):
-    logging.info('Weight')
+    # logging.info('Weight')
     tunnel = data['message']['chat']['id']
     result_text = 'Грузоподъемность'
     reply_markup, chat_user = settings_user.template_weight(bot.dict_init, bot.users[tunnel])
@@ -222,7 +222,7 @@ def dynamic_weight(data, ord=None):
 
 @dp.message_handler(commands=[])
 def dynamic_delivery(data, ord=None):
-    logging.info('Delivery')
+    # logging.info('Delivery')
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите перевозчика'
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
@@ -284,8 +284,9 @@ def enter(data, ord=None):
                 if not chat_user.current_task[b] is None:
                     val += 1
             if val == 5:
-                # Add task to list of send
-                pass
+                # Add task to dict of send
+                bot.tasks['chat_user'] = chat_user.current_task
+                logging.info(bot.tasks)
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
@@ -387,7 +388,7 @@ def do_echo():
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
     data = request.json
-    logging.info(data)
+    # logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
@@ -420,12 +421,12 @@ def do_echo():
                     message, curl = dummy_message(data)
 
         if message and curl:
-            logging.info(message)
+            # logging.info(message)
             # logging.info(curl)
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
-                logging.info(r.content)
+                # logging.info(r.content)
                 # handler_response_ok(r)  # Обработчик ответа
 
             except Exception as ex:
