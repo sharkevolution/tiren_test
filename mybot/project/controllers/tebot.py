@@ -36,7 +36,7 @@ def callback_hello_ok(data, text):
 def user_start_update(chat_id, _from):
     """ Start and Updater user profile """
     if not bot.users.get(chat_id):
-
+        # Add info about User
         clu = User(chat_id)
         clu.from_id = _from['id']
         clu.first_name = _from['first_name']
@@ -122,7 +122,7 @@ class User:
 
         base_keys = {'from_id': self.from_id,
                      'first_name': self.first_name,
-                     'last_name': sel.last_name}
+                     'last_name': self.last_name}
         new_pack = msgpack.packb(base_keys)
         self.redisClient.set(self.__name__, new_pack)
 
