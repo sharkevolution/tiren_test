@@ -220,6 +220,11 @@ def enter_top(data, ord=None):
     callback_hello_ok(data, 'Jump to TOP')
 
     tunnel = data['callback_query']['message']['chat']['id']
+
+    chat_user = bot.users[tunnel]
+    chat_user.create_task()  # Create task
+    bot.users[tunnel] = chat_user
+
     result_text = f"Hi {emoji.emojize(':waving_hand:')}"
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
