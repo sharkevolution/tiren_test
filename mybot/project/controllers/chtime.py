@@ -30,6 +30,7 @@ def check(ord, comb):
                 right_side.append(str(number_key[ord]))
 
         tmp_list = left_side + [':'] + right_side
+        #print(tmp_list)
 
     else:
         left_side = []
@@ -38,7 +39,10 @@ def check(ord, comb):
                 if str(number_key[ord]) in '0123:':
                     left_side.append(str(number_key[ord]))
             else:
-                left_side.append(str(number_key[ord]))
+                if tmp_list[0] in '3456789':
+                    pass
+                else:
+                    left_side.append(str(number_key[ord]))
             if not ':' == str(number_key[ord]):
                 left_side.append(':')
             tmp_list += left_side
@@ -48,10 +52,12 @@ def check(ord, comb):
             left_side.append(':')
             tmp_list += left_side
         else:
-            if str(number_key[ord]) in '012':
+            if str(number_key[ord]) in '0123456789':
                 left_side.append(str(number_key[ord]))
             tmp_list += left_side
+        #print(tmp_list)
 
     comb = copy.deepcopy(tmp_list)
 
     return comb
+
