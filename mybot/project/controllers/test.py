@@ -216,7 +216,7 @@ f = ':BACK_arrow: sdfdfg'
 if ':BACK_arrow:' in f:
     print('ok')
 
-wt = [1,2,3,4,5]
+wt = [{1:0},{2:0},{3:0},{4:0},{5:0}]
 
 for b in wt[::2]:
     print(b)

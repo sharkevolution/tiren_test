@@ -91,6 +91,7 @@ def template_weight(dict_init, chat_user):
 
     n = 2
     resize_wt = [wt[i:i+n] for i in range(0, len(wt), n)]
+    logging.info(resize_wt)
 
     wt.append([{"text": emoji.emojize(':BACK_arrow: Назад к перевозчикам')}])
     chat_user.weight.append(emoji.emojize(':BACK_arrow: Назад к перевозчикам'))
