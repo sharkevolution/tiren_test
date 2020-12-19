@@ -38,16 +38,23 @@ def check(ord, comb):
             if int(tmp_list[0]) == 2:
                 if str(number_key[ord]) in '0123:':
                     left_side.append(str(number_key[ord]))
+                    tmp_list += left_side
             else:
                 if tmp_list[0] in '3456789':
                     pass
                 else:
                     left_side.append(str(number_key[ord]))
+                    tmp_list += left_side
             if not ':' == str(number_key[ord]):
                 left_side.append(':')
-            tmp_list += left_side
+                tmp_list += left_side
+
+            # tmp_list += left_side
             if len(tmp_list) == 2:
                 tmp_list.insert(0, '0')
+                new_comb = copy.deepcopy(tmp_list)
+                tmp_list = my(ord, new_comb)
+
         elif len(tmp_list) == 2:
             left_side.append(':')
             tmp_list += left_side
