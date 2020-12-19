@@ -234,8 +234,14 @@ def back_to_shop(data, ord=None):
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
-    for b in chat_user.adr:
+    for b in chat_user.adr[:-1]:
         chat_user.pull_user_commands[b] = dynamic_delivery
+
+    # event TOP
+    back = chat_user.adr[-1]
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
     chat_user.create_task()  # Create task
     bot.users[tunnel] = chat_user
 
