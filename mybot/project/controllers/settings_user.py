@@ -57,7 +57,7 @@ def template_engineer_mode():
             {"text": f"{emoji.emojize(' 0 ')}", "callback_data": "ent_zero"},
             {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_colon"},
             {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_ok"},
-            {"text": f"{emoji.emojize(':rocket: Send')}", "callback_data": "ent_list"}
+            {"text": f"{emoji.emojize(':rocket: Send')}", "callback_data": "ent_send"}
         ],
     ],
         "resize_keyboard": True,
