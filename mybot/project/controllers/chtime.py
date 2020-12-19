@@ -14,7 +14,6 @@ valid_range = {'01': 1, '02': 1, '03': 1, '04': 1, '05': 1, '06': 1, '07': 1,
 
 def check(ord, comb):
     tmp_list = copy.deepcopy(comb)
-    # if str(number_key[ord]) in valid_range:
 
     if ':' in tmp_list:
         ind = tmp_list.index(':')
@@ -30,7 +29,6 @@ def check(ord, comb):
                 right_side.append(str(number_key[ord]))
 
         tmp_list = left_side + [':'] + right_side
-        #print(tmp_list)
 
     else:
         left_side = []
@@ -49,7 +47,6 @@ def check(ord, comb):
                 # left_side.append(':')
                 tmp_list += ':'
 
-            # tmp_list += left_side
             if len(tmp_list) == 2:
                 tmp_list.insert(0, '0')
                 new_comb = copy.deepcopy(tmp_list)
@@ -62,7 +59,6 @@ def check(ord, comb):
             if str(number_key[ord]) in '0123456789':
                 left_side.append(str(number_key[ord]))
             tmp_list += left_side
-        #print(tmp_list)
 
     comb = copy.deepcopy(tmp_list)
 
