@@ -17,6 +17,7 @@ import requests
 import logging
 import redis
 import msgpack
+import emoji
 
 from mybot.project.controllers import planner
 from mybot.project.controllers import dredis
@@ -213,6 +214,18 @@ dp = Dispatcher(bot)
 
 # ********************************************************
 
+
+@dp.callback_handler(commands=['ent_main', ])
+def enter_top(data, ord=None):
+    callback_hello_ok(data, 'Jump to TOP')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = f"Hi {emoji.emojize(':waving_hand:')}"
+    reply_markup = settings_user.template_start()
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+    return message, bot.api_url
+
+
 @dp.message_handler(commands=[])
 def back_to_shop(data, ord=None):
 
@@ -340,7 +353,7 @@ def enter_to_list(data, ord=None):
 
         res = {'chat_id': chat_id, 'text': result_text, 'parse_mode': 'HTML'}
     else:
-        result_text = f"Список пуст, заполните время"
+        result_text = f"Список пуст {emoji.emojize(':eyes:')}"
         res = {'chat_id': chat_id, 'text': result_text, }
 
     logging.info(res)
@@ -484,7 +497,7 @@ def keboard_bot(data, ord=None):
 @dp.message_handler(commands=['/start', ])
 def start_bot(data, ord=None):
     tunnel = data['message']['chat']['id']
-    result_text = 'Приступим к работе'
+    result_text = f"Hi {emoji.emojize(':waving_hand:')}"
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url

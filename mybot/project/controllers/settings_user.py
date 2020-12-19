@@ -50,7 +50,7 @@ def template_engineer_mode():
             {"text": f"{emoji.emojize(' 7 ')}", "callback_data": "ent_seven"},
             {"text": f"{emoji.emojize(' 8 ')}", "callback_data": "ent_eight"},
             {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "ent_nine"},
-            {"text": f"{emoji.emojize(':TOP_arrow: Main')}", "callback_data": "ent_list"}
+            {"text": f"{emoji.emojize(':TOP_arrow: Main')}", "callback_data": "ent_main"}
         ],
 
         [
