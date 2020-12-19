@@ -86,7 +86,9 @@ def template_weight(dict_init, chat_user):
         if chat_user.__name__ in b[2]:
             pass
         else:
-            wt.append([{"text": str(b[1])}])
+            wt.append(
+                {"text": str(b[1])}
+            )
             chat_user.weight.append(str(b[1]))
 
     n = 2
