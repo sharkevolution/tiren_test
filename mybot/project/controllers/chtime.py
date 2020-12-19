@@ -53,7 +53,7 @@ def check(ord, comb):
             if len(tmp_list) == 2:
                 tmp_list.insert(0, '0')
                 new_comb = copy.deepcopy(tmp_list)
-                tmp_list = my(ord, new_comb)
+                tmp_list = check(ord, new_comb)
 
         elif len(tmp_list) == 2:
             left_side.append(':')
