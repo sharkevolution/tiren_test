@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3abff9b-fcba-4821-bc19-13f52b62f594" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/chtime.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/chtime.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mybot/project/controllers/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +46,7 @@
       <recent name="$PROJECT_DIR$/mybot/project/controllers" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.chtime">
+  <component name="RunManager" selected="Python.test">
     <configuration name="chtime" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tiren-bot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,8 +154,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.chtime" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.chtime" />
         <item itemvalue="Python.tebot" />
         <item itemvalue="Python.create_json" />
         <item itemvalue="Python.settings_user" />
@@ -199,6 +200,21 @@
           <url>file://$PROJECT_DIR$/mybot/project/controllers/test.py</url>
           <line>135</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mybot/project/controllers/test.py</url>
+          <line>171</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mybot/project/controllers/test.py</url>
+          <line>132</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mybot/project/controllers/test.py</url>
+          <line>189</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

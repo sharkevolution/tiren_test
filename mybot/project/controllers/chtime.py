@@ -46,8 +46,8 @@ def check(ord, comb):
                     left_side.append(str(number_key[ord]))
                     tmp_list += left_side
             if not ':' == str(number_key[ord]):
-                left_side.append(':')
-                tmp_list += left_side
+                # left_side.append(':')
+                tmp_list += ':'
 
             # tmp_list += left_side
             if len(tmp_list) == 2:
