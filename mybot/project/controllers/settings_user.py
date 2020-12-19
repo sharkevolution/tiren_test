@@ -36,28 +36,28 @@ def template_engineer_mode():
             {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "ent_one"},
             {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "ent_two"},
             {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"},
-            {"text": f"{emoji.emojize(':houses:')}", "callback_data": "ent_shops"}
+            {"text": f"{emoji.emojize(':houses: Addr')}", "callback_data": "ent_shops"}
         ],
 
         [
             {"text": f"{emoji.emojize(' 4 ')}", "callback_data": "ent_four"},
             {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "ent_five"},
             {"text": f"{emoji.emojize(' 6 ')}", "callback_data": "ent_six"},
-            {"text": f"{emoji.emojize(':spiral_notepad:')}", "callback_data": "ent_list"}
+            {"text": f"{emoji.emojize(':spiral_notepad: List')}", "callback_data": "ent_list"}
         ],
 
         [
             {"text": f"{emoji.emojize(' 7 ')}", "callback_data": "ent_seven"},
             {"text": f"{emoji.emojize(' 8 ')}", "callback_data": "ent_eight"},
             {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "ent_nine"},
-            {"text": f"{emoji.emojize(':TOP_arrow:')}", "callback_data": "ent_list"}
+            {"text": f"{emoji.emojize(':TOP_arrow: Main')}", "callback_data": "ent_list"}
         ],
 
         [
             {"text": f"{emoji.emojize(' 0 ')}", "callback_data": "ent_zero"},
             {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_colon"},
             {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_ok"},
-            {"text": f"{emoji.emojize(':rocket:')}", "callback_data": "ent_list"}
+            {"text": f"{emoji.emojize(':rocket: Send')}", "callback_data": "ent_list"}
         ],
     ],
         "resize_keyboard": True,
@@ -91,8 +91,8 @@ def template_weight(dict_init, chat_user):
 
     wt.append([{"text": emoji.emojize(':BACK_arrow: Назад к перевозчикам')}])
     chat_user.weight.append(emoji.emojize(':BACK_arrow: Назад к перевозчикам'))
-    wt.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
-    chat_user.weight.append(emoji.emojize(':TOP_arrow: На главную'))
+    # wt.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    # chat_user.weight.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": wt, "resize_keyboard": True, "one_time_keyboard": False}
 
@@ -108,6 +108,9 @@ def template_shops(dict_init, chat_user):
         else:
             adr.append([{"text": b[2]}])
             chat_user.adr.append(b[2])
+
+    adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    chat_user.adr.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": adr, "resize_keyboard": True, "one_time_keyboard": False}
 
