@@ -215,3 +215,12 @@ f = ':BACK_arrow: sdfdfg'
 
 if ':BACK_arrow:' in f:
     print('ok')
+
+wt = [1,2,3,4,5]
+
+for b in wt[::2]:
+    print(b)
+
+n=2
+out = [wt[i:i+n] for i in range(0, len(wt), n)]
+print(out)

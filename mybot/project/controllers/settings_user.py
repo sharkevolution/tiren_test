@@ -89,12 +89,15 @@ def template_weight(dict_init, chat_user):
             wt.append([{"text": str(b[1])}])
             chat_user.weight.append(str(b[1]))
 
+    n = 2
+    resize_wt = [wt[i:i+n] for i in range(0, len(wt), n)]
+
     wt.append([{"text": emoji.emojize(':BACK_arrow: Назад к перевозчикам')}])
     chat_user.weight.append(emoji.emojize(':BACK_arrow: Назад к перевозчикам'))
     # wt.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     # chat_user.weight.append(emoji.emojize(':TOP_arrow: На главную'))
 
-    reply_markup = {"keyboard": wt, "resize_keyboard": True, "one_time_keyboard": False}
+    reply_markup = {"keyboard": resize_wt, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, chat_user
 
