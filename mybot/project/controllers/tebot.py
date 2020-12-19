@@ -300,7 +300,7 @@ def region_arrived(data, ord=None):
         chat_user.pull_user_commands[b] = dynamic_delivery
 
     # event TOP
-    back = chat_user.weight[-1]
+    back = chat_user.adr[-1]
     chat_user.pull_user_commands[back] = start_bot
 
     chat_user.create_task()  # Create task
