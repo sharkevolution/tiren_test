@@ -141,9 +141,11 @@ def template_delivery(dict_init, chat_user):
         if chat_user.__name__ in b[2]:
             pass
         else:
-            dlv.append([{"text": b[1]}])
+            dlv.append(
+                {"text": b[1]}
+            )
             chat_user.delivery.append(b[1])
-    
+
     n = 2
     resize_dlv = [dlv[i:i+n] for i in range(0, len(dlv), n)]
     logging.info(resize_dlv)
