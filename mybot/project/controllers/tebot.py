@@ -287,10 +287,6 @@ def dynamic_weight(data, ord=None):
     back = chat_user.weight[-1]
     chat_user.pull_user_commands[back] = dynamic_delivery
 
-    # event TOP
-    # back = chat_user.weight[-1]
-    # chat_user.pull_user_commands[back] = start_bot
-
     logging.info(ord)
     if not 'Назад' in ord:
         chat_user.current_task['delivery'] = ord
@@ -353,6 +349,11 @@ def region_arrived(data, ord=None):
     return message, bot.api_url
 
 
+@dp.callback_handler(commands=['edit_list_send'])
+def edit_send(data, ord=None):
+    return {}, {}
+
+
 @dp.callback_handler(commands=['ent_list'])
 def enter_to_list(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
@@ -378,8 +379,11 @@ def enter_to_list(data, ord=None):
 
         html_list.insert(0, ' '.join([me_first, me_last]))
         result_text = '\n'.join(html_list)
+        reply_markup = settings_user.template_edit_list()
 
-        res = {'chat_id': chat_id, 'text': result_text, 'parse_mode': 'HTML'}
+        res = {'chat_id': chat_id, 'text': result_text, 'parse_mode': 'HTML',
+               'reply_markup': reply_markup}
+
     else:
         result_text = f"Список пуст {emoji.emojize(':eyes:')}"
         res = {'chat_id': chat_id, 'text': result_text, }

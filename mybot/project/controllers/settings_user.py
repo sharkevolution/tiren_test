@@ -117,6 +117,18 @@ def template_weight(dict_init, chat_user):
     return reply_markup, chat_user
 
 
+def template_edit_list(dict_init, chat_user):
+    # logging.info(dict_init)
+
+    reply_markup = {"inline_keyboard": [[
+        {"text": f"Удалить из списка", "callback_data": "edit_list_send"}, ],
+    ],
+        "resize_keyboard": True,
+        "one_time_keyboard": False
+    }
+    return reply_markup
+
+
 def template_shops(dict_init, chat_user):
     adr = []
     # logging.info(dict_init)
