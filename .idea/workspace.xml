@@ -47,7 +47,7 @@
       <recent name="$PROJECT_DIR$/mybot/project/controllers" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.tebot">
     <configuration name="chtime" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tiren-bot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -155,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.tebot" />
+        <item itemvalue="Python.settings_user" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.chtime" />
-        <item itemvalue="Python.tebot" />
         <item itemvalue="Python.create_json" />
-        <item itemvalue="Python.settings_user" />
       </list>
     </recent_temporary>
   </component>
