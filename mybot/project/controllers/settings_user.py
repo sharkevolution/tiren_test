@@ -117,7 +117,7 @@ def template_weight(dict_init, chat_user):
     return reply_markup, chat_user
 
 
-def template_edit_list(dict_init, chat_user):
+def template_edit_list():
     # logging.info(dict_init)
 
     reply_markup = {"inline_keyboard": [[
