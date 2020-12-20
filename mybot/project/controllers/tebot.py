@@ -258,9 +258,9 @@ def back_to_shop(data, ord=None):
     for b in chat_user.adr[:-1]:
         chat_user.pull_user_commands[b] = dynamic_delivery
 
-    # event TOP
+    # event Shop
     back = chat_user.adr[-1]
-    logging.info('TOP')
+    logging.info('Shops')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
 
@@ -396,7 +396,7 @@ def enter_to_list(data, ord=None):
 
 
 @dp.callback_handler(commands=['ent_shops'])
-def enter_to_shops(data, ord=None):
+def return_shops(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
@@ -409,8 +409,15 @@ def enter_to_shops(data, ord=None):
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
-    for b in chat_user.adr:
+    for b in chat_user.adr[-1]:
         chat_user.pull_user_commands[b] = dynamic_delivery
+
+    # event Shop
+    back = chat_user.adr[-1]
+    logging.info('Shops')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
     chat_user.create_task()  # Create task
     bot.users[tunnel] = chat_user
 
