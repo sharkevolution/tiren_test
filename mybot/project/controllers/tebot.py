@@ -567,7 +567,7 @@ def do_echo():
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
     data = request.json
-    logging.info(data)
+    #logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
@@ -590,7 +590,7 @@ def do_echo():
                 cs.put_redis_last_message_id(data)
                 bot.users[cs.__name__] = cs
 
-                # logging.info(cs.pull_user_commands)
+                logging.info(ord)
                 if exec_func := cs.pull_user_commands.get(ord):
                     message, curl = exec_func(data, ord)
                 elif exec_func := dp.pull_message_commands.get(ord):
