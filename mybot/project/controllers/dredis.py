@@ -28,7 +28,7 @@ def variable_init(bot):
 
 
 def clear_base_redis():
-    # Clear base Redis
+    ## Clear base Redis
 
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     for key in redisClient.keys('*'):
