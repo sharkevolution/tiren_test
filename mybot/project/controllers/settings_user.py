@@ -67,7 +67,11 @@ def template_engineer_mode():
 
 
 def template_address():
-    reply_markup = {"keyboard": [{"text": 'Добавить адрес'}],
+
+    new_adr = []
+    new_adr.append([{"text": 'Добавить адрес'}])
+
+    reply_markup = {"keyboard": new_adr,
                     "resize_keyboard": True,
                     "one_time_keyboard": False
                     }
