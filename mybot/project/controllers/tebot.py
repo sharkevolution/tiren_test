@@ -337,6 +337,7 @@ def region_arrived(data, ord=None):
 
     # event TOP
     back = chat_user.adr[-1]
+    logging.info('TOP')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
 
@@ -351,6 +352,7 @@ def region_arrived(data, ord=None):
 
 @dp.callback_handler(commands=['edit_list_send'])
 def edit_send(data, ord=None):
+    r = callback_hello_ok(data, 'ok!')
     return {}, {}
 
 
