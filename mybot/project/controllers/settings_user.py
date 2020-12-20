@@ -104,7 +104,7 @@ def template_weight(dict_init, chat_user):
             )
             chat_user.weight.append(str(b[1]))
 
-    n = 2
+    n = 3
     resize_wt = [wt[i:i+n] for i in range(0, len(wt), n)]
     logging.info(resize_wt)
 
