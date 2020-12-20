@@ -249,11 +249,11 @@ def enter_top(data, ord=None):
 
 @dp.message_handler(commands=[])
 def back_to_shop(data, ord=None):
-
     tunnel = data['message']['chat']['id']
     result_text = 'Выберите адрес из списка'
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
+    logging.info('TOP')
     # Update commands wrapper
     for b in chat_user.adr[:-1]:
         chat_user.pull_user_commands[b] = dynamic_delivery
