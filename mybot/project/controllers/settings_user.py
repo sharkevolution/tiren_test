@@ -66,12 +66,18 @@ def template_engineer_mode():
     return reply_markup
 
 
+def template_address():
+    reply_markup = {"keyboard": 'Добавить адрес', "resize_keyboard": True, "one_time_keyboard": False}
+    return reply_markup
+
+
 def template_start():
     r = emoji.emojize(u':two_o\u2019clock:')
     reply_markup = {"inline_keyboard": [[
         {"text": f"Время прибытия {r}", "callback_data": "region_arrived"},
         {"text": f"К отправке {emoji.emojize(':satellite:')}", "callback_data": "send_to"}],
-        [{"text": f"Мои настройки {emoji.emojize(':gear:')}", "callback_data": "gear"}, ],
+        [{"text": f"Настройки {emoji.emojize(':gear:')}", "callback_data": "gear"},
+         {"text": f"Добавить {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False

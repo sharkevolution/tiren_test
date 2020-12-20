@@ -97,7 +97,8 @@ class User:
         self.weight = []  # Capacity
         self.last_message_id = 0
         self.last_bot_id = 0
-        self.pull_user_commands = {}  # Additional set user commands
+        self.pull_user_commands = {}  # Add set user commands
+        self.mode = 'interpreter'
 
         self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -214,6 +215,21 @@ dp = Dispatcher(bot)
 
 
 # ********************************************************
+
+
+@dp.callback_handler(commands=['add_address', ])
+def enter_top(data, ord=None):
+    callback_hello_ok(data, 'Add address')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+
+    # chat_user = bot.users[tunnel]
+
+    result_text = f"Введите новый адрес в строку ввода и нажимте {emoji.emojize(':right_arrow_curving_left:')}"
+    reply_markup = settings_user.template_address()
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
 
 
 @dp.callback_handler(commands=['ent_main', ])
