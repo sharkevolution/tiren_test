@@ -225,7 +225,7 @@ def enter_add_address(data, ord=None):
 
     # chat_user = bot.users[tunnel]
 
-    result_text = f"Введите новый адрес и нажимте {emoji.emojize(':right_arrow_curving_left:')}"
+    result_text = f"Введите новый адрес и нажимте отправить.."
     reply_markup = settings_user.template_address()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
