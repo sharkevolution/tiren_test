@@ -33,7 +33,7 @@ def load_sheet(wb):
         {'start': [2, 7], 'finish': [17, 8]},
         {'start': [2, 1], 'finish': [43, 3]},
         {'start': [22, 7], 'finish': [24, 8]},
-        {'start': [29, 7], 'finish': [30, 8]}
+        {'start': [35, 7], 'finish': [37, 8]}
     ]
 
     for b in wb.sheetnames:
