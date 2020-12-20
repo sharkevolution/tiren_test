@@ -578,6 +578,8 @@ def do_echo():
             user_start_update(data['callback_query']['message']['chat']['id'], data['callback_query']['from'])
 
             if ord := data['callback_query'].get('data'):
+                logging.info('Callback_query')
+                logging.info(ord)
                 if exec_func := dp.pull_callback_commands.get(ord):
                     message, curl = exec_func(data, ord)
                 else:
@@ -590,6 +592,7 @@ def do_echo():
                 cs.put_redis_last_message_id(data)
                 bot.users[cs.__name__] = cs
 
+                logging.info('Message')
                 logging.info(ord)
                 if exec_func := cs.pull_user_commands.get(ord):
                     message, curl = exec_func(data, ord)
