@@ -260,13 +260,14 @@ def back_to_shop(data, ord=None):
 
     # event TOP
     back = chat_user.adr[-1]
+    logging.info('TOP')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
 
     chat_user.create_task()  # Create task
     bot.users[tunnel] = chat_user
 
-    # logging.info('Region arrived')
+    logging.info('Region arrived')
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
