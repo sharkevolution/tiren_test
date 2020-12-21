@@ -407,6 +407,7 @@ def enter_to_list(data, ord=None):
 def return_to_shops(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
+    logging.info(chat_id)
     tunnel = bot.users[chat_id]
 
     result_text = 'Выберите адрес из списка'
