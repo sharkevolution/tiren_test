@@ -365,7 +365,9 @@ def edit_send(data, ord=None):
     _tmp = bot.tasks[chat_id]
     reply_markup = settings_user.template_tasks_to_send(_tmp, chat_user)
 
-    return {}, {}
+    message = {'chat_id': chat_user, 'text': f'Выбранный элемент будет удален', 'reply_markup': reply_markup}
+
+    return message, bot.api_url
 
 
 @dp.callback_handler(commands=['ent_list'])
@@ -380,16 +382,9 @@ def enter_to_list(data, ord=None):
         me_last = me.last_name
 
         html_list = []
-
         for ts in tmp_dict:
-            # logging.info(tmp_dict)
-            content = tmp_dict[ts]
-            shop = content['shop']
-            dlv = content['delivery']
-            wt = content['weight']
-            st = content['dlv_time']
-
-            tmp_text = ' | '.join([shop, dlv, wt, st, ])
+            cnt = tmp_dict[ts]
+            tmp_text = ' | '.join([cnt['shop'], cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
             html_list.append(tmp_text)
 
         html_list.insert(0, ' '.join([me_first, me_last]))

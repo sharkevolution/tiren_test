@@ -116,31 +116,17 @@ def template_weight(dict_init, chat_user):
     return reply_markup, chat_user
 
 
-def template_tasks_to_send(tmp_list, chat_user):
+def template_tasks_to_send(tmp_dict):
+    task_list = []
 
-    task_join = {}
+    for ts in tmp_dict:
+        cnt = tmp_dict[ts]
+        tmp_text = ' | '.join([cnt['shop'], cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
+        task_list.append([{"text": tmp_text}])
 
-    for i, ts in enumerate(tmp_list):
-        shop = ts['shop']
-        dlv = ts['delivery']
-        wt = ts['weight']
-        st = ts['dlv_time']
+    reply_markup = {"keyboard": task_list, "resize_keyboard": True, "one_time_keyboard": False}
 
-        tmp_text = ' | '.join([shop, dlv, wt, st, ])
-        task_join[tmp_text] = i
-
-    #     if chat_user.__name__ in b[3]:
-    #         pass
-    #     else:
-    #         adr.append([{"text": b[2]}])
-    #         chat_user.adr.append(b[2])
-    #
-    # adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
-    # chat_user.adr.append(emoji.emojize(':TOP_arrow: На главную'))
-    #
-    # reply_markup = {"keyboard": adr, "resize_keyboard": True, "one_time_keyboard": False}
-
-    return reply_markup, chat_user
+    return reply_markup
 
 
 
