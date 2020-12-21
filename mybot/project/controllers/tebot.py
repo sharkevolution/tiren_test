@@ -95,7 +95,7 @@ class User:
         self.adr = []  # List of store addresses
         self.delivery = []  # List of carriers
         self.weight = []  # Capacity
-        self.send_list = []  # send list
+        self.send_list = []  # Item delete from list to send
 
         self.last_message_id = 0
         self.last_bot_id = 0
@@ -358,7 +358,7 @@ def dynamic_shops(data, ord=None):
 def delete_item_send(data, ord=None):
 
     tunnel = data['message']['chat']['id']
-    message = {'chat_id': tunnel, 'text': f'Item deleted: {ord}'}
+    message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}"}
     return message, bot.api_url
 
 
