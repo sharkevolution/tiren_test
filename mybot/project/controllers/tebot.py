@@ -411,7 +411,7 @@ def return_to_shops(data, ord=None):
 
     result_text = 'Выберите адрес из списка'
     logging.info('Return to SHOPS')
-    logging.info(str(tunnel))
+    logging.info(int(tunnel))
 
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
