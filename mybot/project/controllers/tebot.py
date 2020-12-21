@@ -423,10 +423,12 @@ def enter_to_list(data, ord=None):
         me_first = me.first_name
         me_last = me.last_name
 
-        html_list = []
+        single_quote = '\''
+        html_list = []  # view for screen user
         for ts in tmp_dict:
             cnt = tmp_dict[ts]
-            tmp_text = ' | '.join([cnt['shop'], cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
+            qsh = single_quote + cnt['shop'] + single_quote
+            tmp_text = ', '.join([qsh, cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
             html_list.append(tmp_text)
 
         html_list.insert(0, ' '.join([me_first, me_last]))
