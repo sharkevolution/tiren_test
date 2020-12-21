@@ -326,7 +326,7 @@ def dynamic_delivery(data, ord=None):
 
 
 @dp.callback_handler(commands=['region_arrived', ])
-def dynamic_shops(data, ord=None):
+def region_arrived(data, ord=None):
     callback_hello_ok(data, 'Переход на время прибытия')
 
     tunnel = data['callback_query']['message']['chat']['id']
