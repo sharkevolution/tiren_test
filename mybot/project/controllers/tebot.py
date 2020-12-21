@@ -382,6 +382,7 @@ def enter_to_list(data, ord=None):
         html_list = []
 
         for ts in tmp_dict:
+            logging.info(ts)
             shop = ts['shop']
             dlv = ts['delivery']
             wt = ts['weight']
