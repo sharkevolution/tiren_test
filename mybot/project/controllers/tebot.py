@@ -368,10 +368,17 @@ def delete_item_send(data, ord=None):
 
         if tmp_dict := bot.tasks.get(tunnel):
             if ord in tmp_dict:
-                tmp_dict.pop(ord)
+                tmp_dict.pop(ord)  # delete item from dict
                 bot.tasks[tunnel] = tmp_dict
+                chat_user.send_list.remove(ord)  # Delete item from list
 
-    message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}"}
+    # Generate rest of the task list
+    _tmp = bot.tasks[tunnel]
+    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel])
+
+    message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}",
+               'reply_markup': reply_markup}
+
     return message, bot.api_url
 
 

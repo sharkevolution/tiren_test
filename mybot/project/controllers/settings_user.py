@@ -117,6 +117,7 @@ def template_weight(dict_init, chat_user):
 
 
 def template_tasks_to_send(tmp_dict, chat_user):
+
     task_list = []
 
     for ts in tmp_dict:
