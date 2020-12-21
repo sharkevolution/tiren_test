@@ -326,7 +326,7 @@ def dynamic_delivery(data, ord=None):
 
 
 @dp.callback_handler(commands=['region_arrived', ])
-def region_arrived(data, ord=None):
+def dynamic_shops(data, ord=None):
     callback_hello_ok(data, 'Переход на время прибытия')
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -410,6 +410,8 @@ def return_to_shops(data, ord=None):
     tunnel = bot.users[chat_id]
 
     result_text = 'Выберите адрес из списка'
+    logging.info(bot.dict_init)
+
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
