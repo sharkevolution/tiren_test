@@ -363,11 +363,12 @@ def delete_item_send(data, ord=None):
     # Описать удаление элемента
     chat_user = bot.users[tunnel]
     if ord in chat_user.send_list:
-        logging.info(ord)
         _tmp = bot.tasks[tunnel]
 
         if tmp_dict := bot.tasks.get(tunnel):
+            logging.info(tmp_dict)
             if ord in tmp_dict:
+                logging.info(ord)
                 tmp_dict.pop(ord)  # delete item from dict
                 bot.tasks[tunnel] = tmp_dict
                 chat_user.send_list.remove(ord)  # Delete item from list
