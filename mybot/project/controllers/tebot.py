@@ -360,7 +360,7 @@ def delete_item_send(data, ord=None):
     logging.info('delete_item_send')
     tunnel = data['message']['chat']['id']
 
-    # Описать удаление элемента
+    # Remove item list, dict and Update
     chat_user = bot.users[tunnel]
     if ord in chat_user.send_list:
         _tmp = bot.tasks[tunnel]
@@ -381,11 +381,12 @@ def delete_item_send(data, ord=None):
 
     logging.info(reply_markup)
 
-    if not reply_markup:
-        reply_markup = {"remove_keyboard": True}
+    if reply_markup:
+        kb = {'reply_markup': reply_markup}
+    else:
+        kb = {"remove_keyboard": True}
 
-    message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}",
-               'reply_markup': reply_markup}
+    message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}", kb}
 
     return message, bot.api_url
 
