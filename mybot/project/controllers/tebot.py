@@ -366,8 +366,6 @@ def delete_item_send(data, ord=None):
         _tmp = bot.tasks[tunnel]
 
         if tmp_dict := bot.tasks.get(tunnel):
-            logging.info(tmp_dict)
-            logging.info(ord)
             if ord in tmp_dict:
                 logging.info(ord)
                 tmp_dict.pop(ord)  # delete item from dict
@@ -381,6 +379,7 @@ def delete_item_send(data, ord=None):
     _tmp = bot.tasks[tunnel]
     reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel])
 
+    logging.info(reply_markup)
     message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}",
                'reply_markup': reply_markup}
 
