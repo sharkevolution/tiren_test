@@ -363,8 +363,8 @@ def delete_item_send(data, ord=None):
     chat_user = bot.users[tunnel]
     if ord in chat_user.send_list:
         logging.info(ord)
-        idx = chat_user.send_list
-        logging.info(idx.item(ord))
+        # idx = chat_user.send_list
+        # logging.info(idx.item(ord))
 
         # _tmp = bot.tasks[tunnel]
         #
