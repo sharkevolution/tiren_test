@@ -363,6 +363,8 @@ def delete_item_send(data, ord=None):
     _tmp = bot.tasks[tunnel]
 
     if tmp_dict := bot.tasks.get(tunnel):
+        logging.info(tmp_dict)
+        logging.info(ord)
         if ord in tmp_dict:
             tmp_dict.pop(ord)
             bot.tasks[tunnel] = tmp_dict
