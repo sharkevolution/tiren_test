@@ -357,22 +357,19 @@ def dynamic_shops(data, ord=None):
 @dp.message_handler(commands=[])
 def delete_item_send(data, ord=None):
 
+    logging.info('delete_item_send')
     tunnel = data['message']['chat']['id']
 
     # Описать удаление элемента
     chat_user = bot.users[tunnel]
     if ord in chat_user.send_list:
         logging.info(ord)
-        # idx = chat_user.send_list
-        # logging.info(idx.item(ord))
+        _tmp = bot.tasks[tunnel]
 
-        # _tmp = bot.tasks[tunnel]
-        #
-        # if tmp_dict := bot.tasks.get(tunnel):
-        #
-        #     if ord in tmp_dict:
-        #         tmp_dict.pop(ord)
-        #         bot.tasks[tunnel] = tmp_dict
+        if tmp_dict := bot.tasks.get(tunnel):
+            if ord in tmp_dict:
+                tmp_dict.pop(ord)
+                bot.tasks[tunnel] = tmp_dict
 
     message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}"}
     return message, bot.api_url
