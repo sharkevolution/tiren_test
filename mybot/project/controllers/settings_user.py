@@ -109,12 +109,39 @@ def template_weight(dict_init, chat_user):
     logging.info(resize_wt)
 
     resize_wt.append([{"text": emoji.emojize(':BACK_arrow: Назад к перевозчикам')}])
-    # wt.append([{"text": emoji.emojize(':BACK_arrow: Назад к перевозчикам')}])
     chat_user.weight.append(emoji.emojize(':BACK_arrow: Назад к перевозчикам'))
 
     reply_markup = {"keyboard": resize_wt, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, chat_user
+
+
+def template_tasks_to_send(tmp_list, chat_user):
+
+    task_join = {}
+
+    for i, ts in enumerate(tmp_list):
+        shop = ts['shop']
+        dlv = ts['delivery']
+        wt = ts['weight']
+        st = ts['dlv_time']
+
+        tmp_text = ' | '.join([shop, dlv, wt, st, ])
+        task_join[tmp_text] = i
+
+    #     if chat_user.__name__ in b[3]:
+    #         pass
+    #     else:
+    #         adr.append([{"text": b[2]}])
+    #         chat_user.adr.append(b[2])
+    #
+    # adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    # chat_user.adr.append(emoji.emojize(':TOP_arrow: На главную'))
+    #
+    # reply_markup = {"keyboard": adr, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, chat_user
+
 
 
 def template_edit_list():

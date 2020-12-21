@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3abff9b-fcba-4821-bc19-13f52b62f594" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/settings_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/settings_user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -192,18 +194,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
-          <line>386</line>
-          <option name="timeStamp" value="1" />
+          <line>364</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
-          <line>384</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
-          <line>411</line>
-          <option name="timeStamp" value="4" />
+          <line>473</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

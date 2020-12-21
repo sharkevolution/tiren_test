@@ -213,6 +213,7 @@ API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
+
 # ********************************************************
 
 
@@ -325,7 +326,7 @@ def dynamic_delivery(data, ord=None):
 
 
 @dp.callback_handler(commands=['region_arrived', ])
-def region_arrived(data, ord=None):
+def dynamic_shops(data, ord=None):
     callback_hello_ok(data, 'Переход на время прибытия')
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -353,7 +354,17 @@ def region_arrived(data, ord=None):
 
 @dp.callback_handler(commands=['edit_list_send'])
 def edit_send(data, ord=None):
+    """
+        Remove an item from the list to send
+    """
     r = callback_hello_ok(data, 'ok!')
+
+    chat_id = data['callback_query']['message']['chat']['id']
+    chat_user = bot.users[chat_id]
+
+    _tmp = bot.tasks[chat_id]
+    reply_markup = settings_user.template_tasks_to_send(_tmp, chat_user)
+
     return {}, {}
 
 
@@ -362,7 +373,7 @@ def enter_to_list(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
-    if tmp_list := bot.tasks.get(chat_id):
+    if tmp_dict := bot.tasks.get(chat_id):
 
         me = bot.users.get(chat_id)
         me_first = me.first_name
@@ -370,18 +381,19 @@ def enter_to_list(data, ord=None):
 
         html_list = []
 
-        for ts in tmp_list:
+        for ts in tmp_dict:
             shop = ts['shop']
             dlv = ts['delivery']
             wt = ts['weight']
             st = ts['dlv_time']
 
             tmp_text = ' | '.join([shop, dlv, wt, st, ])
-
             html_list.append(tmp_text)
 
         html_list.insert(0, ' '.join([me_first, me_last]))
         result_text = '\n'.join(html_list)
+
+        # Button remove from list
         reply_markup = settings_user.template_edit_list()
 
         res = {'chat_id': chat_id, 'text': result_text, 'parse_mode': 'HTML',
@@ -396,15 +408,11 @@ def enter_to_list(data, ord=None):
 
 
 @dp.callback_handler(commands=['ent_shops'])
-def return_shops(data, ord=None):
+def return_to_shops(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
+    tunnel = bot.users[chat_id]
 
-    chat_user = bot.users[chat_id]
-    # chat_user.create_task()  # Clear current task
-    bot.users[chat_id] = chat_user
-
-    tunnel = data['callback_query']['message']['chat']['id']
     result_text = 'Выберите адрес из списка'
     reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
@@ -414,14 +422,13 @@ def return_shops(data, ord=None):
 
     # event Shop
     back = chat_user.adr[-1]
-    logging.info('Shops')
+    logging.info('Return to shops')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
 
-    chat_user.create_task()  # Create task
+    # Create task
+    chat_user.create_task()
     bot.users[tunnel] = chat_user
-
-    # logging.info('Region arrived')
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
@@ -454,17 +461,26 @@ def enter(data, ord=None):
                 if not chat_user.current_task[b] is None:
                     val += 1
             if val == 5:
-                # Add tasks to dict from send
+                # Add tasks to the dict from send
                 crs = copy.deepcopy(chat_user.current_task)
 
+                ## Join name
+                shop = crs['shop']
+                dlv = crs['delivery']
+                wt = crs['weight']
+                st = crs['dlv_time']
+                nm = ', '.join([shop, dlv, wt, st, ])
+
                 if tmp_ := bot.tasks.get(chat_id):
-                    tmp_.append(crs)
+                    tmp_[nm] = crs
                     bot.tasks[chat_id] = tmp_
                     logging.info('ADD')
                     logging.info(bot.tasks)
                 else:
-                    bot.tasks[chat_id] = [crs, ]
+                    bot.tasks[chat_id] = {nm: crs}
                     logging.info(bot.tasks)
+                    # bot.tasks[chat_id] = [crs, ]
+                    # logging.info(bot.tasks)
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
@@ -574,7 +590,7 @@ def do_echo():
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
     data = request.json
-    #logging.info(data)
+    # logging.info(data)
 
     if bot.last_id < data['update_id']:
         # Отсекаем старые сообщения если ид меньше текущего
