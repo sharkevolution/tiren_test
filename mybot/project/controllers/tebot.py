@@ -358,6 +358,15 @@ def dynamic_shops(data, ord=None):
 def delete_item_send(data, ord=None):
 
     tunnel = data['message']['chat']['id']
+
+    # Описать удаление элемента
+    _tmp = bot.tasks[tunnel]
+
+    if tmp_dict := bot.tasks.get(tunnel):
+        if ord in tmp_dict:
+            tmp_dict.pop(ord)
+            bot.tasks[tunnel] = tmp_dict
+
     message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}"}
     return message, bot.api_url
 
