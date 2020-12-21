@@ -381,7 +381,7 @@ def delete_item_send(data, ord=None):
 
     logging.info(reply_markup)
 
-    if reply_markup:
+    if reply_markup['keyboard']:
         message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}",
                    'reply_markup': reply_markup}
     else:
