@@ -388,7 +388,7 @@ def delete_item_send(data, ord=None):
     else:
         logging.info('remove')
         message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}",
-                   'remove_keyboard': 'True'}
+                   'reply_markup': {'remove_keyboard': True}}
 
     return message, bot.api_url
 
