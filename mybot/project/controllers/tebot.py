@@ -95,6 +95,8 @@ class User:
         self.adr = []  # List of store addresses
         self.delivery = []  # List of carriers
         self.weight = []  # Capacity
+        self.send_list = []  # send list
+
         self.last_message_id = 0
         self.last_bot_id = 0
         self.pull_user_commands = {}  # Add set user commands
@@ -352,18 +354,28 @@ def dynamic_shops(data, ord=None):
     return message, bot.api_url
 
 
+@dp.message_handler(commands=[])
+def delete_item_send(data, ord=None):
+
+    tunnel = data['message']['chat']['id']
+    message = {'chat_id': tunnel, 'text': f'Item deleted: {ord}'}
+    return message, bot.api_url
+
+
 @dp.callback_handler(commands=['edit_list_send'])
 def edit_send(data, ord=None):
     """
         Remove an item from the list to send
     """
     r = callback_hello_ok(data, 'ok!')
-
     chat_id = data['callback_query']['message']['chat']['id']
-    # chat_user = bot.users[chat_id]
 
     _tmp = bot.tasks[chat_id]
-    reply_markup = settings_user.template_tasks_to_send(_tmp)
+    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[chat_id])
+
+    for b in chat_user.send_list:
+        chat_user.pull_user_commands[b] = delete_item_send
+
     message = {'chat_id': chat_id, 'text': f'Выбранный элемент будет удален', 'reply_markup': reply_markup}
 
     return message, bot.api_url
@@ -465,11 +477,7 @@ def enter(data, ord=None):
                 crs = copy.deepcopy(chat_user.current_task)
 
                 ## Join name
-                shop = crs['shop']
-                dlv = crs['delivery']
-                wt = crs['weight']
-                st = crs['dlv_time']
-                nm = ', '.join([shop, dlv, wt, st, ])
+                nm = ', '.join([crs['shop'], crs['delivery'], crs['weight'], crs['dlv_time'], ])
 
                 if tmp_ := bot.tasks.get(chat_id):
                     tmp_[nm] = crs

@@ -116,17 +116,18 @@ def template_weight(dict_init, chat_user):
     return reply_markup, chat_user
 
 
-def template_tasks_to_send(tmp_dict):
+def template_tasks_to_send(tmp_dict, chat_user):
     task_list = []
 
     for ts in tmp_dict:
         cnt = tmp_dict[ts]
         tmp_text = ' | '.join([cnt['shop'], cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
         task_list.append([{"text": tmp_text}])
+        chat_user.send_list.append(tmp_text)
 
     reply_markup = {"keyboard": task_list, "resize_keyboard": True, "one_time_keyboard": False}
 
-    return reply_markup
+    return reply_markup, chat_user
 
 
 def template_edit_list():
