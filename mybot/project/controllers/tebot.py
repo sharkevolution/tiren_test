@@ -414,7 +414,7 @@ def return_to_shops(data, ord=None):
     logging.info('Return to SHOPS')
     logging.info(chat_user)
 
-    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, tunnel)
+    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
     for b in chat_user.adr[-1]:
