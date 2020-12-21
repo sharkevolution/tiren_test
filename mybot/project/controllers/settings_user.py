@@ -135,7 +135,8 @@ def template_edit_list():
     # logging.info(dict_init)
 
     reply_markup = {"inline_keyboard": [[
-        {"text": f"Удалить из списка", "callback_data": "edit_list_send"}, ],
+        {"text": f"Удалить из списка", "callback_data": "edit_list_send"},
+        {"text": f"Удалить Все", "callback_data": "del_list_send"}],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
