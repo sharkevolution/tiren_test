@@ -371,6 +371,7 @@ def delete_item_send(data, ord=None):
                 tmp_dict.pop(ord)  # delete item from dict
                 bot.tasks[tunnel] = tmp_dict
                 chat_user.send_list.remove(ord)  # Delete item from list
+                bot.users[tunnel] = chat_user
 
     # Generate rest of the task list
     _tmp = bot.tasks[tunnel]
