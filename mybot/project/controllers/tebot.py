@@ -380,6 +380,10 @@ def delete_item_send(data, ord=None):
     reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel])
 
     logging.info(reply_markup)
+
+    if not reply_markup:
+        reply_markup = {"remove_keyboard": True}
+
     message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}",
                'reply_markup': reply_markup}
 
