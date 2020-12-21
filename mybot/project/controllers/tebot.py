@@ -374,6 +374,8 @@ def delete_item_send(data, ord=None):
                 bot.tasks[tunnel] = tmp_dict
                 chat_user.send_list.remove(ord)  # Delete item from list
                 bot.users[tunnel] = chat_user
+            else:
+                logging.info('not found')
 
     # Generate rest of the task list
     _tmp = bot.tasks[tunnel]
