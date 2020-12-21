@@ -405,16 +405,16 @@ def enter_to_list(data, ord=None):
 
 @dp.callback_handler(commands=['ent_shops'])
 def return_to_shops(data, ord=None):
+
     r = callback_hello_ok(data, 'ok!')
-    chat_id = data['callback_query']['message']['chat']['id']
-    logging.info(chat_id)
-    tunnel = bot.users[chat_id]
+    tunnel = data['callback_query']['message']['chat']['id']
+    chat_user = bot.users[tunnel]
 
     result_text = 'Выберите адрес из списка'
     logging.info('Return to SHOPS')
-    logging.info(int(tunnel))
+    logging.info(chat_user)
 
-    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, tunnel)
 
     # Update commands wrapper
     for b in chat_user.adr[-1]:
