@@ -143,7 +143,7 @@ def template_edit_list():
 
 def template_shops(dict_init, chat_user):
     adr = []
-    # logging.info(dict_init)
+    logging.info(dict_init)
     for b in dict_init['adr']:
         if chat_user.__name__ in b[3]:
             pass

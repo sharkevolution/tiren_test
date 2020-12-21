@@ -364,7 +364,6 @@ def edit_send(data, ord=None):
 
     _tmp = bot.tasks[chat_id]
     reply_markup = settings_user.template_tasks_to_send(_tmp)
-
     message = {'chat_id': chat_id, 'text': f'Выбранный элемент будет удален', 'reply_markup': reply_markup}
 
     return message, bot.api_url
