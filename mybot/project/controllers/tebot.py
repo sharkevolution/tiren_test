@@ -382,11 +382,12 @@ def enter_to_list(data, ord=None):
         html_list = []
 
         for ts in tmp_dict:
-            logging.info(tmp_dict)
-            shop = ts['shop']
-            dlv = ts['delivery']
-            wt = ts['weight']
-            st = ts['dlv_time']
+            # logging.info(tmp_dict)
+            content = tmp_dict[ts]
+            shop = content['shop']
+            dlv = content['delivery']
+            wt = content['weight']
+            st = content['dlv_time']
 
             tmp_text = ' | '.join([shop, dlv, wt, st, ])
             html_list.append(tmp_text)
