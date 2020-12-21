@@ -129,7 +129,6 @@ def template_tasks_to_send(tmp_dict):
     return reply_markup
 
 
-
 def template_edit_list():
     # logging.info(dict_init)
 
