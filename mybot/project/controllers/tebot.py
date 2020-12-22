@@ -230,6 +230,7 @@ def fsm_region(data, ord=None):
 
 
 def fsm_city(data, ord=None):
+    logging.info("I'm fsm_city")
     return {}, {}
 
 
