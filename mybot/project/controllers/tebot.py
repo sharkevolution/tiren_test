@@ -240,7 +240,6 @@ def fsm_address(data, ord=None):
     chat_user = bot.users[tunnel]
 
     if chat_user.previous_ord == 'add_address':
-        logging.info("It's ok!!")
         chat_user.FSM = True
         chat_user.previous_ord = ord
         chat_user.call_fsm = fsm_city
@@ -257,7 +256,6 @@ def fsm_address(data, ord=None):
 
     bot.users[tunnel] = chat_user
 
-    logging.info("!!!")
     result_text = f"Выберите город из списка или введите новый.."
     reply_markup = settings_user.template_fsm_city()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
@@ -707,6 +705,7 @@ def do_echo():
                 bot.users[chat_user.__name__] = chat_user
 
                 logging.info('Message')
+                logging.info(chat_user.FSM)
                 logging.info(ord)
 
                 if chat_user.FSM:
@@ -714,6 +713,7 @@ def do_echo():
                         chat_user.FSM = False
                         chat_user.previous_ord = None
                         chat_user.call_fsm = None
+                        logging.info('Bad FSM')
                         # Сообщение что ожидался ввод строки
                     else:
                         # Start FSM
