@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3abff9b-fcba-4821-bc19-13f52b62f594" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +45,7 @@
       <recent name="$PROJECT_DIR$/mybot/project/controllers" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.settings_user">
+  <component name="RunManager" selected="Python.tebot">
     <configuration name="chtime" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tiren-bot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,9 +153,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.tebot" />
         <item itemvalue="Python.settings_user" />
         <item itemvalue="Python.create_json" />
-        <item itemvalue="Python.tebot" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.chtime" />
       </list>
@@ -193,7 +192,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
-          <line>697</line>
+          <line>699</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

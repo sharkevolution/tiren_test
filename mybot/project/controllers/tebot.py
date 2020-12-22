@@ -229,10 +229,10 @@ def fsm_address(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
-    if chat_user.previous_ord == 'add_address'
-        # It's ok!!
+    if chat_user.previous_ord == 'add_address':
+        logging.info("It's ok!!")
     else:
-        # bad FSM
+        logging.info("bad FSM")
 
     chat_user.FSM = False
     chat_user.previous_ord = None
@@ -692,6 +692,8 @@ def do_echo():
                 if chat_user.FSM:
                     if exec_func := chat_user.pull_user_commands.get(ord):
                         chat_user.FSM = False
+                        chat_user.previous_ord = None
+                        chat_user.call_fsm = None
                         # Сообщение что ожидался ввод строки
                     else:
                         # Start FSM
