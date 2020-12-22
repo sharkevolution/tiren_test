@@ -255,6 +255,7 @@ def enter_add_address(data, ord=None):
     chat_user.FSM = True
     chat_user.previous_ord = ord  # Save previous ord for FSM
     chat_user.call_fsm = fsm_address  # Call name function
+    bot.users[tunnel] = chat_user
 
     result_text = f"Введите новый адрес и нажимте отправить.."
     reply_markup = settings_user.template_address()
@@ -663,7 +664,7 @@ def do_echo():
     # logging.info(data)
 
     if bot.last_id < data['update_id']:
-        bot.last_id = data['update_id']  # Отсекаем старые сообщения если ид меньше текущего
+        bot.last_id = data['update_id']  # Отсекаем старые сообщения
 
         if data.get('callback_query'):
             # curl = bot.api_answer
