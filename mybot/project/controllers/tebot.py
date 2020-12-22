@@ -698,7 +698,7 @@ def do_echo():
                         # Сообщение что ожидался ввод строки
                     else:
                         # Start FSM
-                        exec_func(chat_user.call_fsm, ord)
+                        chat_user.call_fsm(data, ord)
 
                 elif exec_func := chat_user.pull_user_commands.get(ord):
                     message, curl = exec_func(data, ord)
