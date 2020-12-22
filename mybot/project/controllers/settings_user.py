@@ -36,28 +36,28 @@ def template_engineer_mode():
             {"text": f"{emoji.emojize(' 1 ')}", "callback_data": "ent_one"},
             {"text": f"{emoji.emojize(' 2 ')}", "callback_data": "ent_two"},
             {"text": f"{emoji.emojize(' 3 ')}", "callback_data": "ent_three"},
-            {"text": f"{emoji.emojize(':rocket: Send')}", "callback_data": "ent_send"}
+            {"text": f"{emoji.emojize(':rocket: Отправить')}", "callback_data": "ent_send"}
         ],
 
         [
             {"text": f"{emoji.emojize(' 4 ')}", "callback_data": "ent_four"},
             {"text": f"{emoji.emojize(' 5 ')}", "callback_data": "ent_five"},
             {"text": f"{emoji.emojize(' 6 ')}", "callback_data": "ent_six"},
-            {"text": f"{emoji.emojize(':TOP_arrow: Main')}", "callback_data": "ent_main"}
+            {"text": f"{emoji.emojize(':TOP_arrow: Главная')}", "callback_data": "ent_main"}
         ],
 
         [
             {"text": f"{emoji.emojize(' 7 ')}", "callback_data": "ent_seven"},
             {"text": f"{emoji.emojize(' 8 ')}", "callback_data": "ent_eight"},
             {"text": f"{emoji.emojize(' 9 ')}", "callback_data": "ent_nine"},
-            {"text": f"{emoji.emojize(':spiral_notepad: List')}", "callback_data": "ent_list"}
+            {"text": f"{emoji.emojize(':spiral_notepad: Список')}", "callback_data": "ent_list"}
         ],
 
         [
             {"text": f"{emoji.emojize(' 0 ')}", "callback_data": "ent_zero"},
             {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_colon"},
             {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_ok"},
-            {"text": f"{emoji.emojize(':houses: Addr')}", "callback_data": "ent_shops"}
+            {"text": f"{emoji.emojize(':houses: Адреса')}", "callback_data": "ent_shops"}
         ],
     ],
         "resize_keyboard": True,
@@ -66,8 +66,18 @@ def template_engineer_mode():
     return reply_markup
 
 
-def template_address():
+def template_fsm_city():
+    new_city = []
+    new_city.append([{"text": 'Добавить город'}])
 
+    reply_markup = {"keyboard": new_city,
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False
+                    }
+    return reply_markup
+
+
+def template_fsm_address():
     new_adr = []
     new_adr.append([{"text": 'Добавить адрес'}])
 

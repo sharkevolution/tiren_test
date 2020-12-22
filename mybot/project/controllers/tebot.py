@@ -104,7 +104,7 @@ class User:
         self.FSM = False
         self.call_fsm = None
         self.previous_ord = None
-        self.fsm_location = []  # Address - City - Region
+        self.fsm_location = [None, None, None, None]  # Address - City - Region
 
         self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -222,26 +222,44 @@ dp = Dispatcher(bot)
 
 # ********************************************************
 
+def fsm_region(data, ord=None):
+    # Add Region name to chat_user
+    # ----------------------------
+
+    return {}, {}
+
+
+def fsm_city(data, ord=None):
+    return {}, {}
+
 
 def fsm_address(data, ord=None):
-    """ FSM """
+    """ FSM add new address """
 
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
     if chat_user.previous_ord == 'add_address':
         logging.info("It's ok!!")
+        chat_user.FSM = True
+        chat_user.previous_ord = ord
+        chat_user.call_fsm = fsm_city
+        chat_user.fsm_location[0] = ord
     else:
         logging.info("bad FSM")
+        chat_user.FSM = False
+        chat_user.previous_ord = None
+        chat_user.call_fsm = None
+        chat_user.fsm_location[0] = None
+        bot.users[tunnel] = chat_user
 
-    chat_user.FSM = False
-    chat_user.previous_ord = None
-    chat_user.call_fsm = None
+        return {}, {}
+
     bot.users[tunnel] = chat_user
 
-    text = data['message'].get('text')
-    result_text = f"Функция [{text}] It's ok!"
-    res = {'chat_id': tunnel, 'text': result_text}
+    result_text = f"Выберите город из списка или введите новый.."
+    reply_markup = settings_user.template_fsm_city()
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return res, bot.api_url
 
 
@@ -258,7 +276,7 @@ def enter_add_address(data, ord=None):
     bot.users[tunnel] = chat_user
 
     result_text = f"Введите новый адрес и нажимте отправить.."
-    reply_markup = settings_user.template_address()
+    reply_markup = settings_user.template_fsm_address()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
