@@ -260,7 +260,7 @@ def fsm_address(data, ord=None):
     result_text = f"Выберите город из списка или введите новый.."
     reply_markup = settings_user.template_fsm_city()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-    return res, bot.api_url
+    return message, bot.api_url
 
 
 @dp.callback_handler(commands=['add_address', ])
