@@ -100,7 +100,11 @@ class User:
         self.last_message_id = 0
         self.last_bot_id = 0
         self.pull_user_commands = {}  # Add set user commands
-        self.mode = 'interpreter'
+
+        self.FSM = False
+        self.call_fsm = None
+        self.previous_ord = None
+        self.fsm_location = []  # Address - City - Region
 
         self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -219,13 +223,38 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 
+def fsm_address(data, ord=None):
+    """ FSM """
+
+    tunnel = data['message']['chat']['id']
+    chat_user = bot.users[tunnel]
+
+    if chat_user.previous_ord == 'add_address'
+        # It's ok!!
+    else:
+        # bad FSM
+
+    chat_user.FSM = False
+    chat_user.previous_ord = None
+    chat_user.call_fsm = None
+    bot.users[tunnel] = chat_user
+
+    text = data['message'].get('text')
+    result_text = f"Функция [{text}] It's ok!"
+    res = {'chat_id': tunnel, 'text': result_text}
+    return res, bot.api_url
+
+
 @dp.callback_handler(commands=['add_address', ])
 def enter_add_address(data, ord=None):
     callback_hello_ok(data, 'Add address')
 
     tunnel = data['callback_query']['message']['chat']['id']
+    chat_user = bot.users[tunnel]
 
-    # chat_user = bot.users[tunnel]
+    chat_user.FSM = True
+    chat_user.previous_ord = ord  # Save previous ord for FSM
+    chat_user.call_fsm = fsm_address  # Call name function
 
     result_text = f"Введите новый адрес и нажимте отправить.."
     reply_markup = settings_user.template_address()
@@ -634,12 +663,12 @@ def do_echo():
     # logging.info(data)
 
     if bot.last_id < data['update_id']:
-        # Отсекаем старые сообщения если ид меньше текущего
-        bot.last_id = data['update_id']
+        bot.last_id = data['update_id']  # Отсекаем старые сообщения если ид меньше текущего
 
         if data.get('callback_query'):
             # curl = bot.api_answer
-            user_start_update(data['callback_query']['message']['chat']['id'], data['callback_query']['from'])
+            user_start_update(data['callback_query']['message']['chat']['id'],
+                              data['callback_query']['from'])
 
             if ord := data['callback_query'].get('data'):
                 logging.info('Callback_query')
@@ -652,13 +681,23 @@ def do_echo():
         if data.get('message'):
             # curl = bot.api_url
             if ord := data['message'].get('text'):
-                cs = user_start_update(data['message']['chat']['id'], data['message']['from'])
-                cs.put_redis_last_message_id(data)
-                bot.users[cs.__name__] = cs
+                chat_user = user_start_update(data['message']['chat']['id'],
+                                       data['message']['from'])
+                chat_user.put_redis_last_message_id(data)
+                bot.users[chat_user.__name__] = chat_user
 
                 logging.info('Message')
                 logging.info(ord)
-                if exec_func := cs.pull_user_commands.get(ord):
+
+                if chat_user.FSM:
+                    if exec_func := chat_user.pull_user_commands.get(ord):
+                        chat_user.FSM = False
+                        # Сообщение что ожидался ввод строки
+                    else:
+                        # Start FSM
+                        exec_func(chat_user.call_fsm, ord)
+
+                elif exec_func := chat_user.pull_user_commands.get(ord):
                     message, curl = exec_func(data, ord)
                 elif exec_func := dp.pull_message_commands.get(ord):
                     # logging.info(ord)
@@ -667,8 +706,6 @@ def do_echo():
                     message, curl = dummy_message(data)
 
         if message and curl:
-            # logging.info(message)
-            # logging.info(curl)
             try:
                 r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
                 assert r.status_code == 200
