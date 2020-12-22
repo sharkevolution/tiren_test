@@ -245,6 +245,7 @@ def fsm_address(data, ord=None):
         chat_user.previous_ord = ord
         chat_user.call_fsm = fsm_city
         chat_user.fsm_location[0] = ord
+        logging.info("!!!")
     else:
         logging.info("bad FSM")
         chat_user.FSM = False
