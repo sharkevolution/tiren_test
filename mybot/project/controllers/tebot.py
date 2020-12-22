@@ -245,7 +245,6 @@ def fsm_address(data, ord=None):
         chat_user.previous_ord = ord
         chat_user.call_fsm = fsm_city
         chat_user.fsm_location[0] = ord
-        logging.info("!!!")
     else:
         logging.info("bad FSM")
         chat_user.FSM = False
@@ -258,6 +257,7 @@ def fsm_address(data, ord=None):
 
     bot.users[tunnel] = chat_user
 
+    logging.info("!!!")
     result_text = f"Выберите город из списка или введите новый.."
     reply_markup = settings_user.template_fsm_city()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
