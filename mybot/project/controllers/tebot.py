@@ -707,6 +707,7 @@ def do_echo():
                 logging.info('Message')
                 logging.info(chat_user.FSM)
                 logging.info(ord)
+                logging.info(chat_user.call_fsm)
 
                 if chat_user.FSM:
                     if exec_func := chat_user.pull_user_commands.get(ord):
