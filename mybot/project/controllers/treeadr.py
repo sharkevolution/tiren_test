@@ -32,7 +32,7 @@ def hide_city(tree_city, chat_id, name_ord):
         if city_name[1] in b[1]:
             access = b[2]
             if chat_id in access:
-                access.append(chat_id)
+                access.remove(chat_id)
                 b[2] = access
             else:
                 pass
