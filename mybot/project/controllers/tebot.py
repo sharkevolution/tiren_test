@@ -230,7 +230,7 @@ def fsm_region(data, ord=None):
     chat_user = bot.users[tunnel]
 
     logging.info(chat_user.previous_ord)
-    if chat_user.previous_ord == 'add_city':
+    if chat_user.previous_ord == 'add_region':
         chat_user.FSM = False
         chat_user.previous_ord = None
         chat_user.call_fsm = None
