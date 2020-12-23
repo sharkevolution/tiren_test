@@ -241,7 +241,6 @@ def fsm_address(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
-    logging.info(chat_user.previous_ord)
     if chat_user.previous_ord == 'add_address':
         chat_user.FSM = True
         chat_user.previous_ord = 'add_city'
@@ -729,7 +728,7 @@ def do_echo():
                             message, curl = dummy_message(data)
                         else:
                             # Start FSM
-                            chat_user.call_fsm(data, ord)
+                            message, curl = chat_user.call_fsm(data, ord)
 
         if message and curl:
             try:
