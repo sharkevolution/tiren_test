@@ -36,11 +36,18 @@ def save_variable(newDict):
         redisClient.set('settings_data', msgpack.packb(newDict))
 
 
+def read_variable():
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+
+    tmp_ = None
+    if redisClient.exists("settings_data"):
+        tmp_ = msgpack.unpackb(redisClient.get('settings_data'))
+
+    return tmp_
 
 
 def clear_base_redis():
-    ## Clear base Redis
-
+    # Clear base Redis
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     for key in redisClient.keys('*'):
         redisClient.delete(key)

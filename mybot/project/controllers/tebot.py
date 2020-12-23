@@ -237,17 +237,32 @@ def fsm_region(data, ord=None):
 
         # Add to Redis
         city_ = sorted(bot.dict_init['city'], key=lambda num: num[0], reverse=True)
-        max_key_city = city_[0][0]
+        max_key_city = city_[0][0]  # New key
 
-        # check city in list and save to Redis
+        # Check City in list and save to Redis
         for b in bot.dict_init['city']:
             nm = b[1]
             new_name = chat_user.fsm_location[1]
             if new_name.lower() == nm.lower():
-                pass
+                max_key_city = nm[0]  # Get key
             else:
                 city_.append([max_key_city + 1, new_name, []])
                 bot.dict_init['city'] = city_
+
+                dredis.save_variable(bot.dict_init)
+                logging.info(dredis.read_variable())
+
+        # Check Address in list and save to Redis
+        adr_ = sorted(bot.dict_init['adr'], key=lambda num: num[1], reverse=True)
+        max_key_city = adr_[0][1]  # New key
+        for b in bot.dict_init['adr']:
+            nm = b[2]
+            new_name = chat_user.fsm_location[0]
+            if new_name.lower() == nm.lower():
+                max_key_address = nm[1]  # Get key Address
+            else:
+                adr_.append([max_key_city, max_key_address + 1, new_name, []])
+                bot.dict_init['adr'] = adr_
 
                 dredis.save_variable(bot.dict_init)
 
