@@ -228,6 +228,7 @@ def fsm_city(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
+    result_text = f"Несоздана связь есть дубли"
     logging.info(chat_user.previous_ord)
     if chat_user.previous_ord == 'add_city':
         chat_user.FSM = False
@@ -235,36 +236,43 @@ def fsm_city(data, ord=None):
         chat_user.call_fsm = None
         chat_user.fsm_location[1] = ord
 
+        dup_city = True
+        dup_adr = True
+
         # Add to Redis
         city_ = sorted(bot.dict_init['city'], key=lambda num: num[0], reverse=True)
         max_key_city = city_[0][0]  # New key
 
         # Check City in list and save to Redis
-        new_name = chat_user.fsm_location[1]
+        new_city = chat_user.fsm_location[1]
         for b in bot.dict_init['city']:
             nm = b[1]
-            if new_name.lower() == nm.lower():
-                max_key_city = b[0]  # Get key
+            if new_city.lower() == nm.lower():
+                dup_city = False
                 break
-
-        city_.append([max_key_city + 1, new_name, []])
-        bot.dict_init['city'] = city_
 
         # Check Address in list and save to Redis
         adr_ = sorted(bot.dict_init['adr'], key=lambda num: num[1], reverse=True)
         max_key_address = adr_[0][1]  # New key
-        new_name = chat_user.fsm_location[0]
+        new_adr = chat_user.fsm_location[0]
         for b in bot.dict_init['adr']:
             nm = b[2]
-            if new_name.lower() == nm.lower():
-                max_key_address = b[1]  # Get key Address
+            if new_adr.lower() == nm.lower():
+                dup_adr = False
                 break
 
-        adr_.append([max_key_city, max_key_address + 1, new_name, []])
-        bot.dict_init['adr'] = adr_
+        if dup_city and dup_adr:
+            city_.append([max_key_city + 1, new_city, []])
+            bot.dict_init['city'] = city_
 
-        dredis.save_variable(bot.dict_init)
-        logging.info(dredis.read_variable())
+            adr_.append([max_key_city, max_key_address + 1, new_adr, []])
+            bot.dict_init['adr'] = adr_
+
+            dredis.save_variable(bot.dict_init)
+            logging.info(dredis.read_variable())
+
+            link = '-'.join(chat_user.fsm_location)
+            result_text = f"Создана связка {link}"
 
     else:
         logging.info("bad FSM")
@@ -277,10 +285,8 @@ def fsm_city(data, ord=None):
         return {}, {}
 
     bot.users[tunnel] = chat_user
-    link = '-'.join(chat_user.fsm_location)
     chat_user.fsm_location = [None, None]
 
-    result_text = f"Добавлена новая связка {link}"
     res = {'chat_id': tunnel, 'text': result_text}
     return res, bot.api_url
 
