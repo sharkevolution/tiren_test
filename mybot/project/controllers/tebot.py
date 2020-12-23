@@ -104,7 +104,7 @@ class User:
         self.FSM = False
         self.call_fsm = None
         self.previous_ord = None
-        self.fsm_location = [None, None, None, None]  # Address - City - Region
+        self.fsm_location = [None, None, None]  # Address - City - Region
 
         self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -223,15 +223,39 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 def fsm_region(data, ord=None):
-    # Add Region name to chat_user
-    # ----------------------------
+    logging.info("I'm fsm_region")
 
     return {}, {}
 
 
 def fsm_city(data, ord=None):
+    """ FSM add new city """
     logging.info("I'm fsm_city")
-    return {}, {}
+
+    tunnel = data['message']['chat']['id']
+    chat_user = bot.users[tunnel]
+
+    if chat_user.previous_ord == 'add_city':
+        chat_user.FSM = True
+        chat_user.previous_ord = 'add_region'
+        chat_user.call_fsm = fsm_city
+        chat_user.fsm_location[1] = ord
+    else:
+        logging.info("bad FSM")
+        chat_user.FSM = False
+        chat_user.previous_ord = None
+        chat_user.call_fsm = None
+        chat_user.fsm_location = [None, None, None]
+        bot.users[tunnel] = chat_user
+
+        return {}, {}
+
+    bot.users[tunnel] = chat_user
+
+    result_text = f"Выберите регион из списка или введите новый.."
+    reply_markup = settings_user.template_fsm_region()
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+    return message, bot.api_url
 
 
 def fsm_address(data, ord=None):
@@ -251,7 +275,7 @@ def fsm_address(data, ord=None):
         chat_user.FSM = False
         chat_user.previous_ord = None
         chat_user.call_fsm = None
-        chat_user.fsm_location[0] = None
+        chat_user.fsm_location = [None, None, None]
         bot.users[tunnel] = chat_user
 
         return {}, {}

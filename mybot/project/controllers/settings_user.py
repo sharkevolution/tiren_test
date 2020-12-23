@@ -66,6 +66,17 @@ def template_engineer_mode():
     return reply_markup
 
 
+def template_fsm_region():
+    new_region = []
+    new_region.append([{"text": 'Добавить регион'}])
+
+    reply_markup = {"keyboard": new_region,
+                    "resize_keyboard": True,
+                    "one_time_keyboard": False
+                    }
+    return reply_markup
+
+
 def template_fsm_city():
     new_city = []
     new_city.append([{"text": 'Добавить город'}])
