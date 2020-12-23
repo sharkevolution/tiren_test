@@ -27,6 +27,17 @@ def variable_init(bot):
         redisClient.set('settings_data', msgpack.packb(newDict))
 
 
+def save_variable(newDict):
+
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+
+    if redisClient.exists("settings_data"):
+        # save to redis
+        redisClient.set('settings_data', msgpack.packb(newDict))
+
+
+
+
 def clear_base_redis():
     ## Clear base Redis
 

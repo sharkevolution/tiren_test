@@ -56,8 +56,7 @@ def open_book(pt):
 
 
 def run(rootDir=r'myjson'):
-    for dirName, subdirList, fileList in os.walk(rootDir,
-                                                 topdown=False):
+    for dirName, subdirList, fileList in os.walk(rootDir, topdown=False):
         path_list = dirName.split(os.sep)
         pt = [os.path.join(".", dirName, b) for b in fileList]
         open_book(pt)
@@ -76,3 +75,10 @@ if __name__ == '__main__':
         newDict = json.load(json_file)
 
     pprint.pprint(newDict)
+
+    city_ = sorted(newDict['city'], key=lambda num: num[0], reverse=True)
+    pprint.pprint(city_[0][0])
+
+    # check city in list
+    for b in newDict['city']:
+        print(b)

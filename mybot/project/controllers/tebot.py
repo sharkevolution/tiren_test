@@ -224,8 +224,7 @@ dp = Dispatcher(bot)
 
 
 def fsm_region(data, ord=None):
-    logging.info("I'm fsm_region")
-
+    """ FSM add new region """
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
@@ -235,6 +234,23 @@ def fsm_region(data, ord=None):
         chat_user.previous_ord = None
         chat_user.call_fsm = None
         chat_user.fsm_location[2] = ord
+
+        # Add to Redis
+        city_ = sorted(bot.dict_init['city'], key=lambda num: num[0], reverse=True)
+        max_key_city = city_[0][0]
+
+        # check city in list
+        for b in bot.dict_init['city']:
+            nm = b[1]
+            new_name = chat_user.fsm_location[1]
+            if new_name.lower() == nm.lower():
+                pass
+            else:
+                city_.append([max_key_city + 1, new_name, []])
+                bot.dict_init['city'] = city_
+
+                dredis.save_variable(bot.dict_init)
+
 
     else:
         logging.info("bad FSM")
@@ -247,6 +263,7 @@ def fsm_region(data, ord=None):
         return {}, {}
 
     bot.users[tunnel] = chat_user
+    chat_user.fsm_location = [None, None, None]
 
     link = '-'.join(chat_user.fsm_location)
     result_text = f"Добавлена новая связка {link}"
@@ -773,6 +790,7 @@ def do_echo():
                             chat_user.FSM = False
                             chat_user.previous_ord = None
                             chat_user.call_fsm = None
+                            chat_user.fsm_location = [None, None, None]
                             logging.info('Bad FSM')
                             # Сообщение что ожидался ввод строки
 
