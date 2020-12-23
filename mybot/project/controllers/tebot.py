@@ -233,7 +233,7 @@ def fsm_city(data, ord=None):
         chat_user.FSM = False
         chat_user.previous_ord = None
         chat_user.call_fsm = None
-        chat_user.fsm_location[2] = ord
+        chat_user.fsm_location[1] = ord
 
         # Add to Redis
         city_ = sorted(bot.dict_init['city'], key=lambda num: num[0], reverse=True)
