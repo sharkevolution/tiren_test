@@ -239,7 +239,7 @@ def fsm_region(data, ord=None):
         city_ = sorted(bot.dict_init['city'], key=lambda num: num[0], reverse=True)
         max_key_city = city_[0][0]
 
-        # check city in list
+        # check city in list and save to Redis
         for b in bot.dict_init['city']:
             nm = b[1]
             new_name = chat_user.fsm_location[1]
@@ -250,7 +250,6 @@ def fsm_region(data, ord=None):
                 bot.dict_init['city'] = city_
 
                 dredis.save_variable(bot.dict_init)
-
 
     else:
         logging.info("bad FSM")
@@ -263,9 +262,9 @@ def fsm_region(data, ord=None):
         return {}, {}
 
     bot.users[tunnel] = chat_user
+    link = '-'.join(chat_user.fsm_location)
     chat_user.fsm_location = [None, None, None]
 
-    link = '-'.join(chat_user.fsm_location)
     result_text = f"Добавлена новая связка {link}"
     res = {'chat_id': tunnel, 'text': result_text}
     return res, bot.api_url
