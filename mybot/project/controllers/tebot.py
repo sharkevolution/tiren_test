@@ -249,9 +249,6 @@ def fsm_region(data, ord=None):
         city_.append([max_key_city + 1, new_name, []])
         bot.dict_init['city'] = city_
 
-        dredis.save_variable(bot.dict_init)
-        logging.info(dredis.read_variable())
-
         # Check Address in list and save to Redis
         adr_ = sorted(bot.dict_init['adr'], key=lambda num: num[1], reverse=True)
         max_key_address = adr_[0][1]  # New key
@@ -265,6 +262,8 @@ def fsm_region(data, ord=None):
         bot.dict_init['adr'] = adr_
 
         dredis.save_variable(bot.dict_init)
+
+        logging.info(dredis.read_variable())
 
     else:
         logging.info("bad FSM")
