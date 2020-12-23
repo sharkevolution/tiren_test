@@ -322,8 +322,26 @@ def fsm_address(data, ord=None):
     return message, bot.api_url
 
 
+@dp.callback_handler(commands=['gear_del_city', ])
+def gear_del_city_user(data, ord=None):
+    callback_hello_ok(data, 'ok')
+    return {}, {}
+
+
+@dp.callback_handler(commands=['gear_add_city', ])
+def gear_add_city_user(data, ord=None):
+    callback_hello_ok(data, 'ok')
+    return {}, {}
+
+
+@dp.callback_handler(commands=['gear_view', ])
+def gear_view_user(data, ord=None):
+    callback_hello_ok(data, 'ok')
+    return {}, {}
+
+
 @dp.callback_handler(commands=['gear', ])
-def gear(data, ord=None):
+def gear_user(data, ord=None):
     callback_hello_ok(data, 'ok')
 
     tunnel = data['callback_query']['message']['chat']['id']

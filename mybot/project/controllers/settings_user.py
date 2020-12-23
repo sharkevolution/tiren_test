@@ -68,9 +68,9 @@ def template_engineer_mode():
 
 def template_gear():
     reply_markup = {"inline_keyboard": [[
-        {"text": f"Мой список городов", "callback_data": "gear_view"} ],
+        {"text": f"Мой список городов", "callback_data": "gear_view"}, ],
         [{"text": f"Добавить город", "callback_data": "gear_add_city"},
-        {"text": f"Удалить город", "callback_data": "gear_del_city"}],
+         {"text": f"Удалить город", "callback_data": "gear_del_city"}, ],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
@@ -116,7 +116,7 @@ def template_start():
     reply_markup = {"inline_keyboard": [[
         {"text": f"Время прибытия {r}", "callback_data": "region_arrived"},
         {"text": f"К отправке {emoji.emojize(':satellite:')}", "callback_data": "send_to"}],
-        [{"text": f"Настройки {emoji.emojize(':gear:')}", "callback_data": "gear"},
+        [{"text": f"Настройки {emoji.emojize(':gear:')}", "callback_data": "gear_user"},
          {"text": f"Добавить {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
     ],
         "resize_keyboard": True,
