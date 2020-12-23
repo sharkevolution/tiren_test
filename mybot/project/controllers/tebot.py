@@ -246,8 +246,7 @@ def fsm_city(data, ord=None):
         # Check City in list and save to Redis
         new_city = chat_user.fsm_location[1]
         for b in bot.dict_init['city']:
-            nm = b[1]
-            if new_city.lower() == nm.lower():
+            if new_city.lower() == b[1].lower():
                 dup_city = False
                 break
 
@@ -256,8 +255,7 @@ def fsm_city(data, ord=None):
         max_key_address = adr_[0][1]  # New key
         new_adr = chat_user.fsm_location[0]
         for b in bot.dict_init['adr']:
-            nm = b[2]
-            if new_adr.lower() == nm.lower():
+            if new_adr.lower() == b[2].lower():
                 dup_adr = False
                 break
 
