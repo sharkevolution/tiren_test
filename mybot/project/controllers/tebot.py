@@ -245,6 +245,7 @@ def fsm_city(data, ord=None):
             nm = b[1]
             if new_name.lower() == nm.lower():
                 max_key_city = b[0]  # Get key
+                break
 
         city_.append([max_key_city + 1, new_name, []])
         bot.dict_init['city'] = city_
@@ -257,14 +258,12 @@ def fsm_city(data, ord=None):
             nm = b[2]
             if new_name.lower() == nm.lower():
                 max_key_address = b[1]  # Get key Address
-                logging.info(nm)
                 break
 
         adr_.append([max_key_city, max_key_address + 1, new_name, []])
         bot.dict_init['adr'] = adr_
 
         dredis.save_variable(bot.dict_init)
-
         logging.info(dredis.read_variable())
 
     else:
