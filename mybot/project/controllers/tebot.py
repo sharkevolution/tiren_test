@@ -254,10 +254,10 @@ def fsm_region(data, ord=None):
 
         # Check Address in list and save to Redis
         adr_ = sorted(bot.dict_init['adr'], key=lambda num: num[1], reverse=True)
-        max_key_city = adr_[0][1]  # New key
+        max_key_address = adr_[0][1]  # New key
+        new_name = chat_user.fsm_location[0]
         for b in bot.dict_init['adr']:
             nm = b[2]
-            new_name = chat_user.fsm_location[0]
             if new_name.lower() == nm.lower():
                 max_key_address = nm[1]  # Get key Address
 
