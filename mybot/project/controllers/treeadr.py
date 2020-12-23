@@ -8,7 +8,7 @@ def show_city(tree_city, chat_id, name_ord):
     city_name = name_ord.split(f"{single_quote}")
 
     logging.info(city_name)
-    
+
     for b in tree_city:
         if city_name[1] in b[1]:
             access = b[2]

@@ -360,8 +360,11 @@ def gear_del_city_user(data, ord=None):
 def gear_add_handler_city(data, ord=None):
 
     tunnel = data['message']['chat']['id']
+    nDict = dredis.read_variable()
+    bot.dict_init = nDict
     tree_ = treeadr.show_city(bot.dict_init['city'], tunnel, ord)
     bot.dict_init['city'] = tree_
+    dredis.save_variable(bot.dict_init)
 
     logging.info(tree_)
     return {}, {}
