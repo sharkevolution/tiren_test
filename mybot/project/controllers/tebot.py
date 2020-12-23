@@ -716,18 +716,18 @@ def do_echo():
                     # logging.info(ord)
                     message, curl = exec_func(data, ord)
                 else:
-                    message, curl = dummy_message(data)
+                    if chat_user.FSM:
+                        if exec_func := dp.pull_message_commands.get(ord):
+                            chat_user.FSM = False
+                            chat_user.previous_ord = None
+                            chat_user.call_fsm = None
+                            logging.info('Bad FSM')
+                            # Сообщение что ожидался ввод строки
 
-                if chat_user.FSM:
-                    if exec_func := dp.pull_message_commands.get(ord):
-                        chat_user.FSM = False
-                        chat_user.previous_ord = None
-                        chat_user.call_fsm = None
-                        logging.info('Bad FSM')
-                        # Сообщение что ожидался ввод строки
-                    else:
-                        # Start FSM
-                        chat_user.call_fsm(data, ord)
+                            message, curl = dummy_message(data)
+                        else:
+                            # Start FSM
+                            chat_user.call_fsm(data, ord)
 
         if message and curl:
             try:
