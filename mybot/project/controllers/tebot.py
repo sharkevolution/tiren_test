@@ -239,7 +239,6 @@ def fsm_city(data, ord=None):
         dup_city = True
         dup_adr = True
 
-        # Add to Redis
         city_ = sorted(bot.dict_init['city'], key=lambda num: num[0], reverse=True)
         max_key_city = city_[0][0]  # New key
 
@@ -259,6 +258,7 @@ def fsm_city(data, ord=None):
                 dup_adr = False
                 break
 
+        # Add to Redis
         if dup_city and dup_adr:
             city_.append([max_key_city + 1, new_city, []])
 
@@ -292,37 +292,6 @@ def fsm_city(data, ord=None):
     return res, bot.api_url
 
 
-# def fsm_city(data, ord=None):
-#     """ FSM add new city """
-#     logging.info("I'm fsm_city")
-#
-#     tunnel = data['message']['chat']['id']
-#     chat_user = bot.users[tunnel]
-#
-#     logging.info(chat_user.previous_ord)
-#     if chat_user.previous_ord == 'add_city':
-#         chat_user.FSM = True
-#         chat_user.previous_ord = 'add_region'
-#         chat_user.call_fsm = fsm_region
-#         chat_user.fsm_location[1] = ord
-#     else:
-#         logging.info("bad FSM")
-#         chat_user.FSM = False
-#         chat_user.previous_ord = None
-#         chat_user.call_fsm = None
-#         chat_user.fsm_location = [None, None, None]
-#         bot.users[tunnel] = chat_user
-#
-#         return {}, {}
-#
-#     bot.users[tunnel] = chat_user
-#
-#     result_text = f"Выберите регион из списка или введите новый.."
-#     reply_markup = settings_user.template_fsm_region()
-#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-#     return message, bot.api_url
-
-
 def fsm_address(data, ord=None):
     """ FSM add new address """
     logging.info("I'm fsm_address")
@@ -350,6 +319,18 @@ def fsm_address(data, ord=None):
     result_text = f"Выберите город из списка или введите новый.."
     reply_markup = settings_user.template_fsm_city()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+    return message, bot.api_url
+
+
+@dp.callback_handler(commands=['gear', ])
+def gear(data, ord=None):
+    callback_hello_ok(data, 'ok')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = f"Настройки пользователя"
+    reply_markup = settings_user.template_gear()
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
     return message, bot.api_url
 
 

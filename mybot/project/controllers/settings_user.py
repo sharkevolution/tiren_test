@@ -66,6 +66,18 @@ def template_engineer_mode():
     return reply_markup
 
 
+def template_gear():
+    reply_markup = {"inline_keyboard": [[
+        {"text": f"Мой список городов", "callback_data": "gear_view"} ],
+        [{"text": f"Добавить город", "callback_data": "gear_add_city"},
+        {"text": f"Удалить город", "callback_data": "gear_del_city"}],
+    ],
+        "resize_keyboard": True,
+        "one_time_keyboard": False
+    }
+    return reply_markup
+
+
 def template_fsm_region():
     new_region = []
     new_region.append([{"text": 'Добавить регион'}])
