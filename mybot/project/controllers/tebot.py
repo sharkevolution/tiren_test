@@ -222,10 +222,36 @@ dp = Dispatcher(bot)
 
 # ********************************************************
 
+
 def fsm_region(data, ord=None):
     logging.info("I'm fsm_region")
 
-    return {}, {}
+    tunnel = data['message']['chat']['id']
+    chat_user = bot.users[tunnel]
+
+    logging.info(chat_user.previous_ord)
+    if chat_user.previous_ord == 'add_city':
+        chat_user.FSM = False
+        chat_user.previous_ord = None
+        chat_user.call_fsm = None
+        chat_user.fsm_location[2] = ord
+
+    else:
+        logging.info("bad FSM")
+        chat_user.FSM = False
+        chat_user.previous_ord = None
+        chat_user.call_fsm = None
+        chat_user.fsm_location = [None, None, None]
+        bot.users[tunnel] = chat_user
+
+        return {}, {}
+
+    bot.users[tunnel] = chat_user
+
+    link = '-'.join(chat_user.fsm_location)
+    result_text = f"Добавлена новая связка {link}"
+    res = {'chat_id': tunnel, 'text': result_text}
+    return res, bot.api_url
 
 
 def fsm_city(data, ord=None):
@@ -239,7 +265,7 @@ def fsm_city(data, ord=None):
     if chat_user.previous_ord == 'add_city':
         chat_user.FSM = True
         chat_user.previous_ord = 'add_region'
-        chat_user.call_fsm = fsm_city
+        chat_user.call_fsm = fsm_region
         chat_user.fsm_location[1] = ord
     else:
         logging.info("bad FSM")
