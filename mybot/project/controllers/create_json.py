@@ -76,9 +76,9 @@ if __name__ == '__main__':
 
     pprint.pprint(newDict)
 
-    city_ = sorted(newDict['city'], key=lambda num: num[0], reverse=True)
-    pprint.pprint(city_[0][0])
-
-    # check city in list
-    for b in newDict['city']:
-        print(b)
+    # city_ = sorted(newDict['city'], key=lambda num: num[0], reverse=True)
+    # pprint.pprint(city_[0][0])
+    #
+    # # check city in list
+    # for b in newDict['city']:
+    #     print(b)

@@ -23,6 +23,7 @@ from mybot.project.controllers import planner
 from mybot.project.controllers import dredis
 from mybot.project.controllers import settings_user
 from mybot.project.controllers import chtime
+from mybot.project.controllers import treeadr
 
 
 def callback_hello_ok(data, text):
@@ -357,6 +358,12 @@ def gear_del_city_user(data, ord=None):
 
 @dp.message_handler(commands=[])
 def gear_add_handler_city(data, ord=None):
+
+    tunnel = data['message']['chat']['id']
+    tree_ = treeadr.show_city(bot.dict_init['city'], tunnel, ord)
+    bot.dict_init['city'] = tree_
+
+    logging.info(tree_)
     return {}, {}
 
 
