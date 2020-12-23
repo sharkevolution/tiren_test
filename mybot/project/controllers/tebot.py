@@ -367,7 +367,25 @@ def gear_add_handler_city(data, ord=None):
     dredis.save_variable(bot.dict_init)
 
     logging.info(tree_)
-    return {}, {}
+
+    reply_markup, chat_user = settings_user.template_gear_add_city(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.gear_cities[:-1]:
+        chat_user.pull_user_commands[b] = gear_add_handler_city
+
+    # event TOP
+    back = chat_user.gear_cities[-1]
+    logging.info('gear_add_handler_city')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = gear_add_handler_city
+
+    bot.users[tunnel] = chat_user
+
+    message = {'chat_id': tunnel, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
 
 
 @dp.callback_handler(commands=["gear_add_city", ])
