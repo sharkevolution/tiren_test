@@ -257,6 +257,8 @@ def fsm_city(data, ord=None):
             nm = b[2]
             if new_name.lower() == nm.lower():
                 max_key_address = nm[1]  # Get key Address
+                logging.info(nm)
+                break
 
         adr_.append([max_key_city, max_key_address + 1, new_name, []])
         bot.dict_init['adr'] = adr_
