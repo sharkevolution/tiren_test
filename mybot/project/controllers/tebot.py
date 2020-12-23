@@ -265,13 +265,13 @@ def fsm_address(data, ord=None):
 
 @dp.callback_handler(commands=['add_address', ])
 def enter_add_address(data, ord=None):
-    callback_hello_ok(data, 'Add address')
+    callback_hello_ok(data, 'add address')
 
     tunnel = data['callback_query']['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
     chat_user.FSM = True
-    chat_user.previous_ord = 'Add address'  # Save previous ord for FSM
+    chat_user.previous_ord = 'add address'  # Save previous ord for FSM
     chat_user.call_fsm = fsm_address  # Call name function
     bot.users[tunnel] = chat_user
 
