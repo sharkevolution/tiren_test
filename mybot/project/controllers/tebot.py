@@ -104,7 +104,7 @@ class User:
         self.FSM = False
         self.call_fsm = None
         self.previous_ord = None
-        self.fsm_location = [None, None, None]  # Address - City - Region
+        self.fsm_location = [None, None]  # Address - City
 
         self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
@@ -223,13 +223,13 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 
-def fsm_region(data, ord=None):
-    """ FSM add new region """
+def fsm_city(data, ord=None):
+    """ FSM add new city """
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
     logging.info(chat_user.previous_ord)
-    if chat_user.previous_ord == 'add_region':
+    if chat_user.previous_ord == 'add_city':
         chat_user.FSM = False
         chat_user.previous_ord = None
         chat_user.call_fsm = None
@@ -277,42 +277,42 @@ def fsm_region(data, ord=None):
 
     bot.users[tunnel] = chat_user
     link = '-'.join(chat_user.fsm_location)
-    chat_user.fsm_location = [None, None, None]
+    chat_user.fsm_location = [None, None]
 
     result_text = f"Добавлена новая связка {link}"
     res = {'chat_id': tunnel, 'text': result_text}
     return res, bot.api_url
 
 
-def fsm_city(data, ord=None):
-    """ FSM add new city """
-    logging.info("I'm fsm_city")
-
-    tunnel = data['message']['chat']['id']
-    chat_user = bot.users[tunnel]
-
-    logging.info(chat_user.previous_ord)
-    if chat_user.previous_ord == 'add_city':
-        chat_user.FSM = True
-        chat_user.previous_ord = 'add_region'
-        chat_user.call_fsm = fsm_region
-        chat_user.fsm_location[1] = ord
-    else:
-        logging.info("bad FSM")
-        chat_user.FSM = False
-        chat_user.previous_ord = None
-        chat_user.call_fsm = None
-        chat_user.fsm_location = [None, None, None]
-        bot.users[tunnel] = chat_user
-
-        return {}, {}
-
-    bot.users[tunnel] = chat_user
-
-    result_text = f"Выберите регион из списка или введите новый.."
-    reply_markup = settings_user.template_fsm_region()
-    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-    return message, bot.api_url
+# def fsm_city(data, ord=None):
+#     """ FSM add new city """
+#     logging.info("I'm fsm_city")
+#
+#     tunnel = data['message']['chat']['id']
+#     chat_user = bot.users[tunnel]
+#
+#     logging.info(chat_user.previous_ord)
+#     if chat_user.previous_ord == 'add_city':
+#         chat_user.FSM = True
+#         chat_user.previous_ord = 'add_region'
+#         chat_user.call_fsm = fsm_region
+#         chat_user.fsm_location[1] = ord
+#     else:
+#         logging.info("bad FSM")
+#         chat_user.FSM = False
+#         chat_user.previous_ord = None
+#         chat_user.call_fsm = None
+#         chat_user.fsm_location = [None, None, None]
+#         bot.users[tunnel] = chat_user
+#
+#         return {}, {}
+#
+#     bot.users[tunnel] = chat_user
+#
+#     result_text = f"Выберите регион из списка или введите новый.."
+#     reply_markup = settings_user.template_fsm_region()
+#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+#     return message, bot.api_url
 
 
 def fsm_address(data, ord=None):
@@ -332,7 +332,7 @@ def fsm_address(data, ord=None):
         chat_user.FSM = False
         chat_user.previous_ord = None
         chat_user.call_fsm = None
-        chat_user.fsm_location = [None, None, None]
+        chat_user.fsm_location = [None, None]
         bot.users[tunnel] = chat_user
 
         return {}, {}
@@ -803,7 +803,7 @@ def do_echo():
                             chat_user.FSM = False
                             chat_user.previous_ord = None
                             chat_user.call_fsm = None
-                            chat_user.fsm_location = [None, None, None]
+                            chat_user.fsm_location = [None, None]
                             logging.info('Bad FSM')
                             # Сообщение что ожидался ввод строки
 
