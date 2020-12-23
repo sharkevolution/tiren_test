@@ -244,7 +244,7 @@ def fsm_city(data, ord=None):
         for b in bot.dict_init['city']:
             nm = b[1]
             if new_name.lower() == nm.lower():
-                max_key_city = nm[0]  # Get key
+                max_key_city = b[0]  # Get key
 
         city_.append([max_key_city + 1, new_name, []])
         bot.dict_init['city'] = city_
@@ -256,7 +256,7 @@ def fsm_city(data, ord=None):
         for b in bot.dict_init['adr']:
             nm = b[2]
             if new_name.lower() == nm.lower():
-                max_key_address = nm[1]  # Get key Address
+                max_key_address = b[1]  # Get key Address
                 logging.info(nm)
                 break
 
