@@ -235,6 +235,7 @@ def fsm_city(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
+    logging.info(chat_user.previous_ord)
     if chat_user.previous_ord == 'add_city':
         chat_user.FSM = True
         chat_user.previous_ord = 'add_region'
