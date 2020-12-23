@@ -236,7 +236,7 @@ def fsm_city(data, ord=None):
 
 def fsm_address(data, ord=None):
     """ FSM add new address """
-
+    logging.info("I'm fsm_address")
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
@@ -271,7 +271,7 @@ def enter_add_address(data, ord=None):
     chat_user = bot.users[tunnel]
 
     chat_user.FSM = True
-    chat_user.previous_ord = ord  # Save previous ord for FSM
+    chat_user.previous_ord = 'Add address'  # Save previous ord for FSM
     chat_user.call_fsm = fsm_address  # Call name function
     bot.users[tunnel] = chat_user
 
