@@ -73,8 +73,9 @@ def template_gear_city(dict_init, chat_user):
         if chat_user.__name__ in b[2]:
             pass
         else:
-            city.append([{"text": b[1]}])
-            chat_user.gear_cities.append(b[1])
+            txt_ = f"Добавить {b[1]}"
+            city.append([{"text": txt_}])
+            chat_user.gear_cities.append(txt_)
 
     city.append([{"text": emoji.emojize(':BACK_arrow: Назад к настройкам')}])
     chat_user.gear_cities.append(emoji.emojize(':BACK_arrow: Назад к настройкам'))
