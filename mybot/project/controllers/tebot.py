@@ -382,10 +382,10 @@ def gear_add_handler_city(data, ord=None):
 
     bot.users[tunnel] = chat_user
 
-    message = {'chat_id': tunnel, 'reply_markup': reply_markup}
+    result_text = f"{ord}"
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
-
 
 
 @dp.callback_handler(commands=["gear_add_city", ])
