@@ -261,10 +261,13 @@ def fsm_city(data, ord=None):
 
         if dup_city and dup_adr:
             city_.append([max_key_city + 1, new_city, []])
-            bot.dict_init['city'] = city_
+
+            rev_city = sorted(city_, key=lambda num: num[0], reverse=True)
+            bot.dict_init['city'] = rev_city
 
             adr_.append([max_key_city, max_key_address + 1, new_adr, []])
-            bot.dict_init['adr'] = adr_
+            rev_adr = sorted(adr_, key=lambda num: num[1], reverse=True)
+            bot.dict_init['adr'] = rev_adr
 
             dredis.save_variable(bot.dict_init)
             logging.info(dredis.read_variable())
