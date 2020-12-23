@@ -324,10 +324,35 @@ def fsm_address(data, ord=None):
     return message, bot.api_url
 
 
+@dp.message_handler(commands=[])
+def gear_del_handler_city(data, ord=None):
+    return {}, {}
+
+
 @dp.callback_handler(commands=["gear_del_city", ])
 def gear_del_city_user(data, ord=None):
     callback_hello_ok(data, 'ok')
-    return {}, {}
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = 'Удалите город из своего списка'
+    reply_markup, chat_user = settings_user.template_gear_del_city(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.gear_cities[:-1]:
+        chat_user.pull_user_commands[b] = gear_del_handler_city
+
+    # event TOP
+    back = chat_user.gear_cities[-1]
+    logging.info('gear_add_city_user')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = gear_del_handler_city
+
+    bot.users[tunnel] = chat_user
+
+    # logging.info('Region arrived')
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
 
 
 @dp.message_handler(commands=[])
@@ -341,7 +366,7 @@ def gear_add_city_user(data, ord=None):
 
     tunnel = data['callback_query']['message']['chat']['id']
     result_text = 'Добавьте город в свой список'
-    reply_markup, chat_user = settings_user.template_gear_city(bot.dict_init, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_gear_add_city(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
     for b in chat_user.gear_cities[:-1]:

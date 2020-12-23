@@ -66,7 +66,26 @@ def template_engineer_mode():
     return reply_markup
 
 
-def template_gear_city(dict_init, chat_user):
+def template_gear_del_city(dict_init, chat_user):
+    city = []
+    logging.info(dict_init)
+    for b in dict_init['city']:
+        if chat_user.__name__ in b[2]:
+            pass
+        else:
+            txt_ = f"Удалить {b[1]}"
+            city.append([{"text": txt_}])
+            chat_user.gear_cities.append(txt_)
+
+    city.append([{"text": emoji.emojize(':BACK_arrow: Назад к настройкам')}])
+    chat_user.gear_cities.append(emoji.emojize(':BACK_arrow: Назад к настройкам'))
+
+    reply_markup = {"keyboard": city, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, chat_user
+
+
+def template_gear_add_city(dict_init, chat_user):
     city = []
     logging.info(dict_init)
     for b in dict_init['city']:
