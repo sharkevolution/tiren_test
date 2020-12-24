@@ -341,11 +341,11 @@ def gear_del_handler_adr(data, ord=None):
     reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
-    for b in chat_user.gear_cities[:-1]:
+    for b in chat_user.gear_adr[:-1]:
         chat_user.pull_user_commands[b] = gear_del_handler_adr
 
     # event TOP
-    back = chat_user.gear_cities[-1]
+    back = chat_user.gear_adr[-1]
     logging.info('gear_del_handler_city')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
@@ -367,11 +367,11 @@ def gear_del_addess_user(data, ord=None):
     reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
-    for b in chat_user.gear_cities[:-1]:
+    for b in chat_user.gear_adr[:-1]:
         chat_user.pull_user_commands[b] = gear_del_handler_adr
 
     # event TOP
-    back = chat_user.gear_cities[-1]
+    back = chat_user.gear_adr[-1]
     logging.info('gear_add_city_user')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
