@@ -373,7 +373,7 @@ def gear_del_city_user(data, ord=None):
     back = chat_user.gear_cities[-1]
     logging.info('gear_add_city_user')
     logging.info(back)
-    chat_user.pull_user_commands[back] = gear_del_handler_city
+    chat_user.pull_user_commands[back] = gear_user
 
     bot.users[tunnel] = chat_user
 
@@ -405,7 +405,7 @@ def gear_add_handler_city(data, ord=None):
     back = chat_user.gear_cities[-1]
     logging.info('gear_add_handler_city')
     logging.info(back)
-    chat_user.pull_user_commands[back] = gear_add_handler_city
+    chat_user.pull_user_commands[back] = gear_user
 
     bot.users[tunnel] = chat_user
 
