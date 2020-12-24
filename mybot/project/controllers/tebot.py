@@ -363,7 +363,7 @@ def gear_del_addess_user(data, ord=None):
     callback_hello_ok(data, 'ok')
 
     tunnel = data['callback_query']['message']['chat']['id']
-    result_text = 'Удалить адрес из базы у всех пользователей'
+    result_text = 'Удалить адрес из базы у Всех пользователей, без возможности Восстановления'
     reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
