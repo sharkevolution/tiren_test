@@ -98,8 +98,8 @@ def template_gear_add_city(dict_init, chat_user):
             city.append([{"text": txt_}])
             chat_user.gear_cities.append(txt_)
 
-    city.append([{"text": emoji.emojize(':BACK_arrow: Назад к настройкам')}])
-    chat_user.gear_cities.append(emoji.emojize(':BACK_arrow: Назад к настройкам'))
+    city.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    chat_user.gear_cities.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": city, "resize_keyboard": True, "one_time_keyboard": False}
 
