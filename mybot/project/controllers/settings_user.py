@@ -155,7 +155,7 @@ def template_start():
     r = emoji.emojize(u':two_o\u2019clock:')
     reply_markup = {"inline_keyboard": [[
         {"text": f"Время прибытия {r}", "callback_data": "region_arrived"},
-        {"text": f"К отправке {emoji.emojize(':satellite:')}", "callback_data": "send_to"}],
+        {"text": f"К отправке {emoji.emojize(':satellite:')}", "callback_data": "ent_list"}],
         [{"text": f"Настройки {emoji.emojize(':gear:')}", "callback_data": "gear"},
          {"text": f"Добавить {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
     ],
@@ -219,16 +219,15 @@ def template_edit_list():
 
 def template_shops(dict_init, chat_user):
     adr = []
-    logging.info(dict_init)
 
-    # Перебираем адреса
     for b in dict_init['adr']:
         location = b[0]
 
         for city in dict_init['city']:
-            logging.info(city)
+
             if location == city[0]:
                 access = city[2]
+
                 if chat_user.__name__ in access:
                     adr.append([{"text": b[2]}])
                     chat_user.adr.append(b[2])
@@ -241,24 +240,6 @@ def template_shops(dict_init, chat_user):
     reply_markup = {"keyboard": adr, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, chat_user
-
-
-# def template_shops(dict_init, chat_user):
-#     adr = []
-#     logging.info(dict_init)
-#     for b in dict_init['adr']:
-#         if chat_user.__name__ in b[3]:
-#             pass
-#         else:
-#             adr.append([{"text": b[2]}])
-#             chat_user.adr.append(b[2])
-#
-#     adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
-#     chat_user.adr.append(emoji.emojize(':TOP_arrow: На главную'))
-#
-#     reply_markup = {"keyboard": adr, "resize_keyboard": True, "one_time_keyboard": False}
-#
-#     return reply_markup, chat_user
 
 
 def template_delivery(dict_init, chat_user):

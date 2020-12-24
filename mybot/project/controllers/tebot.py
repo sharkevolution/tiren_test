@@ -592,7 +592,6 @@ def dynamic_shops(data, ord=None):
     chat_user.create_task()  # Create task
     bot.users[tunnel] = chat_user
 
-    # logging.info('Region arrived')
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
