@@ -227,7 +227,7 @@ def template_shops(dict_init, chat_user):
 
         for city in dict_init['city']:
             logging.info(city)
-            if location in city[0]:
+            if location == city[0]:
                 access = city[2]
                 if chat_user.__name__ in access:
                     adr.append([{"text": b[2]}])
