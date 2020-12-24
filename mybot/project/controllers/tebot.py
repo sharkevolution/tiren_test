@@ -506,17 +506,6 @@ def gear_view_user(data, ord=None):
     return {}, {}
 
 
-# @dp.callback_handler(commands=["gear", ])
-# def gear_user(data, ord=None):
-#
-#     tunnel = data['callback_query']['message']['chat']['id']
-#     result_text = f"Настройки пользователя"
-#     reply_markup = settings_user.template_gear()
-#     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-#
-#     return message, bot.api_url
-
-
 @dp.callback_handler(commands=["gear", ])
 def gear_user(data, ord=None):
     callback_hello_ok(data, 'ok')
@@ -688,7 +677,6 @@ def delete_item_send(data, ord=None):
             else:
                 logging.info('not found')
 
-    # Generate rest of the task list
     _tmp = bot.tasks[tunnel]
     reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel])
 
@@ -699,9 +687,10 @@ def delete_item_send(data, ord=None):
         message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}",
                    'reply_markup': reply_markup}
     else:
-        logging.info('remove')
-        message = {'chat_id': tunnel, 'text': f"{emoji.emojize(':skull_and_crossbones:')}: {ord}",
-                   'reply_markup': {'remove_keyboard': True}}
+        # Goto Start bot
+        result_text = f"Hi {emoji.emojize(':waving_hand:')}"
+        reply_markup = settings_user.template_start()
+        message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
