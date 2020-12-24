@@ -99,6 +99,7 @@ class User:
         self.send_list = []  # Item delete from list to send
 
         self.gear_cities = []
+        self.gear_adr = []
 
         self.last_message_id = 0
         self.last_bot_id = 0
