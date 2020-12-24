@@ -66,6 +66,25 @@ def template_engineer_mode():
     return reply_markup
 
 
+def template_gear_del_address(dict_init, chat_user):
+    adr = []
+    single_quote = '\''
+
+    logging.info(dict_init)
+
+    for b in dict_init['adr']:
+        txt_ = f"Удалить {single_quote}{b[2]}{single_quote}"
+        adr.append([{"text": txt_}])
+        chat_user.gear_adr.append(txt_)
+
+    adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    chat_user.gear_adr.append(emoji.emojize(':TOP_arrow: На главную'))
+
+    reply_markup = {"keyboard": adr, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, chat_user
+
+
 def template_gear_del_city(dict_init, chat_user):
     city = []
     single_quote = '\''
@@ -111,6 +130,7 @@ def template_gear():
         {"text": f"Мой список городов", "callback_data": "gear_view"}, ],
         [{"text": f"Добавить город", "callback_data": "gear_add_city"},
          {"text": f"Удалить город", "callback_data": "gear_del_city"}, ],
+        [{"text": f"Удалить адрес", "callback_data": "gear_del_address"}, ],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False

@@ -326,6 +326,64 @@ def fsm_address(data, ord=None):
 
 
 @dp.message_handler(commands=[])
+def gear_del_handler_adr(data, ord=None):
+
+    tunnel = data['message']['chat']['id']
+    nDict = dredis.read_variable()
+    bot.dict_init = nDict
+    tree_ = treeadr.delete_address(bot.dict_init['adr'], tunnel, ord)
+    bot.dict_init['adr'] = tree_
+    dredis.save_variable(bot.dict_init)
+
+    logging.info(tree_)
+
+    reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.gear_cities[:-1]:
+        chat_user.pull_user_commands[b] = gear_del_handler_adr
+
+    # event TOP
+    back = chat_user.gear_cities[-1]
+    logging.info('gear_del_handler_city')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
+
+    result_text = f"Полностью {ord}"
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
+
+@dp.callback_handler(commands=["gear_del_address", ])
+def gear_del_addess_user(data, ord=None):
+    callback_hello_ok(data, 'ok')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = 'Удалить адрес из базы у всех пользователей'
+    reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.gear_cities[:-1]:
+        chat_user.pull_user_commands[b] = gear_del_handler_adr
+
+    # event TOP
+    back = chat_user.gear_cities[-1]
+    logging.info('gear_add_city_user')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
+
+    # logging.info('Region arrived')
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
+
+@dp.message_handler(commands=[])
 def gear_del_handler_city(data, ord=None):
 
     tunnel = data['message']['chat']['id']

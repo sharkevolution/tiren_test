@@ -1,9 +1,7 @@
-
 import logging
 
 
 def show_city(tree_city, chat_id, name_ord):
-
     single_quote = '\''
     city_name = name_ord.split(f"{single_quote}")
 
@@ -22,7 +20,6 @@ def show_city(tree_city, chat_id, name_ord):
 
 
 def hide_city(tree_city, chat_id, name_ord):
-
     single_quote = '\''
     city_name = name_ord.split(f"{single_quote}")
 
@@ -38,3 +35,17 @@ def hide_city(tree_city, chat_id, name_ord):
                 pass
 
     return tree_city
+
+
+def delete_address(tree_adr, chat_id, name_ord):
+    single_quote = '\''
+    adr_name = name_ord.split(f"{single_quote}")
+
+    logging.info(adr_name)
+
+    for b in tree_adr:
+        if adr_name[1] in b[2]:
+            tree_adr.remove(b)
+            break
+
+    return tree_adr
