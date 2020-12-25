@@ -688,7 +688,7 @@ def delete_item_send(data, ord=None):
                    'reply_markup': reply_markup}
     else:
         # Goto Start bot
-        result_text = f"Hi {emoji.emojize(':waving_hand:')}"
+        result_text = f"Список пуст {emoji.emojize(':eyes:')}"
         reply_markup = settings_user.template_remove_keboard()
         message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
