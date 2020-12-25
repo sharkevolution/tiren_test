@@ -329,7 +329,8 @@ def fsm_address(data, ord=None):
     bot.users[tunnel] = chat_user
 
     result_text = f"Выберите город из списка или введите новый.."
-    reply_markup = settings_user.template_fsm_city()
+    # reply_markup = settings_user.template_fsm_city()
+    reply_markup = settings_user.template_remove_keboard()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
@@ -539,7 +540,8 @@ def enter_add_address(data, ord=None):
     bot.users[tunnel] = chat_user
 
     result_text = f"Введите новый адрес без названия города и нажимте отправить.."
-    reply_markup = settings_user.template_fsm_address()
+    # reply_markup = settings_user.template_fsm_address()
+    reply_markup = settings_user.template_remove_keboard()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
