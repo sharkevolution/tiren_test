@@ -781,9 +781,47 @@ def return_to_shops(data, ord=None):
     return message, bot.api_url
 
 
+@dp.callback_handler(commands=['ent_backspace', ])
+def enter_backspase(data, ord=None):
+    r = callback_hello_ok(data, 'ok!')
+    chat_id = data['callback_query']['message']['chat']['id']
+
+    chat_user = bot.users[chat_id]
+    # Backspace Message
+    chat_user.current_task['dlv_time'] = None
+
+    if len(chat_user.combination) > 3:
+        my_test = ''.join(chat_user.combination[:3])
+        chat_user.combination = chat_user.combination[:3]
+    else:
+        my_test = ['Your time:']
+        chat_user.combination = []
+
+    base_keys = chat_user.get_redis()
+    chat_user.last_message_id = base_keys['last_bot_id']
+
+    curl = bot.api_edit_message
+    message = {'chat_id': chat_id, 'message_id': chat_user.last_message_id, 'text': my_test}
+
+    logging.info('EDIT Message')
+    logging.info(chat_user.last_message_id)
+
+    try:
+        r = requests.post(curl, data=json.dumps(message), headers=bot.headers)
+        assert r.status_code == 200
+
+        handler_response_ok(r)  # Обработчик ответа
+
+    except Exception as ex:
+        logging.info(r)
+        logging.error('Error' + str(ex))
+
+    return {}, {}
+
+
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero',
-                               'ent_colon', 'ent_backspace'])
+                               'ent_colon'])
 def enter(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
