@@ -794,7 +794,7 @@ def enter_backspase(data, ord=None):
         my_test = ''.join(chat_user.combination[:3])
         chat_user.combination = chat_user.combination[:3]
     else:
-        my_test = ['Your time:']
+        my_test = 'Your time:'
         chat_user.combination = []
 
     base_keys = chat_user.get_redis()
