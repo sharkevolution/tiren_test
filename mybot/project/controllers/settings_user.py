@@ -179,11 +179,8 @@ def template_start():
         [{"text": f"Мои города {emoji.emojize(':gear:')}", "callback_data": "gear"},
          {"text": f"Новый адрес {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
     ],
-        "remove_keyboard": True
+        "keyboard": {"remove_keyboard": True}
     }
-
-    #         "resize_keyboard": True,
-    #         "one_time_keyboard": False
 
     return reply_markup
 
