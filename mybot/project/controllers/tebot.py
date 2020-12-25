@@ -791,6 +791,7 @@ def enter(data, ord=None):
     chat_user = bot.users[chat_id]
     # Edit Message
     if 'ent_backspace' == ord:
+        logging.info(chat_user.combination)
         if len(chat_user.combination) > 3:
             chat_user.combination = chat_user.combination[:3]
         else:
