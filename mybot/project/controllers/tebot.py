@@ -695,6 +695,32 @@ def delete_item_send(data, ord=None):
     return message, bot.api_url
 
 
+@dp.callback_handler(commands=['del_list_send'])
+def delete_send(data, ord=None):
+    """
+        Remove list to send
+    """
+    r = callback_hello_ok(data, 'ok!')
+    tunnel = data['callback_query']['message']['chat']['id']
+
+    # Remove item list, dict and Update
+    chat_user = bot.users[tunnel]
+
+    if bot.tasks.get(tunnel):
+        del bot.tasks[tunnel]
+        chat_user.send_list = []
+        bot.users[tunnel] = chat_user
+    else:
+        logging.info('not found')
+
+    # Goto Start bot
+    result_text = f"Список пуст {emoji.emojize(':eyes:')}"
+    reply_markup = settings_user.template_remove_keboard()
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
+
 @dp.callback_handler(commands=['edit_list_send'])
 def edit_send(data, ord=None):
     """
