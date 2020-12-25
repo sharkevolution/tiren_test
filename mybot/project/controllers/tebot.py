@@ -796,42 +796,44 @@ def enter(data, ord=None):
             chat_user.combination = chat_user.combination[:3]
         else:
             chat_user.combination = []
+        check_list = []
+    else:
+        check_list = chtime.check(ord, chat_user.combination)
 
-            check_list = chtime.check(ord, chat_user.combination)
-            my_test = ''.join(check_list)
-            my_comb = ''.join(chat_user.combination)
+    my_test = ''.join(check_list)
+    my_comb = ''.join(chat_user.combination)
 
-            if my_test == my_comb:
+    if my_test == my_comb:
 
-                return {}, {}
+        return {}, {}
 
-            else:
-                chat_user.combination = check_list
-                if len(chat_user.combination) == 5:
-                    chat_user.current_task['dlv_time'] = my_test
-                    logging.info(chat_user.current_task)
+    else:
+        chat_user.combination = check_list
+        if len(chat_user.combination) == 5:
+            chat_user.current_task['dlv_time'] = my_test
+            logging.info(chat_user.current_task)
 
-                    val = 0
-                    for b in chat_user.current_task:
-                        if not chat_user.current_task[b] is None:
-                            val += 1
-                    if val == 5:
-                        # Add tasks to the dict from send
-                        crs = copy.deepcopy(chat_user.current_task)
+            val = 0
+            for b in chat_user.current_task:
+                if not chat_user.current_task[b] is None:
+                    val += 1
+            if val == 5:
+                # Add tasks to the dict from send
+                crs = copy.deepcopy(chat_user.current_task)
 
-                        ## Join name
-                        nm = ', '.join([crs['shop'], crs['delivery'], crs['weight'], crs['dlv_time'], ])
+                ## Join name
+                nm = ', '.join([crs['shop'], crs['delivery'], crs['weight'], crs['dlv_time'], ])
 
-                        if tmp_ := bot.tasks.get(chat_id):
-                            tmp_[nm] = crs
-                            bot.tasks[chat_id] = tmp_
-                            logging.info('ADD')
-                            logging.info(bot.tasks)
-                        else:
-                            bot.tasks[chat_id] = {nm: crs}
-                            logging.info(bot.tasks)
-                            # bot.tasks[chat_id] = [crs, ]
-                            # logging.info(bot.tasks)
+                if tmp_ := bot.tasks.get(chat_id):
+                    tmp_[nm] = crs
+                    bot.tasks[chat_id] = tmp_
+                    logging.info('ADD')
+                    logging.info(bot.tasks)
+                else:
+                    bot.tasks[chat_id] = {nm: crs}
+                    logging.info(bot.tasks)
+                    # bot.tasks[chat_id] = [crs, ]
+                    # logging.info(bot.tasks)
 
     base_keys = chat_user.get_redis()
     chat_user.last_message_id = base_keys['last_bot_id']
