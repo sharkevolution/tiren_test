@@ -795,7 +795,8 @@ def enter(data, ord=None):
         if len(chat_user.combination) > 3:
             chat_user.combination = chat_user.combination[:3]
         else:
-            chat_user.combination = []
+            chat_user.combination = [None, ]
+
         chat_user.current_task['dlv_time'] = None
         check_list = []
     else:
@@ -804,7 +805,7 @@ def enter(data, ord=None):
     my_test = ''.join(check_list)
     my_comb = ''.join(chat_user.combination)
 
-    if not 'ent_backspace' == ord and my_test == my_comb:
+    if my_test == my_comb:
 
         return {}, {}
 
