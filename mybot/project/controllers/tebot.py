@@ -790,17 +790,7 @@ def enter(data, ord=None):
 
     chat_user = bot.users[chat_id]
     # Edit Message
-    if 'ent_backspace' == ord:
-        logging.info(chat_user.combination)
-        if len(chat_user.combination) > 3:
-            chat_user.combination = chat_user.combination[:3]
-        else:
-            chat_user.combination = [None, ]
-
-        chat_user.current_task['dlv_time'] = None
-        check_list = []
-    else:
-        check_list = chtime.check(ord, chat_user.combination)
+    check_list = chtime.check(ord, chat_user.combination)
 
     my_test = ''.join(check_list)
     my_comb = ''.join(chat_user.combination)
