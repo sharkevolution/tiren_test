@@ -56,7 +56,7 @@ def template_engineer_mode():
         [
             {"text": f"{emoji.emojize(' 0 ')}", "callback_data": "ent_zero"},
             {"text": f"{emoji.emojize(' : ')}", "callback_data": "ent_colon"},
-            {"text": f"{emoji.emojize(':skull_and_crossbones:')}", "callback_data": "ent_backspace"},
+            {"text": f"{emoji.emojize(':BACK_arrow:')}", "callback_data": "ent_backspace"},
             {"text": f"{emoji.emojize(':houses: Адреса')}", "callback_data": "ent_shops"}
         ],
     ],
