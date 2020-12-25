@@ -251,23 +251,31 @@ def fsm_city(data, ord=None):
         for b in bot.dict_init['city']:
             if new_city.lower() == b[1].lower():
                 dup_city = False
+                max_key_city = b[0]
                 break
 
         # Check Address in list and save to Redis
         adr_ = sorted(bot.dict_init['adr'], key=lambda num: num[1], reverse=True)
         max_key_address = adr_[0][1]  # New key
-        new_adr = chat_user.fsm_location[0]
+        # new_adr = chat_user.fsm_location[0]
+
+        new_adr = ', '.join([new_city, chat_user.fsm_location[0]])  # Append City name to address
+
         for b in bot.dict_init['adr']:
             if new_adr.lower() == b[2].lower():
                 dup_adr = False
                 break
 
         # Add to Redis
-        if dup_city and dup_adr:
-            city_.append([max_key_city + 1, new_city, []])
-
-            rev_city = sorted(city_, key=lambda num: num[0], reverse=True)
-            bot.dict_init['city'] = rev_city
+        if dup_adr:
+            if dup_city:
+                # New City
+                city_.append([max_key_city + 1, new_city, []])
+                rev_city = sorted(city_, key=lambda num: num[0], reverse=True)
+                bot.dict_init['city'] = rev_city
+            else:
+                # City exists
+                pass
 
             adr_.append([max_key_city, max_key_address + 1, new_adr, []])
             rev_adr = sorted(adr_, key=lambda num: num[1], reverse=True)
@@ -530,7 +538,7 @@ def enter_add_address(data, ord=None):
     chat_user.call_fsm = fsm_address  # Call name function
     bot.users[tunnel] = chat_user
 
-    result_text = f"Введите новый адрес и нажимте отправить.."
+    result_text = f"Введите новый адрес без названия города и нажимте отправить.."
     reply_markup = settings_user.template_fsm_address()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
