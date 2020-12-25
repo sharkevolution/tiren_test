@@ -790,6 +790,9 @@ def enter_backspase(data, ord=None):
     # Backspace Message
     chat_user.current_task['dlv_time'] = None
 
+    if not chat_user.combination:
+        return {}, {}
+
     if len(chat_user.combination) > 3:
         my_test = ''.join(chat_user.combination[:3])
         chat_user.combination = chat_user.combination[:3]
