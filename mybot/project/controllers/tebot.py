@@ -789,8 +789,8 @@ def enter_backspase(data, ord=None):
     chat_user = bot.users[chat_id]
     # Backspace Message
 
-    if chat_user.current_task.get('shop'):
-        crs = copy.deepcopy(chat_user.current_task)
+    crs = copy.deepcopy(chat_user.current_task)
+    if not crs['shop'] is None:
         nm = ', '.join([crs['shop'], crs['delivery'], crs['weight'], crs['dlv_time'], ])
 
         if tmp_ := bot.tasks.get(chat_id):
