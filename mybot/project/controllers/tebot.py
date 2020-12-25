@@ -796,7 +796,8 @@ def enter(data, ord=None):
             chat_user.combination = chat_user.combination[:3]
         else:
             chat_user.combination = []
-        check_list = []
+        chat_user.current_task['dlv_time'] = None
+        check_list = ['Your time', ]
     else:
         check_list = chtime.check(ord, chat_user.combination)
 
