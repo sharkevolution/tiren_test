@@ -783,13 +783,19 @@ def return_to_shops(data, ord=None):
 
 @dp.callback_handler(commands=['ent_one', 'ent_two', 'ent_three', 'ent_four', 'ent_five',
                                'ent_six', 'ent_seven', 'ent_eight', 'ent_nine', 'ent_zero',
-                               'ent_colon'])
+                               'ent_colon', 'ent_backspace'])
 def enter(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
     chat_user = bot.users[chat_id]
     # Edit Message
+    if 'ent_backspace' == ord:
+        if len(chat_user.combination) > 3:
+            chat_user.combination = chat_user.combination[:3]
+        else:
+            chat_user.combination = []
+
     check_list = chtime.check(ord, chat_user.combination)
     my_test = ''.join(check_list)
     my_comb = ''.join(chat_user.combination)
