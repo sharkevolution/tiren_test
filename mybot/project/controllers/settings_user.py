@@ -185,6 +185,13 @@ def template_start():
     return reply_markup
 
 
+def template_remove_keboard():
+    reply_markup = {"remove_keyboard": True}
+
+    return reply_markup
+
+
+
 def template_weight(dict_init, chat_user):
 
     wt = []
