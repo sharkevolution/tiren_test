@@ -790,6 +790,7 @@ def enter_backspase(data, ord=None):
     # Backspace Message
 
     crs = copy.deepcopy(chat_user.current_task)
+    logging.info(crs)
     if not crs['dlv_time'] is None:
         nm = ', '.join([crs['shop'], crs['delivery'], crs['weight'], crs['dlv_time'], ])
 
