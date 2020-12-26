@@ -1100,7 +1100,7 @@ def do_echo():
                 # handler_response_ok(r)  # Обработчик ответа
 
             except Exception as ex:
-                logging.info(r)
+                logging.info(str(r))
                 logging.error('Error' + str(ex))
 
     # logging.info('old_message')
