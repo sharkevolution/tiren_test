@@ -339,13 +339,14 @@ def fsm_address(data, ord=None):
     # reply_markup = settings_user.template_fsm_city()
     logging.info('I start')
 
-    reply_markup = settings_user.template_fsm_city(bot.dict_init, chat_user)
+    reply_markup, chat_user = settings_user.template_fsm_city(bot.dict_init, chat_user)
 
     # Update commands wrapper
     for b in chat_user.bind_to_city[:-1]:
         chat_user.pull_user_commands[b] = fsm_city
 
     logging.info('I finish')
+    # logging.info(reply_markup)
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
