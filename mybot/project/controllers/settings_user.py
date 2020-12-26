@@ -155,12 +155,9 @@ def template_fsm_city(dict_init, chat_user):
     single_quote = '\''
     logging.info(dict_init)
     for b in dict_init['city']:
-        if chat_user.__name__ in b[2]:
-            txt_ = f"Привязать к {single_quote}{b[1]}{single_quote}"
-            city.append([{"text": txt_}])
-            chat_user.gear_cities.append(txt_)
-        else:
-            pass
+        txt_ = f"Привязать к {single_quote}{b[1]}{single_quote}"
+        city.append([{"text": txt_}])
+        chat_user.gear_cities.append(txt_)
 
     city.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     chat_user.gear_cities.append(emoji.emojize(':TOP_arrow: На главную'))
