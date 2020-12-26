@@ -240,22 +240,22 @@ def fsm_city(data, ord=None):
         chat_user.FSM = False
         chat_user.previous_ord = None
         chat_user.call_fsm = None
-        chat_user.fsm_location[1] = ord
+
+        # Check City in list and save to Redis
+        single_quote = '\''
+        new_city_split = ord.split(f"{single_quote}")
+        if len(new_city_split) > 1:
+            idx = 1
+        else:
+            idx = 0
+
+        chat_user.fsm_location[1] = new_city_split[idx]
 
         dup_city = True
         dup_adr = True
 
         city_ = sorted(bot.dict_init['city'], key=lambda num: num[0], reverse=True)
         max_key_city = city_[0][0]  # New key
-
-        # Check City in list and save to Redis
-        single_quote = '\''
-        new_city = chat_user.fsm_location[1]
-        new_city_split = new_city.split(f"{single_quote}")
-        if len(new_city_split) > 1:
-            idx = 1
-        else:
-            idx = 0
 
         for b in bot.dict_init['city']:
             if new_city_split[idx].lower() == b[1].lower():
@@ -269,7 +269,7 @@ def fsm_city(data, ord=None):
         max_key_address = adr_[0][1]  # New key
         # new_adr = chat_user.fsm_location[0]
 
-        new_adr = ', '.join([new_city, chat_user.fsm_location[0]])  # Append City name to address
+        new_adr = ', '.join([new_city_split, chat_user.fsm_location[0]])  # Append City name to address
 
         for b in bot.dict_init['adr']:
             if new_adr.lower() == b[2].lower():
