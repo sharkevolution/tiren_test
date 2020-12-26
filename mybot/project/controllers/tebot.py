@@ -247,9 +247,11 @@ def fsm_city(data, ord=None):
         max_key_city = city_[0][0]  # New key
 
         # Check City in list and save to Redis
+        single_quote = '\''
         new_city = chat_user.fsm_location[1]
         for b in bot.dict_init['city']:
-            if new_city.lower() == b[1].lower():
+            existing_city = b[1].split(f"{single_quote}")
+            if new_city.lower() == existing_city.lower():
                 dup_city = False
                 logging.info("dup_city = false")
                 logging.info(b)
@@ -331,9 +333,9 @@ def fsm_address(data, ord=None):
 
     bot.users[tunnel] = chat_user
 
-    result_text = f"Выберите город из списка или введите новый.."
+    result_text = f"Привяжите к городу из списка или введите новый.."
     # reply_markup = settings_user.template_fsm_city()
-    reply_markup = settings_user.template_remove_keboard()
+    reply_markup = settings_user.template_fsm_city(bot.dict_init, tunnel)
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 

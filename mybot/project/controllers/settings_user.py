@@ -150,15 +150,24 @@ def template_fsm_region():
     return reply_markup
 
 
-def template_fsm_city():
-    new_city = []
-    new_city.append([{"text": 'Добавить город'}])
+def template_fsm_city(dict_init, chat_user):
+    city = []
+    single_quote = '\''
+    logging.info(dict_init)
+    for b in dict_init['city']:
+        if chat_user.__name__ in b[2]:
+            pass
+        else:
+            txt_ = f"Привязать к {single_quote}{b[1]}{single_quote}"
+            city.append([{"text": txt_}])
+            chat_user.gear_cities.append(txt_)
 
-    reply_markup = {"keyboard": new_city,
-                    "resize_keyboard": True,
-                    "one_time_keyboard": False
-                    }
-    return reply_markup
+    city.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    chat_user.gear_cities.append(emoji.emojize(':TOP_arrow: На главную'))
+
+    reply_markup = {"keyboard": city, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, chat_user
 
 
 def template_fsm_address():
