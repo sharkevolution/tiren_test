@@ -278,7 +278,10 @@ def fsm_city(data, ord=None):
 
         # Add to Redis
         if dup_adr:
+            logging.info(chat_user.fsm_location)
+            link = '-'.join(chat_user.fsm_location)
             if dup_city:
+                result_text = f"Добавлен новый адрес и создан новый город: {link}"
                 # New City
                 max_key_city += 1
                 city_.append([max_key_city, new_city_split[idx], []])
@@ -286,6 +289,7 @@ def fsm_city(data, ord=None):
                 bot.dict_init['city'] = rev_city
             else:
                 # City exists
+                result_text = f"Добавлен новый адрес и привязан к существующему городу {link}"
                 pass
 
             adr_.append([max_key_city, max_key_address + 1, new_adr, []])
@@ -293,11 +297,8 @@ def fsm_city(data, ord=None):
             bot.dict_init['adr'] = rev_adr
 
             dredis.save_variable(bot.dict_init)
-            logging.info(dredis.read_variable())
-
-            logging.info(chat_user.fsm_location)
-            link = '-'.join(chat_user.fsm_location)
-            result_text = f"Создана связка {link}"
+            # logging.info(dredis.read_variable())
+            # result_text = f"Создана связка {link}"
 
     else:
         logging.info("bad FSM")
