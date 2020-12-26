@@ -699,7 +699,7 @@ def delete_item_send(data, ord=None):
     else:
         # Goto Start bot
         result_text = f"Список пуст {emoji.emojize(':eyes:')}"
-        reply_markup = settings_user.template_remove_keboard()
+        reply_markup = settings_user.template_hide_keboard()
         message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
         r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
