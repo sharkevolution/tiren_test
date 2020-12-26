@@ -269,7 +269,7 @@ def fsm_city(data, ord=None):
         max_key_address = adr_[0][1]  # New key
         # new_adr = chat_user.fsm_location[0]
 
-        new_adr = ', '.join([new_city_split, chat_user.fsm_location[0]])  # Append City name to address
+        new_adr = ', '.join([new_city_split[idx], chat_user.fsm_location[0]])  # Append City name to address
 
         for b in bot.dict_init['adr']:
             if new_adr.lower() == b[2].lower():
