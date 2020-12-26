@@ -261,7 +261,6 @@ def fsm_city(data, ord=None):
             if new_city_split[idx].lower() == b[1].lower():
                 dup_city = False
                 logging.info("dup_city = false")
-                logging.info(b)
                 max_key_city = b[0]
                 break
 
