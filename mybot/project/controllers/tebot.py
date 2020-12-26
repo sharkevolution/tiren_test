@@ -289,7 +289,7 @@ def fsm_city(data, ord=None):
                 bot.dict_init['city'] = rev_city
             else:
                 # City exists
-                result_text = f"Добавлен новый адрес и привязан к существующему городу {link}"
+                result_text = f"Добавлен новый адрес и привязан к существующему городу: {link}"
                 pass
 
             adr_.append([max_key_city, max_key_address + 1, new_adr, []])
