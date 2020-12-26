@@ -180,17 +180,18 @@ def template_start():
         [{"text": f"Мои города {emoji.emojize(':gear:')}", "callback_data": "gear"},
          {"text": f"Новый адрес {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
     ],
-        "keyboard": {"hide_keyboard": True},
+        "hide_keyboard": True,
     }
 
     return reply_markup
 
 
 def template_remove_keboard():
-    reply_markup = {"remove_keyboard": True}
+    return {"remove_keyboard": True}
 
-    return reply_markup
 
+def template_hide_keboard():
+    return {"hide_keyboard": True}
 
 
 def template_weight(dict_init, chat_user):
