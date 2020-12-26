@@ -157,10 +157,10 @@ def template_fsm_city(dict_init, chat_user):
     for b in dict_init['city']:
         txt_ = f"Привязать к {single_quote}{b[1]}{single_quote}"
         city.append([{"text": txt_}])
-        chat_user.gear_cities.append(txt_)
+        chat_user.bind_to_city.append(txt_)
 
     city.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
-    chat_user.gear_cities.append(emoji.emojize(':TOP_arrow: На главную'))
+    chat_user.bind_to_city.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": city, "resize_keyboard": True, "one_time_keyboard": False}
 

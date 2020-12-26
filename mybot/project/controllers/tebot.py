@@ -101,6 +101,8 @@ class User:
         self.gear_cities = []
         self.gear_adr = []
 
+        self.bind_to_city = []
+
         self.last_message_id = 0
         self.last_bot_id = 0
         self.pull_user_commands = {}  # Add set user commands
@@ -336,7 +338,13 @@ def fsm_address(data, ord=None):
     result_text = f"Привяжите к городу из списка или введите новый.."
     # reply_markup = settings_user.template_fsm_city()
     reply_markup = settings_user.template_fsm_city(bot.dict_init, chat_user)
+
+    # Update commands wrapper
+    for b in chat_user.bind_to_city[:-1]:
+        chat_user.pull_user_commands[b] = fsm_city
+
     logging.info(reply_markup)
+
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
