@@ -281,7 +281,7 @@ def fsm_city(data, ord=None):
             if dup_city:
                 # New City
                 max_key_city += 1
-                city_.append([max_key_city, new_city, []])
+                city_.append([max_key_city, new_city_split[idx], []])
                 rev_city = sorted(city_, key=lambda num: num[0], reverse=True)
                 bot.dict_init['city'] = rev_city
             else:
@@ -345,6 +345,11 @@ def fsm_address(data, ord=None):
     # Update commands wrapper
     for b in chat_user.bind_to_city[:-1]:
         chat_user.pull_user_commands[b] = fsm_city
+
+    # event TOP
+    back = chat_user.bind_to_city[-1]
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
