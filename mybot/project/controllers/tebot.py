@@ -296,6 +296,7 @@ def fsm_city(data, ord=None):
             dredis.save_variable(bot.dict_init)
             logging.info(dredis.read_variable())
 
+            logging.info(chat_user.fsm_location)
             link = '-'.join(chat_user.fsm_location)
             result_text = f"Создана связка {link}"
 
