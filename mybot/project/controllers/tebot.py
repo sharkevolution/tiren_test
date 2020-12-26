@@ -252,8 +252,8 @@ def fsm_city(data, ord=None):
         single_quote = '\''
         new_city = chat_user.fsm_location[1]
         for b in bot.dict_init['city']:
-            existing_city = b[1].split(f"{single_quote}")
-            if new_city.lower() == existing_city.lower():
+            new_city_split = new_city.split(f"{single_quote}")
+            if new_city_split[1].lower() == b[1].lower():
                 dup_city = False
                 logging.info("dup_city = false")
                 logging.info(b)
@@ -336,17 +336,10 @@ def fsm_address(data, ord=None):
     bot.users[tunnel] = chat_user
 
     result_text = f"Привяжите к городу из списка или введите новый.."
-    # reply_markup = settings_user.template_fsm_city()
-    logging.info('I start')
-
     reply_markup, chat_user = settings_user.template_fsm_city(bot.dict_init, chat_user)
-
     # Update commands wrapper
     for b in chat_user.bind_to_city[:-1]:
         chat_user.pull_user_commands[b] = fsm_city
-
-    logging.info('I finish')
-    # logging.info(reply_markup)
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
