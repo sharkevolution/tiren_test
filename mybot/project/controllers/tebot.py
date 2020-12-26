@@ -253,6 +253,7 @@ def fsm_city(data, ord=None):
         new_city = chat_user.fsm_location[1]
         for b in bot.dict_init['city']:
             new_city_split = new_city.split(f"{single_quote}")
+            logging.info(new_city_split)
             if new_city_split[1].lower() == b[1].lower():
                 dup_city = False
                 logging.info("dup_city = false")
