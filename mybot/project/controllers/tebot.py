@@ -705,6 +705,12 @@ def delete_item_send(data, ord=None):
         r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
         assert r.status_code == 200
 
+        reply_markup = settings_user.template_hide_keboard()
+        message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+        r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+        assert r.status_code == 200
+
         result_text = f"Hi {emoji.emojize(':waving_hand:')}"
         reply_markup = settings_user.template_start()
         message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
