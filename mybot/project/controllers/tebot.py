@@ -335,7 +335,7 @@ def fsm_address(data, ord=None):
 
     result_text = f"Привяжите к городу из списка или введите новый.."
     # reply_markup = settings_user.template_fsm_city()
-    reply_markup = settings_user.template_fsm_city(bot.dict_init, tunnel)
+    reply_markup = settings_user.template_fsm_city(bot.dict_init, bot.users[tunnel])
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
