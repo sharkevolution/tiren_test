@@ -272,7 +272,8 @@ def fsm_city(data, ord=None):
         if dup_adr:
             if dup_city:
                 # New City
-                city_.append([max_key_city + 1, new_city, []])
+                max_key_city += 1
+                city_.append([max_key_city, new_city, []])
                 rev_city = sorted(city_, key=lambda num: num[0], reverse=True)
                 bot.dict_init['city'] = rev_city
             else:
