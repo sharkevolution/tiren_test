@@ -10,6 +10,7 @@
 import bottle
 from bottle import view, request, redirect
 
+import io
 import os
 import json
 import copy
@@ -172,7 +173,10 @@ class Bot:
         self.api_answer = f'https://api.telegram.org/bot{self.token}/answerCallbackQuery'
         self.api_edit_message = f'https://api.telegram.org/bot{self.token}/editMessageText'
         self.api_get_updates = f'https://api.telegram.org/bot{self.token}/getUpdates'
+        self.api_send_document = f'https://api.telegram.org/bot{self.token}/sendDocument'
+
         self.headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        self.headers_multipart = {'Content-type': 'multipart/form-data', 'Accept': 'text/plain'}
 
         self.users = {}  # List of users
         self.dict_init = {}  # Custom logic
@@ -227,6 +231,27 @@ dp = Dispatcher(bot)
 
 
 # ********************************************************
+
+
+@dp.message_handler(commands=['exp', ])
+def send_file(data, ord=None):
+    tunnel = data['message']['chat']['id']
+    md = json.dumps(bot.dict_init)
+    f = io.BytesIO(md)
+
+    message = {'chat_id': tunnel, 'document': f, 'caption': 'tree.txt'}
+
+    curl = bot.api_send_document
+    try:
+        r = requests.post(curl, data=message, headers=bot.headers)
+        assert r.status_code == 200
+        logging.info(r.content)
+
+    except Exception as ex:
+        logging.info(str(r))
+        logging.error('Error' + str(ex))
+
+    return {}, {}
 
 
 def fsm_city(data, ord=None):
