@@ -233,17 +233,17 @@ dp = Dispatcher(bot)
 # ********************************************************
 
 
-@dp.message_handler(commands=['exp', ])
+@dp.message_handler(commands=['/tr', ])
 def send_file(data, ord=None):
     tunnel = data['message']['chat']['id']
     md = json.dumps(bot.dict_init)
-    f = io.FileIO(md)
+    f = io.StringIO(md)
 
-    message = {'chat_id': tunnel, 'document': f, 'caption': 'tree.txt'}
+    message = {'chat_id': tunnel, 'document': f, 'caption': 'tree.txt', }
 
     curl = bot.api_send_document
     try:
-        r = requests.post(curl, data=message, headers=bot.headers)
+        r = requests.post(curl, data=message, headers=bot.headers_multipart)
         assert r.status_code == 200
         logging.info(r.content)
 
