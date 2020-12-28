@@ -238,12 +238,13 @@ def send_file(data, ord=None):
     tunnel = data['message']['chat']['id']
     md = json.dumps(bot.dict_init)
     f = io.StringIO(md)
+    post_file = {'document': f}
 
-    message = {'chat_id': tunnel, 'caption': 'tree.txt', }
+    message = {'chat_id': tunnel, 'caption': 'tree.txt'}
 
     curl = bot.api_send_document
     try:
-        r = requests.post(curl, data=message, files=f)
+        r = requests.post(curl, data=message, files=post_file)
         assert r.status_code == 200
         logging.info(r.content)
 
