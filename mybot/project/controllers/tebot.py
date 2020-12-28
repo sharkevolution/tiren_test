@@ -298,7 +298,6 @@ def fsm_city(data, ord=None):
 
             dredis.save_variable(bot.dict_init)
             # logging.info(dredis.read_variable())
-            # result_text = f"Создана связка {link}"
 
     else:
         logging.info("bad FSM")
