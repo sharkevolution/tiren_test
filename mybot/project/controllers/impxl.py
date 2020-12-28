@@ -18,7 +18,7 @@ def load_city(book):
     sheet = book['city']
     id_city = {}
 
-    for i in range(row, sheet.max_row):
+    for i in range(row, sheet.max_row + 1):
         idx_ = sheet.cell(column=1, row=i).value
         city_ = sheet.cell(column=2, row=i).value
         access_ = sheet.cell(column=3, row=i).value
@@ -45,7 +45,7 @@ def load_delivery(book):
     sheet = book['delivery']
     id_dlv = {}
 
-    for i in range(row, sheet.max_row):
+    for i in range(row, sheet.max_row + 1):
         idx_ = sheet.cell(column=1, row=i).value
         city_ = sheet.cell(column=2, row=i).value
         access_ = sheet.cell(column=3, row=i).value
@@ -72,7 +72,7 @@ def load_weight(book):
     sheet = book['weight']
     id_weight = {}
 
-    for i in range(row, sheet.max_row):
+    for i in range(row, sheet.max_row + 1):
         idx_ = sheet.cell(column=1, row=i).value
         city_ = sheet.cell(column=2, row=i).value
         access_ = sheet.cell(column=3, row=i).value
@@ -99,7 +99,7 @@ def load_address(book):
     sheet = book['adr']
     combine = {}
 
-    for i in range(row, sheet.max_row):
+    for i in range(row, sheet.max_row + 1):
         id_city = sheet.cell(column=1, row=i).value
         id_adr = sheet.cell(column=2, row=i).value
 
@@ -142,3 +142,4 @@ if __name__ == '__main__':
     with open(djs, 'w') as outfile:
         json.dump(newDict, outfile)
 
+    pprint.pprint(newDict)
