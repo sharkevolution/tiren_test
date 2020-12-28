@@ -176,7 +176,7 @@ class Bot:
         self.api_send_document = f'https://api.telegram.org/bot{self.token}/sendDocument'
 
         self.headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        self.headers_multipart = {'Content-type': 'multipart/form-data', 'Accept': 'text/plain'}
+        self.headers_multipart = {'Content-type': 'multipart/form-data'}
 
         self.users = {}  # List of users
         self.dict_init = {}  # Custom logic
@@ -239,11 +239,11 @@ def send_file(data, ord=None):
     md = json.dumps(bot.dict_init)
     f = io.StringIO(md)
 
-    message = {'chat_id': tunnel, 'document': f, 'caption': 'tree.txt', }
+    message = {'chat_id': tunnel, 'caption': 'tree.txt', }
 
     curl = bot.api_send_document
     try:
-        r = requests.post(curl, data=message, headers=bot.headers_multipart)
+        r = requests.post(curl, data=message, files=f)
         assert r.status_code == 200
         logging.info(r.content)
 
