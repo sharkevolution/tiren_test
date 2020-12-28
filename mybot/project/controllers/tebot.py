@@ -237,7 +237,7 @@ dp = Dispatcher(bot)
 def send_file(data, ord=None):
     tunnel = data['message']['chat']['id']
     md = json.dumps(bot.dict_init)
-    f = io.BytesIO(md)
+    f = io.FileIO(md)
 
     message = {'chat_id': tunnel, 'document': f, 'caption': 'tree.txt'}
 
