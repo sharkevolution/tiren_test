@@ -240,7 +240,7 @@ def send_file(data, ord=None):
     f = io.StringIO(md)
     post_file = {'document': f}
 
-    message = {'chat_id': tunnel, 'caption': 'tree.txt'}
+    message = {'chat_id': tunnel, 'filename': 'tree.txt', 'caption': 'Дерево связей'}
 
     curl = bot.api_send_document
     try:
