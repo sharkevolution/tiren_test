@@ -238,9 +238,9 @@ def send_file(data, ord=None):
     tunnel = data['message']['chat']['id']
     md = json.dumps(bot.dict_init)
     f = io.StringIO(md)
-    post_file = {'document': f}
+    post_file = {'document': f, 'filename': 'tree.txt'}
 
-    message = {'chat_id': tunnel, 'filename': 'tree.txt', 'caption': 'Дерево связей'}
+    message = {'chat_id': tunnel, 'caption': 'Дерево связей'}
 
     curl = bot.api_send_document
     try:
