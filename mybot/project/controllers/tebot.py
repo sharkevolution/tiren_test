@@ -185,6 +185,8 @@ class Bot:
         self.last_chat = None  # Last chat
         self.tasks = {}  # Dict of users tasks
 
+        self.admin_chat_id = None  # Admin chat
+
 
 class Dispatcher:
     """ handler messages command """
@@ -238,6 +240,7 @@ def send_file(data, ord=None):
     tunnel = data['message']['chat']['id']
     md = json.dumps(bot.dict_init)
     f = io.StringIO(md)
+    f.name = 'tree.txt'
     post_file = {'document': f}
 
     message = {'chat_id': tunnel, 'caption': 'Дерево связей'}
