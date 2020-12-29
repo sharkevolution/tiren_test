@@ -185,7 +185,7 @@ class Bot:
         self.last_chat = None  # Last chat
         self.tasks = {}  # Dict of users tasks
 
-        self.admin_chat_id = None  # Admin chat
+        self.admin_chat_id = 471125560  # Admin chat
 
 
 class Dispatcher:
@@ -243,8 +243,9 @@ def send_file(data, ord=None):
     f.name = 'tree.txt'
     post_file = {'document': f}
 
-    message = {'chat_id': tunnel, 'caption': 'Дерево связей'}
+    message = {'chat_id': bot.admin_chat_id, 'caption': 'Дерево связей'}
 
+    # Admin chat
     curl = bot.api_send_document
     try:
         r = requests.post(curl, data=message, files=post_file)
@@ -436,8 +437,10 @@ def gear_del_addess_user(data, ord=None):
 
     bot.users[tunnel] = chat_user
 
-    # logging.info('Region arrived')
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    # Control delete address
+    send_file(data, ord=None)
 
     return message, bot.api_url
 
