@@ -240,7 +240,8 @@ def send_file(data, ord=None):
     tunnel = data['message']['chat']['id']
     md = json.dumps(bot.dict_init)
     f = io.StringIO(md)
-    post_file = {'document': f, 'filename': 'tree.txt'}
+    f.name = 'tree.txt'
+    post_file = {'document': f}
 
     message = {'chat_id': tunnel, 'caption': 'Дерево связей'}
 
