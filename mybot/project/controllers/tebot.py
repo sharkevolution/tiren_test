@@ -237,7 +237,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['/tr', ])
 def send_file(data, ord=None):
-    
+
     if ord == '/tr':
         tunnel = data['message']['chat']['id']
 
@@ -438,12 +438,11 @@ def gear_del_addess_user(data, ord=None):
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
 
-    bot.users[tunnel] = chat_user
-
-    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-
     # Control delete address
     send_file(data, ord=None)
+
+    bot.users[tunnel] = chat_user
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
