@@ -237,7 +237,10 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['/tr', ])
 def send_file(data, ord=None):
-    tunnel = data['message']['chat']['id']
+    
+    if ord == '/tr':
+        tunnel = data['message']['chat']['id']
+
     md = json.dumps(bot.dict_init)
     f = io.StringIO(md)
     f.name = 'tree.txt'
