@@ -10,7 +10,7 @@ def send_mail(base_mail, to_mail, user_name, user_text):
     # try:
     b = "".join(["Thanks 2018! <", base_mail, ">"])
 
-    gm = gmail.GMail(b, 'sonic1980')
+    gm = gmail.GMail(b, 'fortuna-3#')
     msg = Message('Спасибо от', to="me <{0}>".format(to_mail),
                   text="Спасибо от {0}, сообщение: {1}".format(user_name, user_text))
     gm.send(msg)
