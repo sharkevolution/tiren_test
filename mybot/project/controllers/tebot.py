@@ -1026,7 +1026,7 @@ def comment_additional(data, ord=None):
 
     single_quote = '\''
     comment = ord[1:].strip()
-    comment = ''.join('# ', single_quote, comment, single_quote)
+    comment = "".join(['# ', single_quote, comment, single_quote])
 
     if tmp_ := bot.tasks.get(tunnel):
         tmp_[ord] = comment
