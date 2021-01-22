@@ -1016,6 +1016,25 @@ def enter(data, ord=None):
     return {}, {}
 
 
+def comment_additional(data, ord=None):
+    tunnel = data['message']['chat']['id']
+    comment = ord[1:].strip()
+
+    if tmp_ := bot.tasks.get(tunnel):
+        tmp_[comment] = comment
+        bot.tasks[tunnel] = tmp_
+        logging.info('ADD comment')
+        logging.info(bot.tasks)
+    else:
+        bot.tasks[tunnel] = {comment: comment}
+        logging.info(bot.tasks)
+        # bot.tasks[chat_id] = [crs, ]
+        # logging.info(bot.tasks)
+
+    message = {'chat_id': tunnel, 'text': f'Добавлен коммент: {ord}'}
+    return message, bot.api_url
+
+
 @dp.message_handler(commands=['/clear_base', ])
 def clear_redis_base(data, ord=None):
     dredis.clear_base_redis()
@@ -1141,6 +1160,8 @@ def do_echo():
                 else:
                     if '#' in ord[0:1]:
                         logging.info('# comment')
+                        comment_additional(data, ord)  # add comment
+
                     elif chat_user.FSM:
                         if exec_func := dp.pull_message_commands.get(ord):
                             chat_user.FSM = False
