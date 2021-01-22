@@ -1022,8 +1022,10 @@ def enter(data, ord=None):
 
 def comment_additional(data, ord=None):
     tunnel = data['message']['chat']['id']
+
+    single_quote = '\''
     comment = ord[1:].strip()
-    comment = '# ' + comment
+    comment = ''.join(['# ', single_quote, comment, single_quote])
 
     if tmp_ := bot.tasks.get(tunnel):
         tmp_[ord] = comment
