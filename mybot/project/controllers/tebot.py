@@ -28,10 +28,13 @@ from mybot.project.controllers import treeadr
 
 
 def set_webhook(bottoken):
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    baseURL = 'https://api.telegram.org/bot{0}/setWebhook'.format(bottoken)
 
-    r = requests.get(baseURL, headers=headers)
+    data = {"url": "https://tiren-bot.herokuapp.com/api/v1/echo"}
+    data = {"url": "https://tirentest.herokuapp.com/api/v1/echo"}
+    headers = {'Content-type': 'application/json'}
+    baseURL = f'https://api.telegram.org/bot{bottoken}/setWebhook'
+
+    r = requests.get(baseURL, headers=headers, data=json.dumps(data))
     print(r.text)
 
 
@@ -1165,4 +1168,4 @@ def do_echo():
     # logging.info(data)
 
 
-set_webhook(API_TOKEN)
+# set_webhook(API_TOKEN)
