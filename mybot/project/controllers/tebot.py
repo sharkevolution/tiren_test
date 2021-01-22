@@ -1139,7 +1139,9 @@ def do_echo():
                     # logging.info(ord)
                     message, curl = exec_func(data, ord)
                 else:
-                    if chat_user.FSM:
+                    if '#' in ord[0:1]:
+                        logging.info('# comment')
+                    elif chat_user.FSM:
                         if exec_func := dp.pull_message_commands.get(ord):
                             chat_user.FSM = False
                             chat_user.previous_ord = None
@@ -1168,4 +1170,5 @@ def do_echo():
     # logging.info(data)
 
 
-# set_webhook(API_TOKEN)
+if __name__ == '__main__':
+    set_webhook(API_TOKEN)
