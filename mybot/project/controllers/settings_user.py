@@ -230,7 +230,10 @@ def template_tasks_to_send(tmp_dict, chat_user):
 
     for ts in tmp_dict:
         cnt = tmp_dict[ts]
-        tmp_text = ', '.join([cnt['shop'], cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
+        if '#' in ts:
+            tmp_text = cnt[ts]
+        else:
+            tmp_text = ', '.join([cnt['shop'], cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
         task_list.append([{"text": tmp_text}])
         chat_user.send_list.append(tmp_text)
 
