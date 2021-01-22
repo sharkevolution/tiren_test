@@ -845,9 +845,13 @@ def enter_to_list(data, ord=None):
         html_list = []  # view for screen user
         for ts in tmp_dict:
             cnt = tmp_dict[ts]
-            qsh = single_quote + cnt['shop'] + single_quote
-            tmp_text = ', '.join([qsh, cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
-            html_list.append(tmp_text)
+            if '#' in ts[0:1]:
+                html_list.append(cnt)
+            else:
+                # cnt = tmp_dict[ts]
+                qsh = single_quote + cnt['shop'] + single_quote
+                tmp_text = ', '.join([qsh, cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
+                html_list.append(tmp_text)
 
         html_list.insert(0, ' '.join([me_first, me_last]))
         result_text = '\n'.join(html_list)
@@ -1021,12 +1025,12 @@ def comment_additional(data, ord=None):
     comment = ord[1:].strip()
 
     if tmp_ := bot.tasks.get(tunnel):
-        tmp_[comment] = comment
+        tmp_[ord] = comment
         bot.tasks[tunnel] = tmp_
         logging.info('ADD comment')
         logging.info(bot.tasks)
     else:
-        bot.tasks[tunnel] = {comment: comment}
+        bot.tasks[tunnel] = {ord: comment}
         logging.info(bot.tasks)
         # bot.tasks[chat_id] = [crs, ]
         # logging.info(bot.tasks)
