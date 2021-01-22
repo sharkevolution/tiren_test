@@ -751,7 +751,8 @@ def delete_item_send(data, ord=None):
                 chat_user.send_list.remove(ord)  # Delete item from list
                 bot.users[tunnel] = chat_user
             else:
-                logging.info('not found')
+                logging.info('not found ord')
+                logging.info(tmp_dict)
 
     _tmp = bot.tasks[tunnel]
     reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel])
@@ -1025,7 +1026,7 @@ def comment_additional(data, ord=None):
 
     single_quote = '\''
     comment = ord[1:].strip()
-    comment = ''.join(['# ', single_quote, comment, single_quote])
+    comment = ''.join('# ', single_quote, comment, single_quote)
 
     if tmp_ := bot.tasks.get(tunnel):
         tmp_[ord] = comment
