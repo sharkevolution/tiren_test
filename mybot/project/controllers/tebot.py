@@ -27,6 +27,14 @@ from mybot.project.controllers import chtime
 from mybot.project.controllers import treeadr
 
 
+def set_webhook(bottoken):
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    baseURL = 'https://api.telegram.org/bot{0}/setWebhook'.format(bottoken)
+
+    r = requests.get(baseURL, headers=headers)
+    print(r.text)
+
+
 def callback_hello_ok(data, text):
     try:
         #  "text": text, "cache_time": 0
@@ -227,7 +235,7 @@ class Dispatcher:
 
 
 # ********************************************************
-API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
+# API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
 API_TOKEN = '1533915251:AAHFV5qpwUa_5LXvaRbFq0fi5oUGASfhgUU'  # test
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
@@ -1155,3 +1163,6 @@ def do_echo():
 
     # logging.info('old_message')
     # logging.info(data)
+
+
+set_webhook(API_TOKEN)
