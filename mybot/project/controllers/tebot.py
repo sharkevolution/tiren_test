@@ -1029,12 +1029,12 @@ def comment_additional(data, ord=None):
     comment = "".join(['# ', single_quote, comment, single_quote])
 
     if tmp_ := bot.tasks.get(tunnel):
-        tmp_[ord] = comment
+        tmp_[comment] = comment
         bot.tasks[tunnel] = tmp_
         logging.info('ADD comment')
         logging.info(bot.tasks)
     else:
-        bot.tasks[tunnel] = {ord: comment}
+        bot.tasks[tunnel] = {comment: comment}
         logging.info(bot.tasks)
         # bot.tasks[chat_id] = [crs, ]
         # logging.info(bot.tasks)
