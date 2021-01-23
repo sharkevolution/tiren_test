@@ -755,7 +755,7 @@ def delete_item_send(data, ord=None):
                 logging.info(tmp_dict)
 
     _tmp = bot.tasks[tunnel]
-    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.rdot, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel], bot.rdot)
 
     kb = reply_markup['keyboard']
 
@@ -821,7 +821,7 @@ def edit_send(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     _tmp = bot.tasks[chat_id]
-    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[chat_id])
+    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[chat_id], bot.rdot)
 
     for b in chat_user.send_list:
         chat_user.pull_user_commands[b] = delete_item_send
