@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b058a65-7d34-4b70-b889-f4c683fcf7fc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/home.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mybot/project/controllers/settings_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/settings_user.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
     </list>
@@ -162,11 +161,6 @@
           <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
           <line>823</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mybot/project/controllers/settings_user.py</url>
-          <line>232</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

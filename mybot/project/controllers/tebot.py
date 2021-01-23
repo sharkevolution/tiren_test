@@ -755,7 +755,7 @@ def delete_item_send(data, ord=None):
                 logging.info(tmp_dict)
 
     _tmp = bot.tasks[tunnel]
-    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel], bot.rdot)
+    reply_markup, chat_user = settings_user.template_tasks_to_send(bot.rdot, _tmp, bot.users[tunnel])
 
     kb = reply_markup['keyboard']
 
