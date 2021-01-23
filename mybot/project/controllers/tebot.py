@@ -197,7 +197,7 @@ class Bot:
         self.tasks = {}  # Dict of users tasks
 
         self.admin_chat_id = 471125560  # Admin chat
-
+        self.rdot = '#'
 
 class Dispatcher:
     """ handler messages command """
@@ -755,7 +755,7 @@ def delete_item_send(data, ord=None):
                 logging.info(tmp_dict)
 
     _tmp = bot.tasks[tunnel]
-    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel], bot.rdot)
 
     kb = reply_markup['keyboard']
 
@@ -1026,7 +1026,7 @@ def comment_additional(data, ord=None):
 
     single_quote = '\''
     comment = ord[1:].strip()
-    comment = "".join(['# ', single_quote, comment, single_quote])
+    comment = "".join([bot.rdot, ' ', single_quote, comment, single_quote])
 
     if tmp_ := bot.tasks.get(tunnel):
         tmp_[comment] = comment
@@ -1036,8 +1036,6 @@ def comment_additional(data, ord=None):
     else:
         bot.tasks[tunnel] = {comment: comment}
         logging.info(bot.tasks)
-        # bot.tasks[chat_id] = [crs, ]
-        # logging.info(bot.tasks)
 
     message = {'chat_id': tunnel, 'text': f'Добавлен коммент: {ord}'}
     return message, bot.api_url
@@ -1166,7 +1164,7 @@ def do_echo():
                     # logging.info(ord)
                     message, curl = exec_func(data, ord)
                 else:
-                    if '#' in ord[0:1]:
+                    if bot.rdot in ord[0:1]:
                         logging.info('# comment')
                         comment_additional(data, ord)  # add comment
 
