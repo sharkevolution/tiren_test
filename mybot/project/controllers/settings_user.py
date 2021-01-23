@@ -224,7 +224,7 @@ def template_weight(dict_init, chat_user):
     return reply_markup, chat_user
 
 
-def template_tasks_to_send(rdot, tmp_dict, chat_user):
+def template_tasks_to_send(tmp_dict, rdot, chat_user):
 
     task_list = []
 
