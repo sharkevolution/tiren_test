@@ -9,7 +9,7 @@ from mybot.config import RESOURCES_PATH
 
 newDict = {}
 
-file_path = [RESOURCES_PATH, 'settings', 'data.txt']
+file_path = [RESOURCES_PATH, 'settings', 'tree.txt']
 djs = os.path.join(*file_path)
 
 

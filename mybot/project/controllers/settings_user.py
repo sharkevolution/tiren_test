@@ -126,12 +126,11 @@ def template_gear_add_city(dict_init, chat_user):
 
 
 def template_gear():
-    # [{"text": f"Мой список городов", "callback_data": "gear_view"}, ],
-
     reply_markup = {"inline_keyboard": [
         [{"text": f"Добавить город", "callback_data": "gear_add_city"},
          {"text": f"Исключить город", "callback_data": "gear_del_city"}, ],
         [{"text": f"Удалить адрес у всех", "callback_data": "gear_del_address"}, ],
+        [{"text": f"Список пользователей", "callback_data": "gear_list_users"}, ]
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
@@ -185,6 +184,7 @@ def template_start():
         {"text": f"Мой список {emoji.emojize(':satellite:')}", "callback_data": "ent_list"}],
         [{"text": f"Мои города {emoji.emojize(':gear:')}", "callback_data": "gear"},
          {"text": f"Новый адрес {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
+        [{"text": f"Консолидировать данные", "callback_data": "aggregate"}, ]
     ],
         "hide_keyboard": True,
     }
@@ -224,13 +224,16 @@ def template_weight(dict_init, chat_user):
     return reply_markup, chat_user
 
 
-def template_tasks_to_send(tmp_dict, chat_user):
+def template_tasks_to_send(tmp_dict, chat_user, rdot):
 
     task_list = []
 
     for ts in tmp_dict:
         cnt = tmp_dict[ts]
-        tmp_text = ', '.join([cnt['shop'], cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
+        if rdot in ts:
+            tmp_text = cnt
+        else:
+            tmp_text = ', '.join([cnt['shop'], cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
         task_list.append([{"text": tmp_text}])
         chat_user.send_list.append(tmp_text)
 

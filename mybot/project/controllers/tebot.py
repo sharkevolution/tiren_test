@@ -27,6 +27,17 @@ from mybot.project.controllers import chtime
 from mybot.project.controllers import treeadr
 
 
+def set_webhook(bottoken):
+
+    data = {"url": "https://tiren-bot.herokuapp.com/api/v1/echo"}
+    data = {"url": "https://tirentest.herokuapp.com/api/v1/echo"}
+    headers = {'Content-type': 'application/json'}
+    baseURL = f'https://api.telegram.org/bot{bottoken}/setWebhook'
+
+    r = requests.get(baseURL, headers=headers, data=json.dumps(data))
+    print(r.text)
+
+
 def callback_hello_ok(data, text):
     try:
         #  "text": text, "cache_time": 0
@@ -186,7 +197,7 @@ class Bot:
         self.tasks = {}  # Dict of users tasks
 
         self.admin_chat_id = 471125560  # Admin chat
-
+        self.rdot = '.'
 
 class Dispatcher:
     """ handler messages command """
@@ -227,7 +238,8 @@ class Dispatcher:
 
 
 # ********************************************************
-API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'
+API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
+# API_TOKEN = '1533915251:AAHFV5qpwUa_5LXvaRbFq0fi5oUGASfhgUU'  # test
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
@@ -576,6 +588,7 @@ def gear_user(data, ord=None):
     tunnel = data['callback_query']['message']['chat']['id']
     result_text = f"Настройки пользователя"
     reply_markup = settings_user.template_gear()
+    logging.info(reply_markup)
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
@@ -611,7 +624,7 @@ def enter_top(data, ord=None):
     chat_user.create_task()  # Create task
     bot.users[tunnel] = chat_user
 
-    result_text = f"Hi {emoji.emojize(':waving_hand:')}"
+    result_text = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку"
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -739,10 +752,11 @@ def delete_item_send(data, ord=None):
                 chat_user.send_list.remove(ord)  # Delete item from list
                 bot.users[tunnel] = chat_user
             else:
-                logging.info('not found')
+                logging.info('not found ord')
+                logging.info(tmp_dict)
 
     _tmp = bot.tasks[tunnel]
-    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[tunnel], bot.rdot)
 
     kb = reply_markup['keyboard']
 
@@ -808,7 +822,7 @@ def edit_send(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     _tmp = bot.tasks[chat_id]
-    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[chat_id])
+    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[chat_id], bot.rdot)
 
     for b in chat_user.send_list:
         chat_user.pull_user_commands[b] = delete_item_send
@@ -833,9 +847,13 @@ def enter_to_list(data, ord=None):
         html_list = []  # view for screen user
         for ts in tmp_dict:
             cnt = tmp_dict[ts]
-            qsh = single_quote + cnt['shop'] + single_quote
-            tmp_text = ', '.join([qsh, cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
-            html_list.append(tmp_text)
+            if bot.rdot in ts[0:1]:
+                html_list.append(cnt)
+            else:
+                # cnt = tmp_dict[ts]
+                qsh = single_quote + cnt['shop'] + single_quote
+                tmp_text = ', '.join([qsh, cnt['delivery'], cnt['weight'], cnt['dlv_time'], ])
+                html_list.append(tmp_text)
 
         html_list.insert(0, ' '.join([me_first, me_last]))
         result_text = '\n'.join(html_list)
@@ -1004,6 +1022,26 @@ def enter(data, ord=None):
     return {}, {}
 
 
+def comment_additional(data, ord=None):
+    tunnel = data['message']['chat']['id']
+
+    single_quote = '\''
+    comment = ord[1:].strip()
+    comment = "".join([bot.rdot, ' ', single_quote, comment, single_quote])
+
+    if tmp_ := bot.tasks.get(tunnel):
+        tmp_[comment] = comment
+        bot.tasks[tunnel] = tmp_
+        logging.info('ADD comment')
+        logging.info(bot.tasks)
+    else:
+        bot.tasks[tunnel] = {comment: comment}
+        logging.info(bot.tasks)
+
+    message = {'chat_id': tunnel, 'text': f'Добавлен коммент: {ord}'}
+    return message, bot.api_url
+
+
 @dp.message_handler(commands=['/clear_base', ])
 def clear_redis_base(data, ord=None):
     dredis.clear_base_redis()
@@ -1127,7 +1165,11 @@ def do_echo():
                     # logging.info(ord)
                     message, curl = exec_func(data, ord)
                 else:
-                    if chat_user.FSM:
+                    if bot.rdot in ord[0:1]:
+                        logging.info('# comment')
+                        comment_additional(data, ord)  # add comment
+
+                    elif chat_user.FSM:
                         if exec_func := dp.pull_message_commands.get(ord):
                             chat_user.FSM = False
                             chat_user.previous_ord = None
@@ -1154,3 +1196,7 @@ def do_echo():
 
     # logging.info('old_message')
     # logging.info(data)
+
+
+if __name__ == '__main__':
+    set_webhook(API_TOKEN)
