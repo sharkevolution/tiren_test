@@ -1,53 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b058a65-7d34-4b70-b889-f4c683fcf7fc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/tiren-bot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tiren-bot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.org" beforeDir="false" afterPath="$PROJECT_DIR$/README.org" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dep" beforeDir="false" afterPath="$PROJECT_DIR$/dep" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/chtime.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/chtime.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/dredis.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/dredis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/expxl.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/expxl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/home.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/impxl.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/impxl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/logo.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/logo.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/mail.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/mail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/proctime.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/proctime.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/settings_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/settings_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/static.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/static.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/treeadr.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/treeadr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/css/message.css" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/css/message.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/fonts/AKI-lyzyNHXByGHeOcds_w.woff" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/fonts/AKI-lyzyNHXByGHeOcds_w.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/0.png" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/comment.svg" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/comment.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/email.svg" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/email.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/lk.png" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/lk.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/moroz.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/moroz.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/name.svg" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/name.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/img/unlk.png" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/img/unlk.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/js/snow.js" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/js/snow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/settings/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/settings/data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/views/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/views/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runtime.txt" beforeDir="false" afterPath="$PROJECT_DIR$/runtime.txt" afterDir="false" />
-    </list>
+    <list default="true" id="5b058a65-7d34-4b70-b889-f4c683fcf7fc" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
