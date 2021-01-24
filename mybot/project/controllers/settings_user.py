@@ -131,8 +131,8 @@ def template_gear():
     reply_markup = {"inline_keyboard": [
         [{"text": f"Добавить город", "callback_data": "gear_add_city"},
          {"text": f"Исключить город", "callback_data": "gear_del_city"}, ],
-        [{"text": f"Удалить адрес у всех", "callback_data": "gear_del_address"}, ],
-        [{"text": f"Список пользователей", "callback_list_users": "gear_list_users"}, ],
+        [{"text": f"Удалить адрес у всех", "callback_data": "gear_del_address"},
+         {"text": f"Список пользователей", "callback_list_users": "gear_list_users"}, ],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
