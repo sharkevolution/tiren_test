@@ -847,7 +847,7 @@ def enter_to_list(data, ord=None):
         html_list = []  # view for screen user
         for ts in tmp_dict:
             cnt = tmp_dict[ts]
-            if '#' in ts[0:1]:
+            if bot.rdot in ts[0:1]:
                 html_list.append(cnt)
             else:
                 # cnt = tmp_dict[ts]
