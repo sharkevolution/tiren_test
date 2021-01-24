@@ -126,12 +126,11 @@ def template_gear_add_city(dict_init, chat_user):
 
 
 def template_gear():
-    # [{"text": f"Мой список городов", "callback_data": "gear_view"}, ],
-
     reply_markup = {"inline_keyboard": [
         [{"text": f"Добавить город", "callback_data": "gear_add_city"},
          {"text": f"Исключить город", "callback_data": "gear_del_city"}, ],
         [{"text": f"Удалить адрес у всех", "callback_data": "gear_del_address"}, ],
+        [{"text": f"Консолидировать данные", "callback_data": "aggregate"}, ]
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
