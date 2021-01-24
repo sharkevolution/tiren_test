@@ -132,6 +132,7 @@ def template_gear():
         [{"text": f"Добавить город", "callback_data": "gear_add_city"},
          {"text": f"Исключить город", "callback_data": "gear_del_city"}, ],
         [{"text": f"Удалить адрес у всех", "callback_data": "gear_del_address"}, ],
+        [{"text": f"Список пользователей", "callback_users": "gear_users"}, ],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
@@ -185,6 +186,7 @@ def template_start():
         {"text": f"Мой список {emoji.emojize(':satellite:')}", "callback_data": "ent_list"}],
         [{"text": f"Мои города {emoji.emojize(':gear:')}", "callback_data": "gear"},
          {"text": f"Новый адрес {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
+        [{"text": f"Консолидировать данные", "callback_data": "aggregate"}, ]
     ],
         "hide_keyboard": True,
     }

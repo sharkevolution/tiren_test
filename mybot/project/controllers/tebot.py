@@ -197,7 +197,7 @@ class Bot:
         self.tasks = {}  # Dict of users tasks
 
         self.admin_chat_id = 471125560  # Admin chat
-        self.rdot = '#'
+        self.rdot = '.'
 
 class Dispatcher:
     """ handler messages command """
