@@ -165,8 +165,8 @@ class User:
         self.redisClient.set(self.__name__, new_pack)
 
     def create_task(self):
-        self.current_task = {'shop': None, 'delivery': None, 'weight': None, 'dlv_time': None,
-                             'status_send': 'pending'}
+        self.current_task = {'shop': None, 'delivery': None, 'weight': None,
+                             'dlv_time': None, 'status_send': 'pending'}
 
     def put_task(self):
         pass
@@ -611,6 +611,22 @@ def enter_add_address(data, ord=None):
     reply_markup = settings_user.template_remove_keboard()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
+    return message, bot.api_url
+
+
+@dp.callback_handler(commands=['ent_send', ])
+def enter_to_send(data, ord=None):
+    callback_hello_ok(data, 'Aggregate')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+
+    chat_user = bot.users[tunnel]
+    # chat_user.create_task()  # Create task
+    # bot.users[tunnel] = chat_user
+
+    result_text = f"Список доступен другим пользователям для консолидации"
+    reply_markup = settings_user.template_start()
+    message = {'chat_id': tunnel, 'text': result_text}
     return message, bot.api_url
 
 
