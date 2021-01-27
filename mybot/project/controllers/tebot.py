@@ -191,6 +191,8 @@ class Bot:
 
         self.users = {}  # List of users
         self.dict_init = {}  # Custom logic
+        
+        self.subscription = {}  # Messages from users who sent the message
 
         self.last_id = 0  # Last ID telegram (not message)
         self.last_chat = None  # Last chat
@@ -624,7 +626,8 @@ def enter_to_send(data, ord=None):
     # chat_user.create_task()  # Create task
     # bot.users[tunnel] = chat_user
 
-    result_text = f"Список доступен другим пользователям для консолидации"
+    result_text = f"Список станет доступен для консолидации через 15сек, " \
+                  f"для Отмены нажмите повторно Отправить в течении указанного времени"
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text}
     return message, bot.api_url
