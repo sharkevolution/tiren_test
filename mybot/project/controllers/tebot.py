@@ -625,15 +625,17 @@ def enter_to_send(data, ord=None):
 
     now = datetime.now()
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-    crt = dict(bot.tasks[chat_user.from_id])
 
-    if agr := bot.subscription.get(chat_user.from_id):
-        agr.append((date_time, crt))
-        bot.subscription[chat_user.from_id] = agr
-    else:
-        bot.subscription[chat_user.from_id] = [(date_time, crt)]
+    if bot.tasks.get(chat_user.from_id):
+        crt = dict(bot.tasks[chat_user.from_id])
 
-    dredis.save_subscription(bot.subscription)  # save to Redis
+        if agr := bot.subscription.get(chat_user.from_id):
+            agr.append((date_time, crt))
+            bot.subscription[chat_user.from_id] = agr
+        else:
+            bot.subscription[chat_user.from_id] = [(date_time, crt)]
+
+        dredis.save_subscription(bot.subscription)  # save to Redis
 
     logging.info(bot.subscription)
 
@@ -1157,7 +1159,7 @@ def do_echo():
     curl = None
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
-    bot.subscription = dredis.read_subscription()  # get subscriptions  
+    bot.subscription = dredis.read_subscription()  # get subscriptions
 
     data = request.json
     # logging.info(data)
