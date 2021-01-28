@@ -240,16 +240,10 @@ class Dispatcher:
 
 
 # ********************************************************
-<<<<<<< HEAD
-# API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
 API_TOKEN = '1533915251:AAHFV5qpwUa_5LXvaRbFq0fi5oUGASfhgUU'  # test
-=======
-API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
-# API_TOKEN = '1533915251:AAHFV5qpwUa_5LXvaRbFq0fi5oUGASfhgUU'  # test
->>>>>>> 8f71bf58ae6460f2afe32bf3bb95815bf0ae5045
+# API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
-
 
 # ********************************************************
 
