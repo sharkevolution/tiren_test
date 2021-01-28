@@ -203,3 +203,5 @@ date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
 print(date_time)
 
+d = (1, 2)
+

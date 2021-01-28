@@ -628,10 +628,10 @@ def enter_to_send(data, ord=None):
     crt = dict(chat_user.current_task)
 
     if agr := bot.subscription.get(chat_user.from_id):
-        agr.append(tuple(date_time, crt))
+        agr.append((date_time, crt))
         bot.subscription[chat_user.from_id] = agr
     else:
-        bot.subscription[chat_user.from_id] = [tuple(date_time, crt)]
+        bot.subscription[chat_user.from_id] = [(date_time, crt)]
 
     logging.info(bot.subscription)
 
