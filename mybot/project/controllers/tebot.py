@@ -6,14 +6,15 @@
 # https://habr.com/ru/company/ruvds/blog/325522/
 # https://www.networkworld.com/article/3276349/copying-and-renaming-files-on-linux.html
 
-
-import bottle
-from bottle import view, request, redirect
-
 import io
 import os
 import json
 import copy
+from datetime import datetime
+
+import bottle
+from bottle import view, request, redirect
+
 import requests
 import logging
 import redis
@@ -620,15 +621,17 @@ def enter_to_send(data, ord=None):
     callback_hello_ok(data, 'Aggregate')
 
     tunnel = data['callback_query']['message']['chat']['id']
-
     chat_user = bot.users[tunnel]
-    chat_user.current_task  # Get current task User
+
+    now = datetime.now()
+    date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+    crt = dict(chat_user.current_task)
 
     if agr := bot.subscription.get(chat_user.from_id):
-        new_agr = {**agr, **chat_user.current_task}
-        bot.subscription[chat_user.from_id] = new_agr
+        agr.append(tuple(date_time, crt))
+        bot.subscription[chat_user.from_id] = agr
     else:
-        bot.subscription[chat_user.from_id] = dict(chat_user.current_task)  # Deep Copy
+        bot.subscription[chat_user.from_id] = [tuple(date_time, crt)]
 
     logging.info(bot.subscription)
 
