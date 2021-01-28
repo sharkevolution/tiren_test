@@ -625,7 +625,7 @@ def enter_to_send(data, ord=None):
 
     now = datetime.now()
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-    crt = dict(chat_user.current_task)
+    crt = dict(bot.tasks[chat_user.from_id])
 
     if agr := bot.subscription.get(chat_user.from_id):
         agr.append((date_time, crt))
