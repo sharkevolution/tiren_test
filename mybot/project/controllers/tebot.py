@@ -618,7 +618,7 @@ def enter_add_address(data, ord=None):
 
 @dp.callback_handler(commands=['ent_send', ])
 def enter_to_send(data, ord=None):
-    callback_hello_ok(data, 'Aggregate')
+    callback_hello_ok(data, 'Send data for aggregate')
 
     tunnel = data['callback_query']['message']['chat']['id']
     chat_user = bot.users[tunnel]
@@ -736,6 +736,31 @@ def dynamic_delivery(data, ord=None):
     bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+    return message, bot.api_url
+
+
+@dp.callback_handler(commands=['aggregate', ])
+def dynamic_aggregate(data, ord=None):
+    callback_hello_ok(data, 'Aggregate')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = 'Просмотрите сообщения пользователей перед консолидацией'
+    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.adr[:-1]:
+        chat_user.pull_user_commands[b] = dynamic_delivery
+
+    # event TOP
+    back = chat_user.adr[-1]
+    logging.info('TOP')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
+
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
     return message, bot.api_url
 
 
