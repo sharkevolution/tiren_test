@@ -240,8 +240,13 @@ class Dispatcher:
 
 
 # ********************************************************
+<<<<<<< HEAD
 # API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
 API_TOKEN = '1533915251:AAHFV5qpwUa_5LXvaRbFq0fi5oUGASfhgUU'  # test
+=======
+API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
+# API_TOKEN = '1533915251:AAHFV5qpwUa_5LXvaRbFq0fi5oUGASfhgUU'  # test
+>>>>>>> 8f71bf58ae6460f2afe32bf3bb95815bf0ae5045
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
@@ -623,8 +628,15 @@ def enter_to_send(data, ord=None):
     tunnel = data['callback_query']['message']['chat']['id']
 
     chat_user = bot.users[tunnel]
-    # chat_user.create_task()  # Create task
-    # bot.users[tunnel] = chat_user
+    chat_user.current_task  # Get current task User
+
+    if agr := bot.subscription.get(chat_user.from_id):
+        new_agr = {**agr, **chat_user.current_task}
+        bot.subscription[chat_user.from_id] = new_agr
+    else:
+        bot.subscription[chat_user.from_id] = dict(chat_user.current_task)  # Deep Copy
+
+    logging.info(bot.subscription)
 
     result_text = f"Список станет доступен для консолидации через 15сек, " \
                   f"для Отмены нажмите повторно Отправить в течении указанного времени"
@@ -643,7 +655,7 @@ def enter_top(data, ord=None):
     chat_user.create_task()  # Create task
     bot.users[tunnel] = chat_user
 
-    result_text = f"Hi {emoji.emojize(':waving_hand:')}"
+    result_text = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку"
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url

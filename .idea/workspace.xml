@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="5b058a65-7d34-4b70-b889-f4c683fcf7fc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
     </list>
+=======
+    <list default="true" id="5b058a65-7d34-4b70-b889-f4c683fcf7fc" name="Default Changelist" comment="" />
+>>>>>>> 8f71bf58ae6460f2afe32bf3bb95815bf0ae5045
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,11 +25,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunManager" selected="Python.settings_user">
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+=======
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RunManager">
+    <configuration name="expxl" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+>>>>>>> 8f71bf58ae6460f2afe32bf3bb95815bf0ae5045
       <module name="tiren-bot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -46,6 +57,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+<<<<<<< HEAD
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tiren-bot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -136,6 +148,10 @@
         <item itemvalue="Python.app" />
         <item itemvalue="Python.__init__" />
         <item itemvalue="Python.tebot" />
+=======
+    <recent_temporary>
+      <list>
+>>>>>>> 8f71bf58ae6460f2afe32bf3bb95815bf0ae5045
         <item itemvalue="Python.expxl" />
       </list>
     </recent_temporary>
@@ -175,6 +191,7 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -186,4 +203,6 @@
       </breakpoints>
     </breakpoint-manager>
   </component>
+=======
+>>>>>>> 8f71bf58ae6460f2afe32bf3bb95815bf0ae5045
 </project>
