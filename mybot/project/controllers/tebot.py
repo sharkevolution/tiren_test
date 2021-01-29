@@ -778,7 +778,7 @@ def dynamic_aggregate(data, ord=None):
         chat_user.pull_user_commands[b] = dynamic_sub_users
 
     # event TOP
-    back = chat_user.adr[-1]
+    back = commands_[-1]
     logging.info('TOP')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
