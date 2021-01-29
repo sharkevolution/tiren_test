@@ -229,15 +229,15 @@ def template_edit_list():
     return reply_markup
 
 
-def template_subscription(dict_subscription, bot_users):
+def template_subscription(bot):
     users_list = []
     commands_ = []
 
-    for b in dict_subscription:
-        if me := bot_users.get(int(b)):
-            users_list.append(' '.join([me.first_name, me.last_name]))
-            users_list.append([{"text": b[2]}])
-            commands_.append(b[2])
+    for b in bot.subscription:
+        if me := bot.users.get(int(b)):
+            username = ' '.join([me.first_name, me.last_name, b])
+            users_list.append([{"text": username}])
+            commands_.append(username)
         else:
             pass
 

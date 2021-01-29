@@ -774,10 +774,7 @@ def dynamic_aggregate(data, ord=None):
     result_text = 'Просмотрите сообщения пользователей перед консолидацией'
     logging.info(bot.subscription)
 
-    for b in bot.users:
-        logging.info(b)
-
-    reply_markup, commands_ = settings_user.template_subscription(bot.subscription, bot.users)
+    reply_markup, commands_ = settings_user.template_subscription(bot)
 
     # Update commands wrapper
     for b in commands_[:-1]:
@@ -1217,8 +1214,6 @@ def do_echo():
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
     bot.subscription = dredis.read_subscription()  # get subscriptions
-    logging.info(bot.subscription)
-    logging.info('I am redis subscription!!')
 
     data = request.json
     # logging.info(data)
