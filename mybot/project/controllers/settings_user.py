@@ -233,6 +233,8 @@ def template_subscription(dict_subscription, users):
     users_ = []
     commands_ = []
 
+    logging.info(dict_subscription)
+
     for b in dict_subscription:
         if me := users.get(b):
             users_.append(' '.join([me.first_name, me.last_name]))
