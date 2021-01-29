@@ -641,6 +641,7 @@ def enter_to_send(data, ord=None):
         logging.info(dredis.read_subscription())
 
     logging.info(bot.subscription)
+    logging.info('bot subscr')
 
     result_text = f"Список станет доступен для консолидации через 15сек, " \
                   f"для Отмены нажмите повторно Отправить в течении указанного времени"
