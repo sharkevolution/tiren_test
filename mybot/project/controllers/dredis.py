@@ -64,3 +64,6 @@ def read_subscription():
     if redisClient.exists("subscription"):
         tmp_ = msgpack.unpackb(redisClient.get('subscription'))
     return tmp_
+
+
+clear_base_redis()
