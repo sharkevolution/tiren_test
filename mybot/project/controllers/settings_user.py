@@ -232,7 +232,6 @@ def template_edit_list():
 def template_sub_datetime(bot, ord):
     users_messages = []
     commands_ = []
-    logging.info(bot.subscription)
 
     for b in bot.subscription:
         if me := bot.users.get(int(b)):
@@ -244,7 +243,7 @@ def template_sub_datetime(bot, ord):
             if username == ord:
                 logging.info(bot.subscription[b])
                 for userdata in bot.subscription[b]:
-                    logging.info(userdata[0])
+                    logging.info(userdata)
                     users_messages.append([{"text": userdata[0]}])
                     commands_.append([userdata[0]])
         else:
