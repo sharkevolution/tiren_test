@@ -637,6 +637,7 @@ def enter_to_send(data, ord=None):
 
         dredis.save_subscription(bot.subscription)  # save to Redis
 
+    logging.info('I am subscription')
     logging.info(bot.subscription)
 
     result_text = f"Список станет доступен для консолидации через 15сек, " \
