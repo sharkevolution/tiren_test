@@ -637,7 +637,9 @@ def enter_to_send(data, ord=None):
             logging.info('new subscribe')
             bot.subscription[str(chat_user.from_id)] = [(date_time, crt)]
 
+        logging.info(bot.subscription)
         dredis.save_subscription(bot.subscription)  # save to Redis
+        logging.info(dredis.read_subscription())
 
     logging.info('bot subscr')
 
