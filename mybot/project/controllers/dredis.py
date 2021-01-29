@@ -54,13 +54,11 @@ def clear_base_redis():
 
 def save_subscription(newDict):
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    logging.info('Save redis description')
     redisClient.set('subscription', msgpack.packb(newDict))
 
 
 def read_subscription():
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-
     tmp_ = {}
     if redisClient.exists("subscription"):
         tmp_ = msgpack.unpackb(redisClient.get('subscription'))

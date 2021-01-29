@@ -745,7 +745,7 @@ def dynamic_sub_users(data, ord=None):
     logging.info(ord)
     tunnel = data['message']['chat']['id']
 
-    result_text = 'тест'
+    result_text = ord
     # reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
     #
     # # Update commands wrapper
@@ -772,7 +772,6 @@ def dynamic_aggregate(data, ord=None):
     tunnel = data['callback_query']['message']['chat']['id']
     chat_user = bot.users[tunnel]
     result_text = 'Просмотрите сообщения пользователей перед консолидацией'
-    logging.info(bot.subscription)
 
     reply_markup, commands_ = settings_user.template_subscription(bot)
 
