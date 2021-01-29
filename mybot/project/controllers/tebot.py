@@ -631,7 +631,7 @@ def enter_to_send(data, ord=None):
 
         if agr := bot.subscription.get(str(chat_user.from_id)):
             agr.append((date_time, crt))
-            bot.subscription[chat_user.from_id] = agr
+            bot.subscription[str(chat_user.from_id)] = agr
         else:
             bot.subscription[str(chat_user.from_id)] = [(date_time, crt)]
 
