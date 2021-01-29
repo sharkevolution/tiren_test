@@ -230,23 +230,25 @@ def template_edit_list():
 
 
 def template_subscription(dict_subscription, users):
-    users_ = []
+    users_list = []
     commands_ = []
 
     logging.info(dict_subscription)
 
+    logging.info(users)
+
     for b in dict_subscription:
         if me := users.get(b):
-            users_.append(' '.join([me.first_name, me.last_name]))
-            users_.append([{"text": b[2]}])
+            users_list.append(' '.join([me.first_name, me.last_name]))
+            users_list.append([{"text": b[2]}])
             commands_.append(b[2])
         else:
             pass
 
-    users_.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    users_list.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
 
-    reply_markup = {"keyboard": users_, "resize_keyboard": True, "one_time_keyboard": False}
+    reply_markup = {"keyboard": users_list, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, commands_
 
