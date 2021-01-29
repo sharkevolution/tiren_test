@@ -1212,6 +1212,7 @@ def do_echo():
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
     bot.subscription = dredis.read_subscription()  # get subscriptions
+    logging.info(bot.subscription)
 
     data = request.json
     # logging.info(data)
