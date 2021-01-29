@@ -243,7 +243,7 @@ def template_sub_datetime(bot, ord):
 
             if username == ord:
                 for userdata in bot.subscription[b]:
-                    logging.info(userdata)
+                    logging.info(userdata[0])
                     users_messages.append([{"text": userdata[0]}])
                     commands_.append([userdata[0]])
         else:
