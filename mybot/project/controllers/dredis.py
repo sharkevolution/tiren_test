@@ -62,6 +62,7 @@ def read_subscription():
     tmp_ = {}
     if redisClient.exists("subscription"):
         tmp_ = msgpack.unpackb(redisClient.get('subscription'))
+        logging.info(tmp_)
     return tmp_
 
 
