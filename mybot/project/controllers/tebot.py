@@ -638,9 +638,7 @@ def enter_to_send(data, ord=None):
             bot.subscription[str(chat_user.from_id)] = [(date_time, crt)]
 
         dredis.save_subscription(bot.subscription)  # save to Redis
-        logging.info(dredis.read_subscription())
 
-    logging.info(bot.subscription)
     logging.info('bot subscr')
 
     result_text = f"Список станет доступен для консолидации через 15сек, " \
