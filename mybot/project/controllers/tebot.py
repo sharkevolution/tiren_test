@@ -629,11 +629,11 @@ def enter_to_send(data, ord=None):
     if bot.tasks.get(chat_user.from_id):
         crt = dict(bot.tasks[chat_user.from_id])
 
-        if agr := bot.subscription.get(chat_user.from_id):
+        if agr := bot.subscription.get(str(chat_user.from_id)):
             agr.append((date_time, crt))
             bot.subscription[chat_user.from_id] = agr
         else:
-            bot.subscription[chat_user.from_id] = [(date_time, crt)]
+            bot.subscription[str(chat_user.from_id)] = [(date_time, crt)]
 
         dredis.save_subscription(bot.subscription)  # save to Redis
 
