@@ -232,6 +232,7 @@ def template_edit_list():
 def template_sub_datetime(bot, ord):
     users_messages = []
     commands_ = []
+    logging.info(bot.subscription)
 
     for b in bot.subscription:
         if me := bot.users.get(int(b)):
