@@ -618,6 +618,7 @@ def enter_add_address(data, ord=None):
 
 @dp.callback_handler(commands=['ent_send', ])
 def enter_to_send(data, ord=None):
+    logging.info('enter_to_send')
     callback_hello_ok(data, 'Send data for aggregate')
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -636,10 +637,8 @@ def enter_to_send(data, ord=None):
             logging.info('new subscribe')
             bot.subscription[str(chat_user.from_id)] = [(date_time, crt)]
 
-
         dredis.save_subscription(bot.subscription)  # save to Redis
 
-    logging.info('I am subscription')
     logging.info(bot.subscription)
 
     result_text = f"Список станет доступен для консолидации через 15сек, " \
