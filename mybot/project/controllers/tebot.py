@@ -771,7 +771,7 @@ def dynamic_aggregate(data, ord=None):
     tunnel = data['callback_query']['message']['chat']['id']
     chat_user = bot.users[tunnel]
     result_text = 'Просмотрите сообщения пользователей перед консолидацией'
-    reply_markup, commands_ = settings_user.template_shops(bot.subscription, bot.users)
+    reply_markup, commands_ = settings_user.template_subscription(bot.subscription, bot.users)
 
     # Update commands wrapper
     for b in commands_[:-1]:
