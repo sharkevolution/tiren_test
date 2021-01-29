@@ -245,7 +245,7 @@ def template_sub_datetime(bot, ord):
                 for userdata in bot.subscription[b]:
                     logging.info(userdata[0])
                     users_messages.append([{"text": userdata[0]}])
-                    commands_.append([userdata[0]])
+                    commands_.append(userdata[0])
         else:
             logging.info('not data')
 
