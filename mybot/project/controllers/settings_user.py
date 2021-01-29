@@ -229,6 +229,30 @@ def template_edit_list():
     return reply_markup
 
 
+def template_sub_datetime(bot, ord):
+    users_messages = []
+    commands_ = []
+
+    for b in bot.subscription:
+        if me := bot.users.get(int(b)):
+            username = ' '.join([me.first_name, me.last_name, b])
+
+            if username == ord:
+                userdata = bot.subscription[b]
+                for y in userdata:
+                    users_messages.append([{"text": y[0]}])
+                    commands_.append([y[0]])
+        else:
+            pass
+
+    users_messages.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    commands_.append(emoji.emojize(':TOP_arrow: На главную'))
+
+    reply_markup = {"keyboard": users_messages, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, commands_
+
+
 def template_subscription(bot):
     users_list = []
     commands_ = []
