@@ -637,11 +637,11 @@ def enter_to_send(data, ord=None):
             logging.info('new subscribe')
             bot.subscription[str(chat_user.from_id)] = [[date_time, crt]]
 
-        logging.info(bot.subscription)
+        # logging.info(bot.subscription)
         dredis.save_subscription(bot.subscription)  # save to Redis
-        logging.info(dredis.read_subscription())
+        # logging.info(dredis.read_subscription())
 
-    logging.info('bot subscr')
+    # logging.info('bot subscr')
 
     result_text = f"Список станет доступен для консолидации через 15сек, " \
                   f"для Отмены нажмите повторно Отправить в течении указанного времени"
@@ -750,19 +750,7 @@ def dynamic_sub_data(data, ord=None):
     chat_user = bot.users[tunnel]
 
     result_text = f'{ord}'
-    # reply_markup, commands_ = settings_user.template_sub_datetime(bot, ord)
 
-    # Update commands wrapper
-    # for b in commands_[:-1]:
-    #     chat_user.pull_user_commands[b] = dynamic_sub_data
-    #
-    # # event TOP
-    # back = commands_[-1]
-    # logging.info('TOP')
-    # logging.info(back)
-    # chat_user.pull_user_commands[back] = start_bot
-    #
-    # bot.users[tunnel] = chat_user
 
     message = {'chat_id': tunnel, 'text': result_text}
     return message, bot.api_url
@@ -771,7 +759,6 @@ def dynamic_sub_data(data, ord=None):
 @dp.message_handler(commands=[])
 def dynamic_sub_users(data, ord=None):
     logging.info('List of subscriptions users')
-    logging.info(ord)
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
@@ -1237,14 +1224,13 @@ def dummy_callback(data):
 def do_echo():
     """ Main """
 
+    logging.info('Do echo')
     message = {}
     curl = None
 
     dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
     bot.subscription = dredis.read_subscription()  # get subscriptions
-    logging.info(bot.subscription)
-    logging.info('Do echo')
-
+    # logging.info(bot.subscription)
 
     data = request.json
     # logging.info(data)
