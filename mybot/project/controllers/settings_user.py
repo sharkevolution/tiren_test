@@ -239,15 +239,15 @@ def template_sub_datetime(bot, ord):
 
             logging.info(username)
             logging.info(ord)
-            logging.info(bot.subscription[b])
 
             if username == ord:
+                logging.info(bot.subscription[b])
                 for userdata in bot.subscription[b]:
                     logging.info(userdata[0])
                     users_messages.append([{"text": userdata[0]}])
                     commands_.append([userdata[0]])
         else:
-            pass
+            logging.info('not data')
 
     users_messages.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
