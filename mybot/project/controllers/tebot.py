@@ -633,6 +633,7 @@ def enter_to_send(data, ord=None):
             agr.append((date_time, crt))
             bot.subscription[str(chat_user.from_id)] = agr
         else:
+            logging.info('new subscribe')
             bot.subscription[str(chat_user.from_id)] = [(date_time, crt)]
 
 
