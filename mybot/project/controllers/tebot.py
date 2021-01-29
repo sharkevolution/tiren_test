@@ -718,7 +718,6 @@ def dynamic_delivery(data, ord=None):
     logging.info(ord)
     tunnel = data['message']['chat']['id']
 
-    logging.info(ord)
     result_text = 'Выберите перевозчика'
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
 
@@ -739,17 +738,44 @@ def dynamic_delivery(data, ord=None):
     return message, bot.api_url
 
 
+@dp.message_handler(commands=[])
+def dynamic_sub_users(data, ord=None):
+    logging.info('List of subscriptions')
+    logging.info(ord)
+    tunnel = data['message']['chat']['id']
+
+    result_text = 'тест'
+    # reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
+    #
+    # # Update commands wrapper
+    # for b in chat_user.delivery[:-1]:
+    #     chat_user.pull_user_commands[b] = dynamic_weight
+    #
+    # # event back
+    # back = chat_user.delivery[-1]
+    # chat_user.pull_user_commands[back] = back_to_shop
+    #
+    # logging.info(ord)
+    # if not 'Назад' in ord:
+    #     chat_user.current_task['shop'] = ord
+    # bot.users[tunnel] = chat_user
+
+    message = {'chat_id': tunnel, 'text': result_text}
+    return message, bot.api_url
+
+
 @dp.callback_handler(commands=['aggregate', ])
 def dynamic_aggregate(data, ord=None):
     callback_hello_ok(data, 'Aggregate')
 
     tunnel = data['callback_query']['message']['chat']['id']
+    chat_user = bot.users[tunnel]
     result_text = 'Просмотрите сообщения пользователей перед консолидацией'
-    reply_markup, chat_user = settings_user.template_shops(bot.dict_init, bot.users[tunnel])
+    reply_markup, commands_ = settings_user.template_shops(bot.subscription, bot.users)
 
     # Update commands wrapper
-    for b in chat_user.adr[:-1]:
-        chat_user.pull_user_commands[b] = dynamic_delivery
+    for b in commands_[:-1]:
+        chat_user.pull_user_commands[b] = dynamic_sub_users
 
     # event TOP
     back = chat_user.adr[-1]

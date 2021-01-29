@@ -229,6 +229,26 @@ def template_edit_list():
     return reply_markup
 
 
+def template_subscription(dict_subscription, users):
+    users_ = []
+    commands_ = []
+
+    for b in dict_subscription:
+        if me := users.get(b):
+            users_.append(' '.join([me.first_name, me.last_name]))
+            users_.append([{"text": b[2]}])
+            commands_.append(b[2])
+        else:
+            pass
+
+    users_.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    commands_.append(emoji.emojize(':TOP_arrow: На главную'))
+
+    reply_markup = {"keyboard": users_, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, commands_
+
+
 def template_shops(dict_init, chat_user):
     adr = []
 
