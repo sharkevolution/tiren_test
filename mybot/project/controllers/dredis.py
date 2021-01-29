@@ -65,4 +65,4 @@ def read_subscription():
     return tmp_
 
 
-clear_base_redis()
+# clear_base_redis()
