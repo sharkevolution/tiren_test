@@ -750,11 +750,21 @@ def dynamic_sub_data(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
-    result_text = f'{ord}'
+    reply_markup, commands_, result_text = settings_user.template_sub_print(bot, ord)
 
-    reply_markup, result_text = settings_user.template_sub_print(bot, ord)
+    # Update commands wrapper
+    for b in commands_[:-1]:
+        chat_user.pull_user_commands[b] = None
 
+    # event TOP
+    back = commands_[-1]
+    logging.info('TOP')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
     message = {'chat_id': tunnel, 'text': result_text}
+
     return message, bot.api_url
 
 

@@ -241,16 +241,20 @@ def template_sub_print(bot, ord):
                 for k in chunk[1]:
                     users_text.insert(0, ' '.join([k]))
                     result_text = '\n'.join(users_text)
-
             else:
                 logging.info('not data')
 
+    users_text.append([{"text": 'Принять'},
+                       {"text": 'Отклонить'},
+                       {"text": 'К датам'}])
     users_text.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+
+    commands_.extend(['Принять', 'Отклонить', 'К датам'])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": users_text, "resize_keyboard": True, "one_time_keyboard": False}
 
-    return reply_markup, result_text
+    return reply_markup, commands_, result_text
 
 
 def template_sub_datetime(bot, ord):
