@@ -233,7 +233,7 @@ def template_sub_print(bot, ord):
     users_text = []
     commands_ = []
 
-    logging.info(bot.subscription)
+    # logging.info(bot.subscription)
 
     for b in bot.subscription:
         if me := bot.users.get(int(b)):
@@ -241,6 +241,7 @@ def template_sub_print(bot, ord):
             if username == ord:
                 for userdata in bot.subscription[b]:
 
+                    logging.info(userdata[1])
                     users_text.append([{"text": userdata[0]}])
                     commands_.append(userdata[0])
         else:
