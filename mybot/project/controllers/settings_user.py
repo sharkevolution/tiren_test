@@ -238,6 +238,8 @@ def template_sub_print(bot, ord):
     for uid in bot.subscription:
         if me := bot.users.get(int(uid)):
             username = ' '.join([me.first_name, me.last_name, uid])
+            logging.info(username)
+            logging.info(ord)
             if username == ord:
                 logging.info(uid)
                 # users_text.append([{"text": userdata[0]}])
