@@ -240,9 +240,12 @@ def template_sub_print(bot, chat_user, ord):
     if uid := bot.subscription.get(chat_user.selected_subscriber):
         for chunk in uid:
             if chunk[0] == ord:
-                for k in chunk[1]:
+                temp_ = chunk[1]
+                for k in temp_:
                     users_text.insert(0, ' '.join([k]))
                     result_text = '\n'.join(users_text)
+
+                    logging.info(temp_[k])
             else:
                 logging.info('not data')
 
