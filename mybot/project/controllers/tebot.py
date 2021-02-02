@@ -753,6 +753,7 @@ def dynamic_sub_data(data, ord=None):
     result_text = f'{ord}'
 
     reply_markup, commands_ = settings_user.template_sub_print(bot, ord)
+    result_text = reply_markup
 
     message = {'chat_id': tunnel, 'text': result_text}
     return message, bot.api_url
