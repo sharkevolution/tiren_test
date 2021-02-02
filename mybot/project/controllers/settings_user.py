@@ -236,16 +236,14 @@ def template_sub_print(bot, ord):
     logging.info(bot.subscription)
 
     if uid := bot.subscription.get(bot.selected_subscriber):
-        
-        for b in uid:
-            logging.info(b)
-    # if uid := (bot.selected_subscriber):
-    #     for b in uid:
-    #         logging.info(b)
-    #             # users_text.append([{"text": userdata[0]}])
-    #             # commands_.append(userdata[0])
-    #     else:
-    #         logging.info('not data')
+        for chunk in uid:
+            if chunk[0] == ord:
+                logging.info(chunk)
+                for k in chunk:
+                    users_text.append([{"text": k}])
+                    commands_.append(k)
+            else:
+                logging.info('not data')
 
     users_text.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
