@@ -756,14 +756,15 @@ def consolidate(data, ord):
     chat_user = bot.users[tunnel]
     result_text = f'{ord}'
 
-    if tmp_dict := bot.tasks.get(tunnel):
-        logging.info(tmp_dict)
-        temp_ = chat_user.selected_sub_data
-        new_tmp = {**tmp_dict, **temp_}
-        bot.tasks[tunnel] = new_tmp
-
     if ord == 'Принять':
         result_text = 'Данные добавлены в список, переход к датам'
+        if tmp_dict := bot.tasks.get(tunnel):
+            logging.info(tmp_dict)
+            temp_ = chat_user.selected_sub_data
+            new_tmp = {**tmp_dict, **temp_}
+            bot.tasks[tunnel] = new_tmp
+        else:
+            bot.tasks[tunnel] = chat_user.selected_sub_data
     if ord == 'Отклонить':
         result_text = 'Данные отмечены как нежелательные, переход к датам'
     if ord == 'К датам':
