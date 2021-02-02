@@ -235,11 +235,11 @@ def template_sub_print(bot, ord):
 
     # logging.info(bot.subscription)
 
-    for b in bot.subscription:
+    for uid in bot.subscription:
         if me := bot.users.get(int(b)):
-            username = ' '.join([me.first_name, me.last_name, b])
+            username = ' '.join([me.first_name, me.last_name, uid])
             if username == ord:
-                for userdata in bot.subscription[b]:
+                for userdata in uid:
 
                     logging.info(userdata)
                     users_text.append([{"text": userdata[0]}])
