@@ -751,6 +751,7 @@ def consolidate(data, ord):
 
     tunnel = data['message']['chat']['id']
     result_text = f'{ord}'
+    logging.info(ord)
     message = {'chat_id': tunnel, 'text': result_text}
 
     return message, bot.api_url
