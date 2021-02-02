@@ -239,8 +239,9 @@ def template_sub_print(bot, ord):
         for chunk in uid:
             if chunk[0] == ord:
                 for k in chunk[1]:
-                    users_text.append([{"text": k}])
-                    commands_.append(k)
+                    users_text.insert(0, ' '.join([k]))
+                    result_text = '\n'.join(users_text)
+
             else:
                 logging.info('not data')
 
@@ -249,7 +250,7 @@ def template_sub_print(bot, ord):
 
     reply_markup = {"keyboard": users_text, "resize_keyboard": True, "one_time_keyboard": False}
 
-    return reply_markup, commands_
+    return reply_markup, result_text
 
 
 def template_sub_datetime(bot, ord):
