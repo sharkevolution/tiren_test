@@ -756,8 +756,9 @@ def consolidate(data, ord):
     chat_user = bot.users[tunnel]
     result_text = f'{ord}'
 
-    temp_ = chat_user.selected_sub_data
-    chat_user.send_list.extend(temp_)
+    if tmp_dict := bot.tasks.get(tunnel):
+        temp_ = chat_user.selected_sub_data
+        tmp_dict.extend(temp_)
 
     if ord == 'Принять':
         result_text = 'Данные добавлены в список, переход к датам'
