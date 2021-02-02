@@ -748,10 +748,18 @@ def dynamic_delivery(data, ord=None):
 @dp.message_handler(commands=[])
 def consolidate(data, ord):
     logging.info('Consolidate')
+    logging.info(ord)
+
+    result_text = f'{ord}'
+
+    if ord == 'Принять':
+        result_text = 'Данные добавлены в список'
+    if ord == 'Отклонить':
+        result_text = 'Данные отмечены как нежелательные'
+    if ord == 'К датам':
+        result_text = 'Возврат к датам'
 
     tunnel = data['message']['chat']['id']
-    result_text = f'{ord}'
-    logging.info(ord)
     message = {'chat_id': tunnel, 'text': result_text}
 
     return message, bot.api_url
