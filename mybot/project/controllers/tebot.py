@@ -763,7 +763,7 @@ def dynamic_sub_data(data, ord=None):
     chat_user.pull_user_commands[back] = start_bot
 
     bot.users[tunnel] = chat_user
-    message = {'chat_id': tunnel, 'text': result_text}
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
