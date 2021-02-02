@@ -232,6 +232,7 @@ def template_edit_list():
 def template_sub_print(bot, ord):
     users_text = []
     commands_ = []
+    dlv = []
     result_text = 'Список пуст'
 
     logging.info(bot.subscription)
@@ -245,16 +246,18 @@ def template_sub_print(bot, ord):
             else:
                 logging.info('not data')
 
-    users_text.append([{"text": 'Принять'},
-                       {"text": 'Отклонить'},
-                       {"text": 'К датам'}])
+    dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'}, {"text": 'К датам'}])
 
-    users_text.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    n = 2
+    resize_dlv = [dlv[i:i+n] for i in range(0, len(dlv), n)]
+    logging.info(resize_dlv)
+
+    resize_dlv.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
 
     commands_.extend(['Принять', 'Отклонить', 'К датам'])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
 
-    reply_markup = {"keyboard": users_text, "resize_keyboard": True, "one_time_keyboard": False}
+    reply_markup = {"keyboard": resize_dlv, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, commands_, result_text
 
