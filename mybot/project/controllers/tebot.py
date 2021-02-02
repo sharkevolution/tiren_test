@@ -129,7 +129,7 @@ class User:
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
         self.selected_subscriber = 0
-        self.selected_sub_data = []
+        self.selected_sub_data = {}
 
 
     def get_redis(self):
@@ -759,8 +759,8 @@ def consolidate(data, ord):
     if tmp_dict := bot.tasks.get(tunnel):
         logging.info(tmp_dict)
         temp_ = chat_user.selected_sub_data
-        tmp_dict.extend(temp_)
-        bot.tasks[tunnel] = tmp_dict
+        new_tmp = {**tmp_dict, **temp_}
+        bot.tasks[tunnel] = new_tmp
 
     if ord == 'Принять':
         result_text = 'Данные добавлены в список, переход к датам'

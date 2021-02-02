@@ -245,7 +245,7 @@ def template_sub_print(bot, chat_user, ord):
                     users_text.insert(0, ' '.join([k]))
                     result_text = '\n'.join(users_text)
 
-                    chat_user.selected_sub_data.append(temp_[k])
+                    chat_user.selected_sub_data[k] = temp_[k]
                     logging.info(temp_[k])
             else:
                 logging.info('not data')
