@@ -229,7 +229,7 @@ def template_edit_list():
     return reply_markup
 
 
-def template_sub_print(bot, ord):
+def template_sub_print(bot, chat_user, ord):
     users_text = []
     commands_ = []
     dlv = []
@@ -237,7 +237,7 @@ def template_sub_print(bot, ord):
 
     logging.info(bot.subscription)
 
-    if uid := bot.subscription.get(bot.selected_subscriber):
+    if uid := bot.subscription.get(chat_user.selected_subscriber):
         for chunk in uid:
             if chunk[0] == ord:
                 for k in chunk[1]:
@@ -262,7 +262,7 @@ def template_sub_print(bot, ord):
     return reply_markup, commands_, result_text
 
 
-def template_sub_datetime(bot, ord):
+def template_sub_datetime(bot, chat_user, ord):
     users_messages = []
     commands_ = []
 
@@ -274,7 +274,8 @@ def template_sub_datetime(bot, ord):
             if username == ord:
 
                 # Выбранный подписчик
-                bot.selected_subscriber = b
+                chat_user.selected_subscriber = b
+                # bot.selected_subscriber = b
                 logging.info(b)
 
                 for userdata in bot.subscription[b]:

@@ -128,6 +128,8 @@ class User:
         self.current_task = {}  # Current task
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
+        self.selected_subscriber = 0
+
     def get_redis(self):
 
         res = {}
@@ -750,7 +752,7 @@ def dynamic_sub_data(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
-    reply_markup, commands_, result_text = settings_user.template_sub_print(bot, ord)
+    reply_markup, commands_, result_text = settings_user.template_sub_print(bot, chat_user, ord)
 
     # Update commands wrapper
     for b in commands_[:-1]:
@@ -775,7 +777,7 @@ def dynamic_sub_users(data, ord=None):
     chat_user = bot.users[tunnel]
 
     result_text = f'Выберите сообщение от {ord}'
-    reply_markup, commands_ = settings_user.template_sub_datetime(bot, ord)
+    reply_markup, commands_ = settings_user.template_sub_datetime(bot, chat_user, ord)
 
     # Update commands wrapper
     for b in commands_[:-1]:
