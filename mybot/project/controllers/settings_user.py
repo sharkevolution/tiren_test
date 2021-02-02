@@ -229,18 +229,42 @@ def template_edit_list():
     return reply_markup
 
 
-def template_sub_datetime(bot, ord):
-    users_messages = []
+def template_sub_print(bot, ord):
+    users_text = []
     commands_ = []
 
     for b in bot.subscription:
         if me := bot.users.get(int(b)):
             username = ' '.join([me.first_name, me.last_name, b])
             if username == ord:
-
-                # logging.info(bot.subscription[b])
                 for userdata in bot.subscription[b]:
-                    # logging.info(userdata[0])
+
+                    logging.info(userdata[1])
+
+                    users_text.append([{"text": userdata[0]}])
+                    commands_.append(userdata[0])
+        else:
+            logging.info('not data')
+
+    users_text.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    commands_.append(emoji.emojize(':TOP_arrow: На главную'))
+
+    reply_markup = {"keyboard": users_text, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, commands_
+
+
+def template_sub_datetime(bot, ord):
+    users_messages = []
+    commands_ = []
+
+    # logging.info(bot.subscription)
+
+    for b in bot.subscription:
+        if me := bot.users.get(int(b)):
+            username = ' '.join([me.first_name, me.last_name, b])
+            if username == ord:
+                for userdata in bot.subscription[b]:
                     users_messages.append([{"text": userdata[0]}])
                     commands_.append(userdata[0])
         else:
