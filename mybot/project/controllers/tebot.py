@@ -750,16 +750,17 @@ def consolidate(data, ord):
     logging.info('Consolidate')
     logging.info(ord)
 
+    tunnel = data['message']['chat']['id']
+    chat_user = bot.users[tunnel]
     result_text = f'{ord}'
 
     if ord == 'Принять':
-        result_text = 'Данные добавлены в список'
+        result_text = 'Данные добавлены в список, переходк датам'
     if ord == 'Отклонить':
-        result_text = 'Данные отмечены как нежелательные'
+        result_text = 'Данные отмечены как нежелательные, переход к датам'
     if ord == 'К датам':
         result_text = 'Возврат к датам'
 
-    tunnel = data['message']['chat']['id']
     message = {'chat_id': tunnel, 'text': result_text}
 
     return message, bot.api_url
