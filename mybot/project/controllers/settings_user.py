@@ -233,14 +233,15 @@ def template_sub_print(bot, ord):
     users_text = []
     commands_ = []
 
-    if uid := bot.subscription(bot.selected_subscriber):
-
-        for b in uid:
-            logging.info(b)
-                # users_text.append([{"text": userdata[0]}])
-                # commands_.append(userdata[0])
-        else:
-            logging.info('not data')
+    for uid in bot.subscription:
+        logging.info(uid)
+        # if uid := (bot.selected_subscriber):
+        #     for b in uid:
+        #         logging.info(b)
+        #             # users_text.append([{"text": userdata[0]}])
+        #             # commands_.append(userdata[0])
+        #     else:
+        #         logging.info('not data')
 
     users_text.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
