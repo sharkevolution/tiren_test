@@ -233,7 +233,7 @@ def template_sub_print(bot, ord):
     users_text = []
     commands_ = []
 
-    if uid := bot.users.get(bot.selected_subscriber):
+    if uid := bot.subscription(bot.selected_subscriber):
 
         for b in uid:
             logging.info(b)
@@ -262,8 +262,8 @@ def template_sub_datetime(bot, ord):
             if username == ord:
 
                 # Выбранный подписчик
-                bot.selected_subscriber = int(b)
-                logging.info(int(b))
+                bot.selected_subscriber = b
+                logging.info(b)
 
                 for userdata in bot.subscription[b]:
                     users_messages.append([{"text": userdata[0]}])
