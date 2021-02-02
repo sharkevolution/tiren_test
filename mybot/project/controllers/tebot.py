@@ -129,6 +129,7 @@ class User:
         self.redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
         self.selected_subscriber = 0
+        self.selected_sub_data = []
 
     def get_redis(self):
 

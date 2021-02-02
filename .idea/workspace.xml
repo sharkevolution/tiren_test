@@ -38,7 +38,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
-          <line>797</line>
+          <line>798</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
