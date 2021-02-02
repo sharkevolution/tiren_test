@@ -237,11 +237,12 @@ def template_sub_print(bot, ord):
 
     if uid := bot.subscription.get(bot.selected_subscriber):
         for chunk in uid:
+            logging.info('CHUNK')
             logging.info(chunk)
             logging.info(ord)
+            logging.info('CHUNK')
 
             if chunk[0] == ord:
-                logging.info(chunk)
                 for k in chunk:
                     users_text.append([{"text": k}])
                     commands_.append(k)
