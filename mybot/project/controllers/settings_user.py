@@ -233,6 +233,8 @@ def template_sub_print(bot, ord):
     users_text = []
     commands_ = []
 
+    logging.info(bot.subscription)
+
     for uid in bot.subscription:
         logging.info(uid)
         # if uid := (bot.selected_subscriber):
