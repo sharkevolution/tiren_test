@@ -131,6 +131,7 @@ class User:
         self.selected_subscriber = 0
         self.selected_sub_data = []
 
+
     def get_redis(self):
 
         res = {}
@@ -756,7 +757,7 @@ def consolidate(data, ord):
     result_text = f'{ord}'
 
     temp_ = chat_user.selected_sub_data
-    chat_user.send_list.extended(temp_)
+    chat_user.send_list.extend(temp_)
 
     if ord == 'Принять':
         result_text = 'Данные добавлены в список, переход к датам'
