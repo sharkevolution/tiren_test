@@ -746,6 +746,17 @@ def dynamic_delivery(data, ord=None):
 
 
 @dp.message_handler(commands=[])
+def consolidate(data, ord):
+    logging.info('Consolidate')
+
+    tunnel = data['message']['chat']['id']
+    result_text = f'{ord}'
+    message = {'chat_id': tunnel, 'text': result_text}
+
+    return message, bot.api_url
+
+
+@dp.message_handler(commands=[])
 def dynamic_sub_data(data, ord=None):
     logging.info('List of subscriptions detail')
     logging.info(ord)
@@ -756,7 +767,7 @@ def dynamic_sub_data(data, ord=None):
 
     # Update commands wrapper
     for b in commands_[:-1]:
-        chat_user.pull_user_commands[b] = None
+        chat_user.pull_user_commands[b] = consolidate
 
     # event TOP
     back = commands_[-1]
