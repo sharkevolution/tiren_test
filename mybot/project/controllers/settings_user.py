@@ -279,8 +279,7 @@ def template_sub_datetime(bot, chat_user, ord):
 
                 # Выбранный подписчик
                 chat_user.selected_subscriber = b
-                # bot.selected_subscriber = b
-                logging.info(b)
+                # logging.info(b)
 
                 for userdata in bot.subscription[b]:
                     users_messages.append([{"text": userdata[0]}])
