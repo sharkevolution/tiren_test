@@ -233,15 +233,10 @@ def template_sub_print(bot, ord):
     users_text = []
     commands_ = []
 
-    # logging.info(bot.subscription)/
+    if uid := bot.users.get(bot.selected_subscriber):
 
-    for uid in bot.subscription:
-        if me := bot.users.get(int(uid)):
-            username = ' '.join([me.first_name, me.last_name, uid])
-            logging.info(username)
-            logging.info(ord)
-            if username == ord:
-                logging.info(uid)
+        for b in uid:
+            logging.info(b)
                 # users_text.append([{"text": userdata[0]}])
                 # commands_.append(userdata[0])
         else:
@@ -265,6 +260,10 @@ def template_sub_datetime(bot, ord):
         if me := bot.users.get(int(b)):
             username = ' '.join([me.first_name, me.last_name, b])
             if username == ord:
+
+                # Выбранный подписчик
+                bot.selected_subscriber = int(b)
+
                 for userdata in bot.subscription[b]:
                     users_messages.append([{"text": userdata[0]}])
                     commands_.append(userdata[0])

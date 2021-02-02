@@ -194,6 +194,7 @@ class Bot:
         self.dict_init = {}  # Custom logic
         
         self.subscription = {}  # Messages from users who sent the message
+        self.selected_subscriber = 0     #
 
         self.last_id = 0  # Last ID telegram (not message)
         self.last_chat = None  # Last chat
