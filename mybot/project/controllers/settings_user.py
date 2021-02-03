@@ -233,20 +233,23 @@ def change_status_subscription(bot, chat_user):
 
     logging.info('change_status_subscription')
 
-    for chunk in chat_user.selected_sub_data:
-        st = chat_user.selected_sub_data[chunk]
-        st['status_send'] = 'combined'
-        chat_user.selected_sub_data[chunk] = st
-
     if uid := bot.subscription.get(chat_user.selected_subscriber):
-        for chunk in uid:
-            shops = chunk[1]
-            for h in shops:
-                st = shops[h]
-                st['status_send'] = 'combined'
-                shops[h] = st
 
-            chunk[1] = shops
+        for chunk in chat_user.selected_sub_data:
+            st = chat_user.selected_sub_data[chunk]
+            st['status_send'] = 'combined'
+            chat_user.selected_sub_data[chunk] = st
+
+            for f in uid:
+
+                if f[0] == chunk[0]:
+                    shops = f[1]
+                    for h in shops:
+                        st = shops[h]
+                        st['status_send'] = 'combined'
+                        shops[h] = st
+
+                    f[1] = shops
 
     bot.subscription[chat_user.selected_subscriber] = uid
 
