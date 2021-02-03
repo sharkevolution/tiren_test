@@ -242,6 +242,9 @@ def change_status_subscription(bot, chat_user):
 
             for f in uid:
 
+                logging.info(f[0])
+                logging.info(chunk[0])
+
                 if f[0] == chunk[0]:
                     shops = f[1]
                     for h in shops:
