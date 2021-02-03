@@ -782,7 +782,14 @@ def back_sub_data(data, ord=None):
     logging.info('back to subscriptions detail')
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
-    ord = str(chat_user.selected_subscriber)
+
+    for b in bot.subscription:
+        if b == chat_user.selected_subscriber:
+            if me := bot.users.get(int(b)):
+                ord = ' '.join([me.first_name, me.last_name, b])
+                break            
+
+    logging.info(ord)
 
     result_text = f'Выберите сообщение от {ord}'
     reply_markup, commands_ = settings_user.template_sub_datetime(bot, chat_user, ord)
