@@ -778,6 +778,30 @@ def consolidate(data, ord):
 
 
 @dp.message_handler(commands=[])
+def reject_sub_data():
+    logging.info('Reject')
+    logging.info(ord)
+
+    tunnel = data['message']['chat']['id']
+    chat_user = bot.users[tunnel]
+    result_text = f'{ord}'
+
+    result_text = 'Данные отмечены как нежелательные'
+    if tmp_dict := bot.tasks.get(tunnel):
+        logging.info(tmp_dict)
+        temp_ = chat_user.selected_sub_data
+        new_tmp = {**tmp_dict, **temp_}
+        bot.tasks[tunnel] = new_tmp
+    else:
+        logging.info(chat_user.selected_sub_data)
+        bot.tasks[tunnel] = chat_user.selected_sub_data
+
+    message = {'chat_id': tunnel, 'text': result_text}
+
+    return message, bot.api_url
+
+
+@dp.message_handler(commands=[])
 def back_sub_data(data, ord=None):
     logging.info('back to subscriptions detail')
     tunnel = data['message']['chat']['id']
@@ -787,9 +811,7 @@ def back_sub_data(data, ord=None):
         if b == chat_user.selected_subscriber:
             if me := bot.users.get(int(b)):
                 ord = ' '.join([me.first_name, me.last_name, b])
-                break            
-
-    logging.info(ord)
+                break
 
     result_text = f'Выберите сообщение от {ord}'
     reply_markup, commands_ = settings_user.template_sub_datetime(bot, chat_user, ord)
@@ -820,7 +842,7 @@ def dynamic_sub_data(data, ord=None):
     reply_markup, commands_, result_text = settings_user.template_sub_print(bot, chat_user, ord)
 
     chat_user.pull_user_commands[commands_[0]] = consolidate  # Принять
-    chat_user.pull_user_commands[commands_[1]] = dynamic_sub_users  # Отклонить
+    chat_user.pull_user_commands[commands_[1]] = reject_sub_data  # Отклонить
     chat_user.pull_user_commands[commands_[2]] = back_sub_data  # К датам
 
     # event TOP

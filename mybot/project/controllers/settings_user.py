@@ -235,7 +235,7 @@ def template_sub_print(bot, chat_user, ord):
     dlv = []
     result_text = 'Список пуст'
 
-    logging.info(bot.subscription)
+    # logging.info(bot.subscription)
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
         for chunk in uid:
@@ -283,6 +283,7 @@ def template_sub_datetime(bot, chat_user, ord):
                 # logging.info(b)
 
                 for userdata in bot.subscription[b]:
+                    logging.info(userdata)
                     users_messages.append([{"text": userdata[0]}])
                     commands_.append(userdata[0])
         else:
