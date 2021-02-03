@@ -284,6 +284,11 @@ def template_sub_datetime(bot, chat_user, ord):
 
                 for userdata in bot.subscription[b]:
                     logging.info(userdata)
+                    # Добавить статус
+                    status = userdata[1]
+                    for h in status:
+                        logging.info(h['status_send'])
+
                     users_messages.append([{"text": userdata[0]}])
                     commands_.append(userdata[0])
         else:
