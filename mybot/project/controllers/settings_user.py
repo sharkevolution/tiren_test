@@ -241,7 +241,25 @@ def template_sub_print(bot, chat_user, ord):
         for chunk in uid:
             logging.info(ord)
             logging.info(chunk[0])
-            if chunk[0] == ord:
+
+            shops = chunk[1]
+            txt = ''
+
+            for h in shops:
+                st = shops[h]
+                logging.info(st['status_send'])
+                if st['status_send'] == 'pending':
+                    txt = chunk[0] + emoji.emojize('  :zzz:')
+                    break
+                if st['status_send'] == 'combined':
+                    txt = chunk[0] + emoji.emojize('  :check_mark:')
+                    break
+                if st['status_send'] == 'rejected':
+                    txt = chunk[0] + emoji.emojize('  :cross_mark:')
+                    break
+
+            # if chunk[0] == ord:
+            if txt == ord:
                 temp_ = chunk[1]
                 for k in temp_:
                     users_text.insert(0, ' '.join([k]))
