@@ -788,10 +788,13 @@ def dynamic_sub_data(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
+    chat_user.selected_sub_data = {}  # Очистка предыдущ выбора дат,
+
     reply_markup, commands_, result_text = settings_user.template_sub_print(bot, chat_user, ord)
 
     # # Update commands wrapper
     # for b in commands_[:-1]:
+
     chat_user.pull_user_commands[0] = consolidate  # Принять
     chat_user.pull_user_commands[1] = dynamic_sub_data  # Отклонить
     chat_user.pull_user_commands[2] = dynamic_sub_data  # К датам
