@@ -792,9 +792,6 @@ def dynamic_sub_data(data, ord=None):
 
     reply_markup, commands_, result_text = settings_user.template_sub_print(bot, chat_user, ord)
 
-    # # Update commands wrapper
-    # for b in commands_[:-1]:
-
     chat_user.pull_user_commands[commands_[0]] = consolidate  # Принять
     chat_user.pull_user_commands[commands_[1]] = dynamic_sub_users  # Отклонить
     chat_user.pull_user_commands[commands_[2]] = dynamic_sub_users  # К датам
@@ -818,7 +815,7 @@ def dynamic_sub_users(data, ord=None):
     chat_user = bot.users[tunnel]
 
     # Очистка данных ранее выбранных даты для консолидации
-    chat_user.selected_sub_data = {}
+    # chat_user.selected_sub_data = {}
 
     result_text = f'Выберите сообщение от {ord}'
     reply_markup, commands_ = settings_user.template_sub_datetime(bot, chat_user, ord)
