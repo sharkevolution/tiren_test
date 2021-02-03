@@ -237,22 +237,13 @@ def change_status_subscription(bot, chat_user):
             logging.info(chunk)
 
             shops = chunk[1]
-            txt = ''
 
             for h in shops:
                 st = shops[h]
-                logging.info(st['status_send'])
-                if st['status_send'] == 'pending':
-                    txt = chunk[0] + emoji.emojize('  :zzz:')
-                    break
-                if st['status_send'] == 'combined':
-                    txt = chunk[0] + emoji.emojize('  :check_mark:')
-                    break
-                if st['status_send'] == 'rejected':
-                    txt = chunk[0] + emoji.emojize('  :cross_mark:')
-                    break
+                st['combined'] = 'combined'
+                shops[h] = st
 
-            logging.info(txt)
+            chunk[1] = shops
 
 
 def template_sub_print(bot, chat_user, ord):
