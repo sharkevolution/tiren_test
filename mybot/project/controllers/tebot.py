@@ -761,7 +761,10 @@ def consolidate(data, ord):
         if tmp_dict := bot.tasks.get(tunnel):
             logging.info(tmp_dict)
             temp_ = chat_user.selected_sub_data
-            logging.info(temp_)
+
+            # Найти элементы subscription и изменить статус на добавлено
+            settings_user.change_status_subscription(bot, chat_user)
+            # logging.info(temp_)
 
             new_tmp = {**tmp_dict, **temp_}
             bot.tasks[tunnel] = new_tmp

@@ -229,6 +229,13 @@ def template_edit_list():
     return reply_markup
 
 
+def change_status_subscription(bot, chat_user):
+
+    if uid := bot.subscription.get(chat_user.selected_subscriber):
+        for chunk in uid:
+            logging.info(chunk)
+
+
 def template_sub_print(bot, chat_user, ord):
     users_text = []
     commands_ = []
@@ -239,8 +246,8 @@ def template_sub_print(bot, chat_user, ord):
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
         for chunk in uid:
-            logging.info(ord)
-            logging.info(chunk[0])
+            # logging.info(ord)
+            # logging.info(chunk[0])
 
             shops = chunk[1]
             txt = ''
