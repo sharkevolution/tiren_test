@@ -237,12 +237,12 @@ def change_status_subscription(bot, chat_user):
             shops = chunk[1]
             for h in shops:
                 st = shops[h]
-                st['combined'] = 'combined'
+                st['status_send'] = 'combined'
                 shops[h] = st
 
             chunk[1] = shops
             logging.info(chunk)
-            
+
 
 def template_sub_print(bot, chat_user, ord):
     users_text = []
