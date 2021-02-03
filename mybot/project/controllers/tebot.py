@@ -769,7 +769,12 @@ def consolidate(data, ord):
     if ord == 'Отклонить':
         result_text = 'Данные отмечены как нежелательные, переход к датам'
     if ord == 'К датам':
+
+        chat_user.selected_sub_data = {}
+
+
         result_text = 'Возврат к датам'
+
 
     message = {'chat_id': tunnel, 'text': result_text}
 
@@ -785,9 +790,11 @@ def dynamic_sub_data(data, ord=None):
 
     reply_markup, commands_, result_text = settings_user.template_sub_print(bot, chat_user, ord)
 
-    # Update commands wrapper
-    for b in commands_[:-1]:
-        chat_user.pull_user_commands[b] = consolidate
+    # # Update commands wrapper
+    # for b in commands_[:-1]:
+    chat_user.pull_user_commands[0] = consolidate  # Принять
+    chat_user.pull_user_commands[1] = dynamic_sub_data  # Отклонить
+    chat_user.pull_user_commands[2] = dynamic_sub_data  # К датам
 
     # event TOP
     back = commands_[-1]
@@ -893,6 +900,7 @@ def delete_item_send(data, ord=None):
         if tmp_dict := bot.tasks.get(tunnel):
             if ord in tmp_dict:
 
+                # Очистка данных для консолидации от других пользов
                 chat_user.selected_subscriber = 0
                 chat_user.selected_sub_data = {}
 
@@ -946,6 +954,7 @@ def delete_send(data, ord=None):
         chat_user.send_list = []
         bot.users[tunnel] = chat_user
 
+        # Очистка данных для консолидации от других пользов
         chat_user.selected_subscriber = 0
         chat_user.selected_sub_data = {}
 
