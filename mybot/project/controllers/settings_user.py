@@ -290,12 +290,15 @@ def template_sub_datetime(bot, chat_user, ord):
 
                     for h in shops:
                         st = shops[h]
-
+                        logging.info(st['status_send'])
                         if st['status_send'] == 'pending':
-                            logging.info(st['status_send'])
-
-                            emoji.emojize(' :zzz:')
-                            txt = userdata[0] + emoji.emojize(':zzz:')
+                            txt = userdata[0] + emoji.emojize('  :zzz:')
+                            break
+                        if st['status_send'] == 'combined':
+                            txt = userdata[0] + emoji.emojize('  :check_mark:')
+                            break
+                        if st['status_send'] == 'rejected':
+                            txt = userdata[0] + emoji.emojize('  :cross_mark:')
                             break
 
                     users_messages.append([{"text": txt}])
