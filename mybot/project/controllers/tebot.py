@@ -892,6 +892,10 @@ def delete_item_send(data, ord=None):
 
         if tmp_dict := bot.tasks.get(tunnel):
             if ord in tmp_dict:
+
+                chat_user.selected_subscriber = 0
+                chat_user.selected_sub_data = {}
+
                 logging.info(ord)
                 tmp_dict.pop(ord)  # delete item from dict
                 bot.tasks[tunnel] = tmp_dict
@@ -941,6 +945,10 @@ def delete_send(data, ord=None):
         del bot.tasks[tunnel]
         chat_user.send_list = []
         bot.users[tunnel] = chat_user
+
+        chat_user.selected_subscriber = 0
+        chat_user.selected_sub_data = {}
+
     else:
         logging.info('not found')
 
