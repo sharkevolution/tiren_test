@@ -788,7 +788,7 @@ def dynamic_sub_data(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
-    chat_user.selected_sub_data = {}  # Очистка предыдущ выбора дат,
+    # chat_user.selected_sub_data = {}  # Очистка предыдущ выбора дат,
 
     reply_markup, commands_, result_text = settings_user.template_sub_print(bot, chat_user, ord)
 
@@ -797,7 +797,7 @@ def dynamic_sub_data(data, ord=None):
 
     chat_user.pull_user_commands[commands_[0]] = consolidate  # Принять
     chat_user.pull_user_commands[commands_[1]] = dynamic_sub_users  # Отклонить
-    chat_user.pull_user_commands[commands_[2]] = ddynamic_sub_users  # К датам
+    chat_user.pull_user_commands[commands_[2]] = dynamic_sub_users  # К датам
 
     # event TOP
     back = commands_[-1]
@@ -817,8 +817,7 @@ def dynamic_sub_users(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
-    # Очистка данных ранее выбранных пользователя и даты для консолидации
-    chat_user.selected_subscriber = 0
+    # Очистка данных ранее выбранных даты для консолидации
     chat_user.selected_sub_data = {}
 
     result_text = f'Выберите сообщение от {ord}'
@@ -847,6 +846,9 @@ def dynamic_aggregate(data, ord=None):
     tunnel = data['callback_query']['message']['chat']['id']
     chat_user = bot.users[tunnel]
     result_text = 'Просмотрите сообщения пользователей перед консолидацией'
+
+    # Очистка данных ранее выбранных пользователей
+    chat_user.selected_subscriber = 0
 
     reply_markup, commands_ = settings_user.template_subscription(bot)
 
