@@ -764,6 +764,7 @@ def consolidate(data, ord):
             new_tmp = {**tmp_dict, **temp_}
             bot.tasks[tunnel] = new_tmp
         else:
+            logging.info(chat_user.selected_sub_data)
             bot.tasks[tunnel] = chat_user.selected_sub_data
     if ord == 'Отклонить':
         result_text = 'Данные отмечены как нежелательные, переход к датам'
