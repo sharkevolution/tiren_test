@@ -243,6 +243,8 @@ def change_status_subscription(bot, chat_user):
             chunk[1] = shops
             logging.info(chunk)
 
+    bot.subscription[chat_user.selected_subscriber] = uid
+
 
 def template_sub_print(bot, chat_user, ord):
     users_text = []
