@@ -231,28 +231,28 @@ def template_edit_list():
 
 def change_status_subscription(bot, chat_user):
 
-    # if uid := bot.subscription.get(chat_user.selected_subscriber):
     logging.info('change_status_subscription')
+
     for chunk in chat_user.selected_sub_data:
         st = chat_user.selected_sub_data[chunk]
         st['status_send'] = 'combined'
         chat_user.selected_sub_data[chunk] = st
 
     logging.info(chat_user.selected_sub_data)
-    # # if uid := bot.subscription.get(chat_user.selected_subscriber):
-    # logging.info('change_status_subscription')
-    # for chunk in chat_user.selected_sub_data:
-    #     #for chunk in uid:
-    #     # shops = chunk[1]
-    #     for h in shops:
-    #         st = shops[h]
-    #         st['status_send'] = 'combined'
-    #         shops[h] = st
-    #
-    #     chunk[1] = shops
-    # # logging.info(uid)
-    #
-    # # bot.subscription[chat_user.selected_subscriber] = uid
+
+    if uid := bot.subscription.get(chat_user.selected_subscriber):
+        for chunk in uid:
+            shops = chunk[1]
+            for h in shops:
+                st = shops[h]
+                st['status_send'] = 'combined'
+                shops[h] = st
+
+            chunk[1] = shops
+            
+        logging.info(uid)
+
+    bot.subscription[chat_user.selected_subscriber] = uid
 
 
 def template_sub_print(bot, chat_user, ord):
