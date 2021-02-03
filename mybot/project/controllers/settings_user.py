@@ -270,7 +270,8 @@ def template_sub_datetime(bot, chat_user, ord):
     users_messages = []
     commands_ = []
 
-    # logging.info(bot.subscription)
+    logging.info(bot.subscription)
+    logging.info(ord)
 
     for b in bot.subscription:
         if me := bot.users.get(int(b)):
