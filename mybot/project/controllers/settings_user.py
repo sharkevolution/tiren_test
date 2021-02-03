@@ -287,7 +287,7 @@ def template_sub_datetime(bot, chat_user, ord):
                     # Добавить статус
                     status = userdata[1]
                     for h in status:
-                        logging.info(h['status_send'])
+                        logging.info(status[h])
 
                     users_messages.append([{"text": userdata[0]}])
                     commands_.append(userdata[0])
