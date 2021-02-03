@@ -241,7 +241,7 @@ def change_status_subscription(bot, chat_user):
                 shops[h] = st
 
             chunk[1] = shops
-            logging.info(chunk)
+    logging.info(uid)
 
     bot.subscription[chat_user.selected_subscriber] = uid
 
