@@ -795,9 +795,9 @@ def dynamic_sub_data(data, ord=None):
     # # Update commands wrapper
     # for b in commands_[:-1]:
 
-    chat_user.pull_user_commands[0] = consolidate  # Принять
-    chat_user.pull_user_commands[1] = dynamic_sub_data  # Отклонить
-    chat_user.pull_user_commands[2] = dynamic_sub_data  # К датам
+    chat_user.pull_user_commands[commands_[0]] = consolidate  # Принять
+    chat_user.pull_user_commands[commands_[1]] = dynamic_sub_data  # Отклонить
+    chat_user.pull_user_commands[commands_[2]] = dynamic_sub_data  # К датам
 
     # event TOP
     back = commands_[-1]
