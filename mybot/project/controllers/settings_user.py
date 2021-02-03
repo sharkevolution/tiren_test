@@ -239,6 +239,8 @@ def template_sub_print(bot, chat_user, ord):
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
         for chunk in uid:
+            logging.info(ord)
+            logging.info(chunk[0])
             if chunk[0] == ord:
                 temp_ = chunk[1]
                 for k in temp_:
