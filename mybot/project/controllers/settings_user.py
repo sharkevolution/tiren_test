@@ -283,15 +283,23 @@ def template_sub_datetime(bot, chat_user, ord):
                 # logging.info(b)
 
                 for userdata in bot.subscription[b]:
-                    logging.info(userdata)
-                    # Добавить статус
+                    # logging.info(userdata)
+
                     shops = userdata[1]
+                    txt = ''
+
                     for h in shops:
                         st = shops[h]
-                        logging.info(st['status_send'])
 
-                    users_messages.append([{"text": userdata[0]}])
-                    commands_.append(userdata[0])
+                        if st['status_send'] == 'pending':
+                            logging.info(st['status_send'])
+
+                            emoji.emojize(' :zzz:')
+                            txt = userdata[0] + emoji.emojize(':zzz:')
+                            break
+
+                    users_messages.append([{"text": txt}])
+                    commands_.append(txt)
         else:
             logging.info('not data')
 
