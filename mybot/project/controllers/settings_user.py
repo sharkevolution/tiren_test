@@ -234,17 +234,15 @@ def change_status_subscription(bot, chat_user):
     if uid := bot.subscription.get(chat_user.selected_subscriber):
         logging.info('change_status_subscription')
         for chunk in uid:
-            logging.info(chunk)
-
             shops = chunk[1]
-
             for h in shops:
                 st = shops[h]
                 st['combined'] = 'combined'
                 shops[h] = st
 
             chunk[1] = shops
-
+            logging.info(chunk)
+            
 
 def template_sub_print(bot, chat_user, ord):
     users_text = []
