@@ -817,6 +817,10 @@ def dynamic_sub_users(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
+    # Очистка данных ранее выбранных пользователя и даты для консолидации
+    chat_user.selected_subscriber = 0
+    chat_user.selected_sub_data = {}
+
     result_text = f'Выберите сообщение от {ord}'
     reply_markup, commands_ = settings_user.template_sub_datetime(bot, chat_user, ord)
 
