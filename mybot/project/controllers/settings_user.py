@@ -233,13 +233,12 @@ def change_status_subscription(bot, chat_user):
 
     # if uid := bot.subscription.get(chat_user.selected_subscriber):
     logging.info('change_status_subscription')
-    logging.info(chat_user.selected_sub_data)
     for chunk in chat_user.selected_sub_data:
         st = chat_user.selected_sub_data[chunk]
         st['status_send'] = 'combined'
         chat_user.selected_sub_data[chunk] = st
 
-
+    logging.info(chat_user.selected_sub_data)
     # # if uid := bot.subscription.get(chat_user.selected_subscriber):
     # logging.info('change_status_subscription')
     # for chunk in chat_user.selected_sub_data:
