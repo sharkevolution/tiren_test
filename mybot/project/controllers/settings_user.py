@@ -232,6 +232,8 @@ def template_edit_list():
 def change_status_subscription(bot, chat_user):
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
+        logging.info('change_status_subscription')
+        logging.info(uid)
         for chunk in uid:
             logging.info(chunk)
 
