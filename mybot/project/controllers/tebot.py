@@ -992,8 +992,8 @@ def delete_item_send(data, ord=None):
             if ord in tmp_dict:
 
                 # Очистка данных для консолидации от других пользов
-                chat_user.selected_subscriber = 0
-                chat_user.selected_sub_data = {}
+                # chat_user.selected_subscriber = 0
+                # chat_user.selected_sub_data = {}
 
                 logging.info(ord)
                 tmp_dict.pop(ord)  # delete item from dict
