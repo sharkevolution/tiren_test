@@ -808,6 +808,32 @@ def reject_sub_data(data, ord):
 
 
 @dp.message_handler(commands=[])
+def back_sub_users(data, ord=None):
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    chat_user = bot.users[tunnel]
+    result_text = 'Просмотрите сообщения пользователей перед консолидацией'
+
+    reply_markup, commands_ = settings_user.template_subscription(bot)
+
+    # Update commands wrapper
+    for b in commands_[:-1]:
+        chat_user.pull_user_commands[b] = dynamic_sub_users
+
+    # event TOP
+    back = commands_[-1]
+    logging.info('TOP')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
+
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
+
+@dp.message_handler(commands=[])
 def back_sub_data(data, ord=None):
     logging.info('back to subscriptions detail')
     tunnel = data['message']['chat']['id']
@@ -851,7 +877,7 @@ def dynamic_sub_data(data, ord=None):
     chat_user.pull_user_commands[commands_[0]] = consolidate  # функция обработки нажатия принять
     chat_user.pull_user_commands[commands_[1]] = reject_sub_data  # функция обработки нажатия Отклонить
     chat_user.pull_user_commands[commands_[2]] = back_sub_data  # функция обработки нажатия К датам
-    chat_user.pull_user_commands[commands_[3]] = dynamic_aggregate  # функция обработки нажатия К именам
+    chat_user.pull_user_commands[commands_[3]] = back_sub_users  # функция обработки нажатия К именам
 
     # event TOP
     back = commands_[-1]
