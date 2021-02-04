@@ -1084,6 +1084,9 @@ def edit_send(data, ord=None):
     chat_id = data['callback_query']['message']['chat']['id']
 
     _tmp = bot.tasks[chat_id]
+    logging.info('Add to sd list ******************')
+    logging.info(_tmp)
+
     reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[chat_id], bot.rdot)
 
     logging.info(chat_user.send_list)
