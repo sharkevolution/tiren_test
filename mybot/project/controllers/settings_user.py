@@ -230,6 +230,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
 
+        logging.info(chat_user.selected_sub_data)
         for chunk in chat_user.selected_sub_data:
             st = chat_user.selected_sub_data[chunk]
             if cur := st.get('status_send'):
