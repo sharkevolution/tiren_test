@@ -3,7 +3,7 @@ import logging
 
 
 def template_engineer_mode():
-    ej_ok = emoji.emojize(':OK_button:')
+    # ej_ok = emoji.emojize(':OK_button:')
 
     reply_markup = {"inline_keyboard": [
         [
@@ -113,8 +113,7 @@ def template_gear():
 
 
 def template_fsm_region():
-    new_region = []
-    new_region.append([{"text": 'Добавить регион'}])
+    new_region = [[{"text": 'Добавить регион'}]]
 
     reply_markup = {"keyboard": new_region,
                     "resize_keyboard": True,
@@ -141,8 +140,7 @@ def template_fsm_city(dict_init, chat_user):
 
 
 def template_fsm_address():
-    new_adr = []
-    new_adr.append([{"text": 'Добавить адрес'}])
+    new_adr = [[{"text": 'Добавить адрес'}]]
 
     reply_markup = {"keyboard": new_adr,
                     "resize_keyboard": True,
@@ -240,9 +238,9 @@ def change_status_subscription(bot, chat_user, status='pending'):
             chat_user.selected_sub_data[chunk] = st
 
         # Slice text without emoji --------------------
-        logging.info(chat_user.selected_change_datetime)
+        # logging.info(chat_user.selected_change_datetime)
         temp_ = chat_user.selected_change_datetime[:20]
-        logging.info(temp_)
+        # logging.info(temp_)
         # ---------------------------------------------
 
         for f in uid:
@@ -311,7 +309,8 @@ def template_sub_print(bot, chat_user, ord):
             else:
                 logging.info('not data')
 
-    dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'}, {"text": 'К датам'}, {"text": 'К именам'}])
+    dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'}, {"text": 'К датам'},
+                {"text": emoji.emojize(':BACK_arrow:  К именам')}])
 
     n = 2
     resize_dlv = [dlv[i:i + n] for i in range(0, len(dlv), n)]
@@ -319,7 +318,8 @@ def template_sub_print(bot, chat_user, ord):
 
     resize_dlv.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
 
-    commands_.extend(['Принять', 'Отклонить', 'К датам', 'К именам'])
+    commands_.extend(['Принять', 'Отклонить', 'К датам',
+                      emoji.emojize(':BACK_arrow:  К именам')])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": resize_dlv, "resize_keyboard": True, "one_time_keyboard": False}

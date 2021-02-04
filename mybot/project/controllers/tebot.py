@@ -917,7 +917,6 @@ def dynamic_sub_users(data, ord=None):
         chat_user.pull_user_commands[b] = dynamic_sub_data
 
     back = commands_[-2]
-    logging.info('Я здесь!!!')
     chat_user.pull_user_commands[back] = back_sub_users  # функция обработки нажатия К именам
 
     # event TOP
@@ -1083,11 +1082,13 @@ def edit_send(data, ord=None):
     r = callback_hello_ok(data, 'ok!')
     chat_id = data['callback_query']['message']['chat']['id']
 
-    _tmp = bot.tasks[chat_id]
+    # _tmp = bot.tasks[chat_id]
     # logging.info('Add to sd list ******************')
     # logging.info(_tmp)
 
-    reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[chat_id], bot.rdot)
+    reply_markup, chat_user = settings_user.template_tasks_to_send(bot.tasks[chat_id],
+                                                                   bot.users[chat_id],
+                                                                   bot.rdot)
 
     logging.info(chat_user.send_list)
 
@@ -1253,7 +1254,7 @@ def enter(data, ord=None):
                 # Add tasks to the dict from send
                 crs = copy.deepcopy(chat_user.current_task)
 
-                ## Join name
+                # Join name
                 nm = ', '.join([crs['shop'], crs['delivery'], crs['weight'], crs['dlv_time'], ])
 
                 if tmp_ := bot.tasks.get(chat_id):
