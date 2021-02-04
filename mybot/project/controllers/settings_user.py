@@ -257,7 +257,10 @@ def change_status_subscription(bot, chat_user, status='pending'):
                     st = shops[h]
                     logging.info('change status')
                     logging.info(f[0])
-                    if cur := st.get('status_send'):
+                    if bot.rdot in h[0:1]:
+                        pass
+                    else:
+                        cur = st['status_send']
                         # st['status_send'] = status
                         cur[str(chat_user.__name__)] = status
                         # st['status_send'] = status
@@ -284,7 +287,10 @@ def template_sub_print(bot, chat_user, ord):
 
             for h in shops:
                 st = shops[h]
-                if cur := st.get('status_send'):
+                if bot.rdot in h[0:1]:
+                    pass
+                else:
+                    cur = st['status_send']
                     # logging.info(st['status_send'])
 
                     # Initialize
@@ -353,7 +359,10 @@ def template_sub_datetime(bot, chat_user, ord):
 
                     for h in shops:
                         st = shops[h]
-                        if cur := st.get('status_send'):
+                        if bot.rdot in h[0:1]:
+                            pass
+                        else:
+                            cur = st['status_send']
                             # logging.info(st['status_send'])
                             logging.info(st)
                             logging.info(cur)
