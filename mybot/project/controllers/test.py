@@ -212,3 +212,5 @@
 # txt2 = emoji.emojize('  :cross_mark:')
 #
 # print(len(txt0), len(txt1), len(txt2))
+
+
