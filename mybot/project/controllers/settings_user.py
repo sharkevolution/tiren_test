@@ -248,7 +248,8 @@ def change_status_subscription(bot, chat_user, status='pending'):
         # ---------------------------------------------
 
         for f in uid:
-            logging.info(f)
+            logging.info(f[0])
+            # logging.info(temp_)
             if f[0] == temp_:
 
                 shops = f[1]
