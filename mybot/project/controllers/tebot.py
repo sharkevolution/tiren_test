@@ -763,7 +763,7 @@ def consolidate(data, ord):
         if tmp_dict := bot.tasks.get(tunnel):
 
             # Найти элементы subscription и изменить статус на добавлено
-            settings_user.change_status_subscription(bot, chat_user)
+            settings_user.change_status_subscription(bot, chat_user, status='combined')
             dredis.save_subscription(bot.subscription)
 
             new_tmp = {**tmp_dict, **chat_user.selected_sub_data}
@@ -790,15 +790,24 @@ def reject_sub_data():
     chat_user = bot.users[tunnel]
     result_text = f'{ord}'
 
-    result_text = 'Данные отмечены как нежелательные'
-    if tmp_dict := bot.tasks.get(tunnel):
-        logging.info(tmp_dict)
-        temp_ = chat_user.selected_sub_data
-        new_tmp = {**tmp_dict, **temp_}
-        bot.tasks[tunnel] = new_tmp
-    else:
-        logging.info(chat_user.selected_sub_data)
-        bot.tasks[tunnel] = chat_user.selected_sub_data
+    if ord == 'Принять':
+
+        result_text = 'Данные отмечены как нежелательные'
+        if tmp_dict := bot.tasks.get(tunnel):
+
+            # Найти элементы subscription и изменить статус на добавлено
+            settings_user.change_status_subscription(bot, chat_user, status='rejected')
+            dredis.save_subscription(bot.subscription)
+
+            # new_tmp = {**tmp_dict, **chat_user.selected_sub_data}
+            # bot.tasks[tunnel] = new_tmp
+        else:
+
+            settings_user.change_status_subscription(bot, chat_user)
+            dredis.save_subscription(bot.subscription)
+
+            # logging.info(chat_user.selected_sub_data)
+            # bot.tasks[tunnel] = chat_user.selected_sub_data
 
     message = {'chat_id': tunnel, 'text': result_text}
 

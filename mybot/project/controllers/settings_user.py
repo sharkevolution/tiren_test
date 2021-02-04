@@ -229,7 +229,7 @@ def template_edit_list():
     return reply_markup
 
 
-def change_status_subscription(bot, chat_user):
+def change_status_subscription(bot, chat_user, status='Pending'):
 
     logging.info('change_status_subscription')
 
@@ -237,7 +237,7 @@ def change_status_subscription(bot, chat_user):
 
         for chunk in chat_user.selected_sub_data:
             st = chat_user.selected_sub_data[chunk]
-            st['status_send'] = 'combined'
+            st['status_send'] = status
             chat_user.selected_sub_data[chunk] = st
 
         # Slice text without emoji --------------------
@@ -255,7 +255,7 @@ def change_status_subscription(bot, chat_user):
 
                 for h in shops:
                     st = shops[h]
-                    st['status_send'] = 'combined'
+                    st['status_send'] = status
                     shops[h] = st
 
                 f[1] = shops
