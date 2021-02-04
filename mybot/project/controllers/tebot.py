@@ -810,7 +810,7 @@ def reject_sub_data(data, ord):
 @dp.message_handler(commands=[])
 def back_sub_users(data, ord=None):
 
-    tunnel = data['callback_query']['message']['chat']['id']
+    tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
     result_text = 'Просмотрите сообщения пользователей перед консолидацией'
 
