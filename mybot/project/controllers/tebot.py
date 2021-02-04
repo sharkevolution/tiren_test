@@ -903,8 +903,12 @@ def dynamic_sub_users(data, ord=None):
     reply_markup, commands_ = settings_user.template_sub_datetime(bot, chat_user, ord)
 
     # Update commands wrapper
-    for b in commands_[:-1]:
+    for b in commands_[:-2]:
         chat_user.pull_user_commands[b] = dynamic_sub_data
+
+    back = commands_[-2]
+    logging.info('Я здесь!!!')
+    chat_user.pull_user_commands[back] = back_sub_users  # функция обработки нажатия К именам
 
     # event TOP
     back = commands_[-1]
