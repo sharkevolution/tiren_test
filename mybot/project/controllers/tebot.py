@@ -852,10 +852,11 @@ def back_sub_data(data, ord=None):
     for b in commands_[:-1]:
         chat_user.pull_user_commands[b] = dynamic_sub_data
 
+    users = commands_[-2]
+    chat_user.pull_user_commands[users] = back_sub_users  # функция обработки нажатия К именам
+
     # event TOP
     back = commands_[-1]
-    logging.info('TOP')
-    logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
 
     bot.users[tunnel] = chat_user
