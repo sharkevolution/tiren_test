@@ -196,12 +196,14 @@
 # print(y2)
 # print(y3)
 
-from datetime import datetime
+# from datetime import datetime
+#
+# now = datetime.now()
+# date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
+#
+# print(date_time)
+#
+# d = (1, 2)
 
-now = datetime.now()
-date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-
-print(date_time)
-
-d = (1, 2)
-
+d = '12345'
+print(d[:5])

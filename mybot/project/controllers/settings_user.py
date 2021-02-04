@@ -239,8 +239,8 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
         # Slice text without emoji --------------------
         logging.info(chat_user.selected_change_datetime)
-        e = len(emoji.emojize('  :check_mark:'))
-        temp_ = chat_user.selected_change_datetime[:-e]
+        # e = len(emoji.emojize('  :check_mark:'))
+        temp_ = chat_user.selected_change_datetime[:20]
         logging.info(temp_ + '  ' + str(len(temp_)))
         # ---------------------------------------------
 
