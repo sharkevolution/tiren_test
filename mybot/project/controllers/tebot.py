@@ -1077,6 +1077,8 @@ def edit_send(data, ord=None):
     _tmp = bot.tasks[chat_id]
     reply_markup, chat_user = settings_user.template_tasks_to_send(_tmp, bot.users[chat_id], bot.rdot)
 
+    logging.info(chat_user.send_list)
+
     for b in chat_user.send_list:
         chat_user.pull_user_commands[b] = delete_item_send
 
