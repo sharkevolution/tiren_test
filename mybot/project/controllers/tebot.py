@@ -801,16 +801,15 @@ def reject_sub_data(data, ord):
             # new_tmp = {**tmp_dict, **chat_user.selected_sub_data}
             # bot.tasks[tunnel] = new_tmp
 
-            logging.info(chat_user.selected_sub_data)
-            bot.tasks[tunnel] = chat_user.selected_sub_data
+            # logging.info(chat_user.selected_sub_data)
+            # bot.tasks[tunnel] = chat_user.selected_sub_data
 
         else:
 
             settings_user.change_status_subscription(bot, chat_user, status='rejected')
             dredis.save_subscription(bot.subscription)
 
-            logging.info(chat_user.selected_sub_data)
-            bot.tasks[tunnel] = chat_user.selected_sub_data
+            # bot.tasks[tunnel] = chat_user.selected_sub_data
 
     message = {'chat_id': tunnel, 'text': result_text}
 
