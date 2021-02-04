@@ -320,7 +320,7 @@ def template_sub_print(bot, chat_user, ord):
 
     dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'},
                 {"text": emoji.emojize(':BACK_arrow: К датам')},
-                {"text": emoji.emojize(':person: К именам')}])
+                {"text": emoji.emojize(':grinning_face: К именам')}])
 
     n = 2
     resize_dlv = [dlv[i:i + n] for i in range(0, len(dlv), n)]
@@ -330,7 +330,7 @@ def template_sub_print(bot, chat_user, ord):
 
     commands_.extend(['Принять', 'Отклонить',
                       emoji.emojize(':BACK_arrow: К датам'),
-                      emoji.emojize(':person: К именам')])
+                      emoji.emojize(':grinning_face: К именам')])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": resize_dlv, "resize_keyboard": True, "one_time_keyboard": False}
@@ -389,8 +389,8 @@ def template_sub_datetime(bot, chat_user, ord):
         else:
             logging.info('not data')
 
-    users_messages.append([{"text": emoji.emojize(':BACK_arrow:  К именам')}])
-    commands_.append(emoji.emojize(':BACK_arrow:  К именам'))
+    users_messages.append([{"text": emoji.emojize(':BACK_arrow: К именам')}])
+    commands_.append(emoji.emojize(':BACK_arrow: К именам'))
     users_messages.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
 
