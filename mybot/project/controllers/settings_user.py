@@ -386,8 +386,8 @@ def template_sub_datetime(bot, chat_user, ord):
                             txt = userdata[0] + emoji.emojize('  :cross_mark:')
                             break
 
-                    users_messages.append([{"text": txt}])
-                    commands_.append(txt)
+                    users_messages.insert(0, [{"text": txt}])
+                    commands_.insert(0, txt)
         else:
             logging.info('not data')
 

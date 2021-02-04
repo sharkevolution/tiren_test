@@ -650,8 +650,7 @@ def enter_to_send(data, ord=None):
 
     # logging.info('bot subscr')
 
-    result_text = f"Список станет доступен для консолидации через 15сек, " \
-                  f"для Отмены нажмите повторно Отправить в течении указанного времени"
+    result_text = "Список доступен для консолидации и автоматически будет удален через 24 часа"
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text}
     return message, bot.api_url
