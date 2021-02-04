@@ -245,15 +245,17 @@ def change_status_subscription(bot, chat_user):
         e = len(emoji.emojize('  :check_mark:'))
         temp_ = chat_user.selected_change_datetime[:-e]
         logging.info(temp_)
-        
+
         for f in uid:
             logging.info(f)
-            # if f[0] == chat_user.selected_change_datetime:
-            shops = f[1]
-            for h in shops:
-                st = shops[h]
-                st['status_send'] = 'combined'
-                shops[h] = st
+            if f[0] == temp_:
+
+                shops = f[1]
+
+                for h in shops:
+                    st = shops[h]
+                    st['status_send'] = 'combined'
+                    shops[h] = st
 
             f[1] = shops
 
