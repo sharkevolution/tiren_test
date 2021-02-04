@@ -234,7 +234,9 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
         for chunk in chat_user.selected_sub_data:
             st = chat_user.selected_sub_data[chunk]
-            st['status_send'] = status
+            cur = st['status_send']
+            # st['status_send'] = status
+            cur[chat_user.__name__] = status
             chat_user.selected_sub_data[chunk] = st
 
         # Slice text without emoji --------------------
@@ -254,7 +256,10 @@ def change_status_subscription(bot, chat_user, status='pending'):
                     st = shops[h]
                     logging.info('change status')
                     logging.info(f[0])
-                    st['status_send'] = status
+                    cur = st['status_send']
+                    # st['status_send'] = status
+                    cur[chat_user.__name__] = status
+                    # st['status_send'] = status
                     shops[h] = st
 
                 f[1] = shops
@@ -278,16 +283,27 @@ def template_sub_print(bot, chat_user, ord):
 
             for h in shops:
                 st = shops[h]
-                logging.info(st['status_send'])
-                if st['status_send'] == 'pending':
+                cur = st['status_send']
+                # logging.info(st['status_send'])
+                if cur[chat_user.__name__] == 'pending':
                     txt = chunk[0] + emoji.emojize('  :zzz:')
                     break
-                if st['status_send'] == 'combined':
+                if cur[chat_user.__name__] == 'combined':
                     txt = chunk[0] + emoji.emojize('  :check_mark:')
                     break
-                if st['status_send'] == 'rejected':
+                if cur[chat_user.__name__] == 'rejected':
                     txt = chunk[0] + emoji.emojize('  :cross_mark:')
                     break
+
+                # if st['status_send'] == 'pending':
+                #     txt = chunk[0] + emoji.emojize('  :zzz:')
+                #     break
+                # if st['status_send'] == 'combined':
+                #     txt = chunk[0] + emoji.emojize('  :check_mark:')
+                #     break
+                # if st['status_send'] == 'rejected':
+                #     txt = chunk[0] + emoji.emojize('  :cross_mark:')
+                #     break
 
             if txt == ord:
                 temp_ = chunk[1]
@@ -339,14 +355,26 @@ def template_sub_datetime(bot, chat_user, ord):
 
                     for h in shops:
                         st = shops[h]
-                        logging.info(st['status_send'])
-                        if st['status_send'] == 'pending':
+                        # logging.info(st['status_send'])
+                        # if st['status_send'] == 'pending':
+                        #     txt = userdata[0] + emoji.emojize('  :zzz:')
+                        #     break
+                        # if st['status_send'] == 'combined':
+                        #     txt = userdata[0] + emoji.emojize('  :check_mark:')
+                        #     break
+                        # if st['status_send'] == 'rejected':
+                        #     txt = userdata[0] + emoji.emojize('  :cross_mark:')
+                        #     break
+
+                        cur = st['status_send']
+                        # logging.info(st['status_send'])
+                        if cur[chat_user.__name__] == 'pending':
                             txt = userdata[0] + emoji.emojize('  :zzz:')
                             break
-                        if st['status_send'] == 'combined':
+                        if cur[chat_user.__name__] == 'combined':
                             txt = userdata[0] + emoji.emojize('  :check_mark:')
                             break
-                        if st['status_send'] == 'rejected':
+                        if cur[chat_user.__name__] == 'rejected':
                             txt = userdata[0] + emoji.emojize('  :cross_mark:')
                             break
 

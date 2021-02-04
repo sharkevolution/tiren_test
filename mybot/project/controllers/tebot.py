@@ -172,7 +172,8 @@ class User:
 
     def create_task(self):
         self.current_task = {'shop': None, 'delivery': None, 'weight': None,
-                             'dlv_time': None, 'status_send': 'pending'}
+                             'dlv_time': None, 'status_send': {User.__name__: 'pending'}
+                             }
 
     def put_task(self):
         pass
