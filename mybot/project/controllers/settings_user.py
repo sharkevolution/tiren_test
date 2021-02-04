@@ -245,14 +245,14 @@ def change_status_subscription(bot, chat_user):
                 logging.info(f[0])
                 logging.info(chat_user.selected_change_datetime)
 
-                if f[0] == chat_user.selected_change_datetime:
-                    shops = f[1]
-                    for h in shops:
-                        st = shops[h]
-                        st['status_send'] = 'combined'
-                        shops[h] = st
+                # if f[0] == chat_user.selected_change_datetime:
+                shops = f[1]
+                for h in shops:
+                    st = shops[h]
+                    st['status_send'] = 'combined'
+                    shops[h] = st
 
-                    f[1] = shops
+                f[1] = shops
 
     bot.subscription[chat_user.selected_subscriber] = uid
 
@@ -267,11 +267,9 @@ def template_sub_print(bot, chat_user, ord):
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
         for chunk in uid:
-            # logging.info(ord)
-            # logging.info(chunk[0])
 
-            shops = chunk[1]
             txt = ''
+            shops = chunk[1]
 
             for h in shops:
                 st = shops[h]
@@ -286,7 +284,6 @@ def template_sub_print(bot, chat_user, ord):
                     txt = chunk[0] + emoji.emojize('  :cross_mark:')
                     break
 
-            # if chunk[0] == ord:
             if txt == ord:
                 temp_ = chunk[1]
                 for k in temp_:

@@ -844,10 +844,9 @@ def dynamic_sub_data(data, ord=None):
     chat_user.selected_change_datetime = ord  # User select datetime
     reply_markup, commands_, result_text = settings_user.template_sub_print(bot, chat_user, ord)
 
-
-    chat_user.pull_user_commands[commands_[0]] = consolidate  # Принять
-    chat_user.pull_user_commands[commands_[1]] = reject_sub_data  # Отклонить
-    chat_user.pull_user_commands[commands_[2]] = back_sub_data  # К датам
+    chat_user.pull_user_commands[commands_[0]] = consolidate  # функция обработки нажатия принять
+    chat_user.pull_user_commands[commands_[1]] = reject_sub_data  # функция обработки нажатия Отклонить
+    chat_user.pull_user_commands[commands_[2]] = back_sub_data  # функция обработки нажатия К датам
 
     # event TOP
     back = commands_[-1]
