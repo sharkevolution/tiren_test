@@ -853,7 +853,7 @@ def back_sub_data(data, ord=None):
         chat_user.pull_user_commands[b] = dynamic_sub_data
 
     back = commands_[-2]
-    logging.info(back)
+    logging.info('Я здесь!!!')
     chat_user.pull_user_commands[back] = back_sub_users  # функция обработки нажатия К именам
 
     # event TOP
