@@ -264,7 +264,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
                 f[1] = shops
 
-    bot.subscription[chat_user.selected_subscriber] = uid
+        bot.subscription[chat_user.selected_subscriber] = uid
 
 
 def template_sub_print(bot, chat_user, ord):
