@@ -851,7 +851,7 @@ def dynamic_sub_data(data, ord=None):
     chat_user.pull_user_commands[commands_[0]] = consolidate  # функция обработки нажатия принять
     chat_user.pull_user_commands[commands_[1]] = reject_sub_data  # функция обработки нажатия Отклонить
     chat_user.pull_user_commands[commands_[2]] = back_sub_data  # функция обработки нажатия К датам
-    chat_user.pull_user_commands[commands_[2]] = dynamic_aggregate  # функция обработки нажатия К именам
+    chat_user.pull_user_commands[commands_[3]] = dynamic_aggregate  # функция обработки нажатия К именам
 
     # event TOP
     back = commands_[-1]
