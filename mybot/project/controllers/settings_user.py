@@ -229,7 +229,7 @@ def template_edit_list():
     return reply_markup
 
 
-def change_status_subscription(bot, chat_user, status='Pending'):
+def change_status_subscription(bot, chat_user, status='pending'):
 
     logging.info('change_status_subscription')
 

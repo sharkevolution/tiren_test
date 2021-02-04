@@ -790,7 +790,7 @@ def reject_sub_data(data, ord):
     chat_user = bot.users[tunnel]
     result_text = f'{ord}'
 
-    if ord == 'Принять':
+    if ord == 'Отклонить':
         result_text = 'Данные отмечены как нежелательные'
         if tmp_dict := bot.tasks.get(tunnel):
 
