@@ -230,10 +230,12 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
 
-        logging.info(chat_user.selected_sub_data)
         for chunk in chat_user.selected_sub_data:
             st = chat_user.selected_sub_data[chunk]
-            if cur := st.get('status_send'):
+            if bot.rdot in chunk[0:1]:
+                pass
+            else:
+                cur = st['status_send']
                 # st['status_send'] = status
                 cur[str(chat_user.__name__)] = 'pending'
                 chat_user.selected_sub_data[chunk] = st
