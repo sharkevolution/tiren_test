@@ -772,6 +772,10 @@ def consolidate(data, ord):
             logging.info(chat_user.selected_sub_data)
 
             new_tmp = {**tmp_dict, **chat_user.selected_sub_data}
+
+            logging.info('************************')
+            logging.info(new_tmp)
+
             bot.tasks[tunnel] = new_tmp
         else:
 
