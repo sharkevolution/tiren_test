@@ -130,6 +130,7 @@ class User:
 
         self.selected_subscriber = 0
         self.selected_sub_data = {}
+        self.selected_change_datetime = None
 
 
     def get_redis(self):
@@ -757,6 +758,7 @@ def consolidate(data, ord):
     result_text = f'{ord}'
 
     if ord == 'Принять':
+
         result_text = 'Данные добавлены в список, переход к датам'
         if tmp_dict := bot.tasks.get(tunnel):
 
@@ -842,7 +844,9 @@ def dynamic_sub_data(data, ord=None):
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
+    chat_user.selected_change_datetime = ord  # User select datetime
     reply_markup, commands_, result_text = settings_user.template_sub_print(bot, chat_user, ord)
+
 
     chat_user.pull_user_commands[commands_[0]] = consolidate  # Принять
     chat_user.pull_user_commands[commands_[1]] = reject_sub_data  # Отклонить
