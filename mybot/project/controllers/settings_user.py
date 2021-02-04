@@ -175,7 +175,6 @@ def template_hide_keboard():
 
 
 def template_weight(dict_init, chat_user):
-
     wt = []
     for b in dict_init['wt']:
         if chat_user.__name__ in b[2]:
@@ -187,7 +186,7 @@ def template_weight(dict_init, chat_user):
             chat_user.weight.append(str(b[1]))
 
     n = 3
-    resize_wt = [wt[i:i+n] for i in range(0, len(wt), n)]
+    resize_wt = [wt[i:i + n] for i in range(0, len(wt), n)]
     logging.info(resize_wt)
 
     resize_wt.append([{"text": emoji.emojize(':BACK_arrow: Назад к перевозчикам')}])
@@ -199,7 +198,6 @@ def template_weight(dict_init, chat_user):
 
 
 def template_tasks_to_send(tmp_dict, chat_user, rdot):
-
     task_list = []
 
     for ts in tmp_dict:
@@ -230,7 +228,6 @@ def template_edit_list():
 
 
 def change_status_subscription(bot, chat_user, status='pending'):
-
     logging.info('change_status_subscription')
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
@@ -240,30 +237,31 @@ def change_status_subscription(bot, chat_user, status='pending'):
             st['status_send'] = status
             chat_user.selected_sub_data[chunk] = st
 
-            # Slice text without emoji --------------------
-            logging.info(chat_user.selected_change_datetime)
-            e = len(emoji.emojize('  :check_mark:')) - 1
-            temp_ = chat_user.selected_change_datetime[:-e]
-            logging.info(temp_ + str(len(temp_)))
-            # ---------------------------------------------
+        # Slice text without emoji --------------------
+        logging.info(chat_user.selected_change_datetime)
+        e = len(emoji.emojize('  :check_mark:'))
+        temp_ = chat_user.selected_change_datetime[:-e]
+        logging.info(temp_ + '  ' + str(len(temp_)))
+        # ---------------------------------------------
 
-            for f in uid:
-    
-                logging.info(f[0] + str(len(f[0])))
+        for f in uid:
 
-                if f[0] == temp_:
+            logging.info(f[0] + '  ' + str(len(f[0])))
 
-                    shops = f[1]
-                    logging.info(shops)
+            if f[0] == temp_:
 
-                    for h in shops:
-                        st = shops[h]
-                        logging.info('change status')
-                        logging.info(f[0])
-                        st['status_send'] = status
-                        shops[h] = st
+                shops = f[1]
+                logging.info('shops')
+                logging.info(shops)
 
-                    f[1] = shops
+                for h in shops:
+                    st = shops[h]
+                    logging.info('change status')
+                    logging.info(f[0])
+                    st['status_send'] = status
+                    shops[h] = st
+
+                f[1] = shops
 
     bot.subscription[chat_user.selected_subscriber] = uid
 
@@ -309,7 +307,7 @@ def template_sub_print(bot, chat_user, ord):
     dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'}, {"text": 'К датам'}])
 
     n = 2
-    resize_dlv = [dlv[i:i+n] for i in range(0, len(dlv), n)]
+    resize_dlv = [dlv[i:i + n] for i in range(0, len(dlv), n)]
     logging.info(resize_dlv)
 
     resize_dlv.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
@@ -426,7 +424,7 @@ def template_delivery(dict_init, chat_user):
             chat_user.delivery.append(b[1])
 
     n = 2
-    resize_dlv = [dlv[i:i+n] for i in range(0, len(dlv), n)]
+    resize_dlv = [dlv[i:i + n] for i in range(0, len(dlv), n)]
     logging.info(resize_dlv)
 
     resize_dlv.append([{"text": emoji.emojize(':BACK_arrow: Назад к адресам')}])
