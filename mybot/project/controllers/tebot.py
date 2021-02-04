@@ -782,7 +782,7 @@ def consolidate(data, ord):
 
 
 @dp.message_handler(commands=[])
-def reject_sub_data():
+def reject_sub_data(data, ord):
     logging.info('Reject')
     logging.info(ord)
 
@@ -791,7 +791,6 @@ def reject_sub_data():
     result_text = f'{ord}'
 
     if ord == 'Принять':
-
         result_text = 'Данные отмечены как нежелательные'
         if tmp_dict := bot.tasks.get(tunnel):
 
