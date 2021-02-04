@@ -46,9 +46,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
-          <line>767</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/mybot/project/controllers/settings_user.py</url>
+          <line>245</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -323,12 +323,11 @@ def template_sub_datetime(bot, chat_user, ord):
 
     for b in bot.subscription:
         if me := bot.users.get(int(b)):
-            username = ' '.join([me.first_name, me.last_name, b])
-            if username == ord:
 
-                # Выбранный подписчик
-                chat_user.selected_subscriber = b
-                # logging.info(b)
+            username = ' '.join([me.first_name, me.last_name, b])
+
+            if username == ord:
+                chat_user.selected_subscriber = b  # Выбранный подписчик
 
                 for userdata in bot.subscription[b]:
                     # logging.info(userdata)
