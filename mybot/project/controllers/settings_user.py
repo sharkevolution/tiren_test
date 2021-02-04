@@ -370,6 +370,11 @@ def template_sub_datetime(bot, chat_user, ord):
                         # logging.info(st['status_send'])
                         logging.info(st)
                         logging.info(cur)
+
+                        # Initialize
+                        if not cur.get(str(chat_user.__name__)):
+                            cur[str(chat_user.__name__)] = 'pending'
+
                         logging.info(str(chat_user.__name__))
                         if cur[str(chat_user.__name__)] == 'pending':
                             txt = userdata[0] + emoji.emojize('  :zzz:')
