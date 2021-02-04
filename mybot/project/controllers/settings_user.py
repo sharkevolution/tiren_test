@@ -285,6 +285,11 @@ def template_sub_print(bot, chat_user, ord):
                 st = shops[h]
                 cur = st['status_send']
                 # logging.info(st['status_send'])
+
+                # Initialize
+                if not cur.get(str(chat_user.__name__)):
+                    cur[str(chat_user.__name__)] = 'pending'
+
                 if cur[str(chat_user.__name__)] == 'pending':
                     txt = chunk[0] + emoji.emojize('  :zzz:')
                     break
