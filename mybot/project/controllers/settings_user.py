@@ -239,17 +239,13 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
         # Slice text without emoji --------------------
         logging.info(chat_user.selected_change_datetime)
-        # e = len(emoji.emojize('  :check_mark:'))
         temp_ = chat_user.selected_change_datetime[:20]
-        logging.info(temp_ + '  ' + str(len(temp_)))
+        logging.info(temp_)
         # ---------------------------------------------
 
         for f in uid:
-
-            logging.info(f[0] + '  ' + str(len(f[0])))
-
+            logging.info(f[0])
             if f[0] == temp_:
-
                 shops = f[1]
                 logging.info('shops')
                 logging.info(shops)
@@ -304,7 +300,7 @@ def template_sub_print(bot, chat_user, ord):
             else:
                 logging.info('not data')
 
-    dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'}, {"text": 'К датам'}])
+    dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'}, {"text": 'К датам'}, {"text": 'К именам'}])
 
     n = 2
     resize_dlv = [dlv[i:i + n] for i in range(0, len(dlv), n)]
@@ -312,7 +308,7 @@ def template_sub_print(bot, chat_user, ord):
 
     resize_dlv.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
 
-    commands_.extend(['Принять', 'Отклонить', 'К датам'])
+    commands_.extend(['Принять', 'Отклонить', 'К датам', 'К именам'])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": resize_dlv, "resize_keyboard": True, "one_time_keyboard": False}

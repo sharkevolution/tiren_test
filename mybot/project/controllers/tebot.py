@@ -759,7 +759,7 @@ def consolidate(data, ord):
 
     if ord == 'Принять':
 
-        result_text = 'Данные добавлены в список, переход к датам'
+        result_text = 'Данные добавлены в личный список'
         if tmp_dict := bot.tasks.get(tunnel):
 
             # Найти элементы subscription и изменить статус на добавлено
@@ -772,7 +772,6 @@ def consolidate(data, ord):
 
             settings_user.change_status_subscription(bot, chat_user, status='combined')
             dredis.save_subscription(bot.subscription)
-            # logging.info(chat_user.selected_sub_data)
             bot.tasks[tunnel] = chat_user.selected_sub_data
 
     message = {'chat_id': tunnel, 'text': result_text}
@@ -796,12 +795,6 @@ def reject_sub_data(data, ord):
             # Найти элементы subscription и изменить статус на добавлено
             settings_user.change_status_subscription(bot, chat_user, status='rejected')
             dredis.save_subscription(bot.subscription)
-
-            # new_tmp = {**tmp_dict, **chat_user.selected_sub_data}
-            # bot.tasks[tunnel] = new_tmp
-
-            # logging.info(chat_user.selected_sub_data)
-            # bot.tasks[tunnel] = chat_user.selected_sub_data
 
         else:
             settings_user.change_status_subscription(bot, chat_user, status='rejected')
@@ -858,6 +851,7 @@ def dynamic_sub_data(data, ord=None):
     chat_user.pull_user_commands[commands_[0]] = consolidate  # функция обработки нажатия принять
     chat_user.pull_user_commands[commands_[1]] = reject_sub_data  # функция обработки нажатия Отклонить
     chat_user.pull_user_commands[commands_[2]] = back_sub_data  # функция обработки нажатия К датам
+    chat_user.pull_user_commands[commands_[2]] = dynamic_aggregate  # функция обработки нажатия К именам
 
     # event TOP
     back = commands_[-1]
