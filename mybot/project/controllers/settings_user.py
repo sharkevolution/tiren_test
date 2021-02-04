@@ -240,19 +240,17 @@ def change_status_subscription(bot, chat_user):
             st['status_send'] = 'combined'
             chat_user.selected_sub_data[chunk] = st
 
-            for f in uid:
+        logging.info(chat_user.selected_change_datetime)
+        for f in uid:
+            logging.info(f)
+            # if f[0] == chat_user.selected_change_datetime:
+            shops = f[1]
+            for h in shops:
+                st = shops[h]
+                st['status_send'] = 'combined'
+                shops[h] = st
 
-                logging.info(f[0])
-                logging.info(chat_user.selected_change_datetime)
-
-                # if f[0] == chat_user.selected_change_datetime:
-                shops = f[1]
-                for h in shops:
-                    st = shops[h]
-                    st['status_send'] = 'combined'
-                    shops[h] = st
-
-                f[1] = shops
+            f[1] = shops
 
     bot.subscription[chat_user.selected_subscriber] = uid
 
