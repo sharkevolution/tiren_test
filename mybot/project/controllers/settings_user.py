@@ -248,14 +248,14 @@ def change_status_subscription(bot, chat_user, status='pending'):
         # ---------------------------------------------
 
         for f in uid:
-            logging.info(f[0])
-            # logging.info(temp_)
             if f[0] == temp_:
 
                 shops = f[1]
 
                 for h in shops:
                     st = shops[h]
+                    logging.info('change status')
+                    logging.info(f[0])
                     st['status_send'] = status
                     shops[h] = st
 
