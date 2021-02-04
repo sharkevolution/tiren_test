@@ -242,7 +242,7 @@ def change_status_subscription(bot, chat_user):
 
         # Slice text without emoji --------------------
         logging.info(chat_user.selected_change_datetime)
-        e = len(emoji.emojize('  :check_mark:'))
+        e = len(emoji.emojize('  :check_mark:')) + 1
         temp_ = chat_user.selected_change_datetime[:-e]
         logging.info(temp_)
         # ---------------------------------------------
