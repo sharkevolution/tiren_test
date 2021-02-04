@@ -240,30 +240,30 @@ def change_status_subscription(bot, chat_user, status='pending'):
             st['status_send'] = status
             chat_user.selected_sub_data[chunk] = st
 
-        # Slice text without emoji --------------------
-        logging.info(chat_user.selected_change_datetime)
-        e = len(emoji.emojize('  :check_mark:')) - 1
-        temp_ = chat_user.selected_change_datetime[:-e]
-        logging.info(temp_ + str(len(temp_)))
-        # ---------------------------------------------
+            # Slice text without emoji --------------------
+            logging.info(chat_user.selected_change_datetime)
+            e = len(emoji.emojize('  :check_mark:')) - 1
+            temp_ = chat_user.selected_change_datetime[:-e]
+            logging.info(temp_ + str(len(temp_)))
+            # ---------------------------------------------
 
-        for f in uid:
+            for f in uid:
+    
+                logging.info(f[0] + str(len(f[0])))
 
-            logging.info(f[0] + str(len(f[0])))
+                if f[0] == temp_:
 
-            if f[0] == temp_:
+                    shops = f[1]
+                    logging.info(shops)
 
-                shops = f[1]
-                logging.info(shops)
+                    for h in shops:
+                        st = shops[h]
+                        logging.info('change status')
+                        logging.info(f[0])
+                        st['status_send'] = status
+                        shops[h] = st
 
-                for h in shops:
-                    st = shops[h]
-                    logging.info('change status')
-                    logging.info(f[0])
-                    st['status_send'] = status
-                    shops[h] = st
-
-                f[1] = shops
+                    f[1] = shops
 
     bot.subscription[chat_user.selected_subscriber] = uid
 
