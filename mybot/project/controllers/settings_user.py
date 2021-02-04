@@ -355,7 +355,7 @@ def template_sub_datetime(bot, chat_user, ord):
         else:
             logging.info('not data')
 
-    users_messages.append([{"text": 'К именам'}])
+    users_messages.append([{"text": ':BACK_arrow:  К именам'}])
     commands_.append('К именам')
     users_messages.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
