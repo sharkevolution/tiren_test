@@ -318,8 +318,9 @@ def template_sub_print(bot, chat_user, ord):
             else:
                 logging.info('not data')
 
-    dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'}, {"text": 'К датам'},
-                {"text": emoji.emojize(':BACK_arrow:  К именам')}])
+    dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'},
+                {"text": emoji.emojize(':BACK_arrow: К датам')},
+                {"text": emoji.emojize(':person: К именам')}])
 
     n = 2
     resize_dlv = [dlv[i:i + n] for i in range(0, len(dlv), n)]
@@ -327,8 +328,9 @@ def template_sub_print(bot, chat_user, ord):
 
     resize_dlv.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
 
-    commands_.extend(['Принять', 'Отклонить', 'К датам',
-                      emoji.emojize(':BACK_arrow:  К именам')])
+    commands_.extend(['Принять', 'Отклонить',
+                      emoji.emojize(':BACK_arrow: К датам'),
+                      emoji.emojize(':person: К именам')])
     commands_.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": resize_dlv, "resize_keyboard": True, "one_time_keyboard": False}
