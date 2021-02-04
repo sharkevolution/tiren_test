@@ -244,10 +244,13 @@ def change_status_subscription(bot, chat_user, status='pending'):
         logging.info(chat_user.selected_change_datetime)
         e = len(emoji.emojize('  :check_mark:')) - 1
         temp_ = chat_user.selected_change_datetime[:-e]
-        logging.info(temp_)
+        logging.info(temp_ + str(len(temp_)))
         # ---------------------------------------------
 
         for f in uid:
+
+            logging.info(f[0] + str(len(f[0])))
+
             if f[0] == temp_:
 
                 shops = f[1]
