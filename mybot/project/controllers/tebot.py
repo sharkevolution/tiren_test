@@ -36,7 +36,7 @@ def set_webhook(bottoken):
     baseURL = f'https://api.telegram.org/bot{bottoken}/setWebhook'
 
     r = requests.get(baseURL, headers=headers, data=json.dumps(data))
-    print(r.text)
+    # print(r.text)
 
 
 def callback_hello_ok(data, text):

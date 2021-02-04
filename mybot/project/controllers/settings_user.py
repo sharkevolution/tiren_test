@@ -300,16 +300,6 @@ def template_sub_print(bot, chat_user, ord):
                     txt = chunk[0] + emoji.emojize('  :cross_mark:')
                     break
 
-                # if st['status_send'] == 'pending':
-                #     txt = chunk[0] + emoji.emojize('  :zzz:')
-                #     break
-                # if st['status_send'] == 'combined':
-                #     txt = chunk[0] + emoji.emojize('  :check_mark:')
-                #     break
-                # if st['status_send'] == 'rejected':
-                #     txt = chunk[0] + emoji.emojize('  :cross_mark:')
-                #     break
-
             if txt == ord:
                 temp_ = chunk[1]
                 for k in temp_:
@@ -360,17 +350,6 @@ def template_sub_datetime(bot, chat_user, ord):
 
                     for h in shops:
                         st = shops[h]
-                        # logging.info(st['status_send'])
-                        # if st['status_send'] == 'pending':
-                        #     txt = userdata[0] + emoji.emojize('  :zzz:')
-                        #     break
-                        # if st['status_send'] == 'combined':
-                        #     txt = userdata[0] + emoji.emojize('  :check_mark:')
-                        #     break
-                        # if st['status_send'] == 'rejected':
-                        #     txt = userdata[0] + emoji.emojize('  :cross_mark:')
-                        #     break
-
                         cur = st['status_send']
                         # logging.info(st['status_send'])
                         logging.info(st)
