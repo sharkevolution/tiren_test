@@ -766,8 +766,6 @@ def consolidate(data, ord):
             settings_user.change_status_subscription(bot, chat_user)
             dredis.save_subscription(bot.subscription)
 
-            logging.info(chat_user.selected_sub_data)
-
             new_tmp = {**tmp_dict, **chat_user.selected_sub_data}
             bot.tasks[tunnel] = new_tmp
         else:

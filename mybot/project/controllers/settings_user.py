@@ -240,7 +240,12 @@ def change_status_subscription(bot, chat_user):
             st['status_send'] = 'combined'
             chat_user.selected_sub_data[chunk] = st
 
+        # Slice text without emoji
         logging.info(chat_user.selected_change_datetime)
+        e = len(emoji.emojize('  :check_mark:'))
+        temp_ = chat_user.selected_change_datetime[:-e]
+        logging.info(temp_)
+        
         for f in uid:
             logging.info(f)
             # if f[0] == chat_user.selected_change_datetime:
