@@ -30,8 +30,9 @@ from mybot.project.controllers import treeadr
 
 def set_webhook(bottoken):
 
-    data = {"url": "https://tiren-bot.herokuapp.com/api/v1/echo"}
-    data = {"url": "https://tirentest.herokuapp.com/api/v1/echo"}
+    prod = {"url": "https://tiren-bot.herokuapp.com/api/v1/echo"}
+    test = {"url": "https://tirentest.herokuapp.com/api/v1/echo"}
+    data = test
     headers = {'Content-type': 'application/json'}
     baseURL = f'https://api.telegram.org/bot{bottoken}/setWebhook'
 
