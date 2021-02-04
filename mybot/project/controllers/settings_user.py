@@ -236,7 +236,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
             st = chat_user.selected_sub_data[chunk]
             cur = st['status_send']
             # st['status_send'] = status
-            cur[str(chat_user.__name__)] = status
+            cur[str(chat_user.__name__)] = 'pending'
             chat_user.selected_sub_data[chunk] = st
 
         # Slice text without emoji --------------------
@@ -258,7 +258,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
                     logging.info(f[0])
                     cur = st['status_send']
                     # st['status_send'] = status
-                    cur[str(chat_user.__name__)] = 'pending'
+                    cur[str(chat_user.__name__)] = status
                     # st['status_send'] = status
                     shops[h] = st
 
