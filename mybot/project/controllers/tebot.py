@@ -849,7 +849,7 @@ def back_sub_data(data, ord=None):
     reply_markup, commands_ = settings_user.template_sub_datetime(bot, chat_user, ord)
 
     # Update commands wrapper
-    for b in commands_[:-1]:
+    for b in commands_[:-2]:
         chat_user.pull_user_commands[b] = dynamic_sub_data
 
     users = commands_[-2]
