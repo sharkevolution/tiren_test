@@ -308,6 +308,32 @@ def template_sub_print(bot, chat_user, ord):
     # logging.info(bot.subscription)
 
     if uid := bot.subscription.get(chat_user.selected_subscriber):
+
+        now = datetime.now()
+        date_time_str = datetime.strftime(now,  "%m/%d/%Y, %H:%M:%S")
+        date_time = datetime.strptime(date_time_str,  "%m/%d/%Y, %H:%M:%S")
+        # logging.info(uid)
+
+        item_list = [b[0] for b in uid]
+        # logging.info(item_list)
+
+        limit = 24.0
+        count = len(item_list)
+
+        while count > 0:
+            date_string = item_list[count - 1]
+            uid_date = datetime.strptime(date_string, "%m/%d/%Y, %H:%M:%S")
+            duration = date_time - uid_date
+            duration_in_s = duration.total_seconds()
+            hours = divmod(duration_in_s, 3600)[0]
+
+            if hours > limit:
+                # logging.info(f'hours: {hours}')
+                # logging.info(f'del {count - 1}')
+                del uid[count - 1]
+
+            count -= 1
+
         for chunk in uid:
 
             txt = ''
@@ -345,6 +371,13 @@ def template_sub_print(bot, chat_user, ord):
                     logging.info(temp_[k])
             else:
                 logging.info('not data')
+
+        bot.subscription[chat_user.selected_subscriber] = uid
+
+        if len(uid) > 0:
+            pass
+        else:
+            del bot.subscription[chat_user.selected_subscriber]
 
     dlv.extend([{"text": 'Принять'}, {"text": 'Отклонить'},
                 {"text": emoji.emojize(':BACK_arrow: К датам')},
