@@ -1395,16 +1395,25 @@ def dummy_callback(data):
 
 def reload_bot(data):
     """ Перезагрузка бота (не все пользователи)"""
-    result_text = f"Выбранная команда устарела или неизвестна, перезагрузка /start"
+
+    chat_user = data['message']['chat']['id']
+
+    result_text = f"Сессия устарела или команда неизвестна"
     res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
-    message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
+    message = {'chat_id': chat_user, 'text': result_text}
+
+    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+    reply_markup = settings_user.template_remove_keboard()
+    message = {'chat_id': chat_user, 'text': 'Перезагрузка на стартовую страницу /start', 'reply_markup': reply_markup}
 
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
     result_text = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку"
     reply_markup = settings_user.template_start()
-    message = {'chat_id': data['message']['chat']['id'], 'text': result_text, 'reply_markup': reply_markup}
+    message = {'chat_id': chat_user, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
 
 
