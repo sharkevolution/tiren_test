@@ -1406,7 +1406,8 @@ def reload_bot(data):
     assert r.status_code == 200
 
     reply_markup = settings_user.template_remove_keboard()
-    message = {'chat_id': chat_user, 'text': 'Перезагрузка на стартовую страницу /start', 'reply_markup': reply_markup}
+    message = {'chat_id': chat_user, 'text': 'Перезагрузка на стартовую страницу /start',
+               'reply_markup': reply_markup}
 
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200

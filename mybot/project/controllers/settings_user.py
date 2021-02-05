@@ -1,3 +1,4 @@
+from datetime import datetime
 import emoji
 import logging
 
@@ -241,15 +242,26 @@ def change_status_subscription(bot, chat_user, status='pending'):
                 cur[str(chat_user.__name__)] = 'pending'
                 chat_user.selected_sub_data[chunk] = st
 
-        # Slice text without emoji --------------------
-        # logging.info(chat_user.selected_change_datetime)
-        temp_ = chat_user.selected_change_datetime[:20]
-        # logging.info(temp_)
-        # ---------------------------------------------
+        item_list = list(uid.items())
+        count = len(item_list)
+
+        now = datetime.now()
+        date_time = datetime.strftime(now,  "%m/%d/%Y, %H:%M:%S")
+
+        while count > 0:
+            p = item_list[count - 1]
+            date_string = p[0]
+            uid_date = datetime.strptime(date_string, "%m/%d/%Y, %H:%M:%S")
+            duration = date_time - uid_date
+            duration_in_s = duration.total_seconds()
+            hours = divmod(duration_in_s, 3600)[0]
+            logging.info(hours)
+            count -= 1
 
         for f in uid:
             logging.info(f[0])
-            if f[0] == temp_:
+
+            if f[0] == chat_user.selected_change_datetime[:20]:
                 shops = f[1]
                 logging.info('shops')
                 logging.info(shops)
@@ -257,7 +269,6 @@ def change_status_subscription(bot, chat_user, status='pending'):
                 for h in shops:
                     st = shops[h]
                     logging.info('change status')
-                    logging.info(f)
                     logging.info(f[0])
                     if bot.rdot in h[0:1]:
                         pass
