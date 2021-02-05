@@ -1393,6 +1393,21 @@ def dummy_callback(data):
     return res, bot.api_answer
 
 
+def reload_bot(data):
+    """ Перезагрузка бота """
+    result_text = f"Выбранная команда устарела или неизвестна, перезагрузка /start"
+    res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
+    message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
+
+    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
+    result_text = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку"
+    reply_markup = settings_user.template_start()
+    message = {'chat_id': data['message']['chat']['id'], 'text': result_text, 'reply_markup': reply_markup}
+    return message, bot.api_url
+
+
 @bottle.route('/api/v1/echo', method='POST')
 def do_echo():
     """ Main """
@@ -1462,6 +1477,7 @@ def do_echo():
                             message, curl = chat_user.call_fsm(data, ord)
                     else:
                         logging.info('Ожидается перезагрузка на стартовую страницу')
+                        message, curl = reload_bot(data)
 
         if message and curl:
             try:
