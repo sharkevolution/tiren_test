@@ -254,7 +254,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
         # logging.info(uid)
 
         item_list = [b[0] for b in uid]
-        # logging.info(item_list)
+        logging.info(item_list)
 
         count = len(item_list)
 
@@ -265,9 +265,9 @@ def change_status_subscription(bot, chat_user, status='pending'):
             duration_in_s = duration.total_seconds()
             hours = divmod(duration_in_s, 3600)[0]
 
+            logging.info(f'hours: {hours}')
+            logging.info(f'del {count - 1}')
             if hours > limit:
-                logging.info(f'hours: {hours}')
-                logging.info(f'del {count - 1}')
                 del uid[count - 1]
 
             count -= 1
