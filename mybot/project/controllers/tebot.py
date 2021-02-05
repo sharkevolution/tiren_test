@@ -1482,7 +1482,6 @@ def do_echo():
                             chat_user.fsm_location = [None, None]
                             logging.info('Bad FSM')
                             # Сообщение что ожидался ввод строки
-
                             message, curl = dummy_message(data)
                         else:
                             # Start FSM
