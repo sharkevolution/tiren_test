@@ -243,8 +243,8 @@ def change_status_subscription(bot, chat_user, status='pending'):
                 chat_user.selected_sub_data[chunk] = st
 
         now = datetime.now()
-        date_time = datetime.strftime(now,  "%m/%d/%Y, %H:%M:%S")
-        date_time= datetime.strptime(date_time,  "%m/%d/%Y, %H:%M:%S")
+        date_time_str = datetime.strftime(now,  "%m/%d/%Y, %H:%M:%S")
+        date_time = datetime.strptime(date_time_str,  "%m/%d/%Y, %H:%M:%S")
 
         # logging.info(uid)
 
@@ -255,7 +255,6 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
         while count > 0:
             date_string = item_list[count - 1]
-            logging
             uid_date = datetime.strptime(date_string, "%m/%d/%Y, %H:%M:%S")
             duration = date_time - uid_date
             duration_in_s = duration.total_seconds()
