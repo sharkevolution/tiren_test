@@ -864,16 +864,13 @@ def back_sub_data(data, ord=None):
     result_text = f'Выберите сообщение от {ord}'
     reply_markup, commands_ = settings_user.template_sub_datetime(bot, chat_user, ord)
 
-    # Update commands wrapper
-    for b in commands_[:-2]:
+    for b in commands_[:-2]:  # Update commands wrapper
         chat_user.pull_user_commands[b] = dynamic_sub_data
 
-    back = commands_[-2]
-    logging.info('Я здесь!!!')
-    chat_user.pull_user_commands[back] = back_sub_users  # функция обработки нажатия К именам
+    back = commands_[-2]  # функция обработки нажатия К именам
+    chat_user.pull_user_commands[back] = back_sub_users
 
-    # event TOP
-    back = commands_[-1]
+    back = commands_[-1]  # event TOP
     chat_user.pull_user_commands[back] = start_bot
 
     bot.users[tunnel] = chat_user

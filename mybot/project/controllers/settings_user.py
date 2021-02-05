@@ -249,9 +249,9 @@ def change_status_subscription(bot, chat_user, status='pending'):
         # logging.info(uid)
 
         item_list = [b[0] for b in uid]
-        logging.info(item_list)
+        # logging.info(item_list)
 
-        limit = 5.0
+        limit = 24.0
         count = len(item_list)
 
         while count > 0:
@@ -260,10 +260,10 @@ def change_status_subscription(bot, chat_user, status='pending'):
             duration = date_time - uid_date
             duration_in_s = duration.total_seconds()
             hours = divmod(duration_in_s, 3600)[0]
-            logging.info(f'hours: {hours}')
 
             if hours > limit:
-                logging.info(f'del {count - 1}')
+                # logging.info(f'hours: {hours}')
+                # logging.info(f'del {count - 1}')
                 del uid[count - 1]
 
             count -= 1
@@ -273,13 +273,13 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
             if f[0] == chat_user.selected_change_datetime[:20]:
                 shops = f[1]
-                logging.info('shops')
-                logging.info(shops)
+                # logging.info('shops')
+                # logging.info(shops)
 
                 for h in shops:
                     st = shops[h]
-                    logging.info('change status')
-                    logging.info(f[0])
+                    # logging.info('change status')
+                    # logging.info(f[0])
                     if bot.rdot in h[0:1]:
                         pass
                     else:
