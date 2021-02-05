@@ -257,6 +257,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
                 for h in shops:
                     st = shops[h]
                     logging.info('change status')
+                    logging.info(f)
                     logging.info(f[0])
                     if bot.rdot in h[0:1]:
                         pass
