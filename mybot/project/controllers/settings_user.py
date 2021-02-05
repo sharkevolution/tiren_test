@@ -293,6 +293,11 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
         bot.subscription[chat_user.selected_subscriber] = uid
 
+        if len(uid) > 0:
+            pass
+        else:
+            del bot.subscription[chat_user.selected_subscriber]
+
 
 def template_sub_print(bot, chat_user, ord):
     users_text = []
