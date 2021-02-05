@@ -233,6 +233,8 @@ def template_edit_list():
 def change_status_subscription(bot, chat_user, status='pending'):
     logging.info('change_status_subscription')
 
+    global limit
+
     if uid := bot.subscription.get(chat_user.selected_subscriber):
 
         for chunk in chat_user.selected_sub_data:
@@ -286,9 +288,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
                         pass
                     else:
                         cur = st['status_send']
-                        # st['status_send'] = status
                         cur[str(chat_user.__name__)] = status
-                        # st['status_send'] = status
                         shops[h] = st
 
                 f[1] = shops
@@ -302,6 +302,9 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
 
 def template_sub_print(bot, chat_user, ord):
+
+    global limit
+
     users_text = []
     commands_ = []
     dlv = []
