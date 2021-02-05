@@ -11,6 +11,7 @@ import os
 import json
 import copy
 from datetime import datetime
+from pytz import timezone
 
 import bottle
 from bottle import view, request, redirect
@@ -632,7 +633,8 @@ def enter_to_send(data, ord=None):
     tunnel = data['callback_query']['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
-    now = datetime.now()
+    kiev = timezone('Europe/Kiev')
+    now = datetime.now(kiev)
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
     if bot.tasks.get(chat_user.from_id):

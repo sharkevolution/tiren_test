@@ -1,4 +1,7 @@
+
 from datetime import datetime
+from pytz import timezone
+
 import emoji
 import logging
 
@@ -247,7 +250,8 @@ def change_status_subscription(bot, chat_user, status='pending'):
                 cur[str(chat_user.__name__)] = 'pending'
                 chat_user.selected_sub_data[chunk] = st
 
-        now = datetime.now()
+        kiev = timezone('Europe/Kiev')
+        now = datetime.now(kiev)
         date_time_str = datetime.strftime(now,  "%m/%d/%Y, %H:%M:%S")
         date_time = datetime.strptime(date_time_str,  "%m/%d/%Y, %H:%M:%S")
 

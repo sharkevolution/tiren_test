@@ -235,3 +235,14 @@
 #     hours = divmod(duration_in_s, 3600)[0]
 #     print(hours)
 #     count -= 1
+
+
+# from datetime import datetime
+# from dateutil.tz import tzutc, tzlocal
+# from pytz import timezone
+#
+# kiev = timezone('Europe/Kiev')
+#
+# p = datetime.now( kiev)
+#
+# print(p)
