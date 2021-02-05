@@ -1394,7 +1394,7 @@ def dummy_callback(data):
 
 
 def reload_bot(data):
-    """ Перезагрузка бота """
+    """ Перезагрузка бота (не все пользователи)"""
     result_text = f"Выбранная команда устарела или неизвестна, перезагрузка /start"
     res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
     message = {'chat_id': data['message']['chat']['id'], 'text': result_text}
@@ -1416,8 +1416,11 @@ def do_echo():
     message = {}
     curl = None
 
-    dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
-    bot.subscription = dredis.read_subscription()  # get subscriptions
+    try:
+        dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
+        bot.subscription = dredis.read_subscription()  # get subscriptions
+    except Exception as ex:
+        logging.info(f'Error load from Redis: {ex}')
     # logging.info(bot.subscription)
 
     data = request.json
