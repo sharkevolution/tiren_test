@@ -3,6 +3,9 @@ import emoji
 import logging
 
 
+limit = 0
+
+
 def template_engineer_mode():
     # ej_ok = emoji.emojize(':OK_button:')
 
@@ -251,7 +254,6 @@ def change_status_subscription(bot, chat_user, status='pending'):
         item_list = [b[0] for b in uid]
         # logging.info(item_list)
 
-        limit = 24.0
         count = len(item_list)
 
         while count > 0:
@@ -317,7 +319,6 @@ def template_sub_print(bot, chat_user, ord):
         item_list = [b[0] for b in uid]
         # logging.info(item_list)
 
-        limit = 24.0
         count = len(item_list)
 
         while count > 0:
