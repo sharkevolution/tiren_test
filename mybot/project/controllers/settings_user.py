@@ -3,7 +3,7 @@ import emoji
 import logging
 
 
-limit = 0
+limit = 24.0
 
 
 def template_engineer_mode():
