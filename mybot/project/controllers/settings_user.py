@@ -247,7 +247,9 @@ def change_status_subscription(bot, chat_user, status='pending'):
 
         logging.info(uid)
 
-        item_list = list(uid.items())
+        item_list = [b[0] for b in uid]
+        logging.info(item_list)
+
         count = len(item_list)
 
         while count > 0:
