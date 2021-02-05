@@ -265,10 +265,10 @@ def change_status_subscription(bot, chat_user, status='pending'):
             duration_in_s = duration.total_seconds()
             hours = divmod(duration_in_s, 3600)[0]
 
-            logging.info(f'hours: {hours}')
-            logging.info(f'del {count - 1}')
-            if hours > limit:
+            if hours >= limit:
                 del uid[count - 1]
+                logging.info(f'hours: {hours}')
+                logging.info(f'del {count - 1}')
 
             count -= 1
 
@@ -331,9 +331,9 @@ def template_sub_print(bot, chat_user, ord):
             duration_in_s = duration.total_seconds()
             hours = divmod(duration_in_s, 3600)[0]
 
-            if hours > limit:
-                # logging.info(f'hours: {hours}')
-                # logging.info(f'del {count - 1}')
+            if hours >= limit:
+                logging.info(f'hours: {hours}')
+                logging.info(f'del {count - 1}')
                 del uid[count - 1]
 
             count -= 1
