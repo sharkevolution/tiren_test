@@ -218,6 +218,7 @@ def template_edit_list():
     reply_markup = {"inline_keyboard": [[
         {"text": f"Удалить из списка", "callback_data": "edit_list_send"},
         {"text": f"Удалить Все", "callback_data": "del_list_send"}],
+        [{"text": f"{emoji.emojize(':TOP_arrow: На главную')}", "callback_data": "ent_main"}],
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
