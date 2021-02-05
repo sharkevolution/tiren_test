@@ -245,6 +245,8 @@ def change_status_subscription(bot, chat_user, status='pending'):
         now = datetime.now()
         date_time = datetime.strftime(now,  "%m/%d/%Y, %H:%M:%S")
 
+        logging.info(uid)
+
         item_list = list(uid.items())
         count = len(item_list)
 
