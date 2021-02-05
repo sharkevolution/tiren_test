@@ -667,6 +667,12 @@ def enter_top(data, ord=None):
     chat_user.create_task()  # Create task
     bot.users[tunnel] = chat_user
 
+    reply_markup = settings_user.template_remove_keboard()
+    message = {'chat_id': tunnel, 'text': 'Переход на главную', 'reply_markup': reply_markup}
+
+    r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
+    assert r.status_code == 200
+
     result_text = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку"
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
@@ -1454,6 +1460,8 @@ def do_echo():
                         else:
                             # Start FSM
                             message, curl = chat_user.call_fsm(data, ord)
+                    else:
+                        logging.info('Ожидается перезагрузка на стартовую страницу')
 
         if message and curl:
             try:
