@@ -264,8 +264,8 @@ def change_status_subscription(bot, chat_user, status='pending'):
             hours = divmod(duration_in_s, 3600)[0]
 
             if hours > limit:
-                # logging.info(f'hours: {hours}')
-                # logging.info(f'del {count - 1}')
+                logging.info(f'hours: {hours}')
+                logging.info(f'del {count - 1}')
                 del uid[count - 1]
 
             count -= 1
