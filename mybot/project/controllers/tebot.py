@@ -349,6 +349,7 @@ def fsm_city(data, ord=None):
                 pass
 
             logging.info(new_adr)
+            logging.info(adr_)
             adr_.append([max_key_city, max_key_address + 1, new_adr, []])
             rev_adr = sorted(adr_, key=lambda num: num[1], reverse=True)
             bot.dict_init['adr'] = rev_adr
