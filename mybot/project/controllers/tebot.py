@@ -348,8 +348,6 @@ def fsm_city(data, ord=None):
                 result_text = f"Добавлен новый адрес и привязан к существующему городу: {link}"
                 pass
 
-            logging.info(new_adr)
-            logging.info(adr_)
             max_key_address = int(max_key_address) + 1
             adr_.append([str(max_key_city), str(max_key_address), new_adr, []])
             rev_adr = sorted(adr_, key=lambda num: num[1], reverse=True)
