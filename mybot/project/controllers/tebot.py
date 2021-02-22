@@ -250,10 +250,10 @@ class Dispatcher:
 
 
 # ********************************************************
-API_TOKEN = '1533915251:AAHFV5qpwUa_5LXvaRbFq0fi5oUGASfhgUU'  # test
-# API_TOKEN = '528159377:AAEI3Y3zTYv18e2qBp_nXBBMxLZU1uUhPHg'  # tiren
-bot = Bot(API_TOKEN)
-dp = Dispatcher(bot)
+if API_TOKEN := os.environ.get("API_TOKEN"):
+    set_webhook(API_TOKEN)
+    bot = Bot(API_TOKEN)
+    dp = Dispatcher(bot)
 
 # ********************************************************
 
@@ -1507,4 +1507,5 @@ def do_echo():
 
 
 if __name__ == '__main__':
-    set_webhook(API_TOKEN)
+    if API_TOKEN := os.environ.get("API_TOKEN"):
+        set_webhook(API_TOKEN)
