@@ -38,7 +38,7 @@ def set_webhook(bottoken):
     baseURL = f'https://api.telegram.org/bot{bottoken}/setWebhook'
 
     r = requests.get(baseURL, headers=headers, data=json.dumps(data))
-    # print(r.text)
+    print(r.text)
 
 
 def callback_hello_ok(data, text):
@@ -251,9 +251,12 @@ class Dispatcher:
 
 # ********************************************************
 if API_TOKEN := os.environ.get("API_TOKEN"):
-    set_webhook(API_TOKEN)
-    bot = Bot(API_TOKEN)
-    dp = Dispatcher(bot)
+    logging.info(API_TOKEN)
+else:
+    logging.info('Not API_TOKEN')
+
+bot = Bot(API_TOKEN)
+dp = Dispatcher(bot)
 
 # ********************************************************
 
@@ -1507,5 +1510,4 @@ def do_echo():
 
 
 if __name__ == '__main__':
-    if API_TOKEN := os.environ.get("API_TOKEN"):
-        set_webhook(API_TOKEN)
+    set_webhook('None')
