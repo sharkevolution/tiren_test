@@ -1510,4 +1510,4 @@ def do_echo():
 
 
 if __name__ == '__main__':
-    set_webhook('None')
+    set_webhook(input('Please, Input API_TOKEN > '))
