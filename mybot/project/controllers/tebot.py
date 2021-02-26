@@ -1442,6 +1442,10 @@ def do_echo():
             user_start_update(data['callback_query']['message']['chat']['id'],
                               data['callback_query']['from'])
 
+            logging.info('callback_query')
+            logging.info(ord)
+            logging.info(data['callback_query']['message']['chat']['id'])
+
             if ord := data['callback_query'].get('data'):
                 logging.info('Callback_query')
                 logging.info(ord)

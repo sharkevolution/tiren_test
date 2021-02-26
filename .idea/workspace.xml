@@ -4,7 +4,6 @@
     <list default="true" id="e0af9840-1480-4705-a3bc-a1e7b41ab7ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mybot/project/controllers/dredis.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/dredis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/settings_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/settings_user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,6 +165,16 @@
           <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
           <line>253</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
+          <line>73</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
+          <line>70</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
