@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0af9840-1480-4705-a3bc-a1e7b41ab7ad" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/expxl.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/expxl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/impxl.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/impxl.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/logo.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/settings/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/settings/data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/resources/settings/tree.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/resources/settings/tree.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/dredis.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/dredis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,16 +156,5 @@
       <updated>1612254863327</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/mybot/project/controllers/tebot.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
