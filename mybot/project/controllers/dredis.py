@@ -16,12 +16,13 @@ def variable_init(bot):
     """
     logging.info('Variable Init')
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    logging.info(redisClient)
 
     if redisClient.exists("settings_data"):
+        logging.info('Get settings data from Redis')
         bot.dict_init = msgpack.unpackb(redisClient.get('settings_data'))
         # logging.info(bot.dict_init)
     else:
+        logging.info('No settings data, Redis')
         file_path = [RESOURCES_PATH, 'settings', 'data.txt']
         djs = os.path.join(*file_path)
 
@@ -30,6 +31,7 @@ def variable_init(bot):
 
         # save to redis
         redisClient.set('settings_data', msgpack.packb(newDict))
+        logging.info('Save settings data from Redis')
 
         if redisClient.exists("settings_data"):
             bot.dict_init = msgpack.unpackb(redisClient.get('settings_data'))
