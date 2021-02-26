@@ -32,9 +32,8 @@ def variable_init(bot):
         # save to redis
         redisClient.set('settings_data', msgpack.packb(newDict))
         logging.info('Save settings data from Redis')
-
-        if redisClient.exists("settings_data"):
-            bot.dict_init = msgpack.unpackb(redisClient.get('settings_data'))
+        bot.dict_init = newDict
+        logging.info(newDict)
 
 
 def save_variable(newDict):
