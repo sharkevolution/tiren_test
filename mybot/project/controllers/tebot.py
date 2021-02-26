@@ -29,11 +29,12 @@ from mybot.project.controllers import chtime
 from mybot.project.controllers import treeadr
 
 
-def set_webhook(bottoken):
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
 
-    prod = {"url": "https://tiren-bot.herokuapp.com/api/v1/echo"}
-    test = {"url": "https://tirentest.herokuapp.com/api/v1/echo"}
-    data = test
+
+def set_webhook(data, bottoken):
+    # prod = {"url": "https://tiren-bot.herokuapp.com/api/v1/echo"}
     headers = {'Content-type': 'application/json'}
     baseURL = f'https://api.telegram.org/bot{bottoken}/setWebhook'
 
@@ -134,7 +135,6 @@ class User:
         self.selected_sub_data = {}
         self.selected_change_datetime = None
 
-
     def get_redis(self):
 
         res = {}
@@ -200,9 +200,9 @@ class Bot:
 
         self.users = {}  # List of users
         self.dict_init = {}  # Custom logic
-        
+
         self.subscription = {}  # Messages from users who sent the message
-        self.selected_subscriber = 0     #
+        self.selected_subscriber = 0  #
 
         self.last_id = 0  # Last ID telegram (not message)
         self.last_chat = None  # Last chat
@@ -210,6 +210,7 @@ class Bot:
 
         self.admin_chat_id = 471125560  # Admin chat
         self.rdot = '.'
+
 
 class Dispatcher:
     """ handler messages command """
@@ -258,12 +259,12 @@ else:
 bot = Bot(API_TOKEN)
 dp = Dispatcher(bot)
 
+
 # ********************************************************
 
 
 @dp.message_handler(commands=['/tr', ])
 def send_file(data, ord=None):
-
     if ord == '/tr':
         tunnel = data['message']['chat']['id']
 
@@ -417,7 +418,6 @@ def fsm_address(data, ord=None):
 
 @dp.message_handler(commands=[])
 def gear_del_handler_adr(data, ord=None):
-
     tunnel = data['message']['chat']['id']
     nDict = dredis.read_variable()
     bot.dict_init = nDict
@@ -476,7 +476,6 @@ def gear_del_addess_user(data, ord=None):
 
 @dp.message_handler(commands=[])
 def gear_del_handler_city(data, ord=None):
-
     tunnel = data['message']['chat']['id']
     nDict = dredis.read_variable()
     bot.dict_init = nDict
@@ -534,7 +533,6 @@ def gear_del_city_user(data, ord=None):
 
 @dp.message_handler(commands=[])
 def gear_add_handler_city(data, ord=None):
-
     tunnel = data['message']['chat']['id']
     nDict = dredis.read_variable()
     bot.dict_init = nDict
@@ -831,7 +829,6 @@ def reject_sub_data(data, ord):
 
 @dp.message_handler(commands=[])
 def back_sub_users(data, ord=None):
-
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
     result_text = 'Просмотрите сообщения пользователей перед консолидацией'
@@ -995,7 +992,6 @@ def dynamic_shops(data, ord=None):
 
 @dp.message_handler(commands=[])
 def delete_item_send(data, ord=None):
-
     logging.info('delete_item_send')
     tunnel = data['message']['chat']['id']
 
@@ -1151,7 +1147,6 @@ def enter_to_list(data, ord=None):
 
 @dp.callback_handler(commands=['ent_shops'])
 def return_to_shops(data, ord=None):
-
     r = callback_hello_ok(data, 'ok!')
     tunnel = data['callback_query']['message']['chat']['id']
     chat_user = bot.users[tunnel]
@@ -1459,7 +1454,7 @@ def do_echo():
             # curl = bot.api_url
             if ord := data['message'].get('text'):
                 chat_user = user_start_update(data['message']['chat']['id'],
-                                       data['message']['from'])
+                                              data['message']['from'])
                 chat_user.put_redis_last_message_id(data)
                 bot.users[chat_user.__name__] = chat_user
 
@@ -1510,4 +1505,5 @@ def do_echo():
 
 
 if __name__ == '__main__':
-    set_webhook(input('Please, Input API_TOKEN > '))
+    URL_BOT = {"url": "https://tirentest.herokuapp.com/api/v1/echo"}
+    set_webhook(URL_BOT, input('Please, Input API_TOKEN > '))
