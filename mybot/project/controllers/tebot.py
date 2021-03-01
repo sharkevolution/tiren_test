@@ -1499,13 +1499,14 @@ def do_echo():
                 else:
                     logging.info(ord)
                     logging.info(bot.rdot_three)
-                    if bot.rdot == ord[0:1]:
-                        logging.info('# comment')
-                        comment_additional(data, ord)  # add comment
 
                     if bot.rdot_three == ord[0:3]:
                         logging.info('# number seal')
                         fsm_insert_seal(data, ord)  # add number seal
+
+                    if bot.rdot == ord[0:1]:
+                        logging.info('# comment')
+                        comment_additional(data, ord)  # add comment
 
                     elif chat_user.FSM:
                         if exec_func := dp.pull_message_commands.get(ord):
