@@ -1502,7 +1502,7 @@ def do_echo():
 
                     if bot.rdot_three == ord[0:3]:
                         logging.info('# number seal')
-                        fsm_insert_seal(data, ord)  # add number seal
+                        message, curl = fsm_insert_seal(data, ord)  # add number seal
 
                     elif bot.rdot == ord[0:1]:
                         logging.info('# comment')
