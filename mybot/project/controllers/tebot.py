@@ -124,8 +124,11 @@ class User:
         self.last_bot_id = 0
         self.pull_user_commands = {}  # Add set user commands
 
+        self.FSM_seal = False
+
         self.FSM = False
         self.call_fsm = None
+
         self.previous_ord = None
         self.fsm_location = [None, None]  # Address - City
 
@@ -211,6 +214,7 @@ class Bot:
 
         self.admin_chat_id = 471125560  # Admin chat
         self.rdot = '.'
+        self.rdot_three = '...'
 
 
 class Dispatcher:
@@ -288,6 +292,17 @@ def send_file(data, ord=None):
         logging.error('Error' + str(ex))
 
     return {}, {}
+
+
+def fsm_insert_seal(data, ord=None):
+    """ FSM add Insert Seal """
+    tunnel = data['message']['chat']['id']
+    chat_user = bot.users[tunnel]
+
+    result_text = f"Добавлен номер пломбы"
+
+    res = {'chat_id': tunnel, 'text': result_text}
+    return res, bot.api_url
 
 
 def fsm_city(data, ord=None):
@@ -561,6 +576,18 @@ def gear_add_handler_city(data, ord=None):
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
+
+
+def gear_insert_new_city(data, ord=None):
+    callback_hello_ok(data, 'ok')
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = 'Введите название нового города в строку для ввода текста'
+
+    logging.info('New City enter')
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
 
 
 @dp.callback_handler(commands=["gear_add_city", ])
@@ -1472,9 +1499,13 @@ def do_echo():
                     # logging.info(ord)
                     message, curl = exec_func(data, ord)
                 else:
-                    if bot.rdot in ord[0:1]:
+                    if bot.rdot in ord[0]:
                         logging.info('# comment')
                         comment_additional(data, ord)  # add comment
+
+                    if bot.rdot_three in ord[0:2]:
+                        logging.info('# number seal')
+                        fsm_insert_seal(data, ord)  # add comment
 
                     elif chat_user.FSM:
                         if exec_func := dp.pull_message_commands.get(ord):
@@ -1488,6 +1519,7 @@ def do_echo():
                         else:
                             # Start FSM
                             message, curl = chat_user.call_fsm(data, ord)
+
                     else:
                         logging.info('Ожидается перезагрузка на стартовую страницу')
                         message, curl = reload_bot(data)
