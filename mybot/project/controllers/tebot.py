@@ -1499,11 +1499,11 @@ def do_echo():
                     # logging.info(ord)
                     message, curl = exec_func(data, ord)
                 else:
-                    if bot.rdot in ord[0]:
+                    if bot.rdot == ord[0]:
                         logging.info('# comment')
                         comment_additional(data, ord)  # add comment
 
-                    if bot.rdot_three in ord[0:2]:
+                    if bot.rdot_three == ord[0:2]:
                         logging.info('# number seal')
                         fsm_insert_seal(data, ord)  # add comment
 
