@@ -341,7 +341,7 @@ def fsm_city(data, ord=None):
         dup_city = True
         dup_adr = True
 
-        city_ = sorted(bot.dict_init['city'], key=lambda num: num[0], reverse=True)
+        city_ = sorted(bot.dict_init['city'], key=lambda num: int(num[0]), reverse=True)
         max_key_city = city_[0][0]  # New key
 
         for b in bot.dict_init['city']:
@@ -353,7 +353,7 @@ def fsm_city(data, ord=None):
                 break
 
         # Check Address in list and save to Redis
-        adr_ = sorted(bot.dict_init['adr'], key=lambda num: num[1], reverse=True)
+        adr_ = sorted(bot.dict_init['adr'], key=lambda num: int(num[1]), reverse=True)
         max_key_address = adr_[0][1]  # New key
         # new_adr = chat_user.fsm_location[0]
 
