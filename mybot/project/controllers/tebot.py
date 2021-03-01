@@ -1497,13 +1497,13 @@ def do_echo():
                     # logging.info(ord)
                     message, curl = exec_func(data, ord)
                 else:
-                    if bot.rdot == ord[0]:
+                    if bot.rdot == ord[0:1]:
                         logging.info('# comment')
                         comment_additional(data, ord)  # add comment
 
-                    if bot.rdot_three == ord[0:2]:
+                    if bot.rdot_three == ord[0:3]:
                         logging.info('# number seal')
-                        fsm_insert_seal(data, ord)  # add comment
+                        fsm_insert_seal(data, ord)  # add number seal
 
                     elif chat_user.FSM:
                         if exec_func := dp.pull_message_commands.get(ord):
