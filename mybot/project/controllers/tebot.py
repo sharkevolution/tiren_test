@@ -312,7 +312,6 @@ def insert_seal(data, ord=None):
         bot.tasks[tunnel] = {seal_number: seal_number}
         logging.info(bot.tasks)
 
-
     res = {'chat_id': tunnel, 'text': result_text}
     return res, bot.api_url
 
