@@ -380,7 +380,7 @@ def fsm_city(data, ord=None):
                 pass
 
             max_key_address = int(max_key_address) + 1
-            adr_.append([str(max_key_city), max_key_address, new_adr, []])
+            adr_.append([max_key_city, max_key_address, new_adr, []])
             rev_adr = sorted(adr_, key=lambda num: num[1], reverse=True)
             bot.dict_init['adr'] = rev_adr
 
