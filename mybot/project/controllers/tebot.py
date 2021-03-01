@@ -292,12 +292,26 @@ def send_file(data, ord=None):
     return {}, {}
 
 
-def fsm_insert_seal(data, ord=None):
+def insert_seal(data, ord=None):
     """ FSM add Insert Seal """
     tunnel = data['message']['chat']['id']
     chat_user = bot.users[tunnel]
 
     result_text = f"Добавлен номер пломбы"
+
+    single_quote = '\''
+    seal = f'Пломба: {ord[3:].strip()}'
+    seal_number = "".join([bot.rdot_three, ' ', single_quote, seal, single_quote])
+
+    if tmp_ := bot.tasks.get(tunnel):
+        tmp_[seal_number] = seal_number
+        bot.tasks[tunnel] = tmp_
+        logging.info('ADD Seal number')
+        logging.info(bot.tasks)
+    else:
+        bot.tasks[tunnel] = {seal_number: seal_number}
+        logging.info(bot.tasks)
+
 
     res = {'chat_id': tunnel, 'text': result_text}
     return res, bot.api_url
@@ -1502,11 +1516,11 @@ def do_echo():
 
                     if bot.rdot_three == ord[0:3]:
                         logging.info('# number seal')
-                        message, curl = fsm_insert_seal(data, ord)  # add number seal
+                        message, curl = insert_seal(data, ord)  # add number seal
 
                     elif bot.rdot == ord[0:1]:
                         logging.info('# comment')
-                        comment_additional(data, ord)  # add comment
+                        message, curl = comment_additional(data, ord)  # add comment
 
                     elif chat_user.FSM:
                         if exec_func := dp.pull_message_commands.get(ord):
