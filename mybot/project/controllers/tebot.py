@@ -124,8 +124,6 @@ class User:
         self.last_bot_id = 0
         self.pull_user_commands = {}  # Add set user commands
 
-        self.FSM_seal = False
-
         self.FSM = False
         self.call_fsm = None
 
