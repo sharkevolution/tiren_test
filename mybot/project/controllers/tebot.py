@@ -346,6 +346,7 @@ def fsm_city(data, ord=None):
 
         for b in bot.dict_init['city']:
             if new_city_split[idx].lower() == b[1].lower():
+                logging.info(new_city_split[idx].lower())
                 dup_city = False
                 logging.info("dup_city = false")
                 max_key_city = b[0]
