@@ -57,6 +57,7 @@ def user_start_update(chat_id, _from):
     """ Start and Updater user profile """
     if not bot.users.get(chat_id):
         # Add info about User
+        logging.info('Add info about User')
         clu = User(chat_id)
         clu.from_id = _from['id']
 
@@ -1441,8 +1442,6 @@ def do_echo():
             # curl = bot.api_answer
             user_start_update(data['callback_query']['message']['chat']['id'],
                               data['callback_query']['from'])
-
-            logging.info(data['callback_query']['message']['chat']['id'])
 
             if ord := data['callback_query'].get('data'):
                 logging.info('Callback_query')
