@@ -1504,7 +1504,7 @@ def do_echo():
                         logging.info('# number seal')
                         fsm_insert_seal(data, ord)  # add number seal
 
-                    if bot.rdot == ord[0:1]:
+                    elif bot.rdot == ord[0:1]:
                         logging.info('# comment')
                         comment_additional(data, ord)  # add comment
 
