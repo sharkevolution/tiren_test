@@ -372,6 +372,7 @@ def fsm_city(data, ord=None):
                 # New City
                 max_key_city = int(max_key_city) + 1
                 city_.append([max_key_city, new_city_split[idx], []])
+                logging.info(city_)
                 rev_city = sorted(city_, key=lambda num: num[0], reverse=True)
                 bot.dict_init['city'] = rev_city
             else:
