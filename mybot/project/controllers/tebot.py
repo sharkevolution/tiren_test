@@ -1497,6 +1497,8 @@ def do_echo():
                     # logging.info(ord)
                     message, curl = exec_func(data, ord)
                 else:
+                    logging.info(ord)
+                    logging.info(bot.rdot_three)
                     if bot.rdot == ord[0:1]:
                         logging.info('# comment')
                         comment_additional(data, ord)  # add comment
