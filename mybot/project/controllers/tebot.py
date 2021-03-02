@@ -1471,7 +1471,7 @@ def keboard_bot(data, ord=None):
 
 
 @dp.message_handler(commands=['/enable2206', ])
-def enable_flag_delete(data):
+def enable_flag_delete(data, ord=None):
     """ Установка флага разрешения на удаление """
     global FLAG_2206
     FLAG_2206 = True
@@ -1483,7 +1483,7 @@ def enable_flag_delete(data):
 
 
 @dp.message_handler(commands=['/disable2206', ])
-def disable_flag_delete(data):
+def disable_flag_delete(data, ord=None):
     """ Отмена флага разрешения на удаление """
     global FLAG_2206
     FLAG_2206 = False
