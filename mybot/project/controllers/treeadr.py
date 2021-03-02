@@ -49,6 +49,8 @@ def delete_address(tree_adr, chat_id, name_ord, flag):
                 tree_adr.remove(b)
                 logging.info(f'Removed address {b}')
                 break
+            else:
+                logging.info('Access denied delete address')
 
     return tree_adr
 
@@ -65,5 +67,7 @@ def delete_city(tree_city, chat_id, name_ord, flag):
                 tree_city.remove(b)
                 logging.info(f'Removed city {b}')
                 break
+            else:
+                logging.info('Access denied delete city')
 
     return tree_city
