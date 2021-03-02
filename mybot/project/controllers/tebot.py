@@ -601,6 +601,35 @@ def gear_insert_new_city(data, ord=None):
     return message, bot.api_url
 
 
+def completely_remove_handler_city():
+    pass
+
+
+@dp.callback_handler(commands=["completely_remove_city", ])
+def completely_remove_city_user(data, ord=None):
+    callback_hello_ok(data, 'ok')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = 'Удалите полностью город по названию'
+    reply_markup, chat_user = settings_user.template_completely_remove_city(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.gear_cities[:-1]:
+        chat_user.pull_user_commands[b] = completely_remove_handler_city
+
+    # event TOP
+    back = chat_user.gear_cities[-1]
+    logging.info('completely_remove_city')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
+
+    # logging.info('Region arrived')
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
 
 @dp.callback_handler(commands=["gear_add_city", ])
 def gear_add_city_user(data, ord=None):
