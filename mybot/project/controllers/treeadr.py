@@ -55,12 +55,12 @@ def delete_city(tree_city, chat_id, name_ord):
     single_quote = '\''
     city_name = name_ord.split(f"{single_quote}")
 
-    logging.info(f'Попытка удалить {city_name})
+    logging.info(f'Try delete {city_name}')
 
     for b in tree_city:
         if city_name[1] in b[1]:
             tree_city.remove(b)
-            logging.info(f'Remove {b}')
+            logging.info(f'Removed {b}')
             break
 
     return tree_city
