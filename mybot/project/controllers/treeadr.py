@@ -60,6 +60,7 @@ def delete_city(tree_city, chat_id, name_ord):
     for b in tree_city:
         if city_name[1] in b[2]:
             tree_city.remove(b)
+            logging.info(f'Remove {b}')
             break
 
     return tree_city
