@@ -625,7 +625,7 @@ def completely_remove_handler_city(data, ord=None):
 
     # Update commands wrapper
     for b in chat_user.gear_cities[:-1]:
-        chat_user.pull_user_commands[b] = gear_del_handler_city
+        chat_user.pull_user_commands[b] = completely_remove_handler_city
 
     # event TOP
     back = chat_user.gear_cities[-1]
