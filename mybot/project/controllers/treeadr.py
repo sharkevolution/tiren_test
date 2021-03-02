@@ -49,3 +49,17 @@ def delete_address(tree_adr, chat_id, name_ord):
             break
 
     return tree_adr
+
+
+def delete_city(tree_city, chat_id, name_ord):
+    single_quote = '\''
+    city_name = name_ord.split(f"{single_quote}")
+
+    logging.info(city_name)
+
+    for b in tree_city:
+        if city_name[1] in b[2]:
+            tree_city.remove(b)
+            break
+
+    return tree_city

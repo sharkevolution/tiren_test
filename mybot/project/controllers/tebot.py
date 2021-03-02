@@ -601,35 +601,35 @@ def gear_insert_new_city(data, ord=None):
     return message, bot.api_url
 
 
+@dp.message_handler(commands=[])
 def completely_remove_handler_city(data, ord=None):
     tunnel = data['message']['chat']['id']
     nDict = dredis.read_variable()
     bot.dict_init = nDict
-    tree_ = treeadr.hide_city(bot.dict_init['city'], tunnel, ord)
-    # bot.dict_init['city'] = tree_
-    # dredis.save_variable(bot.dict_init)
-    #
-    # logging.info(tree_)
-    #
-    # reply_markup, chat_user = settings_user.template_gear_del_city(bot.dict_init, bot.users[tunnel])
-    #
-    # # Update commands wrapper
-    # for b in chat_user.gear_cities[:-1]:
-    #     chat_user.pull_user_commands[b] = gear_del_handler_city
-    #
-    # # event TOP
-    # back = chat_user.gear_cities[-1]
-    # logging.info('gear_del_handler_city')
-    # logging.info(back)
-    # chat_user.pull_user_commands[back] = start_bot
-    #
-    # bot.users[tunnel] = chat_user
-    #
-    # result_text = f"{ord}"
-    # message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
-    #
-    # return message, bot.api_url
-    return {}, {}
+    tree_ = treeadr.delete_city(bot.dict_init['city'], tunnel, ord)
+    bot.dict_init['city'] = tree_
+    dredis.save_variable(bot.dict_init)
+
+    logging.info(tree_)
+
+    reply_markup, chat_user = settings_user.template_completely_remove_city(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.gear_cities[:-1]:
+        chat_user.pull_user_commands[b] = gear_del_handler_city
+
+    # event TOP
+    back = chat_user.gear_cities[-1]
+    logging.info('completely_remove_city')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
+
+    result_text = f"{ord}"
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
 
 
 @dp.callback_handler(commands=["completely_remove_city", ])
