@@ -111,7 +111,7 @@ def template_gear_del_city(dict_init, chat_user):
 def template_gear_add_city(dict_init, chat_user):
     city = []
     single_quote = '\''
-    logging.info(dict_init)
+    # logging.info(dict_init)
     for b in dict_init['city']:
         if chat_user.__name__ in b[2]:
             pass

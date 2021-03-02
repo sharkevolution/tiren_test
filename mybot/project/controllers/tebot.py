@@ -32,6 +32,8 @@ from mybot.project.controllers import treeadr
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
+FLAG_2206 = False
+
 
 def set_webhook(data, bottoken):
     # prod = {"url": "https://tiren-bot.herokuapp.com/api/v1/echo"}
@@ -446,16 +448,19 @@ def fsm_address(data, ord=None):
 
 @dp.message_handler(commands=[])
 def gear_del_handler_adr(data, ord=None):
+    global FLAG_2206
     tunnel = data['message']['chat']['id']
     nDict = dredis.read_variable()
     bot.dict_init = nDict
-    tree_ = treeadr.delete_address(bot.dict_init['adr'], tunnel, ord)
+    tree_ = treeadr.delete_address(bot.dict_init['adr'], tunnel, ord, FLAG_2206)
+    FLAG_2206 = False
     bot.dict_init['adr'] = tree_
     dredis.save_variable(bot.dict_init)
 
     logging.info(tree_)
 
-    reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init,
+                                                                      bot.users[tunnel])
 
     # Update commands wrapper
     for b in chat_user.gear_adr[:-1]:
@@ -481,7 +486,8 @@ def gear_del_addess_user(data, ord=None):
 
     tunnel = data['callback_query']['message']['chat']['id']
     result_text = 'Удалить адрес из базы у Всех пользователей, без возможности Восстановления'
-    reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_gear_del_address(bot.dict_init,
+                                                                      bot.users[tunnel])
 
     # Update commands wrapper
     for b in chat_user.gear_adr[:-1]:
@@ -603,16 +609,19 @@ def gear_insert_new_city(data, ord=None):
 
 @dp.message_handler(commands=[])
 def completely_remove_handler_city(data, ord=None):
+    global FLAG_2206
     tunnel = data['message']['chat']['id']
     nDict = dredis.read_variable()
     bot.dict_init = nDict
-    tree_ = treeadr.delete_city(bot.dict_init['city'], tunnel, ord)
+    tree_ = treeadr.delete_city(bot.dict_init['city'], tunnel, ord, FLAG_2206)
+    FLAG_2206 = False
     bot.dict_init['city'] = tree_
     dredis.save_variable(bot.dict_init)
 
     logging.info(tree_)
 
-    reply_markup, chat_user = settings_user.template_completely_remove_city(bot.dict_init, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_completely_remove_city(bot.dict_init,
+                                                                            bot.users[tunnel])
 
     # Update commands wrapper
     for b in chat_user.gear_cities[:-1]:
@@ -674,7 +683,7 @@ def gear_add_city_user(data, ord=None):
     # event TOP
     back = chat_user.gear_cities[-1]
     logging.info('gear_add_city_user')
-    logging.info(back)
+    # logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
 
     bot.users[tunnel] = chat_user
@@ -1459,6 +1468,30 @@ def keboard_bot(data, ord=None):
         logging.error('Error' + str(ex))
 
     return {}, {}
+
+
+@dp.message_handler(commands=['/enable2206', ])
+def enable_flag_delete(data):
+    """ Установка флага разрешения на удаление """
+    global FLAG_2206
+    FLAG_2206 = True
+
+    text = data['message'].get('text')
+    result_text = f"Установлен флаг разрешения на удаление [{text}]"
+    res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
+    return res, bot.api_url
+
+
+@dp.message_handler(commands=['/disable2206', ])
+def disable_flag_delete(data):
+    """ Отмена флага разрешения на удаление """
+    global FLAG_2206
+    FLAG_2206 = False
+
+    text = data['message'].get('text')
+    result_text = f"Сброшено разрешение на удаление [{text}]"
+    res = {'chat_id': data['message']['chat']['id'], 'text': result_text}
+    return res, bot.api_url
 
 
 @dp.message_handler(commands=['/start', ])
