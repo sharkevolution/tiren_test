@@ -619,7 +619,7 @@ def gear_del_handler_carrier(data, ord=None):
         chat_user.pull_user_commands[b] = gear_del_handler_carrier
 
     # event TOP
-    back = chat_user.gear_cities[-1]
+    back = chat_user.gear_carriers[-1]
     logging.info('gear_del_handler_carrier')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
