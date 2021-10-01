@@ -579,6 +579,8 @@ def template_user_delivery(dict_init, chat_user):
     dlv = []
 
     for b in dict_init['user_delivery']:
+
+        logging.info(b)
         if chat_user.__name__ in b[0]:
             name_delivery = dict_init['delivery'][b[0]]
             logging.info(name_delivery[1])
