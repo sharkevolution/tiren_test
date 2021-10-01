@@ -34,6 +34,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 FLAG_2206 = False
 
+WAVING_HAND = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку, " \
+              f"номер пломбы можно записать через троеточие ...123456, вер.1.0.1"
+
 
 def set_webhook(data, bottoken):
     # prod = {"url": "https://tiren-bot.herokuapp.com/api/v1/echo"}
@@ -783,7 +786,7 @@ def enter_top(data, ord=None):
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
-    result_text = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку"
+    result_text = WAVING_HAND
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -1140,7 +1143,7 @@ def delete_item_send(data, ord=None):
         r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
         assert r.status_code == 200
 
-        result_text = f"Hi {emoji.emojize(':waving_hand:')}"
+        result_text = WAVING_HAND
         reply_markup = settings_user.template_start()
         message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
@@ -1178,7 +1181,7 @@ def delete_send(data, ord=None):
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
-    result_text = f"Hi {emoji.emojize(':waving_hand:')}"
+    result_text = WAVING_HAND
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
@@ -1497,7 +1500,7 @@ def disable_flag_delete(data, ord=None):
 @dp.message_handler(commands=['/start', ])
 def start_bot(data, ord=None):
     tunnel = data['message']['chat']['id']
-    result_text = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку"
+    result_text = WAVING_HAND
     reply_markup = settings_user.template_start()
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -1542,7 +1545,7 @@ def reload_bot(data):
     r = requests.post(bot.api_url, data=json.dumps(message), headers=bot.headers)
     assert r.status_code == 200
 
-    result_text = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку"
+    result_text = WAVING_HAND
     reply_markup = settings_user.template_start()
     message = {'chat_id': chat_user, 'text': result_text, 'reply_markup': reply_markup}
     return message, bot.api_url
@@ -1561,7 +1564,6 @@ def do_echo():
         bot.subscription = dredis.read_subscription()  # get subscriptions
     except Exception as ex:
         logging.info(f'Error load from Redis: {ex}')
-    # logging.info(bot.subscription)
 
     data = request.json
     # logging.info(data)
