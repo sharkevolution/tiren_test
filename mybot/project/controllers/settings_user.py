@@ -579,6 +579,7 @@ def template_user_delivery(dict_init, chat_user):
     dlv = []
 
     for b in dict_init['user_delivery']:
+        logging.info(f'{chat_user.__name__} == {b[0]}')
         if chat_user.__name__ == b[0]:
             for h in dict_init['delivery']:
                 if b[1] == h[0]:
