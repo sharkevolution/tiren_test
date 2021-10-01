@@ -142,6 +142,19 @@ def template_gear():
     return reply_markup
 
 
+def template_gear_carriers():
+    reply_markup = {"inline_keyboard": [
+        [{"text": f"Выбрать перевозчика", "callback_data": "gear_add_city"},
+         {"text": f"Исключить перевозчика", "callback_data": "gear_del_city"}, ]
+    ],
+        "resize_keyboard": True,
+        "one_time_keyboard": False
+    }
+    return reply_markup
+
+
+
+
 def template_fsm_region():
     new_region = [[{"text": 'Добавить регион'}]]
 
@@ -186,7 +199,7 @@ def template_start():
         {"text": f"Мой список {emoji.emojize(':satellite:')}", "callback_data": "ent_list"}],
         [{"text": f"Мои города {emoji.emojize(':gear:')}", "callback_data": "gear"},
          {"text": f"Новый адрес {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
-        [{"text": f"Мои перевозчики {emoji.emojize(':gear:')}", "callback_data": "aggregate"},
+        [{"text": f"Мои перевозчики {emoji.emojize(':gear:')}", "callback_data": "gear_car"},
          {"text": f"Консолидация {emoji.emojize(':grinning_face:')}", "callback_data": "aggregate"}]
     ],
         "hide_keyboard": True,

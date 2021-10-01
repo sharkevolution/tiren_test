@@ -716,6 +716,19 @@ def gear_user(data, ord=None):
     return message, bot.api_url
 
 
+@dp.callback_handler(commands=["gear_car", ])
+def gear_user(data, ord=None):
+    callback_hello_ok(data, 'ok')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = f"Настройки пользователя"
+    reply_markup = settings_user.template_gear()
+    logging.info(reply_markup)
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
+
 @dp.callback_handler(commands=['add_address', ])
 def enter_add_address(data, ord=None):
     callback_hello_ok(data, 'add_address')
