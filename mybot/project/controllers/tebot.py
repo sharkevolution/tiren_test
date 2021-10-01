@@ -606,7 +606,7 @@ def gear_del_handler_carrier(data, ord=None):
     tunnel = data['message']['chat']['id']
     nDict = dredis.read_variable()
     bot.dict_init = nDict
-    tree_ = treeadr.hide_city(bot.dict_init['delivery'], tunnel, ord)
+    tree_ = treeadr.hide_carriers(bot.dict_init['delivery'], tunnel, ord)
     bot.dict_init['delivery'] = tree_
     dredis.save_variable(bot.dict_init)
 
