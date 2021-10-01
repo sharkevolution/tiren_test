@@ -612,11 +612,11 @@ def gear_del_handler_carrier(data, ord=None):
 
     logging.info(tree_)
 
-    reply_markup, chat_user = settings_user.template_gear_del_city(bot.dict_init, bot.users[tunnel])
+    reply_markup, chat_user = settings_user.template_gear_del_carrier(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
     for b in chat_user.gear_carriers[:-1]:
-        chat_user.pull_user_commands[b] = gear_del_handler_city
+        chat_user.pull_user_commands[b] = gear_del_handler_carrier
 
     # event TOP
     back = chat_user.gear_cities[-1]

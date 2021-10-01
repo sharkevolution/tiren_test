@@ -55,6 +55,26 @@ def hide_city(tree_city, chat_id, name_ord):
     return tree_city
 
 
+def hide_carriers(tree_carriers, chat_id, name_ord):
+    single_quote = '\''
+    carrier_name = name_ord.split(f"{single_quote}")
+
+    logging.info(carrier_name)
+
+    for b in tree_carriers:
+        if carrier_name[1] in b[1]:
+            access = b[2]
+            if chat_id in access:
+                access.remove(chat_id)
+                b[2] = access
+            else:
+                pass
+
+    return tree_carriers
+
+
+
+
 def delete_address(tree_adr, chat_id, name_ord, flag):
     single_quote = '\''
     adr_name = name_ord.split(f"{single_quote}")
