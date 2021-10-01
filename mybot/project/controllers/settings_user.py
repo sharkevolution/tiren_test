@@ -128,6 +128,27 @@ def template_gear_add_city(dict_init, chat_user):
     return reply_markup, chat_user
 
 
+def template_gear_del_carrier(dict_init, chat_user):
+    carriers = []
+    single_quote = '\''
+    logging.info(dict_init)
+    for b in dict_init['delivery']:
+        if chat_user.__name__ in b[2]:
+            txt_ = f"Исключить {single_quote}{b[1]}{single_quote}"
+            carriers.append([{"text": txt_}])
+            chat_user.gear_carriers.append(txt_)
+        else:
+            pass
+
+    carriers.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
+    chat_user.gear_cities.append(emoji.emojize(':TOP_arrow: На главную'))
+
+    reply_markup = {"keyboard": carriers, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, chat_user
+
+
+
 def template_gear_add_carrier(dict_init, chat_user):
     carriers = []
     single_quote = '\''
