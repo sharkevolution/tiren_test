@@ -573,3 +573,26 @@ def template_delivery(dict_init, chat_user):
     reply_markup = {"keyboard": resize_dlv, "resize_keyboard": True, "one_time_keyboard": False}
 
     return reply_markup, chat_user
+
+
+def template_user_delivery(dict_init, chat_user):
+    dlv = []
+    for b in dict_init['user_delivery']:
+        if chat_user.__name__ in b[1]:
+            name_delivery = dict_init['delivery'][b[2]]
+
+            dlv.append(
+                {"text": name_delivery}
+            )
+            chat_user.delivery.append(name_delivery)
+
+    n = 2
+    resize_dlv = [dlv[i:i + n] for i in range(0, len(dlv), n)]
+    logging.info(resize_dlv)
+
+    resize_dlv.append([{"text": emoji.emojize(':BACK_arrow: Назад к адресам')}])
+    chat_user.delivery.append(emoji.emojize(':BACK_arrow: Назад к адресам'))
+
+    reply_markup = {"keyboard": resize_dlv, "resize_keyboard": True, "one_time_keyboard": False}
+
+    return reply_markup, chat_user
