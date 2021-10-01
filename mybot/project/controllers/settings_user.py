@@ -597,8 +597,6 @@ def template_delivery(dict_init, chat_user):
     dlv = []
     for b in dict_init['delivery']:
         if chat_user.__name__ in b[2]:
-            pass
-        else:
             dlv.append(
                 {"text": b[1]}
             )
