@@ -186,7 +186,8 @@ def template_start():
         {"text": f"Мой список {emoji.emojize(':satellite:')}", "callback_data": "ent_list"}],
         [{"text": f"Мои города {emoji.emojize(':gear:')}", "callback_data": "gear"},
          {"text": f"Новый адрес {emoji.emojize(':Ukraine:')}", "callback_data": "add_address"}, ],
-        [{"text": f"Консолидировать данные {emoji.emojize(':grinning_face:')}", "callback_data": "aggregate"}, ]
+        [{"text": f"Мои перевозчики {emoji.emojize(':gear:')}", "callback_data": "aggregate"},
+         {"text": f"Консолидация {emoji.emojize(':grinning_face:')}", "callback_data": "aggregate"}]
     ],
         "hide_keyboard": True,
     }
