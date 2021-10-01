@@ -148,8 +148,6 @@ def template_gear_add_carrier(dict_init, chat_user):
     return reply_markup, chat_user
 
 
-
-
 def template_gear():
     reply_markup = {"inline_keyboard": [
         [{"text": f"Выбрать город", "callback_data": "gear_add_city"},

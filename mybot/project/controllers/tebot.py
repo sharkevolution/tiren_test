@@ -606,8 +606,28 @@ def gear_add_handler_carrier(data, ord=None):
     tunnel = data['message']['chat']['id']
     nDict = dredis.read_variable()
     bot.dict_init = nDict
+    tree_ = treeadr.show_carriers(bot.dict_init['delivery'], tunnel, ord)
+    bot.dict_init['delivery'] = tree_
+    dredis.save_variable(bot.dict_init)
 
-    message = {'chat_id': tunnel, 'text': 'result_text', 'reply_markup': {}}
+    logging.info(tree_)
+
+    reply_markup, chat_user = settings_user.template_gear_add_carrier(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.gear_cities[:-1]:
+        chat_user.pull_user_commands[b] = gear_add_handler_city
+
+    # event TOP
+    back = chat_user.gear_carriers[-1]
+    logging.info('gear_add_handler_city')
+    logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
+
+    result_text = f"{ord}"
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
 
@@ -734,8 +754,6 @@ def gear_add_carrier(data, ord=None):
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
-
-
 
 
 @dp.callback_handler(commands=["gear_view", ])
