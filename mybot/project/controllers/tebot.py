@@ -719,11 +719,11 @@ def gear_add_carrier(data, ord=None):
     reply_markup, chat_user = settings_user.template_gear_add_carrier(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
-    for b in chat_user.gear_cities[:-1]:
+    for b in chat_user.gear_carriers[:-1]:
         chat_user.pull_user_commands[b] = gear_add_handler_carrier
 
     # event TOP
-    back = chat_user.gear_cities[-1]
+    back = chat_user.gear_carriers[-1]
     logging.info('gear_add_carrier')
     # logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
