@@ -722,7 +722,7 @@ def gear_user(data, ord=None):
 
     tunnel = data['callback_query']['message']['chat']['id']
     result_text = f"Настройки пользователя"
-    reply_markup = settings_user.template_gear()
+    reply_markup = settings_user.template_gear_carriers()
     logging.info(reply_markup)
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
