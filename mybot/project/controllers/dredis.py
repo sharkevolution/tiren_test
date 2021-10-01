@@ -62,6 +62,15 @@ def clear_base_redis():
         redisClient.delete(key)
 
 
+def reload_base_redis():
+    # Clear base Redis
+    redisClient = redis.from_url(os.environ.get("REDIS_URL"))
+    for key in redisClient.keys('*'):
+        logging.info(key)
+        if not key == "settings_data":
+            redisClient.delete(key)
+
+
 def save_subscription(newDict):
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
     redisClient.set('subscription', msgpack.packb(newDict))

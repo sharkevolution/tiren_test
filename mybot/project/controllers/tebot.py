@@ -1560,7 +1560,16 @@ def comment_additional(data, ord=None):
 def clear_redis_base(data, ord=None):
     dredis.clear_base_redis()
 
-    #bot.users = {}  # Reset users
+    bot.users = {}  # Reset users
+
+    tunnel = data['message']['chat']['id']
+    message = {'chat_id': tunnel, 'text': 'Clear base Redis is ok!'}
+    return message, bot.api_url
+
+
+@dp.message_handler(commands=['/reload', ])
+def clear_redis_base(data, ord=None):
+    dredis.reload_base_redis()
 
     tunnel = data['message']['chat']['id']
     message = {'chat_id': tunnel, 'text': 'Clear base Redis is ok!'}
