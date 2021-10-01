@@ -30,6 +30,7 @@ def variable_init(bot):
             newDict = json.load(json_file)
 
         # save to redis
+        logging.info('set setting data')
         redisClient.set('settings_data', msgpack.packb(newDict))
         logging.info('Save settings data from Redis')
         bot.dict_init = newDict
@@ -65,10 +66,7 @@ def clear_base_redis():
 def reload_base_redis():
     # Clear base Redis
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    for key in redisClient.keys('*'):
-        logging.info(key)
-        if not key == "settings_data":
-            redisClient.delete(key)
+
 
 
 def save_subscription(newDict):

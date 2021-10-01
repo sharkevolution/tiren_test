@@ -1572,7 +1572,7 @@ def clear_redis_base(data, ord=None):
     dredis.reload_base_redis()
 
     tunnel = data['message']['chat']['id']
-    message = {'chat_id': tunnel, 'text': 'Clear base Redis is ok!'}
+    message = {'chat_id': tunnel, 'text': 'Reload base Redis is ok!'}
     return message, bot.api_url
 
 
