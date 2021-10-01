@@ -141,7 +141,7 @@ def template_gear_del_carrier(dict_init, chat_user):
             pass
 
     carriers.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
-    chat_user.gear_cities.append(emoji.emojize(':TOP_arrow: На главную'))
+    chat_user.gear_carriers.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": carriers, "resize_keyboard": True, "one_time_keyboard": False}
 
@@ -162,7 +162,7 @@ def template_gear_add_carrier(dict_init, chat_user):
             chat_user.gear_carriers.append(txt_)
 
     carriers.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
-    chat_user.gear_cities.append(emoji.emojize(':TOP_arrow: На главную'))
+    chat_user.gear_carriers.append(emoji.emojize(':TOP_arrow: На главную'))
 
     reply_markup = {"keyboard": carriers, "resize_keyboard": True, "one_time_keyboard": False}
 
