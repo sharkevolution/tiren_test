@@ -578,10 +578,9 @@ def template_delivery(dict_init, chat_user):
 def template_user_delivery(dict_init, chat_user):
     dlv = []
     for b in dict_init['user_delivery']:
-        logging.info(chat_user.__name__)
-        logging.info(b[0])
-        if chat_user.__name__ == b[0]:
+        if chat_user.__name__ == str(b[0]):
             name_delivery = dict_init['delivery'][b[1]]
+            logging.info(name_delivery)
 
             dlv.append(
                 {"text": name_delivery}
