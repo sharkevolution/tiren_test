@@ -123,6 +123,8 @@ class User:
         self.gear_cities = []
         self.gear_adr = []
 
+        self.gear_carriers = []
+
         self.bind_to_city = []
 
         self.last_message_id = 0
@@ -599,6 +601,17 @@ def gear_add_handler_city(data, ord=None):
     return message, bot.api_url
 
 
+@dp.message_handler(commands=[])
+def gear_add_handler_carrier(data, ord=None):
+    tunnel = data['message']['chat']['id']
+    nDict = dredis.read_variable()
+    bot.dict_init = nDict
+
+    message = {'chat_id': tunnel, 'text': 'result_text', 'reply_markup': {}}
+
+    return message, bot.api_url
+
+
 def gear_insert_new_city(data, ord=None):
     callback_hello_ok(data, 'ok')
     tunnel = data['callback_query']['message']['chat']['id']
@@ -695,6 +708,34 @@ def gear_add_city_user(data, ord=None):
     message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
 
     return message, bot.api_url
+
+
+@dp.callback_handler(commands=["gear_add_carrier", ])
+def gear_add_carrier(data, ord=None):
+    callback_hello_ok(data, 'ok')
+
+    tunnel = data['callback_query']['message']['chat']['id']
+    result_text = 'Добавьте перевозчика в свой список'
+    reply_markup, chat_user = settings_user.template_gear_add_carrier(bot.dict_init, bot.users[tunnel])
+
+    # Update commands wrapper
+    for b in chat_user.gear_cities[:-1]:
+        chat_user.pull_user_commands[b] = gear_add_handler_carrier
+
+    # event TOP
+    back = chat_user.gear_cities[-1]
+    logging.info('gear_add_carrier')
+    # logging.info(back)
+    chat_user.pull_user_commands[back] = start_bot
+
+    bot.users[tunnel] = chat_user
+
+    # logging.info('Region arrived')
+    message = {'chat_id': tunnel, 'text': result_text, 'reply_markup': reply_markup}
+
+    return message, bot.api_url
+
+
 
 
 @dp.callback_handler(commands=["gear_view", ])
