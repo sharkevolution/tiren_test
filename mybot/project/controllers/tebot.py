@@ -982,7 +982,6 @@ def dynamic_delivery(data, ord=None):
     tunnel = data['message']['chat']['id']
 
     result_text = 'Выберите перевозчика'
-    #reply_markup, chat_user = settings_user.template_user_delivery(bot.dict_init, bot.users[tunnel])
     reply_markup, chat_user = settings_user.template_delivery(bot.dict_init, bot.users[tunnel])
 
     # Update commands wrapper
@@ -1562,6 +1561,8 @@ def clear_redis_base(data, ord=None):
     dredis.clear_base_redis()
 
     bot.users = {}  # Reset users
+    dredis.variable_init(bot)  # get or set settings users regions to bot.dict_init
+    bot.subscription = dredis.read_subscription()  # get subscriptions
 
     tunnel = data['message']['chat']['id']
     message = {'chat_id': tunnel, 'text': 'Clear base Redis is ok!'}
