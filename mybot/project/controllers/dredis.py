@@ -10,6 +10,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 
 
+
 def variable_init(bot):
     """
         Load Data from data.txt (json) and save or get data from redis variable
