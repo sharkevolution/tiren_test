@@ -35,7 +35,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 FLAG_2206 = False
 
 WAVING_HAND = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку, " \
-              f"номер пломбы можно записать через троеточие ...123456, вер.1.0.1"
+              f"номер пломбы можно записать через троеточие ...123456, вер.1.0.2"
 
 
 def set_webhook(data, bottoken):

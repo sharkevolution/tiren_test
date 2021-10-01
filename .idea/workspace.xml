@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e0af9840-1480-4705-a3bc-a1e7b41ab7ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" beforeDir="false" afterPath="$PROJECT_DIR$/mybot/project/controllers/tebot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +30,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager" selected="Python.impxl">
+  <component name="RunManager" selected="Python.tebot">
     <configuration name="expxl" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tiren_test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -139,9 +138,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.tebot" />
         <item itemvalue="Python.impxl" />
         <item itemvalue="Python.expxl" />
-        <item itemvalue="Python.tebot" />
         <item itemvalue="Python.mail" />
         <item itemvalue="Python.test" />
       </list>
