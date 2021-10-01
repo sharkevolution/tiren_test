@@ -30,11 +30,10 @@ def variable_init(bot):
             newDict = json.load(json_file)
 
         # save to redis
-        logging.info('set setting data')
         redisClient.set('settings_data', msgpack.packb(newDict))
         logging.info('Save settings data from Redis')
         bot.dict_init = newDict
-        # logging.info(newDict)
+        logging.info(newDict)
 
 
 def save_variable(newDict):
