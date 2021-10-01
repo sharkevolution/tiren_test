@@ -705,6 +705,8 @@ def gear_view_user(data, ord=None):
 
 @dp.callback_handler(commands=["gear", ])
 def gear_user(data, ord=None):
+    """ меню Мои Города"""
+
     callback_hello_ok(data, 'ok')
 
     tunnel = data['callback_query']['message']['chat']['id']
@@ -717,7 +719,9 @@ def gear_user(data, ord=None):
 
 
 @dp.callback_handler(commands=["gear_car", ])
-def gear_user(data, ord=None):
+def gear_user_car(data, ord=None):
+    """ меню Мои Перевозчики"""
+
     callback_hello_ok(data, 'ok')
 
     tunnel = data['callback_query']['message']['chat']['id']

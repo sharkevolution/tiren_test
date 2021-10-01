@@ -143,9 +143,13 @@ def template_gear():
 
 
 def template_gear_carriers():
+    """
+        template для подменю Мои Перевозчики
+    """
+
     reply_markup = {"inline_keyboard": [
-        [{"text": f"Выбрать перевозчика", "callback_data": "gear_add_city"},
-         {"text": f"Исключить перевозчика", "callback_data": "gear_del_city"}, ]
+        [{"text": f"Выбрать перевозчика", "callback_data": "gear_add_carrier"},
+         {"text": f"Исключить перевозчика", "callback_data": "gear_del_carrier"}, ]
     ],
         "resize_keyboard": True,
         "one_time_keyboard": False
