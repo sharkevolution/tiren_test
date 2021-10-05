@@ -111,7 +111,7 @@ def handler_response_ok(resp):
 
 class User:
     def __init__(self, chat_id):
-        self.__name__ = str(chat_id)
+        self.__name__ = chat_id
         self.from_id = None
         self.first_name = None
         self.last_name = None
