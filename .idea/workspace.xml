@@ -175,17 +175,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mybot/project/controllers/settings_user.py</url>
-          <line>242</line>
+          <line>238</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mybot/project/controllers/settings_user.py</url>
-          <line>196</line>
+          <line>192</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mybot/project/controllers/settings_user.py</url>
-          <line>197</line>
+          <line>193</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
