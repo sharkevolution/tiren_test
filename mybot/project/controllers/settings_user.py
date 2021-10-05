@@ -574,12 +574,7 @@ def template_shops(dict_init, chat_user):
     for b in dict_init['adr']:
         location = b[0]
 
-        logging.info(b)
-
         for city in dict_init['city']:
-
-            logging.info(f" city: {city}")
-
             if location == city[0]:
                 access = city[2]
 
@@ -588,8 +583,6 @@ def template_shops(dict_init, chat_user):
                     chat_user.adr.append(b[2])
                 else:
                     pass
-
-    logging.info("end")
 
     adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     chat_user.adr.append(emoji.emojize(':TOP_arrow: На главную'))

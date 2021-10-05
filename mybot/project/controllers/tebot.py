@@ -773,7 +773,7 @@ def gear_add_city_user(data, ord=None):
     for b in chat_user.gear_cities[:-1]:
         chat_user.pull_user_commands[b] = gear_add_handler_city
 
-    # event TOP
+    # to the TOP
     back = chat_user.gear_cities[-1]
     logging.info('gear_add_city_user')
     # logging.info(back)
