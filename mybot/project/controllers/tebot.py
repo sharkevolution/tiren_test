@@ -1734,9 +1734,9 @@ def do_echo():
                 bot.users[chat_user.__name__] = chat_user
 
                 logging.info(f'message')
-                logging.info(chat_user.FSM)
-                logging.info(ord)
-                logging.info(chat_user.call_fsm)
+                logging.info(f'chat_user.FSM: {chat_user.FSM}')
+                logging.info(f'call command: {ord}')
+                logging.info(f'chat_user.FSM: {chat_user.call_fsm}')
 
                 if exec_func := chat_user.pull_user_commands.get(ord):
                     message, curl = exec_func(data, ord)

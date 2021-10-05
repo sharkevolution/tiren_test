@@ -20,7 +20,7 @@ def variable_init(bot):
     if redisClient.exists("settings_data"):
         logging.info('Get settings data from Redis')
         bot.dict_init = msgpack.unpackb(redisClient.get('settings_data'))
-        # logging.info(bot.dict_init)
+        logging.info(bot.dict_init)
     else:
         logging.info('No settings data, Redis')
         file_path = [RESOURCES_PATH, 'settings', 'data.txt']
