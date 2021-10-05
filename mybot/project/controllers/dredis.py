@@ -73,11 +73,11 @@ def reload_base_redis(bot):
     newDict = {}
 
     with open(djs) as json_file:
+        logging.info('json read finish')
         newDict = json.load(json_file)
 
     # save to redis
     redisClient.set('settings_data', msgpack.packb(newDict))
-    logging.info('Save settings data to Redis')
     bot.dict_init = newDict
     logging.info('Reload base Redis Done!')
 
