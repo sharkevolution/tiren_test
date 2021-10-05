@@ -89,16 +89,19 @@ def template_completely_remove_city(dict_init, chat_user):
 
 
 def template_gear_del_city(dict_init, chat_user):
+
     city = []
     single_quote = '\''
-    logging.info(dict_init)
+
     for b in dict_init['city']:
         if chat_user.__name__ in b[2]:
             txt_ = f"Исключить {single_quote}{b[1]}{single_quote}"
             city.append([{"text": txt_}])
             chat_user.gear_cities.append(txt_)
         else:
-            pass
+            logging.info(f'Not user')
+            logging.info(f'{chat_user.__name__}')
+            logging.info(dict_init)
 
     city.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     chat_user.gear_cities.append(emoji.emojize(':TOP_arrow: На главную'))
