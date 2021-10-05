@@ -578,6 +578,8 @@ def template_shops(dict_init, chat_user):
 
         for city in dict_init['city']:
 
+            logging.info(f" city: {city}")
+
             if location == city[0]:
                 access = city[2]
 
