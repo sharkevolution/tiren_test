@@ -66,7 +66,7 @@ def clear_base_redis():
 def reload_base_redis(bot):
     # Reload base Redis
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
-    
+
     if redisClient.exists("settings_data"):
         bot.dict_init = msgpack.unpackb(redisClient.get('settings_data'))
         logging.info('Reload base Redis Done!')

@@ -1567,8 +1567,8 @@ def clear_redis_base(data, ord=None):
 
 
 @dp.message_handler(commands=['/reload', ])
-def clear_redis_base(data, ord=None):
-    dredis.reload_base_redis()
+def reload_redis_base(data, ord=None):
+    dredis.reload_base_redis(bot)
 
     tunnel = data['message']['chat']['id']
     message = {'chat_id': tunnel, 'text': 'Reload base Redis is ok!'}
