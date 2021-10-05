@@ -75,7 +75,7 @@ def user_start_update(chat_id, _from):
             clu.last_name = _from.get('last_name')
 
         clu.put_redis_info()
-        bot.users[User(chat_id).__name__] = clu
+        bot.users[str(User(chat_id).__name__)] = clu
 
     cs = bot.users[chat_id]
     csdata = cs.get_redis()
@@ -110,7 +110,7 @@ def handler_response_ok(resp):
 
 class User:
     def __init__(self, chat_id):
-        self.__name__ = chat_id
+        self.__name__ = str(chat_id)
         self.from_id = None
         self.first_name = None
         self.last_name = None
@@ -1730,7 +1730,7 @@ def do_echo():
                 chat_user = user_start_update(data['message']['chat']['id'],
                                               data['message']['from'])
                 chat_user.put_redis_last_message_id(data)
-                bot.users[chat_user.__name__] = chat_user
+                bot.users[str(chat_user.__name__)] = chat_user
 
                 logging.info(f'message')
                 logging.info(f'chat_user.FSM: {chat_user.FSM}')
