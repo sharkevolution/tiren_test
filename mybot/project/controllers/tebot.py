@@ -1719,7 +1719,7 @@ def do_echo():
                               data['callback_query']['from'])
 
             if ord := data['callback_query'].get('data'):
-                logging.info(f'func: {do_echo.__name__}  callback_query: {ord}')
+                logging.info(f'callback_query: {ord}')
                 if exec_func := dp.pull_callback_commands.get(ord):
                     message, curl = exec_func(data, ord)
                 else:
