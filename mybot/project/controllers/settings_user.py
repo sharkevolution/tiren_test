@@ -155,7 +155,7 @@ def template_gear_add_carrier(dict_init, chat_user):
     single_quote = '\''
     # logging.info(dict_init)
     for b in dict_init['delivery']:
-        if chat_user.__name_ in b[2]:
+        if chat_user.__name__ in b[2]:
             pass
         else:
             txt_ = f"Добавить {single_quote}{b[1]}{single_quote}"
