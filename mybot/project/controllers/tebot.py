@@ -75,8 +75,8 @@ def user_start_update(chat_id, _from):
 
         clu.put_redis_info()
         bot.users[User(chat_id).__name__] = clu
-        logging.info(f"Chat add: {User(chat_id).__name__}")
-        logging.info(f"Chat add2: {chat_id}")
+        logging.info(f"Chat add: {type(User(chat_id).__name__)}")
+        logging.info(f"Chat add2: {type(chat_id)}")
 
     cs = bot.users[chat_id]
     csdata = cs.get_redis()
