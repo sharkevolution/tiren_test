@@ -584,6 +584,7 @@ def template_shops(dict_init, chat_user):
                 else:
                     pass
 
+
     adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     chat_user.adr.append(emoji.emojize(':TOP_arrow: На главную'))
 
