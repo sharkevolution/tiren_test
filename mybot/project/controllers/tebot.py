@@ -61,7 +61,6 @@ def callback_hello_ok(data, text):
 def user_start_update(chat_id, _from):
     """ Start and Updater user profile """
     if not bot.users.get(chat_id):
-        # Add info about User
         logging.info('Add info about User')
         clu = User(chat_id)
         clu.from_id = _from['id']
@@ -76,6 +75,7 @@ def user_start_update(chat_id, _from):
 
         clu.put_redis_info()
         bot.users[User(chat_id).__name__] = clu
+        logging.info(User(chat_id).__name__)
 
     cs = bot.users[chat_id]
     csdata = cs.get_redis()
