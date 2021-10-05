@@ -578,7 +578,7 @@ def template_shops(dict_init, chat_user):
             if location == city[0]:
                 access = city[2]
 
-                if chat_user.__name__ in access:
+                if str(chat_user.__name__) in access:
                     adr.append([{"text": b[2]}])
                     chat_user.adr.append(b[2])
                 else:
@@ -599,7 +599,7 @@ def template_delivery(dict_init, chat_user):
     for b in dict_init['delivery']:
         logging.info(chat_user.__name__)
         logging.info(b[2])
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             dlv.append(
                 {"text": b[1]}
             )
