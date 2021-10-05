@@ -1697,7 +1697,7 @@ def reload_bot(data):
 def do_echo():
     """ Main """
 
-    logging.info('Do echo')
+    logging.info(f'func: {do_echo.__name__}')
     message = {}
     curl = None
 
@@ -1719,8 +1719,7 @@ def do_echo():
                               data['callback_query']['from'])
 
             if ord := data['callback_query'].get('data'):
-                logging.info('Callback_query')
-                logging.info(ord)
+                logging.info(f'func: {do_echo.__name__}  callback_query: {ord}')
                 if exec_func := dp.pull_callback_commands.get(ord):
                     message, curl = exec_func(data, ord)
                 else:
@@ -1734,7 +1733,7 @@ def do_echo():
                 chat_user.put_redis_last_message_id(data)
                 bot.users[chat_user.__name__] = chat_user
 
-                logging.info('Message')
+                logging.info(f'func: {do_echo.__name__} message')
                 logging.info(chat_user.FSM)
                 logging.info(ord)
                 logging.info(chat_user.call_fsm)
@@ -1770,7 +1769,7 @@ def do_echo():
                             message, curl = chat_user.call_fsm(data, ord)
 
                     else:
-                        logging.info('Ожидается перезагрузка на стартовую страницу')
+                        logging.info('Перезагрузка на стартовую страницу')
                         message, curl = reload_bot(data)
 
         if message and curl:
