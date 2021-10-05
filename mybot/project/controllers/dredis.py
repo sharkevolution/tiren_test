@@ -6,8 +6,9 @@ import msgpack
 
 from mybot.config import RESOURCES_PATH
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+
+FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+logging.basicConfig(format=FORMAT)
 
 
 def variable_init(bot):
