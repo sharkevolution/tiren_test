@@ -20,7 +20,7 @@ def variable_init(bot):
     if redisClient.exists("settings_data"):
         logging.info('Get settings data from Redis')
         bot.dict_init = msgpack.unpackb(redisClient.get('settings_data'))
-        logging.info(bot.dict_init)
+        #logging.info(bot.dict_init)
     else:
         logging.info('No settings data, Redis')
         file_path = [RESOURCES_PATH, 'settings', 'data.txt']
@@ -67,10 +67,19 @@ def reload_base_redis(bot):
     # Reload base Redis
     redisClient = redis.from_url(os.environ.get("REDIS_URL"))
 
-    if redisClient.exists("settings_data"):
-        bot.dict_init = msgpack.unpackb(redisClient.get('settings_data'))
-        logging.info('Reload base Redis Done!')
-        logging.info(bot.dict_init)
+    file_path = [RESOURCES_PATH, 'settings', 'data.txt']
+    djs = os.path.join(*file_path)
+
+    newDict = {}
+
+    with open(djs) as json_file:
+        newDict = json.load(json_file)
+
+    # save to redis
+    redisClient.set('settings_data', msgpack.packb(newDict))
+    logging.info('Save settings data to Redis')
+    bot.dict_init = newDict
+    logging.info('Reload base Redis Done!')
 
 
 def save_subscription(newDict):
