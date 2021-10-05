@@ -29,7 +29,7 @@ from mybot.project.controllers import chtime
 from mybot.project.controllers import treeadr
 
 
-FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+FORMAT = '%(asctime)s - %(funcName)s - %(levelname)s - %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 FLAG_2206 = False
