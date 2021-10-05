@@ -329,7 +329,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
             else:
                 cur = st['status_send']
                 # st['status_send'] = status
-                cur[str(chat_user.__name__)] = 'pending'
+                cur[chat_user.__name__] = 'pending'
                 chat_user.selected_sub_data[chunk] = st
 
         kiev = timezone('Europe/Kiev')
@@ -374,7 +374,7 @@ def change_status_subscription(bot, chat_user, status='pending'):
                         pass
                     else:
                         cur = st['status_send']
-                        cur[str(chat_user.__name__)] = status
+                        cur[chat_user.__name__] = status
                         shops[h] = st
 
                 f[1] = shops
@@ -436,16 +436,16 @@ def template_sub_print(bot, chat_user, ord):
                     # logging.info(st['status_send'])
 
                     # Initialize
-                    if not cur.get(str(chat_user.__name__)):
-                        cur[str(chat_user.__name__)] = 'pending'
+                    if not cur.get(chat_user.__name__):
+                        cur[chat_user.__name__] = 'pending'
 
-                    if cur[str(chat_user.__name__)] == 'pending':
+                    if cur[chat_user.__name__] == 'pending':
                         txt = chunk[0] + emoji.emojize('  :zzz:')
                         break
-                    if cur[str(chat_user.__name__)] == 'combined':
+                    if cur[chat_user.__name__] == 'combined':
                         txt = chunk[0] + emoji.emojize('  :check_mark:')
                         break
-                    if cur[str(chat_user.__name__)] == 'rejected':
+                    if cur[chat_user.__name__] == 'rejected':
                         txt = chunk[0] + emoji.emojize('  :cross_mark:')
                         break
 
@@ -519,17 +519,17 @@ def template_sub_datetime(bot, chat_user, ord):
                             logging.info(cur)
 
                             # Initialize
-                            if not cur.get(str(chat_user.__name__)):
-                                cur[str(chat_user.__name__)] = 'pending'
+                            if not cur.get(chat_user.__name__):
+                                cur[chat_user.__name__] = 'pending'
 
-                            logging.info(str(chat_user.__name__))
-                            if cur[str(chat_user.__name__)] == 'pending':
+                            logging.info(chat_user.__name__)
+                            if cur[chat_user.__name__] == 'pending':
                                 txt = userdata[0] + emoji.emojize('  :zzz:')
                                 break
-                            if cur[str(chat_user.__name__)] == 'combined':
+                            if cur[chat_user.__name__] == 'combined':
                                 txt = userdata[0] + emoji.emojize('  :check_mark:')
                                 break
-                            if cur[str(chat_user.__name__)] == 'rejected':
+                            if cur[chat_user.__name__] == 'rejected':
                                 txt = userdata[0] + emoji.emojize('  :cross_mark:')
                                 break
 

@@ -75,7 +75,7 @@ def user_start_update(chat_id, _from):
             clu.last_name = _from.get('last_name')
 
         clu.put_redis_info()
-        bot.users[str(User(chat_id).__name__)] = clu
+        bot.users[User(chat_id).__name__] = clu
 
     cs = bot.users[chat_id]
     csdata = cs.get_redis()
@@ -88,8 +88,8 @@ def user_start_update(chat_id, _from):
     if csdata.get('last_name'):
         cs.last_name = csdata['last_name']
 
-    bot.users[chat_id] = cs
-    bot.last_chat = chat_id  # Active chat
+    bot.users[str(chat_id)] = cs
+    bot.last_chat = str(chat_id)  # Active chat
 
     return cs
 
@@ -1730,7 +1730,7 @@ def do_echo():
                 chat_user = user_start_update(data['message']['chat']['id'],
                                               data['message']['from'])
                 chat_user.put_redis_last_message_id(data)
-                bot.users[str(chat_user.__name__)] = chat_user
+                bot.users[chat_user.__name__] = chat_user
 
                 logging.info(f'message')
                 logging.info(f'chat_user.FSM: {chat_user.FSM}')
