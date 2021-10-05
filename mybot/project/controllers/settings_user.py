@@ -582,8 +582,9 @@ def template_shops(dict_init, chat_user):
                     adr.append([{"text": b[2]}])
                     chat_user.adr.append(b[2])
                 else:
+                    logging.info(chat_user.__name__)
+                    logging.info(f'access: {access}')
                     pass
-
 
     adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
     chat_user.adr.append(emoji.emojize(':TOP_arrow: На главную'))
