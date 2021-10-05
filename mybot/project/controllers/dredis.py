@@ -7,7 +7,7 @@ import msgpack
 from mybot.config import RESOURCES_PATH
 
 
-FORMAT = '%(asctime)s - %(funcName)s - %(levelname)s - %(message)s'
+FORMAT = '%(funcName)s - %(lineno)d - %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 
