@@ -1220,7 +1220,6 @@ def dynamic_shops(data, ord=None):
 
     # event TOP
     back = chat_user.adr[-1]
-    logging.info('TOP')
     logging.info(back)
     chat_user.pull_user_commands[back] = start_bot
 
