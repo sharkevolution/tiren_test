@@ -29,7 +29,7 @@ from mybot.project.controllers import chtime
 from mybot.project.controllers import treeadr
 
 
-FORMAT = '%(funcName)s - %(lineno)d - %(message)s'
+FORMAT = '%(module)s - %(funcName)s - %(lineno)d - %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 FLAG_2206 = False
@@ -1697,7 +1697,7 @@ def reload_bot(data):
 def do_echo():
     """ Main """
 
-    logging.info(f'func: {do_echo.__name__}')
+    logging.info(f'first line')
     message = {}
     curl = None
 
@@ -1733,7 +1733,7 @@ def do_echo():
                 chat_user.put_redis_last_message_id(data)
                 bot.users[chat_user.__name__] = chat_user
 
-                logging.info(f'func: {do_echo.__name__} message')
+                logging.info(f'message')
                 logging.info(chat_user.FSM)
                 logging.info(ord)
                 logging.info(chat_user.call_fsm)
