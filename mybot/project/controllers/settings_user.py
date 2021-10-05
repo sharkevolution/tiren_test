@@ -94,7 +94,7 @@ def template_gear_del_city(dict_init, chat_user):
     single_quote = '\''
 
     for b in dict_init['city']:
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             txt_ = f"Исключить {single_quote}{b[1]}{single_quote}"
             city.append([{"text": txt_}])
             chat_user.gear_cities.append(txt_)
@@ -116,7 +116,7 @@ def template_gear_add_city(dict_init, chat_user):
     single_quote = '\''
     # logging.info(dict_init)
     for b in dict_init['city']:
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             pass
         else:
             txt_ = f"Добавить {single_quote}{b[1]}{single_quote}"
@@ -582,10 +582,8 @@ def template_shops(dict_init, chat_user):
                 if str(chat_user.__name__) in access:
                     adr.append([{"text": b[2]}])
                     chat_user.adr.append(b[2])
+                    logging.info(f'Append: {str(chat_user.__name__)}')
                 else:
-                    logging.info('Not access!')
-                    logging.info(chat_user.__name__)
-                    logging.info(f'access: {access}')
                     pass
 
     adr.append([{"text": emoji.emojize(':TOP_arrow: На главную')}])
