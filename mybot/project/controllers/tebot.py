@@ -30,7 +30,7 @@ from mybot.project.controllers import treeadr
 
 
 FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-logging.basicConfig(format=FORMAT)
+logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 FLAG_2206 = False
 

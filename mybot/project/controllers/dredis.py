@@ -8,7 +8,7 @@ from mybot.config import RESOURCES_PATH
 
 
 FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-logging.basicConfig(format=FORMAT)
+logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 
 def variable_init(bot):
