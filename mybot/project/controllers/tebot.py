@@ -29,7 +29,7 @@ from mybot.project.controllers import chtime
 from mybot.project.controllers import treeadr
 
 
-FORMAT = '%(module)s - %(funcName)s - %(lineno)d - %(message)s'
+FORMAT = '%(module)s - %(funcName)s -%(lineno)d - %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 FLAG_2206 = False
@@ -1769,7 +1769,7 @@ def do_echo():
                             message, curl = chat_user.call_fsm(data, ord)
 
                     else:
-                        logging.info('Перезагрузка на стартовую страницу')
+                        logging.info('Reload to Start page')
                         message, curl = reload_bot(data)
 
         if message and curl:

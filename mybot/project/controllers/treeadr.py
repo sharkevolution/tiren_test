@@ -1,5 +1,8 @@
 import logging
 
+FORMAT = '%(module)s - %(funcName)s -%(lineno)d - %(message)s'
+logging.basicConfig(format=FORMAT, level=logging.INFO)
+
 
 def show_carriers(tree_carrires, chat_id, name_ord):
     single_quote = '\''

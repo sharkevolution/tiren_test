@@ -5,8 +5,8 @@ from pytz import timezone
 import emoji
 import logging
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+FORMAT = '%(module)s - %(funcName)s -%(lineno)d - %(message)s'
+logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 limit = 24.0
 
