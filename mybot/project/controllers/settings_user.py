@@ -134,7 +134,7 @@ def template_gear_del_carrier(dict_init, chat_user):
     single_quote = '\''
     logging.info(dict_init)
     for b in dict_init['delivery']:
-        if str(chat_user.__name__) in b[2]:
+        if chat_user.__name__ in b[2]:
             txt_ = f"Исключить {single_quote}{b[1]}{single_quote}"
             carriers.append([{"text": txt_}])
             chat_user.gear_carriers.append(txt_)
@@ -154,7 +154,7 @@ def template_gear_add_carrier(dict_init, chat_user):
     single_quote = '\''
     # logging.info(dict_init)
     for b in dict_init['delivery']:
-        if str(chat_user.__name__) in b[2]:
+        if chat_user.__name__ in b[2]:
             pass
         else:
             txt_ = f"Добавить {single_quote}{b[1]}{single_quote}"
