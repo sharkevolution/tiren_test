@@ -674,7 +674,7 @@ def gear_add_handler_carrier(data, ord=None):
 
     # Update commands wrapper
     for b in chat_user.gear_cities[:-1]:
-        chat_user.pull_user_commands[b] = gear_add_handler_city
+        chat_user.pull_user_commands[b] = gear_add_handler_carrier
 
     # event TOP
     back = chat_user.gear_carriers[-1]
