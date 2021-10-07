@@ -13,7 +13,7 @@ def show_carriers(tree_carrires, chat_id, name_ord):
     for b in tree_carrires:
         if car_name[1] in b[1]:
             access = b[2]
-            if chat_id in access:
+            if str(chat_id) in access:
                 pass
             else:
                 access.append(str(chat_id))
@@ -31,7 +31,7 @@ def show_city(tree_city, chat_id, name_ord):
     for b in tree_city:
         if city_name[1] in b[1]:
             access = b[2]
-            if chat_id in access:
+            if str(chat_id) in access:
                 pass
             else:
                 access.append(str(chat_id))
@@ -49,7 +49,7 @@ def hide_city(tree_city, chat_id, name_ord):
     for b in tree_city:
         if city_name[1] in b[1]:
             access = b[2]
-            if chat_id in access:
+            if str(chat_id) in access:
                 access.remove(str(chat_id))
                 b[2] = access
             else:
@@ -67,15 +67,13 @@ def hide_carriers(tree_carriers, chat_id, name_ord):
     for b in tree_carriers:
         if carrier_name[1] in b[1]:
             access = b[2]
-            if chat_id in access:
+            if str(chat_id) in access:
                 access.remove(str(chat_id))
                 b[2] = access
             else:
                 pass
 
     return tree_carriers
-
-
 
 
 def delete_address(tree_adr, chat_id, name_ord, flag):
