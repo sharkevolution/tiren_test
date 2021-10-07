@@ -595,16 +595,15 @@ def template_shops(dict_init, chat_user):
 def template_delivery(dict_init, chat_user):
     dlv = []
     for b in dict_init['delivery']:
+        logging.info(chat_user.__name__)
+        logging.info(b[2])
         if chat_user.__name__ in b[2]:
             dlv.append(
                 {"text": b[1]}
             )
             chat_user.delivery.append(b[1])
         else:
-            logging.info('Not access!')
-            logging.info(chat_user.__name__)
-            logging.info(b[2])
-
+            pass
     n = 2
     resize_dlv = [dlv[i:i + n] for i in range(0, len(dlv), n)]
     logging.info(resize_dlv)
