@@ -94,7 +94,7 @@ def template_gear_del_city(dict_init, chat_user):
     single_quote = '\''
 
     for b in dict_init['city']:
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             txt_ = f"Исключить {single_quote}{b[1]}{single_quote}"
             city.append([{"text": txt_}])
             chat_user.gear_cities.append(txt_)
@@ -114,7 +114,7 @@ def template_gear_add_city(dict_init, chat_user):
     single_quote = '\''
     # logging.info(dict_init)
     for b in dict_init['city']:
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             pass
         else:
             txt_ = f"Добавить {single_quote}{b[1]}{single_quote}"
@@ -134,7 +134,7 @@ def template_gear_del_carrier(dict_init, chat_user):
     single_quote = '\''
     logging.info(dict_init)
     for b in dict_init['delivery']:
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             txt_ = f"Исключить {single_quote}{b[1]}{single_quote}"
             carriers.append([{"text": txt_}])
             chat_user.gear_carriers.append(txt_)
@@ -154,7 +154,7 @@ def template_gear_add_carrier(dict_init, chat_user):
     single_quote = '\''
     # logging.info(dict_init)
     for b in dict_init['delivery']:
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             pass
         else:
             txt_ = f"Добавить {single_quote}{b[1]}{single_quote}"
@@ -591,7 +591,7 @@ def template_delivery(dict_init, chat_user):
     for b in dict_init['delivery']:
         logging.info(chat_user.__name__)
         logging.info(b[2])
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             dlv.append(
                 {"text": b[1]}
             )
