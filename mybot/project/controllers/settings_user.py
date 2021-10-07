@@ -597,7 +597,7 @@ def template_delivery(dict_init, chat_user):
     for b in dict_init['delivery']:
         logging.info(chat_user.__name__)
         logging.info(b[2])
-        if chat_user.__name__ in b[2]:
+        if str(chat_user.__name__) in b[2]:
             dlv.append(
                 {"text": b[1]}
             )
