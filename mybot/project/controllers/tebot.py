@@ -35,7 +35,7 @@ logging.basicConfig(format=FORMAT, level=logging.INFO)
 FLAG_2206 = False
 
 WAVING_HAND = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку, " \
-              f"номер пломбы можно записать через троеточие ...123456, вер.1.0.2"
+              f"При первом запуске добавьте Перевозчиков и Города, вер.1.0.2"
 
 
 def set_webhook(data, bottoken):
@@ -1340,6 +1340,7 @@ def edit_send(data, ord=None):
     logging.info(chat_user.send_list)
 
     for b in chat_user.send_list:
+        logging.info(b)
         chat_user.pull_user_commands[b] = delete_item_send
 
     message = {'chat_id': chat_id, 'text': f'Выбранный элемент будет удален', 'reply_markup': reply_markup}
