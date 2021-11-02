@@ -34,8 +34,9 @@ logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 FLAG_2206 = False
 
-WAVING_HAND = f"Hi {emoji.emojize(':waving_hand:')} .Коммент можно написать через точку, " \
-              f"При первом запуске добавьте Перевозчиков и Города, вер.1.0.2"
+WAVING_HAND = f"Hi {emoji.emojize(':waving_hand:')} вер.1.0.3b. " \
+              f"При первом запуске добавьте Перевозчиков и Города." \
+                f".Коммент можно написать через хеш #"
 
 
 def set_webhook(data, bottoken):
@@ -219,7 +220,7 @@ class Bot:
         self.tasks = {}  # Dict of users tasks
 
         self.admin_chat_id = 471125560  # Admin chat
-        self.rdot = '.'
+        self.rdot = '#'
         self.rdot_three = '...'
 
 
