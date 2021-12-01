@@ -205,6 +205,7 @@ class Bot:
         self.api_edit_message = f'https://api.telegram.org/bot{self.token}/editMessageText'
         self.api_get_updates = f'https://api.telegram.org/bot{self.token}/getUpdates'
         self.api_send_document = f'https://api.telegram.org/bot{self.token}/sendDocument'
+        self.core_get_sponsored = f'https://api.telegram.org/bot{self.token}/getSponsoredMessages'
 
         self.headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         self.headers_multipart = {'Content-type': 'multipart/form-data'}
@@ -1726,6 +1727,17 @@ def do_echo():
                     message, curl = exec_func(data, ord)
                 else:
                     message, curl = dummy_callback(data)
+
+        curl = bot.core_get_sponsored
+        try:
+            r = requests.get(curl)
+            assert r.status_code == 200
+            logging.info(r.content)
+
+        except Exception as ex:
+            logging.info(str(r))
+            logging.error('Error' + str(ex))
+
 
         if data.get('message'):
             # curl = bot.api_url
