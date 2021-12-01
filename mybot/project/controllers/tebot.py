@@ -1738,6 +1738,7 @@ def do_echo():
             logging.info(str(r))
             logging.error('Error' + str(ex))
 
+        logging.info('hello')
 
         if data.get('message'):
             # curl = bot.api_url
